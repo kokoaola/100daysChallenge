@@ -31,7 +31,7 @@ struct SettingView: View {
                             Text("青").tag(0)
                             Text("オレンジ").tag(1)
                             Text("紫").tag(2)
-                            Text("黒").tag(3)
+                            Text("モノトーン").tag(3)
                         } label: {
                             Text("アプリの色を変更する")
                         }

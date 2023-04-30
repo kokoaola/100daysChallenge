@@ -44,7 +44,7 @@ struct ContentView: View {
                     }.tag("Two")
                 
             }
-            
+            .tint(Color(uiColor: UIColor.label))
             
             .onAppear{
                 
@@ -54,8 +54,7 @@ struct ContentView: View {
             }
             
         }
-        
-
+            
         
     }
 }
