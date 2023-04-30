@@ -10,12 +10,11 @@ import SwiftUI
 struct TutorialView2: View {
     ///入力したテキストを格納するプロパティ
     @State private var editText = ""
+    @State private var editText2 = ""
     
     ///キーボードフォーカス用変数（Doneボタン表示のため）
     @FocusState var isInputActive: Bool
     
-    ///入力したテキストを格納するプロパティ
-    @State private var editText2 = ""
     
     ///キーボードフォーカス用変数（Doneボタン表示のため）
     @FocusState var isInputActive2: Bool
@@ -27,92 +26,86 @@ struct TutorialView2: View {
     
     @AppStorage("isFirst") var isFirst = true
     
-    ///選択された日付が有効か判定するプロパティ
-    @State var isVailed = false
     
     var body: some View {
-
-                
-        VStack(alignment: .leading){
+        VStack(alignment: .leading, spacing: 40){
                     Text("次に、目標を設定してください。")
-                //.padding(.bottom)
                     
-                    VStack{
-                        Text("①あなたが１００日後になりたい姿はなんですか？")
-                            .frame(minHeight: 60)
-                            //.fixedSize(horizontal: false, vertical: true)
-                            
-                            
+            ///長期目標
+            VStack(alignment: .leading){
+                        Text("①あなたが将来なりたい姿はなんですか？")
+
                         ZStack(alignment: .topLeading){
                             if editText.isEmpty{
-                                Text("例）画力アップ\n　　TOEIC800点")
-//                                Text("例）九九の達人\n　　画力アップ\n　　TOEIC800点")
-                                    .padding(8)
-                                    .foregroundColor(.primary)
+                                Text("例）画力アップ\n　　TOEIC800点").padding(8)
                             }
 
-                            
                             ///テキストエディター
-                            TextEditor(text: $longTermGoal)
-                                .foregroundColor(Color(UIColor.label))
+                            TextEditor(text: $editText)
+                                //.foregroundColor(Color(UIColor.label))
                                 .scrollContentBackground(Visibility.hidden)
                                 .background(.ultraThinMaterial)
                                 .border(.white, width: 1)
                                 .frame(height: 80)
                                 .focused($isInputActive)
-                                .opacity(longTermGoal.isEmpty ? 0.5 : 1)
+                                .opacity(editText.isEmpty ? 0.5 : 1)
                         }
+                
+                Text("100文字以内のみ設定可能です")
+                    .font(.caption)
+                    .foregroundColor(editText.count > 10 ? .red : .clear)
                     }
-                    .padding(.bottom)
             
             
-                    VStack{
+            ///短期目標
+            VStack(alignment: .leading){
                         Text("②その実現のために１００日間取り組むことはなんですか？")
                             .frame(minHeight: 60)
                            // .fixedSize(horizontal: false, vertical: true)
                         ZStack(alignment: .topLeading){
                             if editText2.isEmpty{
-                                Text("例）１日１枚絵を描く\n　　英語の勉強\n")
-//                                Text("例）算数のドリル\n　　１日１枚絵を描く\n　　英語の勉強")
+                                Text("例）１日１枚絵を描く\n　　英語の勉強")
                                     .padding(8)
                                     .foregroundColor(.primary)
                             }
                             
                             ///テキストエディター
-                            TextEditor(text: $shortTermGoal)
+                            TextEditor(text: $editText2)
                                 .foregroundColor(Color(UIColor.label))
-                            //.lineSpacing(10)
                                 .scrollContentBackground(Visibility.hidden)
                                 .background(.ultraThinMaterial)
                                 .border(.white, width: 1)
                                 .frame(height: 80)
                                 .focused($isInputActive2)
-                                .opacity(shortTermGoal.isEmpty ? 0.5 : 1)
-                            
-
+                                .opacity(editText2.isEmpty ? 0.5 : 1)
                         }
+                        Text("100文字以内のみ設定可能です")
+                            .font(.caption)
+                            .foregroundColor(editText2.count > 10 ? .red : .clear)
                     }
                 
                 Spacer()
+            
                 HStack{
-                    
                     Button {
                         page = 1
                     } label: {
                         TutorialButton2(labelString: "戻る", labelImage: "arrowshape.left")
                             .foregroundColor(.orange)
                     }
+                    
                     Spacer()
+                    
                     Button {
                         longTermGoal = editText
                         shortTermGoal = editText2
                         page = 3
                     } label: {
                         TutorialButton(labelString: "次へ", labelImage: "arrowshape.right")
-                            .foregroundColor(isVailed ? .green : .gray)
+                            .foregroundColor(!editText.isEmpty && !editText2.isEmpty && editText2.count <= 10 && editText2.count <= 10 ? .green : .gray)
                     }
-                    .disabled(isVailed == false)
-                    
+                    ///次へボタンの無効判定
+                   .disabled((editText.isEmpty || editText2.isEmpty) || (editText2.count > 10 || editText2.count > 10))
                 }
                 .padding(.bottom)
                 }
@@ -121,22 +114,19 @@ struct TutorialView2: View {
         .padding()
         .foregroundColor(Color(UIColor.label))
         
-        
-        ///矢印ボタンの無効判定
-        .onChange(of: shortTermGoal, perform: { newValue in
-            if newValue.isEmpty == false && editText.isEmpty == false{
-                isVailed = true
-            }
-        })
+        .onAppear{
+            editText = longTermGoal
+            editText2 = shortTermGoal
+        }
+
             
         ///キーボード閉じるボタンを配置
         .toolbar {
             ToolbarItemGroup(placement: .keyboard) {
                 Spacer()
                 Button("閉じる") {
-                    isInputActive = false
-                    isInputActive2 = false
-                
+                        isInputActive = false
+                        isInputActive2 = false
                 }
             }
         }
