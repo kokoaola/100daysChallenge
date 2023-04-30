@@ -53,14 +53,14 @@ struct TutorialView2: View {
 
                             
                             ///テキストエディター
-                            TextEditor(text: $editText)
+                            TextEditor(text: $longTermGoal)
                                 .foregroundColor(Color(UIColor.label))
                                 .scrollContentBackground(Visibility.hidden)
                                 .background(.ultraThinMaterial)
                                 .border(.white, width: 1)
                                 .frame(height: 80)
                                 .focused($isInputActive)
-                                .opacity(editText.isEmpty ? 0.5 : 1)
+                                .opacity(longTermGoal.isEmpty ? 0.5 : 1)
                         }
                     }
                     .padding(.bottom)
@@ -79,7 +79,7 @@ struct TutorialView2: View {
                             }
                             
                             ///テキストエディター
-                            TextEditor(text: $editText2)
+                            TextEditor(text: $shortTermGoal)
                                 .foregroundColor(Color(UIColor.label))
                             //.lineSpacing(10)
                                 .scrollContentBackground(Visibility.hidden)
@@ -87,7 +87,7 @@ struct TutorialView2: View {
                                 .border(.white, width: 1)
                                 .frame(height: 80)
                                 .focused($isInputActive2)
-                                .opacity(editText2.isEmpty ? 0.5 : 1)
+                                .opacity(shortTermGoal.isEmpty ? 0.5 : 1)
                             
 
                         }
@@ -121,7 +121,9 @@ struct TutorialView2: View {
         .padding()
         .foregroundColor(Color(UIColor.label))
         
-        .onChange(of: editText2, perform: { newValue in
+        
+        ///矢印ボタンの無効判定
+        .onChange(of: shortTermGoal, perform: { newValue in
             if newValue.isEmpty == false && editText.isEmpty == false{
                 isVailed = true
             }
@@ -131,7 +133,7 @@ struct TutorialView2: View {
         .toolbar {
             ToolbarItemGroup(placement: .keyboard) {
                 Spacer()
-                Button("Done") {
+                Button("閉じる") {
                     isInputActive = false
                     isInputActive2 = false
                 

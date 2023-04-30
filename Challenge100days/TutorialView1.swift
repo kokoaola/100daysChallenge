@@ -56,7 +56,7 @@ struct TutorialView1: View {
                 page = 2
                 colorNumber = selectedColor
             } label: {
-                TutorialButton(labelString: "次へ", labelImage: "arrowshape.right")
+                TutorialButton(labelString: "次へ", labelImage: "arrowshape.right.fill")
                     .foregroundColor(.green)
                 
             }
