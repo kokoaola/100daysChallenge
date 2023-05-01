@@ -38,25 +38,47 @@ struct ActionView: View {
     var body: some View {
         NavigationView{
             ZStack{
+                
                 ///今日のミッションが未達成ならボタンのビューを表示
                 VStack{
-                    Spacer()
-                    VStack(alignment: .leading){
-                        Text(days.isEmpty ? "開始日 : ----/--/-- " : "開始日 : \( makeDate(day:days.first?.date ?? Date.now))")
-                        Text("ビジョン : \(shortTermGoal)")
-                        Text("100日取り組んでいること : \(shortTermGoal)")
-                    }.foregroundColor(Color(UIColor.label)).padding()
                     
+                    Spacer()
+                    
+                    VStack(alignment: .leading, spacing: 5.0){
+//                        Text(days.isEmpty ? "開始日  :  ----/--/-- " : "開始日 : \( makeDate(day:days.first?.date ?? Date.now))")
+                        Text("ビジョン  :  \(shortTermGoal)")
+                        Text("100日取り組むこと : \(shortTermGoal)")
+                    }.foregroundColor(Color(UIColor.label))
+                        //.bold()
+                        .padding()
                     
                     SpeechBubble2()
                         .rotation(Angle(degrees: 180))
-                        .frame(width: AppSetting.screenWidth * 0.8, height: 80)
                         .foregroundColor(.white)
                         .padding()
                         .overlay{
-                            Text(isComplete ? "本日の取り組みは達成済みです。\nお疲れ様でした！" : "今日の取り組みが終わったら、\nボタンを押して完了しよう" )
-                                .foregroundColor(.black)
+                            VStack{
+                                Text(isComplete ? "本日の取り組みは達成済みです。\nお疲れ様でした！" : "今日の取り組みが終わったら、\nボタンを押して完了しよう" )
+                                    .foregroundColor(.black)
+                                if isComplete{
+                                    HStack{
+                                        
+                                        Button {
+                                            showCompleteWindew = true
+                                        } label: {
+                                            Text("ウインドウを再表示する")
+                                        }
+                                        .foregroundColor(.blue)
+                                        //.padding(8)
+                                        .padding(.top, 10)
+                                        .padding(.trailing, -80)
+                                        //.opacity(showCompleteWindew || !isComplete ? 0 : 0.8)
+                                        .disabled(!isComplete)
+                                    }
+                                }
+                            }
                         }
+                        .frame(width: AppSetting.screenWidth * 0.9, height: 150)
                         .opacity(0.8)
                     
                     
@@ -78,23 +100,25 @@ struct ActionView: View {
                             .opacity(isComplete ? 0.5 : 1.0)
                     })
                     .disabled(isComplete)
-                    
-                    HStack{
-                        Spacer()
-                        Button {
-                            showCompleteWindew = true
-                        } label: {
-                            Image(systemName: "arrow.uturn.left")
-                            Text("ウインドウを再表示する")
-                        }
-                        .foregroundColor(.primary)
-                        .padding()
-                        .opacity(showCompleteWindew || !isComplete ? 0 : 1.0)
-                        .disabled(!isComplete)
-                    }
+                    //Spacer()
+//                    HStack{
+//                        Spacer()
+//                        Button {
+//                            showCompleteWindew = true
+//                        } label: {
+//                            Image(systemName: "arrow.uturn.left")
+//                            Text("ウインドウを再表示")
+//                        }
+//                        .foregroundColor(.primary)
+//                        .padding(8)
+//                        .background(Color(UIColor.systemBackground).opacity(0.4))
+//                        .cornerRadius(5)
+//                        //.padding()
+//                        //.opacity(showCompleteWindew || !isComplete ? 0 : 0.8)
+//                        .disabled(!isComplete)
+//                    }
+//                    .frame(width: AppSetting.screenWidth * 0.8, height: 80)
 
-
-                    Spacer()
                     Spacer()
                 }
 
@@ -134,13 +158,6 @@ struct ActionView: View {
                 }
             }
             
-//            .toolbar {
-//                ToolbarItem{
-//                    NavigationLink(destination: SettingView.init()) {
-//                        Image(systemName: "gearshape")
-//                    }
-//                }
-//            }
         }
     }
 }
