@@ -39,12 +39,12 @@ struct CompleteView: View {
                         showCompleteWindew = false
                     }){
                         Image(systemName: "xmark")
-                            .font(.title3).foregroundColor(.red)
+                            .font(.title3).foregroundColor(.primary)
                     }.frame(maxWidth: .infinity,minHeight: 30, alignment: .topLeading)
                     
                     
                     VStack{
-                        Text("本日のチャレンジ達成！")
+                        Text("\(dayNumber)日目のチャレンジ達成！")
                         Text("よく頑張ったね！")
                     }
                     .foregroundColor(Color(UIColor.label))

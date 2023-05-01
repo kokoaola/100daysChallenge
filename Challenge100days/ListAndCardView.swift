@@ -101,11 +101,11 @@ struct ListAndCardView: View {
                 }
                 
                 ///設定ページへのリンク（歯車）
-                ToolbarItem{
-                    NavigationLink(destination: SettingView.init()) {
-                        Image(systemName: "gearshape")
-                    }
-                }
+//                ToolbarItem{
+//                    NavigationLink(destination: SettingView.init()) {
+//                        Image(systemName: "gearshape")
+//                    }
+//                }
                 
             }
             

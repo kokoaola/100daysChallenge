@@ -34,13 +34,18 @@ struct ContentView: View {
                 ///達成用のビュー
                 ActionView()
                     .tabItem{
-                        Label("アクション", systemImage: "figure.stairs")
+                        Label("取り組む", systemImage: "figure.stairs")
                     }.tag("One")
                 
                 ///実績表示用のビュー
                 ListAndCardView()
                     .tabItem{
-                        Label("実績をみる", systemImage: "trophy")
+                        Label("これまでの記録", systemImage: "trophy")
+                    }.tag("Two")
+                
+                SettingView()
+                    .tabItem{
+                        Label("設定", systemImage: "gearshape")
                     }.tag("Two")
                 
             }

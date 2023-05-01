@@ -46,7 +46,7 @@ struct ActionView: View {
                     
                     VStack(alignment: .leading, spacing: 5.0){
 //                        Text(days.isEmpty ? "開始日  :  ----/--/-- " : "開始日 : \( makeDate(day:days.first?.date ?? Date.now))")
-                        Text("ビジョン  :  \(longTermGoal)")
+                        Text("目指す姿  :  \(longTermGoal)")
                         Text("100日取り組むこと : \(shortTermGoal)")
                     }.foregroundColor(Color(UIColor.label))
                         .padding()
@@ -57,7 +57,7 @@ struct ActionView: View {
                         .padding()
                         .overlay{
                             VStack{
-                                Text(isComplete ? "本日の取り組みは達成済みです。\nお疲れ様でした！" : "今日の取り組みが終わったら、\nボタンを押して完了しよう" )
+                                Text(isComplete ? "本日のチャレンジは達成済みです。\nお疲れ様でした！" : "今日の取り組みが終わったら、\nボタンを押して完了しよう" )
                                     .foregroundColor(.black)
                                 if isComplete{
                                     HStack{
@@ -96,7 +96,7 @@ struct ActionView: View {
                     }, label: {
                         CompleteButton(num:isComplete ? dayNumber - 1 : dayNumber)
                             .foregroundStyle(.primary)
-                            .opacity(isComplete ? 0.5 : 1.0)
+                            .opacity(isComplete ? 0.3 : 1.0)
                     })
                     .disabled(isComplete)
                     //Spacer()
