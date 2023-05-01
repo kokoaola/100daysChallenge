@@ -42,25 +42,40 @@ struct ListAndCardView: View {
                 
                 HStack(){
                     Spacer()
-                    Text("リストで表示")
-                    Toggle("", isOn: $showList)
-                        .labelsHidden()
-                        .tint(.green)
-                        .padding(.trailing, 10)
-                        .multilineTextAlignment(.trailing)
-                }
+                    Picker("", selection: $showList){
+                        Text("カード")
+                            .tag(false)
+                        Text("リスト")
+                            .tag(true)
+                    }.pickerStyle(.segmented)
+                        .frame(width: 150)
+                        .padding(.vertical, 5)
+                        
+//                    Text("リストで表示")
+//                        .onTapGesture {
+//                            showList.toggle()
+//                        }
+//                    Toggle("", isOn: $showList)
+//                        .labelsHidden()
+//                        .tint(.green)
+//                        .padding(.trailing, 10)
+//                        .multilineTextAlignment(.trailing)
+                }//.padding(.vertical)
                 
                 ///リストで表示がONになっていてばリストビューを表示
                 if showList{
+                    
                     if items.isEmpty{
                         NoDataListView()
                     }else{
                         ListView()
-                        
+                            .transition(.moveAndFade)
                     }
+                        
                         //.transition(.moveAndFade)
                 }else{
                     CardView()
+                        .transition(.moveAndFade)
                 }
                 
                 ///カードのビュー表示
