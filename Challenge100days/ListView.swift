@@ -11,7 +11,7 @@ import CoreData
 struct ListView: View {
     ///CoreData用の変数
     @Environment(\.managedObjectContext) var moc
-    @FetchRequest(sortDescriptors: [NSSortDescriptor(key:"date", ascending: true)]) var items: FetchedResults<DailyData>
+    @FetchRequest(sortDescriptors: [NSSortDescriptor(key:"date", ascending: false)]) var items: FetchedResults<DailyData>
     
     var body: some View {
 
