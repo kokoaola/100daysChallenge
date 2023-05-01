@@ -46,10 +46,9 @@ struct ActionView: View {
                     
                     VStack(alignment: .leading, spacing: 5.0){
 //                        Text(days.isEmpty ? "開始日  :  ----/--/-- " : "開始日 : \( makeDate(day:days.first?.date ?? Date.now))")
-                        Text("ビジョン  :  \(shortTermGoal)")
+                        Text("ビジョン  :  \(longTermGoal)")
                         Text("100日取り組むこと : \(shortTermGoal)")
                     }.foregroundColor(Color(UIColor.label))
-                        //.bold()
                         .padding()
                     
                     SpeechBubble2()

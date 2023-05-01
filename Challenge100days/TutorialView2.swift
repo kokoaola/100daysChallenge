@@ -28,7 +28,7 @@ struct TutorialView2: View {
     
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 40){
+        VStack(alignment: .leading, spacing: 20){
                     Text("次に、目標を設定してください。")
                     
             ///長期目標
@@ -107,7 +107,7 @@ struct TutorialView2: View {
                     ///次へボタンの無効判定
                    .disabled(editText.isEmpty || editText2.isEmpty || editText.count > 10 || editText2.count > 10)
                 }
-                .padding(.bottom)
+                .padding(.bottom, 30)
                 }
 
         .frame(minHeight: AppSetting.screenHeight/1.6)
