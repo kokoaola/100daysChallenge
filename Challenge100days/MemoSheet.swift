@@ -88,15 +88,17 @@ struct MemoSheet: View {
             
             
             ///キーボード閉じるボタン
+            ///キーボード閉じるボタンを配置
             .toolbar {
                 ToolbarItemGroup(placement: .keyboard) {
                     Spacer()
-                    Button("Done") {
+                    Button("閉じる") {
                         isInputActive = false
                     }
                 }
             }
             .foregroundColor(Color(UIColor.label))
+            
             
             ///メモデータが格納されていればテキストエディターの初期値に設定
             .onAppear{
