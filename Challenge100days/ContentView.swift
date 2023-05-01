@@ -46,6 +46,7 @@ struct ContentView: View {
             }
             
             .tint(Color(uiColor: UIColor.label))
+
             .onAppear{
                 
                 ///起動時に今日が何日目になるか計算して保存（他のビューで編集するとズレるため）
@@ -54,8 +55,7 @@ struct ContentView: View {
             }
             
         }
-        
-
+            
         
     }
 }
