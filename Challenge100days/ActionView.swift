@@ -37,11 +37,24 @@ struct ActionView: View {
             ZStack{
                 ///今日のミッションが未達成ならボタンのビューを表示
                 VStack{
+                    Spacer()
                     VStack(alignment: .leading){
                         Text(days.isEmpty ? "開始日 : ----/--/-- " : "開始日 : \( makeDate(day:days.first?.date ?? Date.now))")
                         Text("ビジョン : \(shortTermGoal)")
                         Text("100日取り組んでいること : \(shortTermGoal)")
                     }.foregroundColor(Color(UIColor.label)).padding()
+                    
+                    
+                    SpeechBubble2()
+                        .rotation(Angle(degrees: 180))
+                        .frame(width: AppSetting.screenWidth * 0.8, height: 80)
+                        .foregroundColor(.white)
+                        .padding()
+                        .overlay{
+                            Text("今日の取り組みが終わったら、\nボタンを押して完了しよう")
+                                .foregroundColor(.black)
+                        }
+                        .opacity(0.8)
                     
                     ///Completeボタンが押されたら本日分のDailyDataを保存
                     Button(action: {
@@ -49,24 +62,19 @@ struct ActionView: View {
                             withAnimation{
                                 isComplete = true
                             }
-                            
                             let day = DailyData(context: moc)
                             day.id = UUID()
                             day.date = Date.now
                             day.memo = ""
                             day.num = Int16(dayNumber)
                             try? moc.save()
-                            
                         }
-
-                    
                     }, label: {
                         CompleteButton(num: dayNumber)
                             .foregroundStyle(.primary)
                     })
-                    
-                    Text("今日の取り組みが終わったら、\nボタンを押して完了しよう")
-                        .foregroundColor(Color(UIColor.label))
+                    Spacer()
+                    Spacer()
                 }
 
 
