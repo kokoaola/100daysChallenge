@@ -202,17 +202,19 @@ struct DetailView: View {
             num =  Int(item.num)
             selectedDay = item.date ?? Date.now
         }
-        
+
+
         
         .toolbar{
             
             ///キーボード閉じるボタンを配置
             ToolbarItemGroup(placement: .keyboard) {
                 Spacer()
-                Button("Done") {
+                Button("閉じる") {
                     isInputActive = false
-                }
+                }            .foregroundColor(Color(UIColor.label))
             }
+
             
             ///通常モードの時のツールバー
             if isEdit == false{
