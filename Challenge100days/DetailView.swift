@@ -83,10 +83,12 @@ struct DetailView: View {
                         Spacer()
                         
                         ///日付表示
-                        Text(makeDate(day: item.date ?? Date.now))
-                            .font(.title3.weight(.ultraLight)).foregroundColor(.black)
-                            .padding(.leading, 40)
-                        
+                        VStack{
+                            Text("AA")
+                            Text(makeDate(day: item.date ?? Date.now))
+                                .font(.title3.weight(.ultraLight)).foregroundColor(.black)
+                                .padding(.leading, 40)
+                        }
                     }
                     .padding(.bottom)
                     
@@ -242,7 +244,7 @@ struct DetailView: View {
                 ///画像シェア用のリンク
                 ToolbarItem(placement: .navigationBarTrailing) {
                     ShareLink(item: image ?? Image("noImage") , preview: SharePreview("画像", image:image ?? Image("noImage") )){
-                        Image(systemName: "photo")
+                        Image(systemName: "square.and.arrow.up")
                         
                     }
                 }
@@ -329,17 +331,17 @@ struct DetailView: View {
     
 }
 
-
+//
 //struct MemoView_Previews: PreviewProvider {
 //    static private var dataController = DataController()
 //    static let moc = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
-//    
+//
 //    static var previews: some View {
-//        
-//        MemoView(num: 1)
+//
+//        DetailView(item: <#DailyData#>)
 //        //            MemoView(num: 1, item: book)
 //            .environment(\.managedObjectContext, dataController.container.viewContext)
-//        
+//
 //    }
 //}
 
