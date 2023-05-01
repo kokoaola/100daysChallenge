@@ -38,14 +38,13 @@ struct ActionView: View {
                 ///今日のミッションが未達成ならボタンのビューを表示
                 VStack{
                     VStack(alignment: .leading){
-                        Text("100日チャレンジ中 : \(shortTermGoal)")
                         Text(days.isEmpty ? "開始日 : ----/--/-- " : "開始日 : \( makeDate(day:days.first?.date ?? Date.now))")
+                        Text("ビジョン : \(shortTermGoal)")
+                        Text("100日取り組んでいること : \(shortTermGoal)")
                     }.foregroundColor(Color(UIColor.label)).padding()
                     
                     ///Completeボタンが押されたら本日分のDailyDataを保存
                     Button(action: {
-                        
-                        
                         if !isComplete{
                             withAnimation{
                                 isComplete = true
@@ -65,6 +64,9 @@ struct ActionView: View {
                         CompleteButton(num: dayNumber)
                             .foregroundStyle(.primary)
                     })
+                    
+                    Text("今日の取り組みが終わったら、\nボタンを押して完了しよう")
+                        .foregroundColor(Color(UIColor.label))
                 }
 
 

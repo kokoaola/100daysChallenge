@@ -83,6 +83,8 @@ struct CompleteButton: View {
 
         Capsule()
             .frame(width: width, height: height)
+            .shadow(color:Color.black, radius: 10.0,
+        x: 0, y: 0)
         
             .overlay{
                 VStack{
@@ -92,6 +94,7 @@ struct CompleteButton: View {
                 }
                 .font(.largeTitle.weight(.bold))
                 .foregroundColor(.white)
+                
                 
                 Capsule()
                     .stroke(lineWidth: 10)
