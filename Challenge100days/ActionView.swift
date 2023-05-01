@@ -17,6 +17,9 @@ struct ActionView: View {
     ///今日のワークが達成されているかの確認用フラグ
     @State var isComplete = false
     
+    ///コンプリートウインドウ出現フラグ
+    @State var showCompleteWindew = false
+    
     @AppStorage("colorkeyTop") var storedColorTop: Color = .blue
     @AppStorage("colorkeyBottom") var storedColorBottom: Color = .green
     
@@ -51,16 +54,17 @@ struct ActionView: View {
                         .foregroundColor(.white)
                         .padding()
                         .overlay{
-                            Text("今日の取り組みが終わったら、\nボタンを押して完了しよう")
+                            Text(isComplete ? "本日の取り組みは達成済みです。\nお疲れ様でした！" : "今日の取り組みが終わったら、\nボタンを押して完了しよう" )
                                 .foregroundColor(.black)
                         }
                         .opacity(0.8)
                     
+                    
                     ///Completeボタンが押されたら本日分のDailyDataを保存
                     Button(action: {
-                        if !isComplete{
                             withAnimation{
                                 isComplete = true
+                                showCompleteWindew = true
                             }
                             let day = DailyData(context: moc)
                             day.id = UUID()
@@ -68,11 +72,28 @@ struct ActionView: View {
                             day.memo = ""
                             day.num = Int16(dayNumber)
                             try? moc.save()
-                        }
                     }, label: {
-                        CompleteButton(num: dayNumber)
+                        CompleteButton(num:isComplete ? dayNumber - 1 : dayNumber)
                             .foregroundStyle(.primary)
+                            .opacity(isComplete ? 0.5 : 1.0)
                     })
+                    .disabled(isComplete)
+                    
+                    HStack{
+                        Spacer()
+                        Button {
+                            showCompleteWindew = true
+                        } label: {
+                            Image(systemName: "arrow.uturn.left")
+                            Text("ウインドウを再表示する")
+                        }
+                        .foregroundColor(.primary)
+                        .padding()
+                        .opacity(showCompleteWindew || !isComplete ? 0 : 1.0)
+                        .disabled(!isComplete)
+                    }
+
+
                     Spacer()
                     Spacer()
                 }
@@ -80,8 +101,8 @@ struct ActionView: View {
 
                 
                 ///ボタン押下後は完了のビューを重ねて表示
-                if isComplete{
-                    CompleteView(isComplete: $isComplete)
+                if showCompleteWindew{
+                    CompleteView(showCompleteWindew: $showCompleteWindew)
                         .padding()
                         .transition(.scale)
                 }

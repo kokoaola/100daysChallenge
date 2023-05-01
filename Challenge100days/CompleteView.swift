@@ -16,7 +16,7 @@ struct CompleteView: View {
     ///メモ追加シート表示用のフラグ
     @State var showMemo = false
     ///画面戻る用のフラグ
-    @Binding var isComplete:Bool
+    @Binding var showCompleteWindew:Bool
     ///実績取り消し押下後の確認アラート用のフラグ
     @State var showCansel = false
     
@@ -36,9 +36,9 @@ struct CompleteView: View {
                     
                     ///取り消しボタン（押すと確認アラートを表示）
                     Button(action: {
-                        showCansel = true
+                        showCompleteWindew = false
                     }){
-                        Image(systemName: "xmark.circle")
+                        Image(systemName: "xmark")
                             .font(.title3).foregroundColor(.red)
                     }.frame(maxWidth: .infinity,minHeight: 30, alignment: .topLeading)
                     
@@ -93,19 +93,19 @@ struct CompleteView: View {
         }
         
         ///取り消しボタン押下時のアラート
-        .alert("今日の記録を破棄しますか？", isPresented: $showCansel){
-            Button("破棄する",role: .destructive){
-
-                Task{
-                    await  delete()
-                    //await reNumber()
-                }
-                isComplete = false
-            }
-            Button("戻る",role: .cancel){}
-        }message: {
-            Text("本日のデータとメモは破棄されます。\n（破棄したデータは元に戻せません。）")
-        }
+//        .alert("今日の記録を破棄しますか？", isPresented: $showCansel){
+//            Button("破棄する",role: .destructive){
+//
+//                Task{
+//                    await  delete()
+//                    //await reNumber()
+//                }
+//                isComplete = false
+//            }
+//            Button("戻る",role: .cancel){}
+//        }message: {
+//            Text("本日のデータとメモは破棄されます。\n（破棄したデータは元に戻せません。）")
+//        }
         
     }
     
@@ -140,7 +140,7 @@ struct CompleteDoneView_Previews: PreviewProvider {
     static private var dataController = DataController()
     
     static var previews: some View {
-        CompleteView(isComplete: $aa, image: Image("noImage"))
+        CompleteView(showCompleteWindew: $aa, image: Image("noImage"))
     }
 }
 

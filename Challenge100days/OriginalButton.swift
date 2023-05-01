@@ -91,7 +91,7 @@ struct CompleteButton: View {
 
 struct OriginalButton: View {
     let radius:CGFloat = 10.0
-    let width = AppSetting.screenWidth / 1.7
+    let width = AppSetting.screenWidth / 2
     let height = AppSetting.screenWidth / 5
     //let height = 70.0
     let labelString: String
@@ -116,66 +116,35 @@ struct OriginalButton: View {
             }
             .font(.title2.weight(.bold))
             .foregroundColor(文字と内側の枠の色)
-            
-            
-            //        RoundedRectangle(cornerRadius: radius)
-            //            //.foregroundColor(ボタンの背景)
-            //            .frame(width: Setting.screenWidth/1.7 - 4, height: Setting.screenWidth / 5 - 4)
-            //
-            //            .overlay{
-            //                HStack(alignment: .lastTextBaseline){
-            //                    Image(systemName: labelImage)
-            //                    Text(labelString)
-            //                   // Label("シェアする", systemImage: "square.and.arrow.up")
-            //                }
-            //                .font(.title2.weight(.bold))
-            //                .foregroundColor(文字と内側の枠の色)
-            //
-            //                RoundedRectangle(cornerRadius: radius)
-            //                    .stroke(lineWidth: 4)
-            //                    .foregroundColor(文字と内側の枠の色)
-            //                    .frame(width: Setting.screenWidth/1.7, height: Setting.screenWidth / 5)
-            
-            //                RoundedRectangle(cornerRadius: radius)
-            //                    .stroke(lineWidth: 2.5)
-            //.foregroundColor(ボタンの背景)
         }
     }
 }
 
 
-struct OriginalButton2: View {
-    let radius:CGFloat = 10.0
-    let labelString: String
-    let labelImage : String
-    //let ボタンの背景 = Color(UIColor.label)
-    let 文字と内側の枠の色 = Color(UIColor.white)
-    
-    var body: some View {
-        RoundedRectangle(cornerRadius: radius)
-        //.foregroundColor(ボタンの背景)
-        //.frame(width: width, height: height)
-        
-            .overlay{
-                HStack(alignment: .lastTextBaseline){
-                    Image(systemName: labelImage)
-                    Text(labelString)
-                    // Label("シェアする", systemImage: "square.and.arrow.up")
-                }
-                //.font(.title2.weight(.bold))
-                .foregroundColor(文字と内側の枠の色)
-                
-                RoundedRectangle(cornerRadius: radius)
-                    .stroke(lineWidth: 5)
-                    .foregroundColor(文字と内側の枠の色)
-                //.frame(width: width-5, height: height-5)
-                
-                //                RoundedRectangle(cornerRadius: radius)
-                //                    .stroke(lineWidth: 2.5)
-                //.foregroundColor(ボタンの背景)
-            }
-    }
-}
+//struct OriginalButton2: View {
+//    let radius:CGFloat = 10.0
+//    let labelString: String
+//    let labelImage : String
+//    let 文字と内側の枠の色 = Color(UIColor.white)
+//
+//    var body: some View {
+//        RoundedRectangle(cornerRadius: radius)
+//        //.foregroundColor(ボタンの背景)
+//        //.frame(width: width, height: height)
+//
+//            .overlay{
+//                HStack(alignment: .lastTextBaseline){
+//                    Image(systemName: labelImage)
+//                    Text(labelString)
+//                }
+//                .foregroundColor(文字と内側の枠の色)
+//
+//                RoundedRectangle(cornerRadius: radius)
+//                    .stroke(lineWidth: 5)
+//                    .foregroundColor(文字と内側の枠の色)
+//            }
+//    }
+//}
 
 
 struct SpeechBubble: Shape {
@@ -287,7 +256,7 @@ struct OriginalButton_Previews: PreviewProvider {
             TutorialButton(labelString: "次へ", labelImage: "arrowshape.right")
             CompleteButton(num: 1)
             OriginalButton(labelString: "シェアする", labelImage: "square.and.arrow.up")
-            OriginalButton2(labelString: "シェアする", labelImage: "square.and.arrow.up").frame(width: 200, height: 40)
+            //OriginalButton2(labelString: "シェアする", labelImage: "square.and.arrow.up").frame(width: 200, height: 40)
             SpeechBubble2()
                 //.frame(width: 100)
         }
