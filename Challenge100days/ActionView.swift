@@ -103,13 +103,13 @@ struct ActionView: View {
                 }
             }
             
-            .toolbar {
-                ToolbarItem{
-                    NavigationLink(destination: SettingView.init()) {
-                        Image(systemName: "gearshape")
-                    }
-                }
-            }
+//            .toolbar {
+//                ToolbarItem{
+//                    NavigationLink(destination: SettingView.init()) {
+//                        Image(systemName: "gearshape")
+//                    }
+//                }
+//            }
         }
     }
 }
