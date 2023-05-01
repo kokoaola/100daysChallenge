@@ -103,7 +103,7 @@ struct DetailView: View {
             )
         }
         
-        
+        .navigationBarBackButtonHidden(true)
         
         
         
@@ -160,9 +160,20 @@ struct DetailView: View {
                 }
             }
             
-            
+            ///画像シェア用のリンク
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button {
+                    dismiss()
+                } label: {
+                    HStack{
+                        Image(systemName: "chevron.backward")
+                        Text("戻る")
+                    }
+                }
+            }
         }
         .foregroundColor(Color(UIColor.label))
+        
         ///削除ボタン押下時のアラート
         .alert("この日の記録を破棄しますか？", isPresented: $showCansel){
             Button("破棄する",role: .destructive){
