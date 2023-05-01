@@ -39,7 +39,7 @@ struct makeNewItemSheet: View {
     @AppStorage("colorkeyBottom") var storedColorBottom: Color = .green
 
     var body: some View {
-        NavigationView{
+        NavigationStack{
             
             
             VStack(spacing: 20){

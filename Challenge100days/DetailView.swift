@@ -8,6 +8,12 @@
 import SwiftUI
 import CoreData
 
+extension View {
+    func endEditing() {
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+    }
+}
+
 
 struct DetailView: View {
     ///CoreData用の変数
@@ -55,137 +61,143 @@ struct DetailView: View {
     @AppStorage("colorkeyBottom") var storedColorBottom: Color = .green
     
     var body: some View {
-        
-        ///ビュー全体をスクロールで表示するためのスクロールビュー
-        ScrollView(.vertical, showsIndicators: false){
+        NavigationStack{
             
             
-            VStack(alignment: .leading){
+            VStack{
+
                 
-                ///選択された日付が有効ではない時に表示する警告
-                Label("選択した日はすでに記録が存在しています。", systemImage: "exclamationmark.circle")
-                    .font(.footnote)
-                    .foregroundColor(isVailed == false ? .red : .clear)
+                HStack{
+                    
+                    ///日付けのセルは通常モードの時と同じ
+                    Text("\(num ?? 1) / 100")
+                        .font(.title)
+                        .foregroundColor(.white)
+                    
+                    Spacer()
+                    
+                    
+                    ///日付表示
+                    Text(makeDate(day: item.date ?? Date.now))
+                        .font(.title3.weight(.ultraLight))
+                        .padding(.leading, 40)
+                        .foregroundColor(.primary)
+                }.frame(maxWidth: .infinity, alignment: .leading)
+                   // .padding(.bottom)
                 
                 
-                ///データの詳細を一覧で表示
-                if isEdit == false{
-                    HStack{
-                        
-                        ///左の青い番号セル表示用
-                        Text("\(item.num) / 100")
-                            .font(.title.weight(.thin))
-                            .foregroundColor(.white)
-                            .frame(width: AppSetting.screenWidth * 0.3, height: AppSetting.screenWidth * 0.25)
-                            .background(.blue)
-                            .cornerRadius(15)
-                        
-                        Spacer()
-                        
-                        ///日付表示
-                        VStack{
-                            Text("AA")
-                            Text(makeDate(day: item.date ?? Date.now))
-                                .font(.title3.weight(.ultraLight)).foregroundColor(.black)
-                                .padding(.leading, 40)
-                        }
-                    }
-                    .padding(.bottom)
-                    
-                    
-                    ///メモ表示用
-                    Text(item.memo ?? "")
-                        .foregroundColor(.black).multilineTextAlignment(.leading).lineSpacing(5)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding(item.memo != "" ? .bottom : [] )
-                    
-                    
-                }else{
-                    ///編集モードの時のビュー
-                    HStack{
-                        
-                        ///日付けのセルは通常モードの時と同じ
-                        Text("\(num ?? 1) / 100")
-                            .font(.title.weight(.thin))
-                            .foregroundColor(.white)
-                            .frame(width: AppSetting.screenWidth * 0.3, height: AppSetting.screenWidth * 0.25)
-                            .background(.blue)
-                            .cornerRadius(15)
-                        
-                        Spacer()
-                        
-                        
-                        ///日付変更用のデータピッカー
-                        DatePicker(selection: $selectedDay, in: dateClosedRange, displayedComponents: .date, label: {Text("")})
-                            .datePickerStyle(.compact)
-                            .labelsHidden()
-                            .padding(.leading, 20)
-                    }.frame(maxWidth: .infinity, alignment: .leading)
-                    
-                    ///メモ編集用のテキストエディター
-                    TextEditor(text: $editText)
-                        .foregroundColor(Color(UIColor.black))
-                        .lineSpacing(5)
-                        .scrollContentBackground(Visibility.hidden)
-                        .background(Color(UIColor.white))
-                        .border(.gray)
-                        .frame(height: AppSetting.screenHeight * 0.4)
-                        .padding(.top)
-                        .focused($isInputActive)
-                    
-                }
+                
+                ///メモ編集用のテキストエディター
+                TextEditor(text: $editText)
+                    //.foregroundColor(isInputActive ? .black : .white)
+                    .lineSpacing(2)
+                    .scrollContentBackground(Visibility.hidden)
+                    //.background(isInputActive ? .white : .clear)
+                    //.border(.white)
+                    .frame(maxHeight: .infinity)
+                    .focused($isInputActive)
+                    .tint(.white)
+                
+                
+
                 
             }
+
+                        .padding()
+                        .frame(maxHeight: AppSetting.screenHeight / 1.4)
+                        .background(.thinMaterial)
+                        .cornerRadius(15)
+            .foregroundColor(.primary)
+            .padding(.top, -50)
+           //.offset(y: -50)
             
             .padding()
-            .fixedSize(horizontal: false, vertical: true)
-            .background(.white)
-            .cornerRadius(15)
-            .padding()
-            
-        }
-        
-        //.background(.ultraThinMaterial)
-        .background(.secondary)
-        .foregroundStyle(
-            .linearGradient(
-                colors: [storedColorTop, storedColorBottom],
-                startPoint: .topLeading,
-                endPoint: .bottomTrailing
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+            .background(.ultraThinMaterial)
+            .background(.secondary)
+            .foregroundStyle(
+                .linearGradient(
+                    colors: [storedColorTop, storedColorBottom],
+                    startPoint: .topLeading,
+                    endPoint: .bottomTrailing
+                )
             )
-        )
-        //.background(.quaternary).foregroundStyle(.blue)
-        
-        
-        ///データピッカーで日付が選択された時に発動
-        .onChange(of: selectedDay) { newValue in
-            ///日付が選択された時に青い日付表示セルをリアルタイムで調整するための処理
-            let array = days.filter{
-                $0.date ?? Date.now < newValue
-            }
-            if item.date ?? Date.now < newValue {
-                num = array.count
-            }else{
-                num = array.count + 1
-            }
             
-            ///元々の日付と同じならSaveボタンを有効にしてリターン
-            if Calendar.current.isDate(item.date ?? Date.now, equalTo: newValue , toGranularity: .day){
-                isVailed = true
-                return
-            }
             
-            ///フェッチリクエストに存在するアイテムの日付とダブってればSaveボタンを無効にしてリターン
-            for i in days{
-                
-                if Calendar.current.isDate(i.date!, equalTo: newValue , toGranularity: .day){
-                    isVailed = false
-                    return
-                }
-            }
-            ///ダブりがなければisVailedをTrueにしてリターン
-            isVailed = true
+            
         }
+        ///ビュー全体をスクロールで表示するためのスクロールビュー
+//        NavigationStack{
+//
+//            VStack(alignment: .leading){
+//
+//                ///選択された日付が有効ではない時に表示する警告
+//                //                Label("選択した日はすでに記録が存在しています。", systemImage: "exclamationmark.circle")
+//                //                    .font(.footnote)
+//                //                    .foregroundColor(isVailed == false ? .red : .clear)
+//
+//
+//                ///データの詳細を一覧で表示
+//                ///編集モードの時のビュー
+//                HStack{
+//
+//                    ///日付けのセルは通常モードの時と同じ
+//                    Text("\(num ?? 1) / 100")
+//                        .font(.title.weight(.thin))
+//                        .foregroundColor(.white)
+//                    //                            .frame(width: AppSetting.screenWidth * 0.3, height: AppSetting.screenWidth * 0.25)
+//                    //                            .background(.blue)
+//                    //                            .cornerRadius(15)
+//
+//                    Spacer()
+//
+//
+//                    ///日付表示
+//                    Text(makeDate(day: item.date ?? Date.now))
+//                        .font(.title3.weight(.ultraLight))
+//                        .padding(.leading, 40)
+//                        .foregroundColor(.primary)
+//                }.frame(maxWidth: .infinity, alignment: .leading)
+//                    .padding(.vertical)
+//
+//                ///メモ編集用のテキストエディター
+//                TextEditor(text: $editText)
+//                    .foregroundColor(Color(UIColor.black))
+//                    .lineSpacing(2)
+//                    .tint(.black)
+//                    .scrollContentBackground(Visibility.hidden)
+//                    .background(.white.opacity(0.8))
+//                //.border(.gray)
+//                    .frame(height: AppSetting.screenHeight * 0.4)
+//                    .focused($isInputActive)
+//                    .padding(.bottom)
+//
+//
+//            }
+//
+//            ///ここからはVStack背景の設定
+//            .padding()
+//            .frame(maxHeight: AppSetting.screenHeight / 1.4)
+//            .background(.thinMaterial)
+//            .cornerRadius(15)
+//            .offset(y: -20)
+//
+//            .padding(.horizontal)
+//            .frame(maxWidth: .infinity, maxHeight: .infinity)
+//            .background(.secondary)
+//            .foregroundStyle(
+//                .linearGradient(
+//                    colors: [storedColorTop, storedColorBottom],
+//                    startPoint: .topLeading,
+//                    endPoint: .bottomTrailing
+//                )
+//            )
+//
+//        }
+
+            
+
+
         
         
         .onAppear{
@@ -209,15 +221,18 @@ struct DetailView: View {
             
             ///キーボード閉じるボタンを配置
             ToolbarItemGroup(placement: .keyboard) {
+
                 Spacer()
-                Button("閉じる") {
+                
+                Button("保存") {
+                    Task{
+                        await save()
+                    }
                     isInputActive = false
-                }            .foregroundColor(Color(UIColor.label))
+                }
             }
 
             
-            ///通常モードの時のツールバー
-            if isEdit == false{
                 
                 ///アイテム削除用ごみ箱アイコン
                 ToolbarItem(placement: .navigationBarTrailing){
@@ -230,19 +245,6 @@ struct DetailView: View {
                     .padding(.trailing)
                 }
                 
-                ///アイテム編集用ペンアイコン
-                ToolbarItem(placement: .navigationBarTrailing){
-                    Button {
-                        isEdit = true
-                    } label: {
-                        Image(systemName:"square.and.pencil")
-                        
-                    }
-                    .foregroundColor(.primary)
-                    .padding(.trailing)
-                    
-                }
-                
                 ///画像シェア用のリンク
                 ToolbarItem(placement: .navigationBarTrailing) {
                     ShareLink(item: image ?? Image("noImage") , preview: SharePreview("画像", image:image ?? Image("noImage") )){
@@ -251,33 +253,9 @@ struct DetailView: View {
                     }
                 }
                 
-            }else{
-                
-                ///編集モードの時のツールバー
-                ToolbarItem(placement: .navigationBarTrailing){
-                    
-                    ///完了ボタン
-                    Button {
-                        Task{
-                            await save()
-                            await reNumber()
-                        }
-                        isEdit = false
-                        
-                    } label: {
-                        HStack{
-                            Text("保存")
-                            Image(systemName:"checkmark.circle")
-                        }
-                        .padding(.trailing)
-                    }
-                    .foregroundColor(isVailed == false ? .gray : .green)
-                    .disabled(isVailed == false)
-                    
-                }
-            }
+            
         }
-        
+        .foregroundColor(Color(UIColor.label))
         ///削除ボタン押下時のアラート
         .alert("この日の記録を破棄しますか？", isPresented: $showCansel){
             Button("破棄する",role: .destructive){
@@ -298,11 +276,12 @@ struct DetailView: View {
     ///データ保存用関数
     func save() async{
         await MainActor.run{
-            item.date = selectedDay
+            //item.date = selectedDay
             item.memo = editText
             try? moc.save()
-            image = generateImageWithText(number: Int(item.num), day: item.date ?? Date.now)
-            UserDefaults.standard.set(days.count + 1, forKey: "todayIs")
+            //image = generateImageWithText(number: Int(item.num), day: item.date ?? Date.now)
+            //UserDefaults.standard.set(days.count + 1, forKey: "todayIs")
+            isInputActive = false
         }
     }
     
