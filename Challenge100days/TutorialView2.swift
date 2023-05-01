@@ -102,10 +102,10 @@ struct TutorialView2: View {
                         page = 3
                     } label: {
                         TutorialButton(labelString: "次へ", labelImage: "arrowshape.right")
-                            .foregroundColor(!editText.isEmpty && !editText2.isEmpty && editText2.count <= 10 && editText2.count <= 10 ? .green : .gray)
+                            .foregroundColor(!editText.isEmpty && !editText2.isEmpty && editText.count <= 10 && editText2.count <= 10 ? .green : .gray)
                     }
                     ///次へボタンの無効判定
-                   .disabled((editText.isEmpty || editText2.isEmpty) || (editText2.count > 10 || editText2.count > 10))
+                   .disabled(editText.isEmpty || editText2.isEmpty || editText.count > 10 || editText2.count > 10)
                 }
                 .padding(.bottom)
                 }
