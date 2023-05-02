@@ -51,9 +51,9 @@ struct TutorialView2: View {
                                 .opacity(editText.isEmpty ? 0.5 : 1)
                         }
                 
-                Text("100文字以内のみ設定可能です")
+                Text("50文字以内のみ設定可能です")
                     .font(.caption)
-                    .foregroundColor(editText.count > 10 ? .red : .clear)
+                    .foregroundColor(editText.count > 50 ? .red : .clear)
                     }
             
             
@@ -79,9 +79,9 @@ struct TutorialView2: View {
                                 .focused($isInputActive2)
                                 .opacity(editText2.isEmpty ? 0.5 : 1)
                         }
-                        Text("100文字以内のみ設定可能です")
+                        Text("50文字以内のみ設定可能です")
                             .font(.caption)
-                            .foregroundColor(editText2.count > 10 ? .red : .clear)
+                            .foregroundColor(editText2.count > 50 ? .red : .clear)
                     }
                 
                 Spacer()
@@ -102,10 +102,10 @@ struct TutorialView2: View {
                         page = 3
                     } label: {
                         TutorialButton(labelString: "次へ", labelImage: "arrowshape.right")
-                            .foregroundColor(!editText.isEmpty && !editText2.isEmpty && editText.count <= 10 && editText2.count <= 10 ? .green : .gray)
+                            .foregroundColor(!editText.isEmpty && !editText2.isEmpty && editText.count <= 50 && editText2.count <= 50 ? .green : .gray)
                     }
                     ///次へボタンの無効判定
-                   .disabled(editText.isEmpty || editText2.isEmpty || editText.count > 10 || editText2.count > 10)
+                   .disabled(editText.isEmpty || editText2.isEmpty || editText.count > 50 || editText2.count > 50)
                 }
                 .padding(.bottom, 30)
                 }

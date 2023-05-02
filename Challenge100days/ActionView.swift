@@ -20,6 +20,8 @@ struct ActionView: View {
     ///コンプリートウインドウ出現フラグ
     @State var showCompleteWindew = false
     
+    @State var showInfomation = false
+    
     @AppStorage("colorkeyTop") var storedColorTop: Color = .blue
     @AppStorage("colorkeyBottom") var storedColorBottom: Color = .green
     
@@ -40,92 +42,129 @@ struct ActionView: View {
             ZStack{
                 
                 ///今日のミッションが未達成ならボタンのビューを表示
-                VStack{
+                VStack(spacing: 20){
                     
                     
-                    VStack(alignment: .leading, spacing: 15.0){
-                        Text(days.isEmpty ? "開始日  :  ----/--/-- " : "開始日 : \( makeDate(day:days.first?.date ?? Date.now))")
-                        Text("目指す姿  :  \(longTermGoal)")
-                        Text("100日取り組むこと : \(shortTermGoal)")
+                    VStack(){
+                        ///リスト非表示用のヘッダー
+                        HStack{
+                            Text("目標を表示")
+                            Image(systemName: "chevron.right.circle")
+                                .imageScale(.large)
+                                .fontWeight(.thin)
+                                .rotationEffect(.degrees(showInfomation ? 90 : 0))
+                                .animation(.spring(), value: showInfomation)
+                            
+                        }
+                        .frame(width: AppSetting.screenWidth * 0.8, alignment: .leading)
+                        
+                        .padding(.top)
+                        .onTapGesture {
+                            withAnimation{
+                                showInfomation.toggle()
+                            }
+                        }
+                        
+                        ///リストで表示がONになっていてばリストビューを表示
+                        
+                        VStack(alignment: .leading, spacing: 0){
+                            
+                            if showInfomation{
+                                VStack(alignment: .leading, spacing: 0){
+//                                    Text("開始した日  :  \( makeDate(day:days.first?.date ?? Date.now))〜").font(.caption)
+                                        //.font(.body)
+                                        //.frame(width: AppSetting.screenWidth * 0.7 ,height: 20,alignment: .center)
+                                    
+                                    Text("目指している姿  :  ").font(.caption)
+                                    Text("あああああああ\(longTermGoal)")
+                                        //.font(.body)
+                                        .frame(width: AppSetting.screenWidth * 0.7 ,height: 50,alignment: .center)
+                                        //.font(.body)
+                                    Text("100日取り組むこと : ").font(.caption)
+                                    Text("あああああああ\(shortTermGoal)")
+                                        .frame(width: AppSetting.screenWidth * 0.7 ,height: 50,alignment: .center)
+                                        //.font(.body)
+                                    Text("(\( makeDate(day:days.first?.date ?? Date.now))〜)").font(.caption)
+                                        .frame(width: AppSetting.screenWidth * 0.7 ,alignment: .trailing)
+                                }
+                                .frame(width: AppSetting.screenWidth * 0.8, height: AppSetting.screenWidth * 0.45)
+                                .background(.black.opacity(0.1))
+                                .cornerRadius(15)
+                            }
+                            
+                        }
+                        .frame(height: AppSetting.screenWidth * 0.45)
+                        .foregroundColor(.primary)
+                        .fontWeight(.light)
+                        //.font(.footnote)
+                        
+                        
                     }
-                    //.font(.footnote)
-                        
-                    .frame(width: AppSetting.screenWidth * 0.8, height: 130 ,alignment: .center)
+                    
                     .foregroundColor(Color(UIColor.label))
-                        .padding()
-                        
+                    
+                    
+
                     
                     SpeechBubble2()
                         .rotation(Angle(degrees: 180))
                         .foregroundColor(.white)
-                        .padding()
+                        //.padding()
                         .overlay{
                             VStack{
-                                Text(isComplete ? "本日のチャレンジは達成済みです。\nお疲れ様でした！" : "今日の取り組みが終わったら、\nボタンを押して完了しよう" )
-                                    .foregroundColor(.black)
-                                if isComplete{
-                                    HStack{
-                                        
+                                
+                                
+                                
+                                VStack{
+                                    Text(isComplete ? "本日のチャレンジは達成済みです。\nお疲れ様でした！" : "今日の取り組みが終わったら、\nボタンを押して完了しよう" )
+                                    
+                                    if isComplete{
                                         Button {
                                             showCompleteWindew = true
                                         } label: {
                                             Text("ウインドウを再表示する")
                                         }
+                                        .font(.footnote)
                                         .foregroundColor(.blue)
-                                        //.padding(8)
-                                        .padding(.top, 10)
-                                        .padding(.trailing, -80)
-                                        //.opacity(showCompleteWindew || !isComplete ? 0 : 0.8)
-                                        .disabled(!isComplete)
+                                        .padding(.top, 1)
+                                        .frame(width: AppSetting.screenWidth * 0.65, alignment: .trailing)
                                     }
+                                    
                                 }
+                                .padding(.vertical)
                             }
+                            .frame(width: AppSetting.screenWidth * 0.8, height: AppSetting.screenWidth * 0.3)
+                            .foregroundColor(.black)
                         }
-                        .frame(width: AppSetting.screenWidth * 0.9, height: 150)
+                        .frame(width: AppSetting.screenWidth * 0.8, height: AppSetting.screenWidth * 0.3)
                         .opacity(0.8)
+                        
                     
                     
                     ///Completeボタンが押されたら本日分のDailyDataを保存
                     Button(action: {
-                            withAnimation{
-                                isComplete = true
-                                showCompleteWindew = true
-                            }
-                            let day = DailyData(context: moc)
-                            day.id = UUID()
-                            day.date = Date.now
-                            day.memo = ""
-                            day.num = Int16(dayNumber)
-                            try? moc.save()
+                        withAnimation{
+                            isComplete = true
+                            showCompleteWindew = true
+                        }
+                        let day = DailyData(context: moc)
+                        day.id = UUID()
+                        day.date = Date.now
+                        day.memo = ""
+                        day.num = Int16(dayNumber)
+                        try? moc.save()
                     }, label: {
                         CompleteButton(num:isComplete ? dayNumber - 1 : dayNumber)
                             .foregroundStyle(.primary)
                             .opacity(isComplete ? 0.3 : 1.0)
                     })
                     .disabled(isComplete)
-                    //Spacer()
-//                    HStack{
-//                        Spacer()
-//                        Button {
-//                            showCompleteWindew = true
-//                        } label: {
-//                            Image(systemName: "arrow.uturn.left")
-//                            Text("ウインドウを再表示")
-//                        }
-//                        .foregroundColor(.primary)
-//                        .padding(8)
-//                        .background(Color(UIColor.systemBackground).opacity(0.4))
-//                        .cornerRadius(5)
-//                        //.padding()
-//                        //.opacity(showCompleteWindew || !isComplete ? 0 : 0.8)
-//                        .disabled(!isComplete)
-//                    }
-//                    .frame(width: AppSetting.screenWidth * 0.8, height: 80)
-
+                    
+                    Spacer()
                     Spacer()
                 }
-
-
+                
+                
                 
                 ///ボタン押下後は完了のビューを重ねて表示
                 if showCompleteWindew{
@@ -146,7 +185,7 @@ struct ActionView: View {
             )
             
             .onAppear{
-
+                
                 ///アプリ起動時に今日のミッションがすでに完了しているか確認
                 let todaysData = days.filter{
                     ///CoreDataに保存されたデータの中に今日と同じ日付が存在するか確認
@@ -160,7 +199,8 @@ struct ActionView: View {
                     isComplete = true
                 }
             }
-            .navigationTitle("100days Challenge")
+            //.navigationTitle("100days Challenge")
+            //.navigationBarTitleDisplayMode(.inline)
         }
     }
 }
