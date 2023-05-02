@@ -16,10 +16,12 @@ struct SettingView: View {
     @AppStorage("colorkeyBottom") var storedColorBottom: Color = .green
     @AppStorage("isFirst") var isFirst = true
     @AppStorage("colorNumber") var colorNumber = 0
+    @AppStorage("showInfomation") var showInfomation = true
     @State var selectedColor = 10
     @State var isRiset = false
     @State var isEdit = false
     @State var isLong = false
+    
     var body: some View {
         
         ZStack{
@@ -35,8 +37,9 @@ struct SettingView: View {
                         } label: {
                             Text("アプリの色を変更する")
                         }
-                        
-                        
+                            Toggle("目標を表示", isOn: $showInfomation)
+                            .tint(.green)
+                                //.frame(width: AppSetting.screenWidth * 0.4)
                     }
                     
                     Section{

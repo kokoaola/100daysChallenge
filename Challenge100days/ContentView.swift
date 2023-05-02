@@ -46,7 +46,7 @@ struct ContentView: View {
                 SettingView()
                     .tabItem{
                         Label("設定", systemImage: "gearshape")
-                    }.tag("Two")
+                    }.tag("Three")
                 
             }
             
