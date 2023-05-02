@@ -42,14 +42,18 @@ struct ActionView: View {
                 ///今日のミッションが未達成ならボタンのビューを表示
                 VStack{
                     
-                    Spacer()
                     
-                    VStack(alignment: .leading, spacing: 5.0){
-//                        Text(days.isEmpty ? "開始日  :  ----/--/-- " : "開始日 : \( makeDate(day:days.first?.date ?? Date.now))")
+                    VStack(alignment: .leading, spacing: 15.0){
+                        Text(days.isEmpty ? "開始日  :  ----/--/-- " : "開始日 : \( makeDate(day:days.first?.date ?? Date.now))")
                         Text("目指す姿  :  \(longTermGoal)")
                         Text("100日取り組むこと : \(shortTermGoal)")
-                    }.foregroundColor(Color(UIColor.label))
+                    }
+                    //.font(.footnote)
+                        
+                    .frame(width: AppSetting.screenWidth * 0.8, height: 130 ,alignment: .center)
+                    .foregroundColor(Color(UIColor.label))
                         .padding()
+                        
                     
                     SpeechBubble2()
                         .rotation(Angle(degrees: 180))
@@ -156,7 +160,7 @@ struct ActionView: View {
                     isComplete = true
                 }
             }
-            
+            .navigationTitle("100days Challenge")
         }
     }
 }

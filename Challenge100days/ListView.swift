@@ -14,73 +14,95 @@ struct ListView: View {
     @FetchRequest(sortDescriptors: [NSSortDescriptor(key:"date", ascending: false)]) var items: FetchedResults<DailyData>
     
     var body: some View {
-
-
         
-        VStack(spacing: 5){
-            
-            ///CoreDataに保存されている全データを取り出す
-            ForEach(items) { item in
-                
-                ///タップするとDetailを表示
-                NavigationLink(destination: {
-                    DetailView(item: item)
-                }){
-                    
-                    HStack{
-
-                           ZStack{
-                            
-                            ///青いセルに番号を重ねて左端に表示
-                            Text("\(item.num)")
-                                .font(.title2) .foregroundColor(.white)
-                                .frame(width: AppSetting.screenWidth * 0.12, height: AppSetting.screenWidth * 0.12)
-                                .background(.blue).cornerRadius(15)
-                                .padding(.trailing)
-                                .frame(maxHeight: .infinity, alignment: .top)
-                            
-                            ///最終アイテム追加してから１日以内ならキラキラを表示
-                            Image(systemName: "sparkles")
-                                .offset(x:8, y:-9)
-                                .foregroundColor(item == items.last && Calendar.current.isDate(Date.now, equalTo: item.date ?? Date.now, toGranularity: .day) ? .yellow : .clear)
-                            
-                        }
-                        
-                        ///メモの内容を表示（プレビュー用のため改行はスペースに変換）
-                        VStack(alignment: .leading){
-                            Text(item.memo?.replacingOccurrences(of: "\n", with: " ") ?? "")
-                                .lineSpacing(1)
-                                .multilineTextAlignment(.leading)
-                                .foregroundColor(Color(UIColor.label))
-
-                            ///日付を右下に配置
-                            Text(makeDate(day: item.date ?? Date()))
-                                .foregroundColor(.secondary)
-                                .frame(maxWidth: .infinity,alignment: .bottomTrailing)
-                                .offset(y:5)
-                            
-                        }.font(.footnote)
-                        
-                    }
-                    ///１行あたり最大150pxまで大きくなれる
-                    .frame(maxHeight: 150)
-                    .fixedSize(horizontal: false, vertical: true)
-                    
-                }
-                
-                ///ラインの表示
-                if (items.firstIndex(of: item) ?? items.count) + 1 < items.count{
-                    Divider()
-                }
-                
+        ///データが一件も存在しない時の表示
+        if items.isEmpty{
+            VStack{
+                Text("まだデータがありません")
+                    .foregroundColor(Color(UIColor.label))
             }
+            .frame(maxWidth: .infinity, alignment: .center)
+            .padding()
+            .background(.thinMaterial)
+            .cornerRadius(15)
+            
+        }else{
+            
+            VStack(spacing: 5){
+                
+                ///CoreDataに保存されている全データを取り出す
+                ForEach(items) { item in
+
+
+                    ///タップするとDetailを表示
+                    NavigationLink(destination: {
+
+                        DetailView(item: item)
+
+                    }){
+
+                        HStack(alignment: .center){
+                                ZStack{
+                                    ///青いセルに番号を重ねて左端に表示
+                                    Text("\(item.num)")
+                                        .font(.title2) .foregroundColor(.white)
+                                        .frame(width: AppSetting.screenWidth * 0.12, height: AppSetting.screenWidth * 0.12)
+                                        .background(.blue).cornerRadius(15)
+                                        //.padding(.trailing)
+                                        //.frame(maxHeight: .infinity, alignment: .top)
+                                    
+                                    ///最終アイテム追加してから１日以内ならキラキラを表示
+                                    Image(systemName: "sparkles")
+                                        .offset(x:14, y:-14)
+                                        .foregroundColor(Calendar.current.isDate(Date.now, equalTo: item.date ?? Date.now, toGranularity: .day) ? .yellow : .clear)
+                                }
+                            
+                            ///メモの内容を表示（プレビュー用のため改行はスペースに変換）
+                            VStack{
+                                Text(item.memo?.replacingOccurrences(of: "\n", with: " ") ?? "")
+                                    
+                                    .lineSpacing(1)
+                                    .frame(maxWidth: .infinity,maxHeight: .infinity,alignment: .topLeading)
+                                    .multilineTextAlignment(.leading)
+                                    .foregroundColor(Color(UIColor.label))
+
+                                ///日付を右下に配置
+                                Text(makeDate(day: item.date ?? Date()))
+                                    .foregroundColor(.secondary)
+                                    .frame(maxWidth: .infinity,alignment: .bottomTrailing)
+                                    //.padding(.bottom, -8)
+                                    //.offset(y:5)
+
+                            }.frame(maxWidth: .infinity,maxHeight: .infinity)
+                           //.background()
+                            .font(.footnote)
+                            
+                            Image(systemName: "chevron.forward")
+                                .fontWeight(.thin)
+                                .foregroundColor(.gray)
+                                .padding(.leading, 10)
+
+                        }
+                        ///１行あたり最大150pxまで大きくなれる
+                        .frame(maxHeight: 150)
+                        .fixedSize(horizontal: false, vertical: true)
+
+                    }
+
+                    ///ラインの表示
+                    if (items.firstIndex(of: item) ?? items.count) + 1 < items.count{
+                        Divider()
+                            .padding(.vertical, 5)
+                    }
+
+                }
+            }
+            
+            .fixedSize(horizontal: false, vertical: true)
+            .padding()
+            .background(.thinMaterial)
+            .cornerRadius(15)
         }
-        
-        .fixedSize(horizontal: false, vertical: true)
-        .padding()
-        .background(.thinMaterial)
-        .cornerRadius(15)
-        
     }
 }
 

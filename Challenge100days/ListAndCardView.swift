@@ -47,70 +47,20 @@ struct ListAndCardView: View {
                             .tag(false)
                         Text("リスト")
                             .tag(true)
-                    }.pickerStyle(.segmented)
-                        .frame(width: 150)
-                        .padding(.vertical, 5)
-                        
-//                    Text("リストで表示")
-//                        .onTapGesture {
-//                            showList.toggle()
-//                        }
-//                    Toggle("", isOn: $showList)
-//                        .labelsHidden()
-//                        .tint(.green)
-//                        .padding(.trailing, 10)
-//                        .multilineTextAlignment(.trailing)
-                }//.padding(.vertical)
+                    }
+                    .pickerStyle(.segmented)
+                    .frame(width: 150)
+                    .padding(.vertical, 5)
+                    
+                }
                 
                 ///リストで表示がONになっていてばリストビューを表示
                 if showList{
-                    
-                    if items.isEmpty{
-                        NoDataListView()
-                    }else{
-                        ListView()
-                            .transition(.moveAndFade)
-                    }
-                        
-                        //.transition(.moveAndFade)
+                    ListView()
                 }else{
                     CardView()
-                        .transition(.moveAndFade)
                 }
-                
-                ///カードのビュー表示
-                //CardView()
-                
-                
-                ///ここからリストのビュー
-//                VStack(){
-//                    ///リスト非表示用のヘッダー
-//                    HStack{
-//                        Text("リストで表示")
-//                        Image(systemName: "chevron.right.circle")
-//                            .imageScale(.large)
-//                            .fontWeight(.thin)
-//                            .rotationEffect(.degrees(showList ? 90 : 0))
-//                            .animation(.spring(), value: showList)
-//
-//                    }
-//                    .frame(maxWidth: .infinity, alignment: .leading)
-//                    .padding(.top)
-//                    .onTapGesture {
-//                        withAnimation{
-//                            showList.toggle()
-//                        }
-//                    }
-//
-////                    ///リストで表示がONになっていてばリストビューを表示
-////                    if showList && !items.isEmpty{
-////                        ListView().transition(.moveAndFade)
-////                    }else if showList && items.isEmpty{
-////                        NoDataListView().transition(.moveAndFade)
-////                    }
-//
-//                }//リストここまで
-            }//スクロールビューここまで
+            }
             .foregroundColor(Color(UIColor.label))
             
             ///グラデーション背景設定
@@ -148,7 +98,6 @@ struct ListAndCardView: View {
 
 struct ListAndCardView_Previews: PreviewProvider {
     static private var dataController = DataController()
-    //@State static var path = [String]()
     
     static var previews: some View {
         ListAndCardView()
