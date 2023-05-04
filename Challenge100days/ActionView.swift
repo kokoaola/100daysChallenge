@@ -93,20 +93,22 @@ struct ActionView: View {
                                         //.padding(.bottom, 5)
                                     
                                 }
-                                .padding(.vertical)
-                                .frame(width: AppSetting.screenWidth * 0.8)
+                                
+                                //.padding(.vertical)
+                                .frame(width: AppSetting.screenWidth * 0.9)
                                 //.frame(maxHeight: AppSetting.screenWidth * 0.88)
-                                .background(.black.opacity(0.1))
+                                //.background(.thinMaterial)
+                                .fontWeight(.medium)
                                 .cornerRadius(15)
                                 .foregroundColor(.primary)
-                                .fontWeight(.light)
+                                //.fontWeight(.light)
                                 //Spacer()
                             }
                             
                             
                             
                             //.font(.footnote)
-                        }.frame(maxHeight: AppSetting.screenHeight/4)
+                        }.frame(maxHeight: AppSetting.screenHeight/5)
                     }
                     
                    
