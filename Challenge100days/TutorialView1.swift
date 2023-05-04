@@ -60,7 +60,7 @@ struct TutorialView1: View {
                     .foregroundColor(.green)
                 
             }
-            .padding(.bottom)
+            .padding(.bottom, 30)
             .frame(maxWidth: .infinity,alignment: .bottomTrailing)
             
         }

@@ -26,9 +26,11 @@ struct TutorialView2: View {
     
     @AppStorage("isFirst") var isFirst = true
     
+    let maxLength = 50
+    
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 40){
+        VStack(alignment: .leading, spacing: 20){
                     Text("次に、目標を設定してください。")
                     
             ///長期目標
@@ -51,9 +53,9 @@ struct TutorialView2: View {
                                 .opacity(editText.isEmpty ? 0.5 : 1)
                         }
                 
-                Text("100文字以内のみ設定可能です")
+                Text("\(maxLength)文字以内のみ設定可能です")
                     .font(.caption)
-                    .foregroundColor(editText.count > 10 ? .red : .clear)
+                    .foregroundColor(editText.count > maxLength ? .red : .clear)
                     }
             
             
@@ -79,9 +81,9 @@ struct TutorialView2: View {
                                 .focused($isInputActive2)
                                 .opacity(editText2.isEmpty ? 0.5 : 1)
                         }
-                        Text("100文字以内のみ設定可能です")
+                        Text("\(maxLength)文字以内のみ設定可能です")
                             .font(.caption)
-                            .foregroundColor(editText2.count > 10 ? .red : .clear)
+                            .foregroundColor(editText2.count > maxLength ? .red : .clear)
                     }
                 
                 Spacer()
@@ -102,12 +104,12 @@ struct TutorialView2: View {
                         page = 3
                     } label: {
                         TutorialButton(labelString: "次へ", labelImage: "arrowshape.right")
-                            .foregroundColor(!editText.isEmpty && !editText2.isEmpty && editText.count <= 10 && editText2.count <= 10 ? .green : .gray)
+                            .foregroundColor(!editText.isEmpty && !editText2.isEmpty && editText.count <= maxLength && editText2.count <= maxLength ? .green : .gray)
                     }
                     ///次へボタンの無効判定
-                   .disabled(editText.isEmpty || editText2.isEmpty || editText.count > 10 || editText2.count > 10)
+                   .disabled(editText.isEmpty || editText2.isEmpty || editText.count > maxLength || editText2.count > maxLength)
                 }
-                .padding(.bottom)
+                .padding(.bottom, 30)
                 }
 
         .frame(minHeight: AppSetting.screenHeight/1.6)

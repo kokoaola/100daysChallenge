@@ -39,7 +39,7 @@ struct makeNewItemSheet: View {
     @AppStorage("colorkeyBottom") var storedColorBottom: Color = .green
 
     var body: some View {
-        NavigationView{
+        NavigationStack{
             
             
             VStack(spacing: 20){
@@ -51,33 +51,33 @@ struct makeNewItemSheet: View {
                     } label: {
                         Image(systemName: "xmark")
                             .font(.title2)
-                            .foregroundColor(.red)
                             .frame(maxWidth: .infinity, alignment: .leading)
                     }
 
                     ///画面タイトル
-                    Text("新規作成")
-                        .font(.title3)
-                        .foregroundColor(Color(UIColor.label))
+                    Text("過去の記録を追加")
+                        .font(.title2)
+
                     Spacer()
                 }
-
-                ///選択された日付が有効ではない時に表示する警告
-                    Label("選択した日はすでに記録が存在しています。", systemImage: "exclamationmark.circle")
-                        .font(.footnote)
-                        .padding(5)
-                        .foregroundColor(isVailed ? .clear : .red)
-                        .cornerRadius(10)
+                .padding(.bottom, 30)
                 
                 
                 ///上のデートピッカー
-                DatePicker(selection: $theDate, in: dateClosedRange, displayedComponents: .date, label: {Text("日付")})
-                    .foregroundColor(Color(UIColor.label))
-                    .datePickerStyle(.compact)
-                    .padding(.top, -10)
-                    .labelsHidden()
-            
+                HStack(alignment: .top){
+                    Text("日付")
+                    Spacer()
+                    DatePicker(selection: $theDate, in: dateClosedRange, displayedComponents: .date, label: {Text("追加する日付")})
+                        .environment(\.locale, Locale(identifier: "ja-Jp"))
+                        .datePickerStyle(.compact)
+                        .padding(.top, -10)
+                        .labelsHidden()
+                }.foregroundColor(Color(UIColor.label))
                 ///メモ編集用のテキストエディター
+                HStack{
+                    Text("メモ")
+                    Spacer()
+                }
                 TextEditor(text: $editText)
                     .foregroundColor(Color(UIColor.label))
                     .lineSpacing(10)
@@ -87,6 +87,13 @@ struct makeNewItemSheet: View {
                     .frame(height: 300)
                     .focused($isInputActive)
                     
+                
+                ///選択された日付が有効ではない時に表示する警告
+                Label("選択した日はすでに記録が存在しています。", systemImage: "exclamationmark.circle")
+                    .font(.footnote)
+                    .padding(5)
+                    .foregroundColor(isVailed ? .clear : .red)
+                    .cornerRadius(10)
                 
                 ///保存ボタン
                 Button{
@@ -101,10 +108,13 @@ struct makeNewItemSheet: View {
                         .foregroundColor(isVailed ? .green : .gray)
                         .opacity(isVailed ? 1.0 : 0.5)
                 }
-                .padding()
+                //.padding()
                 .disabled(isVailed == false)
             
             }
+            .foregroundColor(.primary)
+            
+        
             .padding()
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
             .background(.ultraThinMaterial)

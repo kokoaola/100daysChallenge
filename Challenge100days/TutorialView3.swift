@@ -56,7 +56,7 @@ struct TutorialView3: View {
                     }
                     
                 }
-                .padding(.bottom)
+                .padding(.bottom, 30)
                 .frame(maxWidth: .infinity, alignment: .bottom)
                 
             }
