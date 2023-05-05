@@ -29,31 +29,33 @@ struct CompleteView: View {
     
     var body: some View {
         
-        VStack{
+       // VStack{
             
             ///四角に画像とボタンを重ねてる
             VStack{
                 
-                ///取り消しボタン（押すと確認アラートを表示）
+                ///閉じるボタン
                 Button(action: {
                     showCompleteWindew = false
                 }){
                     Image(systemName: "xmark")
                         .font(.title3).foregroundColor(.primary)
-                }.frame(maxWidth: .infinity,minHeight: 30, alignment: .topLeading)
+                }.frame(maxWidth: .infinity,minHeight: 40, alignment: .topLeading)
+                    .padding(.top)
                 
                 
                 VStack{
                     Text("\(dayNumber)日目のチャレンジ達成！")
                     Text("よく頑張ったね！")
+                    ///コンプリート画像
+                    image?
+                        .resizable().scaledToFit()
                 }
                 .foregroundColor(Color(UIColor.label))
+                .padding(.bottom, 40)
                 
                 
-                ///コンプリート画像
-                image?
-                    .resizable().scaledToFit()
-                
+
                 
                 ///シェアボタン
                 ShareLink(item: image ?? Image("noImage") , preview: SharePreview("画像", image:image ?? Image("noImage"))){
@@ -78,8 +80,8 @@ struct CompleteView: View {
             .cornerRadius(15)
             
             
-        }
-        .padding(.bottom, 50)
+        //}
+        //.padding(.bottom, 50)
         
         
         ///画面表示時にコンプリート画像を生成して表示
@@ -92,29 +94,6 @@ struct CompleteView: View {
             MemoSheet()
         }
     }
-    
-    
-    ///削除用の関数
-    func delete() async{
-        if let item = days.last{
-            moc.delete(item)
-            try? moc.save()
-        }
-    }
-    
-    ///データ保存後の番号振り直し用の関数
-    func reNumber() async{
-        await MainActor.run{
-            var counter = Int16(0)
-            for i in days{
-                counter += 1
-                i.num = counter
-                try? moc.save()
-            }
-        }
-    }
-    
-    
 }
 
 
