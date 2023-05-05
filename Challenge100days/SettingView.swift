@@ -22,108 +22,160 @@ struct SettingView: View {
     @State var isEdit = false
     @State var isLong = false
     
+    @State var isButtonPressed = false
+    @State var myName = ""
+    
+    
+    ///長期目標再設定用
+    ///アラート表示
+    @State var isLongTermGoalEditedAlert = false
+    ///編集中の文章の格納
+    @State var currentLongTermGoal = ""
+    ///現在の目標
+    @AppStorage("longTermGoal") var longTermGoal: String = ""
+    
+    ///アラート表示
+    @State var isShortTermGoalEditedAlert = false
+    ///編集中の文章の格納
+    @State var currentShortTermGoal = ""
+    ///現在の目標
+    @AppStorage("shortTermGoal") var shortTermGoal: String = ""
+    
+    
     var body: some View {
-        
-        ZStack{
+        NavigationStack{
             
-            VStack(spacing: 50) {
-                List{
-                    Section(){
-                        Picker(selection: $selectedColor) {
-                            Text("青").tag(0)
-                            Text("オレンジ").tag(1)
-                            Text("紫").tag(2)
-                            Text("モノトーン").tag(3)
-                        } label: {
-                            Text("アプリの色を変更する")
-                        }
+            ZStack{
+                
+                VStack(spacing: 50) {
+                    List{
+                        Section(){
+                            Picker(selection: $selectedColor) {
+                                Text("青").tag(0)
+                                Text("オレンジ").tag(1)
+                                Text("紫").tag(2)
+                                Text("モノトーン").tag(3)
+                            } label: {
+                                Text("アプリの色を変更する")
+                            }
                             Toggle("目標を表示", isOn: $showInfomation)
-                            .tint(.green)
-                                //.frame(width: AppSetting.screenWidth * 0.4)
+                                .tint(.green)
+                            //.frame(width: AppSetting.screenWidth * 0.4)
+                        }
+                        
+                        Section{
+                            
+                            
+//                            NavigationLink {
+//                                EditGoal(isLong: true, isEdit: $isEdit)
+//                            } label: {
+//                                Text("１００日後のビジョンを変更する")
+//                            }
+//
+//
+//
+//                            NavigationLink {
+//                                EditGoal(isLong: false, isEdit: $isEdit)
+//                            } label: {
+//                                Text("日々取り組む内容を変更する")
+//                            }
+                            
+                            
+                            Button("目標を変更する") {
+                                isLongTermGoalEditedAlert = true
+                                currentLongTermGoal = longTermGoal
+                            }
+                            
+                            Button("100日取り組む内容を変更する") {
+                                isShortTermGoalEditedAlert = true
+                                currentShortTermGoal = shortTermGoal
+                            }
+                            
+                            
+                        
+                            
+                            
+                        }
+                        
+                        Section{
+                            NavigationLink {
+                                AboutThisApp()
+                            } label: {
+                                Text("このアプリについて")
+                            }
+                            
+                            NavigationLink {
+                                AboutThisApp()
+                            } label: {
+                                Text("プライバシーポリシー")
+                            }
+                            
+                            NavigationLink {
+                                BackUpView()
+                            } label: {
+                                Text("バックアップ")
+                            }
+                            
+                            NavigationLink {
+                                AboutThisApp()
+                            } label: {
+                                Text("お問い合わせ")
+                            }
+                        }
+                        
+                        Section{
+                            HStack{
+                                Spacer()
+                                Text("リセット")
+                                    .foregroundColor(.red)
+                                Spacer()
+                            }
+                            .contentShape(Rectangle())
+                            .onTapGesture {
+                                isRiset = true
+                            }
+                        }
+                        
                     }
-                    
-                    Section{
-                        
-                        
-                        NavigationLink {
-                            EditGoal(isLong: true, isEdit: $isEdit)
-                        } label: {
-                            Text("１００日後のビジョンを変更する")
-                        }
-                        
-                        
-                        
-                        NavigationLink {
-                            EditGoal(isLong: false, isEdit: $isEdit)
-                        } label: {
-                            Text("日々取り組む内容を変更する")
-                        }
-                        
-                        
-                    }
-                    
-                    Section{
-                        NavigationLink {
-                            AboutThisApp()
-                        } label: {
-                            Text("このアプリについて")
-                        }
-                        
-                        NavigationLink {
-                            AboutThisApp()
-                        } label: {
-                            Text("プライバシーポリシー")
-                        }
-                        
-                        NavigationLink {
-                           BackUpView()
-                        } label: {
-                            Text("バックアップ")
-                        }
-                        
-                        NavigationLink {
-                            AboutThisApp()
-                        } label: {
-                            Text("お問い合わせ")
-                        }
-                    }
-                    
-                    Section{
-                        HStack{
-                            Spacer()
-                            Text("リセット")
-                                .foregroundColor(.red)
-                            Spacer()
-                        }
-                        .contentShape(Rectangle())
-                        .onTapGesture {
-                            isRiset = true
-                        }
-                    }
+                    .disabled(isEdit)
+                    .foregroundColor(Color(UIColor.label))
                     
                 }
-                .disabled(isEdit)
-                .foregroundColor(Color(UIColor.label))
                 
+                
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+                .scrollContentBackground(.hidden)
+                .background(.secondary)
+                
+                .foregroundStyle(
+                    .linearGradient(
+                        colors: [storedColorTop, storedColorBottom],
+                        startPoint: .topLeading,
+                        endPoint: .bottomTrailing
+                    )
+                )
             }
             
-            
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-            .scrollContentBackground(.hidden)
-            .background(.secondary)
-            
-            .foregroundStyle(
-                .linearGradient(
-                    colors: [storedColorTop, storedColorBottom],
-                    startPoint: .topLeading,
-                    endPoint: .bottomTrailing
-                )
-            )
-
-            
-            
-            
         }
+        
+        .alert("目指している姿", isPresented: $isLongTermGoalEditedAlert) {
+            //Actions
+            TextField("入力してください", text: $currentLongTermGoal)
+            Button("キャンセル", role: .destructive){}
+            Button("決定", role: .cancel){}
+        } message: {
+            //Text("※一度変更すると元には戻せないので注意してください。")
+        }
+        
+        .alert("100日間取り組む内容", isPresented: $isShortTermGoalEditedAlert) {
+            //Actions
+            TextField("入力してください", text: $currentShortTermGoal)
+            Button("キャンセル", role: .destructive){}
+            Button("決定", role: .cancel){}
+        } message: {
+            //Text("※一度変更すると元には戻せないので注意してください。")
+        }
+        
         
         .onChange(of: selectedColor) { newValue in
             switch newValue{
@@ -163,8 +215,9 @@ struct SettingView: View {
         }message: {
             Text("この動作は取り消せません。")
         }
-        
     }
+    
+
     
     ///削除用の関数
     func delete(){
