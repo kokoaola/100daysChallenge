@@ -73,6 +73,7 @@ struct makeNewItemSheet: View {
                         .padding(.top, -10)
                         .labelsHidden()
                 }.foregroundColor(Color(UIColor.label))
+                
                 ///メモ編集用のテキストエディター
                 HStack{
                     Text("メモ")
