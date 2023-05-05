@@ -115,11 +115,14 @@ struct EditGoal: View {
     
     ///データ保存用関数
     func save() async{
-        await MainActor.run{
-            if isLong{
-                longTermGoal = editText
-            }else{
-                shortTermGoal = editText
+        if !editText.isEmpty && AppSetting.maxLngthOfTerm >= editText.count{
+            
+            await MainActor.run{
+                if isLong{
+                    longTermGoal = editText
+                }else{
+                    shortTermGoal = editText
+                }
             }
         }
     }

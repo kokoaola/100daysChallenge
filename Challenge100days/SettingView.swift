@@ -83,7 +83,7 @@ struct SettingView: View {
                             
                             
                             Button("目標を変更する") {
-                                withAnimation {
+                                withAnimation(.easeOut(duration: 0.1)) {
                                     isLongTermGoalEditedAlert = true
                                 }
                                 //isLongTermGoalEditedAlert = true
@@ -91,7 +91,7 @@ struct SettingView: View {
                             }
                             
                             Button("100日取り組む内容を変更する") {
-                                withAnimation {
+                                withAnimation(.easeOut(duration: 0.1)) {
                                     isShortTermGoalEditedAlert = true
                                 }
                                 //isShortTermGoalEditedAlert = true
@@ -164,11 +164,15 @@ struct SettingView: View {
                 
                 if isLongTermGoalEditedAlert{
                     VStack{
-                        EditGoal(showAlert: $isLongTermGoalEditedAlert, isLong: true)
-//                            .transition(.scale)
+//                        withAnimation(.easeInOut(duration: 0.1)) {
+                            EditGoal(showAlert: $isLongTermGoalEditedAlert, isLong: true)
+                        //}
+                            .transition(.offset(CGSizeZero))
 //                            .animation(.spring(), value: 0.5)
                     }
                     .background(.black.opacity(0.6))
+                    //.transition(.scale)
+                    //.animation(.easeInOut(duration: 0.5))
                     .onTapGesture {
                         //isLongTermGoalEditedAlert = false
                         //print("AA")
