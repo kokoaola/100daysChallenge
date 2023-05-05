@@ -28,22 +28,14 @@ struct BackUpView: View {
     
     var body: some View {
         VStack{
-            
-            ///画面タイトル
-            //Text("バックアップ").font(.title3)
-              //  .foregroundColor(Color(UIColor.label))
-            
+
             ///テキストエディター
             TextEditor(text: $string)
                 .foregroundColor(Color(UIColor.label))
-            //.lineSpacing(1)
                 .scrollContentBackground(Visibility.hidden)
                 .background(.ultraThinMaterial)
                 .border(.white, width: 1)
-            //.frame(maxHeight: Setting.screenHeight)
                 .focused($isInputActive)
-            //.fixedSize(horizontal: false, vertical: true)
-            //.frame(maxHeight: Setting.screenHeight)
                 .padding()
             
                 .onReceive(NotificationCenter.default.publisher(for: UITextField.textDidBeginEditingNotification)) { obj in
@@ -55,9 +47,6 @@ struct BackUpView: View {
             
         }
         .navigationTitle(Text("バックアップ"))
-        //.padding()
-        //.frame(maxHeight: .infinity, alignment: .top)
-        //.fixedSize(horizontal: false, vertical: true)
         ///グラデーション背景設定
         .background(.ultraThinMaterial)
         .background(.secondary)
@@ -84,17 +73,8 @@ struct BackUpView: View {
         .onAppear{print(days.count)
             for item in days{
                 string = string + "\n" + "Day" + String(item.num) + "  " +  makeDate(day: item.date ?? Date.now) + "\n" + (item.memo ?? "") + "\n"
-                //                    if item.memo != ""{
-                //                        string = string + "\n" + "Day" + String(item.num) + "  " +  makeDate(day: item.date ?? Date.now) + "\n" + (item.memo ?? "") + "\n"
-                //                    }else{
-                //                        string = string + "\n" + "Day" + String(item.num) + "  " +  makeDate(day: item.date ?? Date.now) + "\n" }
-                //item.date
-                
             }
-            //string = "afoajfioer"
         }
-        
-        
     }
 }
 

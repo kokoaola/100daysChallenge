@@ -18,7 +18,7 @@ struct MemoSheet: View {
     
     ///画面破棄用
     @Environment(\.dismiss) var dismiss
-
+    
     ///編集文章格納用
     @State var editText = ""
     
@@ -40,14 +40,14 @@ struct MemoSheet: View {
                                 .font(.title2).foregroundColor(.primary)
                                 .frame(maxWidth: .infinity, alignment: .leading)
                         }
-
+                        
                         ///画面タイトル
                         Text("メモの追加").font(.title3)
                             .foregroundColor(Color(UIColor.label))
                         
                     }//ZStackここまで
                     .padding()
-
+                    
                     ///テキストエディター
                     TextEditor(text: $editText)
                         .foregroundColor(Color(UIColor.label))
@@ -63,7 +63,7 @@ struct MemoSheet: View {
                         .font(.footnote)
                         .padding(5)
                         .foregroundColor(editText.count > AppSetting.maxLngthOfMemo ? .red : .clear)
-
+                    
                     
                     ///保存ボタン
                     Button {
@@ -114,7 +114,7 @@ struct MemoSheet: View {
                 editText = days.last?.memo ?? ""
             }
         }
-
+        
     }
 }
 
@@ -123,6 +123,6 @@ struct MemoSheet_Previews: PreviewProvider {
     
     static var previews: some View {
         MemoSheet()
-            //.environment(\.managedObjectContext, dataController.container.viewContext)
+        //.environment(\.managedObjectContext, dataController.container.viewContext)
     }
 }

@@ -32,70 +32,66 @@ struct ListView: View {
                 
                 ///CoreDataに保存されている全データを取り出す
                 ForEach(items) { item in
-
-
+                    
+                    
                     ///タップするとDetailを表示
                     NavigationLink(destination: {
-
+                        
                         DetailView(item: item)
-
+                        
                     }){
-
+                        
                         HStack(alignment: .center){
-                                ZStack{
-                                    ///青いセルに番号を重ねて左端に表示
-                                    Text("\(item.num)")
-                                        .font(.title2) .foregroundColor(.white)
-                                        .frame(width: AppSetting.screenWidth * 0.12, height: AppSetting.screenWidth * 0.12)
-                                        .background(.blue).cornerRadius(15)
-                                        //.padding(.trailing)
-                                        //.frame(maxHeight: .infinity, alignment: .top)
-                                    
-                                    ///最終アイテム追加してから１日以内ならキラキラを表示
-                                    Image(systemName: "sparkles")
-                                        .offset(x:14, y:-14)
-                                        .foregroundColor(Calendar.current.isDate(Date.now, equalTo: item.date ?? Date.now, toGranularity: .day) ? .yellow : .clear)
-                                }
-                                .padding(.trailing, 5)
+                            ZStack{
+                                ///青いセルに番号を重ねて左端に表示
+                                Text("\(item.num)")
+                                    .font(.title2) .foregroundColor(.white)
+                                    .frame(width: AppSetting.screenWidth * 0.12, height: AppSetting.screenWidth * 0.12)
+                                    .background(.blue).cornerRadius(15)
+                                
+                                ///最終アイテム追加してから１日以内ならキラキラを表示
+                                Image(systemName: "sparkles")
+                                    .offset(x:14, y:-14)
+                                    .foregroundColor(Calendar.current.isDate(Date.now, equalTo: item.date ?? Date.now, toGranularity: .day) ? .yellow : .clear)
+                            }
+                            .padding(.trailing, 5)
                             
                             ///メモの内容を表示（プレビュー用のため改行はスペースに変換）
                             VStack{
                                 Text(item.memo?.replacingOccurrences(of: "\n", with: " ") ?? "")
-                                    
+                                
                                     .lineSpacing(1)
                                     .frame(maxWidth: .infinity,maxHeight: .infinity,alignment: .topLeading)
                                     .multilineTextAlignment(.leading)
                                     .foregroundColor(Color(UIColor.label))
-                                    //.background()
-
+                                
                                 ///日付を右下に配置
                                 Text(makeDate(day: item.date ?? Date()))
                                     .foregroundColor(.secondary)
                                     .frame(maxWidth: .infinity,alignment: .bottomTrailing)
-                                    //.background()
-
+                                
                             }.frame(maxWidth: .infinity,maxHeight: .infinity)
-                            .font(.footnote)
+                                .font(.footnote)
                             
                             
                             ///右の矢印
                             Image(systemName: "chevron.forward")
                                 .fontWeight(.thin)
                                 .foregroundColor(.gray)
-
+                            
                         }
                         ///１行あたり縦が最大150pxまで大きくなれる
                         .frame(maxHeight: 150)
                         .fixedSize(horizontal: false, vertical: true)
-
+                        
                     }
-
+                    
                     ///ラインの表示
                     if (items.firstIndex(of: item) ?? items.count) + 1 < items.count{
                         Divider()
                             .padding(.vertical, 5)
                     }
-
+                    
                 }
             }
             
@@ -113,9 +109,7 @@ struct ListView_Previews: PreviewProvider {
     
     
     static var previews: some View {
-        
         ListView()
-        // .environment(\.managedObjectContext, dataController.container.viewContext)
     }
 }
 
@@ -127,16 +121,3 @@ func makeDate(day: Date)-> String{
 }
 
 
-//static var previews: some View {
-//    let book = Book(context: moc)
-//
-//    //book.id = UUID()
-//    book.title = "Test book"
-//    book.author = "Test author"
-//    book.genre = "Horror"
-//    book.rating = 4
-//    book.review = "This was a great book; I really enjoyed it."
-//    return NavigationView {
-//        DetailView(book: book)
-//    }
-//    }

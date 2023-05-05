@@ -18,7 +18,7 @@ struct makeNewItemSheet: View {
     
     ///キーボードフォーカス用変数（Doneボタン表示のため）
     @FocusState var isInputActive: Bool
-
+    
     ///入力したテキストを格納するプロパティ
     @State private var editText = ""
     
@@ -37,7 +37,7 @@ struct makeNewItemSheet: View {
     
     @AppStorage("colorkeyTop") var storedColorTop: Color = .blue
     @AppStorage("colorkeyBottom") var storedColorBottom: Color = .green
-
+    
     var body: some View {
         NavigationStack{
             
@@ -53,11 +53,11 @@ struct makeNewItemSheet: View {
                             .font(.title2)
                             .frame(maxWidth: .infinity, alignment: .leading)
                     }
-
+                    
                     ///画面タイトル
                     Text("過去の記録を追加")
                         .font(.title2)
-
+                    
                     Spacer()
                 }
                 .padding(.bottom, 30)
@@ -87,7 +87,7 @@ struct makeNewItemSheet: View {
                     .border(.white)
                     .frame(height: 300)
                     .focused($isInputActive)
-                    
+                
                 
                 ///選択された日付が有効ではない時に表示する警告
                 if !isVailed{
@@ -117,16 +117,16 @@ struct makeNewItemSheet: View {
                         .foregroundColor(editText.count <= AppSetting.maxLngthOfMemo && isVailed ? .green : .gray)
                         .opacity(editText.count <= AppSetting.maxLngthOfMemo && isVailed ? 1.0 : 0.5)
                     
-//                        .foregroundColor(isVailed ? .green : .gray)
-//                        .opacity(isVailed ? 1.0 : 0.5)
+                    //                        .foregroundColor(isVailed ? .green : .gray)
+                    //                        .opacity(isVailed ? 1.0 : 0.5)
                 }
                 //.padding()
                 .disabled(isVailed == false || editText.count > AppSetting.maxLngthOfMemo)
-            
+                
             }
             .foregroundColor(.primary)
             
-        
+            
             .padding()
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
             .background(.ultraThinMaterial)
@@ -157,7 +157,7 @@ struct makeNewItemSheet: View {
                 ///フェッチリクエストに存在するアイテムの日付とダブってればSaveボタンを無効にしてリターン
                 for item in items{
                     if Calendar.current.isDate(item.date!, equalTo: yesterday , toGranularity: .day){
-
+                        
                         isVailed = false
                         return
                     }
@@ -181,7 +181,7 @@ struct makeNewItemSheet: View {
         }
         
     }
-
+    
     ///データ保存用関数
     func save() async{
         await MainActor.run{
@@ -197,7 +197,7 @@ struct makeNewItemSheet: View {
     ///データ保存後の番号振り直し用の関数
     func reNumber() async{
         await MainActor.run{
-        var counter = Int16(0)
+            var counter = Int16(0)
             for item in items{
                 counter += 1
                 item.num = counter

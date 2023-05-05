@@ -26,61 +26,61 @@ struct CompleteView: View {
     var dayNumber: Int{
         days.isEmpty ? 1 : days.count
     }
-
+    
     var body: some View {
+        
+        VStack{
             
+            ///四角に画像とボタンを重ねてる
             VStack{
-
-                ///四角に画像とボタンを重ねてる
-                VStack{
-                    
-                    ///取り消しボタン（押すと確認アラートを表示）
-                    Button(action: {
-                        showCompleteWindew = false
-                    }){
-                        Image(systemName: "xmark")
-                            .font(.title3).foregroundColor(.primary)
-                    }.frame(maxWidth: .infinity,minHeight: 30, alignment: .topLeading)
-                    
-                    
-                    VStack{
-                        Text("\(dayNumber)日目のチャレンジ達成！")
-                        Text("よく頑張ったね！")
-                    }
-                    .foregroundColor(Color(UIColor.label))
-
-                    
-                    ///コンプリート画像
-                    image?
-                        .resizable().scaledToFit()
-                    
-                    
-                    ///シェアボタン
-                    ShareLink(item: image ?? Image("noImage") , preview: SharePreview("画像", image:image ?? Image("noImage"))){
-                        OriginalButton(labelString: "シェアする", labelImage: "square.and.arrow.up")
-                            .foregroundColor(.blue.opacity(0.9))
-                            .padding()
-                    }
-                    
-                    
-                    ///メモ追加ボタン
-                    Button {
-                        showMemo = true
-                    } label: {
-                        OriginalButton(labelString:(days.last?.memo == "") ? "メモを追加" : "メモを編集", labelImage: "rectangle.and.pencil.and.ellipsis")
-                            .foregroundColor(.green.opacity(0.9))
-                            .padding(.bottom)
-                    }
-                    
-                }
-                .padding()
-                .background(.thinMaterial)
-                .cornerRadius(15)
                 
-   
+                ///取り消しボタン（押すと確認アラートを表示）
+                Button(action: {
+                    showCompleteWindew = false
+                }){
+                    Image(systemName: "xmark")
+                        .font(.title3).foregroundColor(.primary)
+                }.frame(maxWidth: .infinity,minHeight: 30, alignment: .topLeading)
+                
+                
+                VStack{
+                    Text("\(dayNumber)日目のチャレンジ達成！")
+                    Text("よく頑張ったね！")
+                }
+                .foregroundColor(Color(UIColor.label))
+                
+                
+                ///コンプリート画像
+                image?
+                    .resizable().scaledToFit()
+                
+                
+                ///シェアボタン
+                ShareLink(item: image ?? Image("noImage") , preview: SharePreview("画像", image:image ?? Image("noImage"))){
+                    OriginalButton(labelString: "シェアする", labelImage: "square.and.arrow.up")
+                        .foregroundColor(.blue.opacity(0.9))
+                        .padding()
+                }
+                
+                
+                ///メモ追加ボタン
+                Button {
+                    showMemo = true
+                } label: {
+                    OriginalButton(labelString:(days.last?.memo == "") ? "メモを追加" : "メモを編集", labelImage: "rectangle.and.pencil.and.ellipsis")
+                        .foregroundColor(.green.opacity(0.9))
+                        .padding(.bottom)
+                }
+                
             }
-            .padding(.bottom, 50)
+            .padding()
+            .background(.thinMaterial)
+            .cornerRadius(15)
             
+            
+        }
+        .padding(.bottom, 50)
+        
         
         ///画面表示時にコンプリート画像を生成して表示
         .onAppear{
@@ -91,31 +91,15 @@ struct CompleteView: View {
         .sheet(isPresented: $showMemo) {
             MemoSheet()
         }
-        
-        ///取り消しボタン押下時のアラート
-//        .alert("今日の記録を破棄しますか？", isPresented: $showCansel){
-//            Button("破棄する",role: .destructive){
-//
-//                Task{
-//                    await  delete()
-//                    //await reNumber()
-//                }
-//                isComplete = false
-//            }
-//            Button("戻る",role: .cancel){}
-//        }message: {
-//            Text("本日のデータとメモは破棄されます。\n（破棄したデータは元に戻せません。）")
-//        }
-        
     }
     
-
+    
     ///削除用の関数
     func delete() async{
-            if let item = days.last{
-                moc.delete(item)
-                try? moc.save()
-            }
+        if let item = days.last{
+            moc.delete(item)
+            try? moc.save()
+        }
     }
     
     ///データ保存後の番号振り直し用の関数

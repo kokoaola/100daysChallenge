@@ -148,13 +148,12 @@ struct DetailView: View {
                     }
                     isInputActive = false
                 }
-                //.disabled(true)
                 
                 .foregroundColor(editText.count <= AppSetting.maxLngthOfMemo ? .primary : .gray)
                 .opacity(editText.count <= AppSetting.maxLngthOfMemo ? 1.0 : 0.5)
                 .disabled(editText.count > AppSetting.maxLngthOfMemo)
-            
-            
+                
+                
             }
             
             

@@ -44,41 +44,12 @@ struct ActionView: View {
                 
                 ///今日のミッションが未達成ならボタンのビューを表示
                 VStack(spacing: 20){
-//                    HStack{
-//                        //Text("目標を表示")
-//                        //                        Image(systemName: "chevron.right.circle")
-//                        //                            .imageScale(.large)
-//                        //                            .fontWeight(.thin)
-//                        //                            .rotationEffect(.degrees(showInfomation ? 90 : 0))
-//                        //                            .animation(.spring(), value: showInfomation)
-//                        
-//                        Toggle("目標を表示", isOn: $showInfomation)
-//                            .frame(width: AppSetting.screenWidth * 0.4)
-//                        Spacer()
-//                    }
-//                    .frame(width: AppSetting.screenWidth * 0.8)
-//                    .foregroundColor(Color(UIColor.label))
-//                    //.padding(.top)
-//                    .onTapGesture {
-//                        withAnimation{
-//                            showInfomation.toggle()
-//                        }
-//                    }
                     
                     VStack(){
-
+                        
                         VStack{
-                            //Spacer()
                             if showInfomation{
                                 VStack(alignment: .leading, spacing: 0){
-//                                    HStack{
-//                                        //Text("開始した日  :  ").font(.caption)
-//                                        //Text("\( makeDate(day:days.first?.date ?? Date.now))〜")
-//                                        //.font(.body)
-//                                          //  .font(.callout)
-//                                    }
-//                                    .frame(width: AppSetting.screenWidth * 0.75 ,alignment: .leading)
-//                                    .padding(.bottom, 5)
                                     
                                     Text("目指している姿  :  ").font(.caption)
                                         .frame(width: AppSetting.screenWidth * 0.8, alignment: .leading)
@@ -91,39 +62,29 @@ struct ActionView: View {
                                         .frame(width: AppSetting.screenWidth * 0.8, alignment: .leading)
                                     Text("\(shortTermGoal)")
                                         .font(.callout)
-                                        .frame(width: AppSetting.screenWidth * 0.75 ,alignment: .center)
-                                        //.padding(.bottom, 5)
-                                    
+                                        .frame(width: AppSetting.screenWidth * 0.75 ,alignment: .center)   
                                 }
                                 
                                 
                                 .frame(width: AppSetting.screenWidth * 0.8)
-                                //.frame(maxHeight: AppSetting.screenWidth * 0.88)
-                                //.background(.thinMaterial)
                                 .fontWeight(.medium)
-                                //.cornerRadius(15)
                                 .foregroundColor(.primary)
-                                //.fontWeight(.light)
-                                //Spacer()
                                 .padding(.vertical, 30)
                             }
-                                
                             
-                            
-                            //.font(.footnote)
                         }.frame(maxHeight: AppSetting.screenHeight/5)
                     }
                     
-                   
-                
-
+                    
+                    
+                    
                     
                     SpeechBubble2()
                         .rotation(Angle(degrees: 180))
                         .foregroundColor(.white)
                         .overlay{
                             VStack{
-
+                                
                                 VStack{
                                     Text(isComplete ? "本日のチャレンジは達成済みです。\nお疲れ様でした！" : "今日の取り組みが終わったら、\nボタンを押して完了しよう" )
                                     
@@ -147,7 +108,7 @@ struct ActionView: View {
                         }
                         .frame(width: AppSetting.screenWidth * 0.8, height: AppSetting.screenWidth * 0.3)
                         .opacity(0.8)
-                        
+                    
                     
                     
                     ///Completeボタンが押されたら本日分のDailyDataを保存
@@ -208,8 +169,6 @@ struct ActionView: View {
                     isComplete = true
                 }
             }
-            //.navigationTitle("100days Challenge")
-            //.navigationBarTitleDisplayMode(.inline)
         }
     }
 }

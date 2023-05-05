@@ -41,13 +41,8 @@ struct ListAndCardView: View {
             ScrollView(.vertical, showsIndicators: false){
                 
                 HStack(){
-                    //HStack{
                         Text("開始日 : \( makeDate(day:items.first?.date ?? Date.now))")
                         .font(.footnote)
-                    //}
-                    //.frame(width: AppSetting.screenWidth * 0.75 ,alignment: .leading)
-                    //.padding(.bottom, 5)
-                    
                     
                     Spacer()
                     Picker("", selection: $showList){
