@@ -17,10 +17,39 @@ struct AppSetting{
     
     ///文字の色
     static let labelColr = Color(UIColor.label)
-
+    
     /// 全画像名を格納した配列
-         static let photos = ["Alejandro Ortiz2", "Alejandro Ortiz3", "Pawel Czerwinski", "Paul Volkmer","Daria Nepriakhina", "Gradienta","Alejandro Ortiz", "Jason Leung",  "Alejandro Ortiz4"]
-//    static let photos = ["noImage", "Alejandro Ortiz2", "Alejandro Ortiz3", "Pawel Czerwinski", "Dayne Topkin", "Paul Volkmer","Shahadat Rahman","Daria Nepriakhina", "Gradienta","Alejandro Ortiz", "Jason Leung",  "Alejandro Ortiz4"]
+    static let photos =
+    [     //紙吹雪
+        "Jason Leung",
+        
+        //グラフィック
+        "Alejandro Ortiz",
+        
+        //オーロラ
+        "Yang Xi",
+        
+        //グラフィック
+        "Alejandro Ortiz2",
+        
+        //宇宙星たくさん
+        "Paul Volkmer",
+        
+        //グラフィック
+        "Alejandro Ortiz3",
+        
+        //お花
+        "Daria Nepriakhina",
+        
+        //グラフィック
+        "Alejandro Ortiz4",
+        
+        //宇宙ぐるぐる
+        "Pawel Czerwinski",
+        
+        //グラデーション
+        "Codioful (Formerly Gradienta)"
+    ]
     
     ///目標の文字の上限
     static let maxLngthOfTerm = 50

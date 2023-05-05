@@ -15,6 +15,7 @@ struct CardView: View {
     ///グリッドレイアウトの設定用変数
     let columns = Array(repeating: GridItem(.flexible()), count: 10)
     
+    
     var body: some View {
         
         ///ビュー重ねる用のZStack
@@ -49,7 +50,7 @@ struct CardView: View {
             
             
             
-            ///全面のコンプリート済みのセル表示用ビュー（タップした時のリンク先は詳細ビュー）
+            ///前面の塗りつぶしセル表示用ビュー（タップした時のリンク先は詳細ビュー）
             LazyVGrid(columns: columns) {
                 
                 ///CoreDataに保存されている全データを取り出す
@@ -68,6 +69,7 @@ struct CardView: View {
                                 Image(systemName:"app.fill")
                                     .font(.title.weight(.thin))
                                     .foregroundColor(.blue)
+                                
                                 
                                 ///最終アイテム追加してから１日以内ならキラキラを表示
                                 Image(systemName: "sparkles")
