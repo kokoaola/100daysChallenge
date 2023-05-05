@@ -20,7 +20,7 @@ struct MemoSheet: View {
     @Environment(\.dismiss) var dismiss
 
     ///編集文章格納用
-    @State var string = ""
+    @State var editText = ""
     
     @AppStorage("colorkeyTop") var storedColorTop: Color = .blue
     @AppStorage("colorkeyBottom") var storedColorBottom: Color = .green
@@ -28,7 +28,7 @@ struct MemoSheet: View {
     var body: some View {
         NavigationView{
             ZStack{
-                VStack(spacing: 30){
+                VStack(spacing: 20){
                     
                     ZStack{
                         
@@ -37,7 +37,7 @@ struct MemoSheet: View {
                             dismiss()
                         } label: {
                             Image(systemName: "xmark")
-                                .font(.title2).foregroundColor(.red)
+                                .font(.title2).foregroundColor(.primary)
                                 .frame(maxWidth: .infinity, alignment: .leading)
                         }
 
@@ -46,10 +46,10 @@ struct MemoSheet: View {
                             .foregroundColor(Color(UIColor.label))
                         
                     }//ZStackここまで
-                    
+                    .padding()
 
                     ///テキストエディター
-                    TextEditor(text: $string)
+                    TextEditor(text: $editText)
                         .foregroundColor(Color(UIColor.label))
                         .lineSpacing(10)
                         .scrollContentBackground(Visibility.hidden)
@@ -59,16 +59,25 @@ struct MemoSheet: View {
                         .focused($isInputActive)
                     
                     
+                    Label("\(AppSetting.maxLngthOfMemo)文字以内のみ設定可能です", systemImage: "exclamationmark.circle")
+                        .font(.footnote)
+                        .padding(5)
+                        .foregroundColor(editText.count > AppSetting.maxLngthOfMemo ? .red : .clear)
+
+                    
                     ///保存ボタン
                     Button {
-                        days.last?.memo = string
+                        days.last?.memo = editText
                         try? moc.save()
                         dismiss()
                     } label: {
                         OriginalButton(labelString: "保存する", labelImage: "checkmark.circle")
-                            .foregroundColor(.green)
+                            .foregroundColor(editText.count <= AppSetting.maxLngthOfMemo ? .green : .gray)
+                            .opacity(editText.count <= AppSetting.maxLngthOfMemo ? 1.0 : 0.5)
                     }
-
+                    //.buttonStyle(.borderedProminent)
+                    .tint(.green)
+                    .disabled(editText.count > AppSetting.maxLngthOfMemo)
                     
                 }
             }
@@ -102,7 +111,7 @@ struct MemoSheet: View {
             
             ///メモデータが格納されていればテキストエディターの初期値に設定
             .onAppear{
-                string = days.last?.memo ?? ""
+                editText = days.last?.memo ?? ""
             }
         }
 

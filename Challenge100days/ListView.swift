@@ -56,6 +56,7 @@ struct ListView: View {
                                         .offset(x:14, y:-14)
                                         .foregroundColor(Calendar.current.isDate(Date.now, equalTo: item.date ?? Date.now, toGranularity: .day) ? .yellow : .clear)
                                 }
+                                .padding(.trailing, 5)
                             
                             ///メモの内容を表示（プレビュー用のため改行はスペースに変換）
                             VStack{
@@ -65,25 +66,25 @@ struct ListView: View {
                                     .frame(maxWidth: .infinity,maxHeight: .infinity,alignment: .topLeading)
                                     .multilineTextAlignment(.leading)
                                     .foregroundColor(Color(UIColor.label))
+                                    //.background()
 
                                 ///日付を右下に配置
                                 Text(makeDate(day: item.date ?? Date()))
                                     .foregroundColor(.secondary)
                                     .frame(maxWidth: .infinity,alignment: .bottomTrailing)
-                                    //.padding(.bottom, -8)
-                                    //.offset(y:5)
+                                    //.background()
 
                             }.frame(maxWidth: .infinity,maxHeight: .infinity)
-                           //.background()
                             .font(.footnote)
                             
+                            
+                            ///右の矢印
                             Image(systemName: "chevron.forward")
                                 .fontWeight(.thin)
                                 .foregroundColor(.gray)
-                                .padding(.leading, 10)
 
                         }
-                        ///１行あたり最大150pxまで大きくなれる
+                        ///１行あたり縦が最大150pxまで大きくなれる
                         .frame(maxHeight: 150)
                         .fixedSize(horizontal: false, vertical: true)
 

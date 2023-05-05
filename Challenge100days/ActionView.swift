@@ -71,40 +71,43 @@ struct ActionView: View {
                             //Spacer()
                             if showInfomation{
                                 VStack(alignment: .leading, spacing: 0){
-                                    HStack{
-                                        Text("開始した日  :  ").font(.caption)
-                                        Text("\( makeDate(day:days.first?.date ?? Date.now))〜")
-                                        //.font(.body)
-                                            .font(.callout)
-                                    }
-                                    .frame(width: AppSetting.screenWidth * 0.75 ,alignment: .leading)
-                                    .padding(.bottom, 5)
+//                                    HStack{
+//                                        //Text("開始した日  :  ").font(.caption)
+//                                        //Text("\( makeDate(day:days.first?.date ?? Date.now))〜")
+//                                        //.font(.body)
+//                                          //  .font(.callout)
+//                                    }
+//                                    .frame(width: AppSetting.screenWidth * 0.75 ,alignment: .leading)
+//                                    .padding(.bottom, 5)
                                     
                                     Text("目指している姿  :  ").font(.caption)
-                                    Text("あああああああ\(longTermGoal)")
+                                        .frame(width: AppSetting.screenWidth * 0.8, alignment: .leading)
+                                    Text("\(longTermGoal)")
                                         .font(.callout)
                                         .frame(width: AppSetting.screenWidth * 0.75 ,alignment: .center)
                                         .padding(.bottom, 5)
                                     //.font(.body)
                                     Text("100日取り組むこと : ").font(.caption)
-                                    Text("あああああああ\(shortTermGoal)")
+                                        .frame(width: AppSetting.screenWidth * 0.8, alignment: .leading)
+                                    Text("\(shortTermGoal)")
                                         .font(.callout)
                                         .frame(width: AppSetting.screenWidth * 0.75 ,alignment: .center)
                                         //.padding(.bottom, 5)
                                     
                                 }
                                 
-                                //.padding(.vertical)
-                                .frame(width: AppSetting.screenWidth * 0.9)
+                                
+                                .frame(width: AppSetting.screenWidth * 0.8)
                                 //.frame(maxHeight: AppSetting.screenWidth * 0.88)
                                 //.background(.thinMaterial)
                                 .fontWeight(.medium)
-                                .cornerRadius(15)
+                                //.cornerRadius(15)
                                 .foregroundColor(.primary)
                                 //.fontWeight(.light)
                                 //Spacer()
+                                .padding(.vertical, 30)
                             }
-                            
+                                
                             
                             
                             //.font(.footnote)

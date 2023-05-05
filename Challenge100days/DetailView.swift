@@ -69,17 +69,23 @@ struct DetailView: View {
                 .foregroundColor(.primary)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 
-                
-                ///メモ編集用のテキストエディター
-                TextEditor(text: $editText)
-                    .lineSpacing(2)
-                    .scrollContentBackground(Visibility.hidden)
-                    .frame(maxHeight: .infinity)
-                    .focused($isInputActive)
-                    .tint(.white)
-                
-                
-                
+                ZStack(alignment: .topLeading){
+                    if editText.isEmpty{
+                        Text("保存されたメモはありません。\nタップで追加できます")
+                            .padding(8)
+                            .foregroundColor(.primary)
+                            .opacity(0.5)
+                    }
+                    ///メモ編集用のテキストエディター
+                    TextEditor(text: $editText)
+                        .lineSpacing(2)
+                        .scrollContentBackground(Visibility.hidden)
+                        .frame(maxHeight: .infinity)
+                        .focused($isInputActive)
+                        .tint(.white)
+                    
+                    
+                }
                 
             }
             
@@ -126,17 +132,29 @@ struct DetailView: View {
         
         .toolbar{
             
-            ///キーボード閉じるボタンを配置
+            ///保存ボタンを配置
             ToolbarItemGroup(placement: .keyboard) {
                 
-                Spacer()
                 
-                Button("保存") {
+                Text("メモは\(AppSetting.maxLngthOfTerm)文字以内のみ設定可能です")
+                    .font(.caption)
+                    .foregroundColor(editText.count > AppSetting.maxLngthOfTerm ? .red : .clear)
+                
+                
+                
+                Button("保存する") {
                     Task{
                         await save()
                     }
                     isInputActive = false
                 }
+                //.disabled(true)
+                
+                .foregroundColor(editText.count <= AppSetting.maxLngthOfMemo ? .primary : .gray)
+                .opacity(editText.count <= AppSetting.maxLngthOfMemo ? 1.0 : 0.5)
+                .disabled(editText.count > AppSetting.maxLngthOfMemo)
+            
+            
             }
             
             
@@ -160,7 +178,7 @@ struct DetailView: View {
                 }
             }
             
-            ///画像シェア用のリンク
+            ///戻るボタン
             ToolbarItem(placement: .navigationBarLeading) {
                 Button {
                     dismiss()
