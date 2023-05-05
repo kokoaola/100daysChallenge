@@ -89,11 +89,19 @@ struct makeNewItemSheet: View {
                     
                 
                 ///選択された日付が有効ではない時に表示する警告
-                Label("選択した日はすでに記録が存在しています。", systemImage: "exclamationmark.circle")
-                    .font(.footnote)
-                    .padding(5)
-                    .foregroundColor(isVailed ? .clear : .red)
-                    .cornerRadius(10)
+                if !isVailed{
+                    Label("選択した日はすでに記録が存在しています。", systemImage: "exclamationmark.circle")
+                        .font(.footnote)
+                        .padding(5)
+                        .foregroundColor(.red)
+                        .cornerRadius(10)
+                }else if editText.count > AppSetting.maxLngthOfMemo{
+                    Label("\(AppSetting.maxLngthOfMemo)文字以内のみ設定可能です", systemImage: "exclamationmark.circle")
+                        .font(.footnote)
+                        .padding(5)
+                        .foregroundColor(.red)
+                }
+                
                 
                 ///保存ボタン
                 Button{
@@ -105,11 +113,14 @@ struct makeNewItemSheet: View {
                     
                 } label: {
                     OriginalButton(labelString: "保存する", labelImage: "checkmark.circle")
-                        .foregroundColor(isVailed ? .green : .gray)
-                        .opacity(isVailed ? 1.0 : 0.5)
+                        .foregroundColor(editText.count <= AppSetting.maxLngthOfMemo && isVailed ? .green : .gray)
+                        .opacity(editText.count <= AppSetting.maxLngthOfMemo && isVailed ? 1.0 : 0.5)
+                    
+//                        .foregroundColor(isVailed ? .green : .gray)
+//                        .opacity(isVailed ? 1.0 : 0.5)
                 }
                 //.padding()
-                .disabled(isVailed == false)
+                .disabled(isVailed == false || editText.count > AppSetting.maxLngthOfMemo)
             
             }
             .foregroundColor(.primary)
