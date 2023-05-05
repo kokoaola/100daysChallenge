@@ -15,6 +15,7 @@ struct SettingView: View {
     @AppStorage("colorkeyTop") var storedColorTop: Color = .blue
     @AppStorage("colorkeyBottom") var storedColorBottom: Color = .green
     @AppStorage("isFirst") var isFirst = true
+    
     @AppStorage("colorNumber") var colorNumber = 0
     @AppStorage("showInfomation") var showInfomation = true
     @State var selectedColor = 10
@@ -82,12 +83,18 @@ struct SettingView: View {
                             
                             
                             Button("目標を変更する") {
-                                isLongTermGoalEditedAlert = true
+                                withAnimation {
+                                    isLongTermGoalEditedAlert = true
+                                }
+                                //isLongTermGoalEditedAlert = true
                                 currentLongTermGoal = longTermGoal
                             }
                             
                             Button("100日取り組む内容を変更する") {
-                                isShortTermGoalEditedAlert = true
+                                withAnimation {
+                                    isShortTermGoalEditedAlert = true
+                                }
+                                //isShortTermGoalEditedAlert = true
                                 currentShortTermGoal = shortTermGoal
                             }
                             
@@ -154,27 +161,55 @@ struct SettingView: View {
                         endPoint: .bottomTrailing
                     )
                 )
+                
+                if isLongTermGoalEditedAlert{
+                    VStack{
+                        EditGoal(showAlert: $isLongTermGoalEditedAlert, isLong: true)
+//                            .transition(.scale)
+//                            .animation(.spring(), value: 0.5)
+                    }
+                    .background(.black.opacity(0.6))
+                    .onTapGesture {
+                        //isLongTermGoalEditedAlert = false
+                        //print("AA")
+                    }
+                }else if isShortTermGoalEditedAlert{
+                    VStack{
+                        EditGoal(showAlert: $isShortTermGoalEditedAlert, isLong: false)
+                        }
+                    .background(.black.opacity(0.6))
+                    .onTapGesture {
+                       // isShortTermGoalEditedAlert = false
+                        //print("AA")
+                    }
+                }
             }
             
         }
         
-        .alert("目指している姿", isPresented: $isLongTermGoalEditedAlert) {
-            //Actions
-            TextField("入力してください", text: $currentLongTermGoal)
-            Button("キャンセル", role: .destructive){}
-            Button("決定", role: .cancel){}
-        } message: {
-            //Text("※一度変更すると元には戻せないので注意してください。")
-        }
-        
-        .alert("100日間取り組む内容", isPresented: $isShortTermGoalEditedAlert) {
-            //Actions
-            TextField("入力してください", text: $currentShortTermGoal)
-            Button("キャンセル", role: .destructive){}
-            Button("決定", role: .cancel){}
-        } message: {
-            //Text("※一度変更すると元には戻せないので注意してください。")
-        }
+//        .alert("目指している姿", isPresented: $isLongTermGoalEditedAlert) {
+//            //Actions
+//            TextField("入力してください", text: $currentLongTermGoal)
+//            Button("キャンセル", role: .destructive){}
+//            Button("決定", role: .cancel){}
+//        } message: {
+//            Text("\(AppSetting.maxLngthOfTerm)文字以内のみ設定可能です")
+//        }
+//
+//        .alert("100日間取り組む内容", isPresented: $isShortTermGoalEditedAlert) {
+//            //Actions
+//            TextField("入力してください", text: $currentShortTermGoal)
+//            Button("キャンセル", role: .destructive){}
+//            Button("決定", role: .cancel){
+//                if currentShortTermGoal.isEmpty || (currentShortTermGoal.count > AppSetting.maxLngthOfTerm){
+//                    return
+//                }
+//                print("OK")
+//
+//            }
+//        } message: {
+//            Text("\(AppSetting.maxLngthOfTerm)文字以内のみ設定可能です")
+//        }
         
         
         .onChange(of: selectedColor) { newValue in
@@ -202,7 +237,7 @@ struct SettingView: View {
         
         .onAppear{
             selectedColor = colorNumber
-            print("aa")
+//            print("aa")
         }
         
         ///削除ボタン押下時のアラート

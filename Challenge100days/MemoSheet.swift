@@ -37,7 +37,7 @@ struct MemoSheet: View {
                             dismiss()
                         } label: {
                             Image(systemName: "xmark")
-                                .font(.title2).foregroundColor(.red)
+                                .font(.title2).foregroundColor(.primary)
                                 .frame(maxWidth: .infinity, alignment: .leading)
                         }
 
