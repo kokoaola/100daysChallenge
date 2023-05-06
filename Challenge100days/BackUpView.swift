@@ -62,41 +62,49 @@ struct BackUpView: View {
     
     
     var body: some View {
-        VStack{            
-
-            Text("このアプリにはデータを外部に保存する機能はありません。\nデータを消して最初から新しく始める際など、これまでの記録を残しておきたい場合は、このページからコピーしてデバイスへ保存をお願いいたします。")
-                .foregroundColor(.primary)
-                .padding()
+        
+        
+        VStack{
             
             
-            ZStack {
-            ///テキストエディター
-            TextEditor(text: $string)
-                .foregroundColor(Color(UIColor.label))
-                .scrollContentBackground(Visibility.hidden)
-                .background(.ultraThinMaterial)
-                .border(.white, width: 1)
-                .focused($isInputActive)
-                .padding()
+            ///短期目標
+            VStack(alignment: .leading){
+                Text("このアプリにはデータを外部に保存する機能はありません。\nデータを消して最初から新しく始める際など、これまでの記録を残しておきたい場合は、このページからコピーしてデバイスへ保存をお願いいたします。")
+                    .foregroundColor(.primary)
+                    .padding([.horizontal, .top])
                 
-                if (messageAlert.isPreview){
-                    Text("コピーしました")
-                        .font(.system(size: 25))
+                
+                ZStack {
+                    ///テキストエディター
+                    TextEditor(text: $string)
+                        .foregroundColor(Color(UIColor.label))
+                        .scrollContentBackground(Visibility.hidden)
+                        .background(.ultraThinMaterial)
+                        .border(.white, width: 1)
+                        .focused($isInputActive)
                         .padding()
-                        .background(.gray)
-                        .foregroundColor(.white)
-                    .opacity(messageAlert.castOpacity())
-                        .cornerRadius(5)
-                        .offset(x: -5, y: -20)
-                }
-                
-            } // ZStack
-            
-                .onReceive(NotificationCenter.default.publisher(for: UITextField.textDidBeginEditingNotification)) { obj in
-                    if let textField = obj.object as? UITextField {
-                        textField.selectedTextRange = textField.textRange(from: textField.beginningOfDocument, to: textField.endOfDocument)
+                    
+                    if (messageAlert.isPreview){
+                        Text("コピーしました")
+                            .font(.system(size: 25))
+                            .padding()
+                            .background(.gray)
+                            .foregroundColor(.white)
+                            .opacity(messageAlert.castOpacity())
+                            .cornerRadius(5)
+                            .offset(x: -5, y: -20)
                     }
                 }
+            }
+            
+            .frame(minHeight: AppSetting.screenHeight/1.6)
+            
+            
+            .onReceive(NotificationCenter.default.publisher(for: UITextField.textDidBeginEditingNotification)) { obj in
+                if let textField = obj.object as? UITextField {
+                    textField.selectedTextRange = textField.textRange(from: textField.beginningOfDocument, to: textField.endOfDocument)
+                }
+            }
             
             
         }
@@ -112,7 +120,7 @@ struct BackUpView: View {
             )
         )
         
-        
+        .toolbarBackground(.visible, for: .navigationBar)
         ///キーボード閉じるボタン
         .toolbar {
             ToolbarItemGroup(placement: .keyboard) {
@@ -121,6 +129,7 @@ struct BackUpView: View {
                     isInputActive = false
                 }
             }
+            
             
             ToolbarItemGroup(placement: .navigationBarTrailing) {
                 Button(action: {

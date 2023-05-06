@@ -88,11 +88,6 @@ struct SettingView: View {
                                 Text("このアプリについて")
                             }
                             
-                            NavigationLink {
-                                WebView(urlString: "https://kokoaola.github.io")
-                            } label: {
-                                Text("プライバシーポリシー")
-                            }
                             
                             NavigationLink {
                                 BackUpView()
@@ -100,11 +95,20 @@ struct SettingView: View {
                                 Text("バックアップ")
                             }
                             
+                            
+                            NavigationLink {
+                                WebView(urlString: "https://kokoaola.github.io")
+                            } label: {
+                                Text("プライバシーポリシー")
+                            }
+                            
+                            
                             NavigationLink {
                                 ContactWebView()
                             } label: {
                                 Text("お問い合わせ")
                             }
+                            
                         }
                         
                         Section{
