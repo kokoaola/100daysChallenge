@@ -89,7 +89,8 @@ struct SettingView: View {
                             }
                             
                             NavigationLink {
-                                AboutThisApp()
+                                WebView(urlString: "https://kokoaola.github.io")
+                                    .padding()
                             } label: {
                                 Text("プライバシーポリシー")
                             }
@@ -101,7 +102,7 @@ struct SettingView: View {
                             }
                             
                             NavigationLink {
-                                AboutThisApp()
+                                WebView(urlString: "https://kokoaola.github.io/contact.html")
                             } label: {
                                 Text("お問い合わせ")
                             }

@@ -32,19 +32,19 @@ struct CompleteView: View {
        // VStack{
             
             ///四角に画像とボタンを重ねてる
-            VStack{
+        VStack(spacing: 50){
                 
+            VStack{
                 ///閉じるボタン
                 Button(action: {
                     showCompleteWindew = false
                 }){
                     Image(systemName: "xmark")
                         .font(.title3).foregroundColor(.primary)
-                }.frame(maxWidth: .infinity,minHeight: 40, alignment: .topLeading)
-                    .padding(.top)
+                }.frame(maxWidth: .infinity,minHeight: 30, alignment: .topLeading)
+                    .padding(.vertical)
                 
                 
-                VStack{
                     Text("\(dayNumber)日目のチャレンジ達成！")
                     Text("よく頑張ったね！")
                     ///コンプリート画像
@@ -52,27 +52,28 @@ struct CompleteView: View {
                         .resizable().scaledToFit()
                 }
                 .foregroundColor(Color(UIColor.label))
-                .padding(.bottom, 40)
+                
                 
                 
 
-                
-                ///シェアボタン
-                ShareLink(item: image ?? Image("noImage") , preview: SharePreview("画像", image:image ?? Image("noImage"))){
-                    OriginalButton(labelString: "シェアする", labelImage: "square.and.arrow.up")
-                        .foregroundColor(.blue.opacity(0.9))
-                        .padding()
+                VStack{
+                    ///シェアボタン
+                    ShareLink(item: image ?? Image("noImage") , preview: SharePreview("画像", image:image ?? Image("noImage"))){
+                        OriginalButton(labelString: "シェアする", labelImage: "square.and.arrow.up")
+                            .foregroundColor(.blue.opacity(0.9))
+                            
+                    }
+                    
+                    ///メモ追加ボタン
+                    Button {
+                        showMemo = true
+                    } label: {
+                        OriginalButton(labelString:(days.last?.memo == "") ? "メモを追加" : "メモを編集", labelImage: "rectangle.and.pencil.and.ellipsis")
+                            .foregroundColor(.green.opacity(0.9))
+                            
+                    }
                 }
-                
-                
-                ///メモ追加ボタン
-                Button {
-                    showMemo = true
-                } label: {
-                    OriginalButton(labelString:(days.last?.memo == "") ? "メモを追加" : "メモを編集", labelImage: "rectangle.and.pencil.and.ellipsis")
-                        .foregroundColor(.green.opacity(0.9))
-                        .padding(.bottom)
-                }
+                .padding(.bottom)
                 
             }
             .padding()

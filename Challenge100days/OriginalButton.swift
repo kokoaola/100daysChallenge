@@ -91,7 +91,7 @@ struct CompleteButton: View {
 
 struct OriginalButton: View {
     let radius:CGFloat = 10.0
-    let width = AppSetting.screenWidth / 2
+    let width = AppSetting.screenWidth / 1.7
     let height = AppSetting.screenWidth / 5
     //let height = 70.0
     let labelString: String
@@ -121,91 +121,9 @@ struct OriginalButton: View {
 }
 
 
-//struct OriginalButton2: View {
-//    let radius:CGFloat = 10.0
-//    let labelString: String
-//    let labelImage : String
-//    let 文字と内側の枠の色 = Color(UIColor.white)
-//
-//    var body: some View {
-//        RoundedRectangle(cornerRadius: radius)
-//        //.foregroundColor(ボタンの背景)
-//        //.frame(width: width, height: height)
-//
-//            .overlay{
-//                HStack(alignment: .lastTextBaseline){
-//                    Image(systemName: labelImage)
-//                    Text(labelString)
-//                }
-//                .foregroundColor(文字と内側の枠の色)
-//
-//                RoundedRectangle(cornerRadius: radius)
-//                    .stroke(lineWidth: 5)
-//                    .foregroundColor(文字と内側の枠の色)
-//            }
-//    }
-//}
-
-
 struct SpeechBubble: Shape {
-    private let radius: CGFloat
-    private let tailSize: CGFloat
-    
-    init(radius: CGFloat = 10) {
-        self.radius = radius
-        tailSize = 20
-    }
-    
-    func path(in rect: CGRect) -> Path {
-        Path { path in
-            path.move(to: CGPoint(x: rect.minX, y: rect.maxY - radius))
-            path.addLine(to: CGPoint(x: rect.minX, y: rect.maxY - rect.height / 2))
-            path.addCurve(
-                to: CGPoint(x: rect.minX, y: rect.maxY - rect.height / 2 - tailSize),
-                control1: CGPoint(x: rect.minX - tailSize, y: rect.maxY - rect.height / 2),
-                control2: CGPoint(x: rect.minX, y: rect.maxY - rect.height / 2 - tailSize / 2)
-            )
-            path.addArc(
-                center: CGPoint(x: rect.minX + radius, y: rect.minY + radius),
-                radius: radius,
-                startAngle: Angle(degrees: 180),
-                endAngle: Angle(degrees: 270),
-                clockwise: false
-            )
-            path.addArc(
-                center: CGPoint(x: rect.maxX - radius, y: rect.minY + radius),
-                radius: radius,
-                startAngle: Angle(degrees: 270),
-                endAngle: Angle(degrees: 0),
-                clockwise: false
-            )
-            path.addArc(
-                center: CGPoint(x: rect.maxX - radius, y: rect.maxY - radius),
-                radius: radius,
-                startAngle: Angle(degrees: 0),
-                endAngle: Angle(degrees: 90),
-                clockwise: false
-            )
-            path.addArc(
-                center: CGPoint(x: rect.minX + radius, y: rect.maxY - radius),
-                radius: radius,
-                startAngle: Angle(degrees: 90),
-                endAngle: Angle(degrees: 180),
-                clockwise: false
-            )
-        }
-    }
-}
-
-
-struct SpeechBubble2: Shape {
-    private let radius: CGFloat
-    private let tailSize: CGFloat
-    
-    init(radius: CGFloat = 10) {
-        self.radius = radius
-        tailSize = 20
-    }
+    private let radius = 10.0
+    private let tailSize = 20.0
     
     func path(in rect: CGRect) -> Path {
         Path { path in
@@ -257,7 +175,7 @@ struct OriginalButton_Previews: PreviewProvider {
             CompleteButton(num: 1)
             OriginalButton(labelString: "シェアする", labelImage: "square.and.arrow.up")
             //OriginalButton2(labelString: "シェアする", labelImage: "square.and.arrow.up").frame(width: 200, height: 40)
-            SpeechBubble2()
+            SpeechBubble()
                 //.frame(width: 100)
         }
     }

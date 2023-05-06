@@ -77,7 +77,7 @@ struct ActionView: View {
                     
                     
                     
-                    SpeechBubble2()
+                    SpeechBubble()
                         .rotation(Angle(degrees: 180))
                         .foregroundColor(.white)
                         .overlay{
