@@ -11,9 +11,7 @@ import WebKit
 
 struct Privacy: View{
     var body: some View {
-        
         WebView(urlString: "https://kokoaola.github.io")
-        
     }
 }
 
@@ -28,6 +26,7 @@ struct WebView: UIViewRepresentable {
     func updateUIView(_ uiView: WKWebView, context: Context) {
         let url = URL(string: urlString)!
         let request = URLRequest(url: url)
+        //uiView.loadHTMLString(html, baseURL: nil)
         uiView.load(request)
     }
 }
