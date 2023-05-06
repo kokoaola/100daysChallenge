@@ -90,7 +90,6 @@ struct SettingView: View {
                             
                             NavigationLink {
                                 WebView(urlString: "https://kokoaola.github.io")
-                                    //.padding()
                             } label: {
                                 Text("プライバシーポリシー")
                             }
