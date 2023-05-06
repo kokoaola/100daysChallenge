@@ -47,7 +47,8 @@ struct ListView: View {
                                 Text("\(item.num)")
                                     .font(.title2) .foregroundColor(.white)
                                     .frame(width: AppSetting.screenWidth * 0.12, height: AppSetting.screenWidth * 0.12)
-                                    .background(.blue).cornerRadius(15)
+                                    .background(.blue)
+                                    .cornerRadius(15)
                                 
                                 ///最終アイテム追加してから１日以内ならキラキラを表示
                                 Image(systemName: "sparkles")

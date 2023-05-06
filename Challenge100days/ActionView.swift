@@ -43,11 +43,9 @@ struct ActionView: View {
             ZStack{
                 
                 ///今日のミッションが未達成ならボタンのビューを表示
-                VStack(spacing: 20){
-                    
-                    VStack(){
+                VStack(spacing: 30){
                         
-                        VStack{
+                        //VStack{
                             if showInfomation{
                                 VStack(alignment: .leading, spacing: 0){
                                     
@@ -64,22 +62,22 @@ struct ActionView: View {
                                         .font(.callout)
                                         .frame(width: AppSetting.screenWidth * 0.75 ,alignment: .center)   
                                 }
+                                .padding(.init(top: 70, leading: 0, bottom: 20, trailing: 0))
                                 
                                 
-                                .frame(width: AppSetting.screenWidth * 0.8)
+                                .frame(maxWidth: AppSetting.screenWidth * 0.8)
                                 .fontWeight(.medium)
                                 .foregroundColor(.primary)
-                                .padding(.vertical, 30)
+                                
                             }
                             
-                        }.frame(maxHeight: AppSetting.screenHeight/5)
-                    }
+                        //}.frame(maxHeight: AppSetting.screenHeight/5)
                     
                     
                     
                     
                     
-                    SpeechBubble2()
+                    SpeechBubble()
                         .rotation(Angle(degrees: 180))
                         .foregroundColor(.white)
                         .overlay{
@@ -139,7 +137,7 @@ struct ActionView: View {
                 ///ボタン押下後は完了のビューを重ねて表示
                 if showCompleteWindew{
                     CompleteView(showCompleteWindew: $showCompleteWindew)
-                        .padding()
+                        .padding(.horizontal)
                         .transition(.scale)
                 }
             }
@@ -155,7 +153,6 @@ struct ActionView: View {
             )
             
             .onAppear{
-                
                 ///アプリ起動時に今日のミッションがすでに完了しているか確認
                 let todaysData = days.filter{
                     ///CoreDataに保存されたデータの中に今日と同じ日付が存在するか確認

@@ -71,7 +71,7 @@ struct DetailView: View {
                 
                 ZStack(alignment: .topLeading){
                     if editText.isEmpty{
-                        Text("保存されたメモはありません。\nタップで追加できます")
+                        Text("保存されたメモはありません。\nタップで追加できます。")
                             .padding(8)
                             .foregroundColor(.primary)
                             .opacity(0.5)

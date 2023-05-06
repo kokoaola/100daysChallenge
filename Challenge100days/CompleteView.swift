@@ -29,48 +29,51 @@ struct CompleteView: View {
     
     var body: some View {
         
-        VStack{
+       // VStack{
             
             ///四角に画像とボタンを重ねてる
-            VStack{
+        VStack(spacing: 50){
                 
-                ///取り消しボタン（押すと確認アラートを表示）
+            VStack{
+                ///閉じるボタン
                 Button(action: {
                     showCompleteWindew = false
                 }){
                     Image(systemName: "xmark")
                         .font(.title3).foregroundColor(.primary)
                 }.frame(maxWidth: .infinity,minHeight: 30, alignment: .topLeading)
+                    .padding(.vertical)
                 
                 
-                VStack{
                     Text("\(dayNumber)日目のチャレンジ達成！")
                     Text("よく頑張ったね！")
+                    ///コンプリート画像
+                    image?
+                        .resizable().scaledToFit()
                 }
                 .foregroundColor(Color(UIColor.label))
                 
                 
-                ///コンプリート画像
-                image?
-                    .resizable().scaledToFit()
                 
-                
-                ///シェアボタン
-                ShareLink(item: image ?? Image("noImage") , preview: SharePreview("画像", image:image ?? Image("noImage"))){
-                    OriginalButton(labelString: "シェアする", labelImage: "square.and.arrow.up")
-                        .foregroundColor(.blue.opacity(0.9))
-                        .padding()
+
+                VStack{
+                    ///シェアボタン
+                    ShareLink(item: image ?? Image("noImage") , preview: SharePreview("画像", image:image ?? Image("noImage"))){
+                        OriginalButton(labelString: "シェアする", labelImage: "square.and.arrow.up")
+                            .foregroundColor(.blue.opacity(0.9))
+                            
+                    }
+                    
+                    ///メモ追加ボタン
+                    Button {
+                        showMemo = true
+                    } label: {
+                        OriginalButton(labelString:(days.last?.memo == "") ? "メモを追加" : "メモを編集", labelImage: "rectangle.and.pencil.and.ellipsis")
+                            .foregroundColor(.green.opacity(0.9))
+                            
+                    }
                 }
-                
-                
-                ///メモ追加ボタン
-                Button {
-                    showMemo = true
-                } label: {
-                    OriginalButton(labelString:(days.last?.memo == "") ? "メモを追加" : "メモを編集", labelImage: "rectangle.and.pencil.and.ellipsis")
-                        .foregroundColor(.green.opacity(0.9))
-                        .padding(.bottom)
-                }
+                .padding(.bottom)
                 
             }
             .padding()
@@ -78,8 +81,8 @@ struct CompleteView: View {
             .cornerRadius(15)
             
             
-        }
-        .padding(.bottom, 50)
+        //}
+        //.padding(.bottom, 50)
         
         
         ///画面表示時にコンプリート画像を生成して表示
@@ -92,29 +95,6 @@ struct CompleteView: View {
             MemoSheet()
         }
     }
-    
-    
-    ///削除用の関数
-    func delete() async{
-        if let item = days.last{
-            moc.delete(item)
-            try? moc.save()
-        }
-    }
-    
-    ///データ保存後の番号振り直し用の関数
-    func reNumber() async{
-        await MainActor.run{
-            var counter = Int16(0)
-            for i in days{
-                counter += 1
-                i.num = counter
-                try? moc.save()
-            }
-        }
-    }
-    
-    
 }
 
 

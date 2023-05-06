@@ -17,7 +17,7 @@ struct AboutThisApp: View {
         VStack{
 
             
-            Text("AAA")
+            //WebView()
             
         }
         
