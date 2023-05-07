@@ -147,7 +147,7 @@ struct BackUpView: View {
         }
         
         ///メモデータが格納されていればテキストエディターの初期値に設定
-        .onAppear{print(days.count)
+        .onAppear{
             for item in days{
                 string = string + "\n" + "Day" + String(item.num) + "  " +  makeDate(day: item.date ?? Date.now) + "\n" + (item.memo ?? "") + "\n"
             }

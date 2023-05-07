@@ -15,18 +15,27 @@ struct AboutThisApp: View {
     var body: some View {
         ///ページに応じたチュートリアルを表示
         ScrollView{
-            
-            
-            Text("""
-アプリを使ってくださって、ありがとうございます。
-このアプリは、目標に向かって進む人を応援したくて作りました。
+            VStack{
+                
+                Text("""
+
+
+アプリをインストールしてくださって、ありがとうございます。
+このアプリは、目標に向かって進む人を応援、お手伝いしたいという思いで作りました。
 
 特徴としては以下の2点があります。
-①100日までカウントアップ
-②オリジナルのご褒美画像の生成
 
-                 
-①100日までのカウントアップ機能について
+
+""").font(.body)
+                
+                Text("①100日までのカウントアップ機能")
+                
+                    .font(.headline)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.bottom, 10)
+                
+                
+                Text("""
 コンプリートボタンを押すことで、開始してから100日に到達するまでカウントし続けます。
 毎日カウントが可能ですが、連続で取り組まないとダメという機能は備わっていません。
 極端な話、1週間休んでも1ヶ月休んでも、再開してボタンを押せば問題なく記録が積み上がるように設計されています。
@@ -44,8 +53,16 @@ struct AboutThisApp: View {
 このアプリの中では完璧主義を忘れて、「今日はできた！」の完了主義で取り組んでもらえれば嬉しいです。
 
 
-② のオリジナルのご褒美画像の生成について
-
+""")
+                
+                
+                Text("②シェア用オリジナル画像の生成")
+                    .font(.headline)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.bottom, 10)
+                
+                
+                Text("""
 よく言われることですが、SNSで世界に公開しながら何かに取り組むと、挫折しづらくなるそうです。
 
 その手助けになればと思い、シェア用の画像の生成機能をつけました。
@@ -55,21 +72,28 @@ struct AboutThisApp: View {
 (写真の撮影者様のクレジットのみ記載してあります。)
 
 
-さいごに
 初めてのリリースでまだ未熟な点の多いアプリですが、ご意見などありましたらお問い合わせフォームから気軽にご連絡ください。
+
+
+
 """
-            )
-            
+                )
+            }
+            //.padding(.horizontal)
         }
+        //.background()
+        .multilineTextAlignment(.leading)
+        //.padding(.horizontal, 5)
+        //.frame(width: AppSetting.screenWidth * 0.9)
+        //.font(.body)
         .foregroundColor(.primary)
+        //.padding(.top, 50)
         ///ここからは背景の設定
-        .frame(maxWidth: .infinity, maxHeight: AppSetting.screenHeight / 1.3)
-        .background(.thinMaterial)
-        .cornerRadius(15)
+        //        .frame(maxWidth: .infinity, maxHeight: AppSetting.screenHeight / 1.3)
+        //        .background(.thinMaterial)
+        //        .cornerRadius(15)
         
         .padding(.horizontal)
-        
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(.secondary)
         .foregroundStyle(
             .linearGradient(
@@ -78,6 +102,7 @@ struct AboutThisApp: View {
                 endPoint: .bottomTrailing
             )
         )
+        .navigationTitle("このアプリについて")
     }
 }
 
