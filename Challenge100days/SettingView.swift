@@ -129,6 +129,8 @@ struct SettingView: View {
                     .foregroundColor(Color(UIColor.label))
                     
                 }
+                .navigationTitle("設定")
+                .navigationBarTitleDisplayMode(.inline)
                 
                 
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)

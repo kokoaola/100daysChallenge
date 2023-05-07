@@ -40,7 +40,7 @@ struct ContentView: View {
                 ///実績表示用のビュー
                 ListAndCardView()
                     .tabItem{
-                        Label("これまでの記録", systemImage: "trophy")
+                        Label("これまでの記録", systemImage: "list.clipboard")
                     }.tag("Two")
                 
                 SettingView()

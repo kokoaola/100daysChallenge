@@ -43,35 +43,46 @@ struct ActionView: View {
             ZStack{
                 
                 ///今日のミッションが未達成ならボタンのビューを表示
-                VStack(spacing: 30){
-                        
-                        //VStack{
-                            if showInfomation{
-                                VStack(alignment: .leading, spacing: 0){
-                                    
-                                    Text("目指している姿  :  ").font(.caption)
-                                        .frame(width: AppSetting.screenWidth * 0.8, alignment: .leading)
-                                    Text("\(longTermGoal)")
-                                        .font(.callout)
-                                        .frame(width: AppSetting.screenWidth * 0.75 ,alignment: .center)
-                                        .padding(.bottom, 5)
-                                    //.font(.body)
-                                    Text("100日取り組むこと : ").font(.caption)
-                                        .frame(width: AppSetting.screenWidth * 0.8, alignment: .leading)
-                                    Text("\(shortTermGoal)")
-                                        .font(.callout)
-                                        .frame(width: AppSetting.screenWidth * 0.75 ,alignment: .center)   
-                                }
-                                .padding(.init(top: 70, leading: 0, bottom: 20, trailing: 0))
+                VStack(spacing: 20){
+                    
+                    //VStack{
+                    
+                        if showInfomation{
+                            VStack(alignment: .center, spacing: 0){
+                            //Spacer()
+                            // Label(" ・目指している姿  :  ", systemImage: "circle")
+                           Text("・目指している姿  :  ")
+                                .font(.callout)
+                                .frame(width: AppSetting.screenWidth * 0.8, alignment: .leading)
+                            Text("\(longTermGoal)")
+                                .font(.footnote)
                                 
+                                .frame(width: AppSetting.screenWidth * 0.75 , height: 50,alignment: .center)
+                                //.background(.yellow)
+                                .padding(.bottom, 5)
                                 
-                                .frame(maxWidth: AppSetting.screenWidth * 0.8)
-                                .fontWeight(.medium)
-                                .foregroundColor(.primary)
-                                
-                            }
                             
-                        //}.frame(maxHeight: AppSetting.screenHeight/5)
+                            Text("・100日取り組むこと : ")
+                                .font(.callout)
+                                .frame(width: AppSetting.screenWidth * 0.8, alignment: .leading)
+                            Text("\(shortTermGoal)")
+                                .font(.footnote)
+                                .frame(width: AppSetting.screenWidth * 0.75, height: 50 ,alignment: .center)
+                                //.background(.red)
+                        }
+                            .frame(width: AppSetting.screenWidth * 0.8)
+                            .padding(.top, 60)
+                            //.background()
+                            .fontWeight(.medium)
+                            .foregroundColor(.primary)
+                            
+                        }else{
+                            Spacer()
+                        }
+
+                    
+                    
+                    //}.frame(maxHeight: AppSetting.screenHeight/5)
                     
                     
                     
@@ -129,7 +140,7 @@ struct ActionView: View {
                     .disabled(isComplete)
                     
                     Spacer()
-                    Spacer()
+                   // Spacer()
                 }
                 
                 
