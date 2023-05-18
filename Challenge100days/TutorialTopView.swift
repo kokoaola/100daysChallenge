@@ -67,8 +67,9 @@ struct TutorialTopView: View {
                     endPoint: .bottomTrailing
                 )
             )
-        
         }
+        
+        .navigationViewStyle(.stack)
     }
 }
 

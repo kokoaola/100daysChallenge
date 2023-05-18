@@ -58,9 +58,7 @@ struct ContentView: View {
                 UserDefaults.standard.set((days.last?.num ?? 0) + 1, forKey: "todayIs")
 
             }
-            
         }
-            
         
     }
 }

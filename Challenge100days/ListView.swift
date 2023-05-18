@@ -17,15 +17,21 @@ struct ListView: View {
         
         ///データが一件も存在しない時の表示
         if items.isEmpty{
+            
             VStack{
+                Spacer()
                 Text("まだデータがありません")
                     .foregroundColor(Color(UIColor.label))
+                    .frame(maxWidth: .infinity, alignment: .center)
+                    .padding()
+                    .background(.thinMaterial)
+                    .cornerRadius(15)
+                    
+                Spacer()
             }
-            .frame(maxWidth: .infinity, alignment: .center)
-            .padding()
-            .background(.thinMaterial)
-            .cornerRadius(15)
-            
+            .frame(height: AppSetting.screenWidth)
+            //.background()
+                
         }else{
             
             VStack(spacing: 5){

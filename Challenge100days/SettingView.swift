@@ -82,12 +82,6 @@ struct SettingView: View {
                         }
                         
                         Section{
-                            NavigationLink {
-                                AboutThisApp()
-                            } label: {
-                                Text("このアプリについて")
-                            }
-                            
                             
                             NavigationLink {
                                 BackUpView()
@@ -97,9 +91,16 @@ struct SettingView: View {
                             
                             
                             NavigationLink {
-                                WebView(urlString: "https://kokoaola.github.io")
+                                WebView(urlString: "https://kokoaola.github.io/privacy.html")
                             } label: {
                                 Text("プライバシーポリシー")
+                            }
+                            
+                            
+                            NavigationLink {
+                                AboutThisApp()
+                            } label: {
+                                Text("このアプリについて")
                             }
                             
                             
@@ -108,7 +109,6 @@ struct SettingView: View {
                             } label: {
                                 Text("お問い合わせ")
                             }
-                            
                         }
                         
                         Section{
@@ -131,7 +131,7 @@ struct SettingView: View {
                 }
                 .navigationTitle("設定")
                 .navigationBarTitleDisplayMode(.inline)
-                
+                .navigationViewStyle(.stack)
                 
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
                 .scrollContentBackground(.hidden)
