@@ -54,7 +54,7 @@ struct ContentView: View {
             .onAppear{
                 ///起動時に今日が何日目になるか計算して保存（他のビューで編集するとズレるため）
                 //UserDefaults.standard.set((days.last?.num ?? 0) + 1, forKey: "todayIs")
-                for i in 1...55{
+                for i in 1...8{
                     if i == 4 || i == 9 || i == 12 || i == 13 {
                         continue
                     }else{
