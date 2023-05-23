@@ -48,23 +48,19 @@ struct ActionView: View {
                         if showInfomation{
                             VStack(alignment: .center, spacing: 0){
                            Text("目指している姿  :  ")
-                                .font(.callout)
                                 .fontWeight(.bold)
                                 .frame(width: AppSetting.screenWidth * 0.8, alignment: .leading)
                             Text("\(longTermGoal)")
-                                .font(.footnote)
                                 .frame(width: AppSetting.screenWidth * 0.75 , height: 50,alignment: .center)
                                 .padding(.bottom, 5)
                                 
                             
                             Text("100日取り組むこと : ")
-                                .font(.callout)
                                 .fontWeight(.bold)
                                 .frame(width: AppSetting.screenWidth * 0.8, alignment: .leading)
                             Text("\(shortTermGoal)")
-                                .font(.footnote)
                                 .frame(width: AppSetting.screenWidth * 0.75, height: 50 ,alignment: .center)
-                        }
+                        }.font(.callout)
                             .frame(width: AppSetting.screenWidth * 0.8)
                             .padding(.top, 100)
                             .fontWeight(.medium)
@@ -93,13 +89,11 @@ struct ActionView: View {
                                         .font(.footnote)
                                         .foregroundColor(.blue)
                                         .padding(.top, 1)
-                                        //.frame(width: AppSetting.screenWidth * 0.65, alignment: .trailing)
                                     }
                                     
                                 }
                                 .padding(.vertical)
                             }
-                           // .frame(width: AppSetting.screenWidth * 0.8, height: AppSetting.screenWidth * 0.3)
                             .foregroundColor(.black)
                         }
                         .frame(width: AppSetting.screenWidth * 0.8, height: AppSetting.screenWidth * 0.3)
