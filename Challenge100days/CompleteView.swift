@@ -80,9 +80,6 @@ struct CompleteView: View {
             .background(.thinMaterial)
             .cornerRadius(15)
             
-            
-        //}
-        //.padding(.bottom, 50)
         
         
         ///画面表示時にコンプリート画像を生成して表示

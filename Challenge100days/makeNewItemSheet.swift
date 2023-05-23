@@ -202,7 +202,6 @@ struct makeNewItemSheet: View {
                 counter += 1
                 item.num = counter
                 try? moc.save()
-                
             }
         }
     }

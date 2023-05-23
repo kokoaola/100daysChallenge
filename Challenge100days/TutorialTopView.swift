@@ -7,18 +7,6 @@
 
 import SwiftUI
 
-//extension AnyTransition {
-//    static var slideAction: AnyTransition {
-//        .asymmetric(
-//            insertion: .move(edge: .trailing).combined(with: .opacity),
-//            //insertion: .move(edge: .trailing).combined(with: .opacity),
-//            removal: .move(edge: .leading).combined(with: .opacity)
-//        )
-//        
-//    }
-//}
-
-
 struct TutorialTopView: View {
     ///ページ全体のカラー情報を格納
     @AppStorage("colorkeyTop") var storedColorTop: Color = .blue
@@ -67,6 +55,8 @@ struct TutorialTopView: View {
                     endPoint: .bottomTrailing
                 )
             )
+            
+            
         }
         
         .navigationViewStyle(.stack)
