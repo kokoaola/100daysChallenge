@@ -21,9 +21,8 @@ struct TutorialView2: View {
     
     @Binding var page: Int
     
-    ///申請用に初期値が入ってる
-    @AppStorage("longTermGoal") var longTermGoal: String = "TOEIC800点獲得"
-    @AppStorage("shortTermGoal") var shortTermGoal: String = "コツコツ英語の勉強"
+    @AppStorage("longTermGoal") var longTermGoal: String = ""
+    @AppStorage("shortTermGoal") var shortTermGoal: String = ""
     
     @AppStorage("isFirst") var isFirst = true
 

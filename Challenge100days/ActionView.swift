@@ -134,14 +134,15 @@ struct ActionView: View {
             }
             
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(.secondary)
-            .foregroundStyle(
-                .linearGradient(
-                    colors: [storedColorTop, storedColorBottom],
-                    startPoint: .topLeading,
-                    endPoint: .bottomTrailing
-                )
-            )
+            .userSettingGradient(colors: [storedColorTop, storedColorBottom])
+//            .background(.secondary)
+//            .foregroundStyle(
+//                .linearGradient(
+//                    colors: [storedColorTop, storedColorBottom],
+//                    startPoint: .topLeading,
+//                    endPoint: .bottomTrailing
+//                )
+//            )
             
             .onAppear{
                 ///アプリ起動時に今日のミッションがすでに完了しているか確認

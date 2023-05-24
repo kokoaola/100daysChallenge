@@ -5,7 +5,6 @@
 //  Created by koala panda on 2023/02/04.
 //
 
-import Foundation
 import SwiftUI
 import UIKit
 

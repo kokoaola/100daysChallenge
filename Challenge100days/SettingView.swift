@@ -135,15 +135,16 @@ struct SettingView: View {
                 
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
                 .scrollContentBackground(.hidden)
-                .background(.secondary)
                 
-                .foregroundStyle(
-                    .linearGradient(
-                        colors: [storedColorTop, storedColorBottom],
-                        startPoint: .topLeading,
-                        endPoint: .bottomTrailing
-                    )
-                )
+                .userSettingGradient(colors: [storedColorTop, storedColorBottom])
+//                .background(.secondary)
+//                .foregroundStyle(
+//                    .linearGradient(
+//                        colors: [storedColorTop, storedColorBottom],
+//                        startPoint: .topLeading,
+//                        endPoint: .bottomTrailing
+//                    )
+//                )
                 
                 if isLongTermGoalEditedAlert{
                     VStack{

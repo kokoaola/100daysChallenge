@@ -86,14 +86,15 @@ struct MemoSheet: View {
             
             ///グラデーション背景設定
             .background(.ultraThinMaterial)
-            .background(.secondary)
-            .foregroundStyle(
-                .linearGradient(
-                    colors: [storedColorTop, storedColorBottom],
-                    startPoint: .topLeading,
-                    endPoint: .bottomTrailing
-                )
-            )
+            .userSettingGradient(colors: [storedColorTop, storedColorBottom])
+//            .background(.secondary)
+//            .foregroundStyle(
+//                .linearGradient(
+//                    colors: [storedColorTop, storedColorBottom],
+//                    startPoint: .topLeading,
+//                    endPoint: .bottomTrailing
+//                )
+//            )
             
             
             ///キーボード閉じるボタン

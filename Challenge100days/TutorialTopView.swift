@@ -47,14 +47,16 @@ struct TutorialTopView: View {
             .padding(.horizontal)
             
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(.secondary)
-            .foregroundStyle(
-                .linearGradient(
-                    colors: [storedColorTop, storedColorBottom],
-                    startPoint: .topLeading,
-                    endPoint: .bottomTrailing
-                )
-            )
+
+            .userSettingGradient(colors: [storedColorTop, storedColorBottom])
+//            .background(.secondary)
+//            .foregroundStyle(
+//                .linearGradient(
+//                    colors: [storedColorTop, storedColorBottom],
+//                    startPoint: .topLeading,
+//                    endPoint: .bottomTrailing
+//                )
+//            )
             
             
         }

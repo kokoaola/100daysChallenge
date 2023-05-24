@@ -94,14 +94,15 @@ struct AboutThisApp: View {
         //        .cornerRadius(15)
         
         .padding(.horizontal)
-        .background(.secondary)
-        .foregroundStyle(
-            .linearGradient(
-                colors: [storedColorTop, storedColorBottom],
-                startPoint: .topLeading,
-                endPoint: .bottomTrailing
-            )
-        )
+        .userSettingGradient(colors: [storedColorTop, storedColorBottom])
+//        .background(.secondary)
+//        .foregroundStyle(
+//            .linearGradient(
+//                colors: [storedColorTop, storedColorBottom],
+//                startPoint: .topLeading,
+//                endPoint: .bottomTrailing
+//            )
+//        )
         .navigationTitle("このアプリについて")
     }
 }

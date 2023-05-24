@@ -99,14 +99,15 @@ struct DetailView: View {
             .padding()
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
             .background(.ultraThinMaterial)
-            .background(.secondary)
-            .foregroundStyle(
-                .linearGradient(
-                    colors: [storedColorTop, storedColorBottom],
-                    startPoint: .topLeading,
-                    endPoint: .bottomTrailing
-                )
-            )
+            .userSettingGradient(colors: [storedColorTop, storedColorBottom])
+//            .background(.secondary)
+//            .foregroundStyle(
+//                .linearGradient(
+//                    colors: [storedColorTop, storedColorBottom],
+//                    startPoint: .topLeading,
+//                    endPoint: .bottomTrailing
+//                )
+//            )
         }
         
         .navigationBarBackButtonHidden(true)
@@ -198,8 +199,6 @@ struct DetailView: View {
                     await  delete()
                     await reNumber()
                 }
-                
-                
                 dismiss()
             }
             Button("戻る",role: .cancel){}

@@ -65,17 +65,18 @@ struct ListAndCardView: View {
                 }
             }
             .foregroundColor(Color(UIColor.label))
-            
-            ///グラデーション背景設定
             .padding(.horizontal)
-            .background(.secondary)
-            .foregroundStyle(
-                .linearGradient(
-                    colors: [storedColorTop, storedColorBottom],
-                    startPoint: .topLeading,
-                    endPoint: .bottomTrailing
-                )
-            )
+
+            ///グラデーション背景設定
+            .userSettingGradient(colors: [storedColorTop, storedColorBottom])
+//            .background(.secondary)
+//            .foregroundStyle(
+//                .linearGradient(
+//                    colors: [storedColorTop, storedColorBottom],
+//                    startPoint: .topLeading,
+//                    endPoint: .bottomTrailing
+//                )
+//            )
             
             
             .toolbar{
