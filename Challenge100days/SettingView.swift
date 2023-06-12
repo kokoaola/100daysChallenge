@@ -61,7 +61,6 @@ struct SettingView: View {
                             }
                             Toggle("目標を表示", isOn: $showInfomation)
                                 .tint(.green)
-                            //.frame(width: AppSetting.screenWidth * 0.4)
                         }
                         
                         Section{

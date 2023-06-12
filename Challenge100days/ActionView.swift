@@ -60,10 +60,10 @@ struct ActionView: View {
                                 .frame(width: AppSetting.screenWidth * 0.8, alignment: .leading)
                             Text("\(shortTermGoal)")
                                 .frame(width: AppSetting.screenWidth * 0.75, height: 50 ,alignment: .center)
-                        }.font(.callout)
+                            }.font(.callout.weight(.medium))
                             .frame(width: AppSetting.screenWidth * 0.8)
                             .padding(.top, 100)
-                            .fontWeight(.medium)
+                            //.fontWeight(.medium)
                             .foregroundColor(.primary)
                             
                         }else{
