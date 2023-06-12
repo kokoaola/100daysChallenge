@@ -18,6 +18,18 @@
 "戻る" = "Back";
 "次へ" = "Next";
 "始める" = "Start";
-"" = "";
-"" = "";
-"" = "";
+"次に、目標を設定してください。" = "Next, please set your goals.";
+"①あなたが将来なりたい姿はなんですか？" = "1. What is your ideal future self?";
+"例）画力アップ\n　　TOEIC800点" = "e.g.) Improve drawing skills\n　　Pass the exam";
+"②その実現のために１００日間取り組むことはなんですか？" = "2. What will you commit to for 100 days to achieve that?";
+"例）１日１枚絵を描く\n　　英語の勉強" = "e.g.) Draw one picture a day\n Study English";
+"\(AppSetting.maxLngthOfTerm)文字以内のみ設定可能です" = "Only up to \(AppSetting.maxLngthOfTerm) characters can be set.";
+"閉じる" = "Close";
+
+//"" = "";
+//"" = "";
+//"" = "";
+//"" = "";
+//"" = "";
+//"" = "";
+
