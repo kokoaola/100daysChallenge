@@ -137,7 +137,7 @@ struct DetailView: View {
             ToolbarItemGroup(placement: .keyboard) {
                 
                 
-                Text("メモは\(AppSetting.maxLngthOfTerm)文字以内のみ設定可能です")
+                Text("\(AppSetting.maxLngthOfTerm)文字以内のみ設定可能です")
                     .font(.caption)
                     .foregroundColor(editText.count > AppSetting.maxLngthOfTerm ? .red : .clear)
                 

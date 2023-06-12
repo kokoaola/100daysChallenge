@@ -51,10 +51,20 @@
 "%lld文字以内のみ設定可能です" = "Only up to %lld characters can be set";
 "保存する" = "Save";
 
-//"" = "";
-//"" = "";
-//"" = "";
-//"" = "";
-//"" = "";
-//"" = "";
+
+//リストとカードのビュー
+"開始日 : " = "Start date : ";
+"カード" = "Card";
+"リスト" = "List";
+"まだデータがありません" = "No data yet";
+"保存されたメモはありません。\nタップで追加できます。" = "No saved notes. \nYou can add by tapping.";
+"この日の記録を破棄しますか？" = "Do you want to discard the record for this day?";
+"破棄する" = "Discard";
+"戻る" = "Back";
+"表示中のデータは破棄されます。\n（この動作は取り消せません。）" = "The displayed data will be discarded. \n(This action cannot be undone.)";
+"過去の記録を追加" = "Add past record";
+"日付" = "Date";
+"追加する日付" = "Date to add";
+"メモ" = "Note";
+"選択した日はすでに記録が存在しています。" = "There is already a record for the selected day.";
 
