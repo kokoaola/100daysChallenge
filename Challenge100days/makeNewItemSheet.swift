@@ -113,7 +113,8 @@ struct makeNewItemSheet: View {
                     }
                     
                 } label: {
-                    OriginalButton(labelString: "保存する", labelImage: "checkmark.circle")
+                    SaveButton()
+//                    OriginalButton(labelString: "保存する", labelImage: "checkmark.circle")
                         .foregroundColor(editText.count <= AppSetting.maxLngthOfMemo && isVailed ? .green : .gray)
                         .opacity(editText.count <= AppSetting.maxLngthOfMemo && isVailed ? 1.0 : 0.5)
                     

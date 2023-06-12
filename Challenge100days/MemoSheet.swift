@@ -71,7 +71,8 @@ struct MemoSheet: View {
                         try? moc.save()
                         dismiss()
                     } label: {
-                        OriginalButton(labelString: "保存する", labelImage: "checkmark.circle")
+                        SaveButton()
+                        //OriginalButton(labelString: "保存する", labelImage: "checkmark.circle")
                             .foregroundColor(editText.count <= AppSetting.maxLngthOfMemo ? .green : .gray)
                             .opacity(editText.count <= AppSetting.maxLngthOfMemo ? 1.0 : 0.5)
                     }
@@ -87,14 +88,6 @@ struct MemoSheet: View {
             ///グラデーション背景設定
             .background(.ultraThinMaterial)
             .userSettingGradient(colors: [storedColorTop, storedColorBottom])
-//            .background(.secondary)
-//            .foregroundStyle(
-//                .linearGradient(
-//                    colors: [storedColorTop, storedColorBottom],
-//                    startPoint: .topLeading,
-//                    endPoint: .bottomTrailing
-//                )
-//            )
             
             
             ///キーボード閉じるボタン

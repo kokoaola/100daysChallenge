@@ -1,5 +1,5 @@
 //
-//  CompleteDoneView.swift
+//  CompleteView.swift
 //  Challenge100days
 //
 //  Created by koala panda on 2023/01/29.
@@ -59,7 +59,7 @@ struct CompleteView: View {
                 VStack{
                     ///シェアボタン
                     ShareLink(item: image ?? Image("noImage") , preview: SharePreview("画像", image:image ?? Image("noImage"))){
-                        OriginalButton(labelString: "シェアする", labelImage: "square.and.arrow.up")
+                        ShareButton()
                             .foregroundColor(.blue.opacity(0.9))
                             
                     }
@@ -68,7 +68,7 @@ struct CompleteView: View {
                     Button {
                         showMemo = true
                     } label: {
-                        OriginalButton(labelString:(days.last?.memo == "") ? "メモを追加" : "メモを編集", labelImage: "rectangle.and.pencil.and.ellipsis")
+                        MemoButton()
                             .foregroundColor(.green.opacity(0.9))
                             
                     }

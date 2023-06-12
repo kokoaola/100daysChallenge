@@ -23,15 +23,33 @@
 "例）画力アップ\n　　TOEIC800点" = "e.g.) Improve drawing skills\n　　Pass the exam";
 "②その実現のために１００日間取り組むことはなんですか？" = "2. What will you commit to for 100 days to achieve that?";
 "例）１日１枚絵を描く\n　　英語の勉強" = "e.g.) Draw one picture a day\n Study English";
-"\(AppSetting.maxLngthOfTerm)文字以内のみ設定可能です" = "Only up to \(AppSetting.maxLngthOfTerm) characters can be set.";
+//"\(AppSetting.maxLngthOfTerm)文字以内のみ設定可能です" = "Only up to \(AppSetting.maxLngthOfTerm) characters can be set.";
 "閉じる" = "Close";
 "設定は以上です。" = "That's all for the settings.";
 "これらの設定は、アプリの設定ページからも変更可能です。" = "These settings can also be changed from the app's settings page.";
 "それでは、さっそく始めましょう。" = "Let's get started right away.";
 
 
-//アクション画面
+//ActionView.swift
 "目指している姿  :  " = "Aiming for: ";
+"100日取り組むこと : " = "Commitment for 100 days: ";
+"本日のチャレンジは達成済みです。\nお疲れ様でした！" = "Today's challenge has been completed.\nWell done!";
+"今日の取り組みが終わったら、\nボタンを押して完了しよう" = "Once you're done with today's tasks,\npress the button to complete";
+"ウインドウを再表示する" = "Redisplay the window";
+
+//CompleteView
+"%lld日目のチャレンジ達成！" = "Challenge completed on day%lld!";
+"よく頑張ったね！" = "Good job!";
+"シェアする" = "Share";
+"メモを追加" = "Add a note";
+"メモを編集" = "Edit the note";
+
+//  MemoSheet
+"画像" = "Image";
+"メモの追加" = "Addition of a note";
+//文字列は@.
+"%lld文字以内のみ設定可能です" = "Only up to %lld characters can be set";
+"保存する" = "Save";
 
 //"" = "";
 //"" = "";
