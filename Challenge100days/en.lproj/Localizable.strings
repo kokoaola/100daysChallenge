@@ -6,6 +6,9 @@
   
 */
 
+"取り組む" = "Challenge";
+"これまでの記録" = "History";
+
 ///チュートリアル
 
 "はじめまして。" = "Welcome.";
@@ -68,3 +71,30 @@
 "メモ" = "Note";
 "選択した日はすでに記録が存在しています。" = "There is already a record for the selected day.";
 
+//セッティング画面
+"アプリの色を変更する" = "Change app color";
+"目標を隠す" = "Hide goal";
+"目標を変更する" = "Change goal";
+"100日取り組む内容を変更する" = "Change 100-day challenge content";
+"バックアップ" = "Backup";
+"プライバシーポリシー" = "Privacy Policy";
+"このアプリについて" = "About this app";
+"お問い合わせ" = "Contact Us";
+"リセット" = "Reset";
+"設定" = "Settings";
+"リセットしますか？" = "Do you want to reset?";
+"リセットする" = "Reset";
+"キャンセル" = "Cancel";
+"変更する" = "Change";
+"この動作は取り消せません。" = "This action cannot be undone.";
+"\n\nアプリをインストールしてくださって、ありがとうございます。\nこのアプリは、目標に向かって進む人を応援、お手伝いしたいという思いで作りました。\n特徴としては以下の2点があります。\n\n\n" = "\n\nThank you for installing the app.\nThis app was created with the intention to support and assist those who are working towards their goals.\nIt features the following two points.\n\n";
+"①100日までのカウントアップ機能" = "1. 100-day countdown feature";
+"コンプリートボタンを押すことで、開始してから100日に到達するまでカウントし続けます。\n毎日カウントが可能ですが、連続で取り組まないとダメという機能は備わっていません。\n極端な話、1週間休んでも1ヶ月休んでも、再開してボタンを押せば問題なく記録が積み上がるように設計されています。\n100日は意外と長い道のりです。\nその中で、心と体を守りながら続けていくことこそ1番大切だと思います。\n\nあなたは、何か新しいことに挑戦しようと考え、しかも実際に行動に移しています。\nそれだけでも賞賛に値する大変素晴らしいことです。\n\n休んだからといって、積み上げた努力がゼロになることなんてありません。\nいつでもまた戻って再開すれば問題ないのです。\n休むことを挫折と捉えないでください。\n\nこのアプリの中では完璧主義を忘れて、「今日はできた！」の完了主義で取り組んでもらえれば嬉しいです。\n\n\n" = "By pressing the complete button, the app will continue to count up to 100 days from the start. You can count every day, but the app does not require you to continue in succession. To put it in extreme terms, whether you take a week off or a month off, you can continue accumulating records without any problems once you resume and press the button.\n\n100 days is a surprisingly long journey. In that time, I believe the most important thing is to continue while protecting your mind and body.\n\nYou are contemplating challenging something new, and you are actually taking action. That alone is a wonderful thing worthy of praise.\n\nJust because you took a break does not mean that your accumulated efforts will become zero. There is no problem if you come back and restart at any time. Please do not interpret taking a break as giving up.\n\nI would be happy if you forget about perfectionism in this app and work with the completionism of \"I did it today!\".\n\n";
+
+
+"②シェア用オリジナル画像の生成" = "② Creation of original images for sharing";
+
+"よく言われることですが、SNSで世界に公開しながら何かに取り組むと、挫折しづらくなるそうです。\n\nその手助けになればと思い、シェア用の画像の生成機能をつけました。宣伝っぽくなるのが少し嫌でアプリ名とかは入ってませんので、気軽に共有してください。\n\n写真は全てunsplashという素材サイトからお借りし、二次加工・再配布OKという利用規約の元で使用しております。(写真の撮影者様のクレジットのみ記載してあります。)\n\n\n初めてのリリースでまだ未熟な点の多いアプリですが、ご意見などありましたらお問い合わせフォームから気軽にご連絡ください。\n\n\n" = "As it is often said, it seems that working on something while making it public on social media makes it harder to give up.\n\nI added an image generation feature for sharing in the hope that it could help. The app name is not included because it seems a bit annoying to make it look like advertising, so please feel free to share.\n\nAll the photos are borrowed from a material site called unsplash, and are used under the terms of use that allow secondary processing and redistribution. (Only the credit of the photographer of the photo is listed.)\n\nIt is an app with many immature points in the first release, but please feel free to contact me from the inquiry form if you have any opinions or the like.";
+
+"このアプリにはデータを外部に保存する機能はありません。\nデータを消して最初から新しく始める際など、これまでの記録を残しておきたい場合は、このページからコピーしてデバイスへ保存をお願いいたします。" = "This app does not have the ability to save data externally. \nIf you wish to keep a record of what you have done so far, such as when you erase your data and start fresh from scratch, please copy the data from this page and save it to your device.";
+"コピーしました" = "Copied.";

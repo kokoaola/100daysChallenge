@@ -90,7 +90,7 @@ struct SettingView: View {
                             
                             
                             NavigationLink {
-                                WebView(urlString: "https://kokoaola.github.io/privacy.html")
+                                WebView()
                             } label: {
                                 Text("プライバシーポリシー")
                             }
@@ -136,14 +136,6 @@ struct SettingView: View {
                 .scrollContentBackground(.hidden)
                 
                 .userSettingGradient(colors: [storedColorTop, storedColorBottom])
-//                .background(.secondary)
-//                .foregroundStyle(
-//                    .linearGradient(
-//                        colors: [storedColorTop, storedColorBottom],
-//                        startPoint: .topLeading,
-//                        endPoint: .bottomTrailing
-//                    )
-//                )
                 
                 if isLongTermGoalEditedAlert{
                     VStack{
@@ -193,7 +185,7 @@ struct SettingView: View {
         
         ///削除ボタン押下時のアラート
         .alert("リセットしますか？", isPresented: $isRiset){
-            Button("破棄する",role: .destructive){
+            Button("リセットする",role: .destructive){
                 isFirst = true
                 delete()
             }
