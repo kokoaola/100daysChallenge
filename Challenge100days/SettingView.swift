@@ -17,7 +17,7 @@ struct SettingView: View {
     @AppStorage("isFirst") var isFirst = true
     
     @AppStorage("colorNumber") var colorNumber = 0
-    @AppStorage("hideInfomation") var hideInfomation = true
+    @AppStorage("hideInfomation") var hideInfomation = false
     @State var selectedColor = 10
     @State var isRiset = false
     @State var isEdit = false

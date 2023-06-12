@@ -27,7 +27,7 @@ struct ActionView: View {
     @AppStorage("longTermGoal") var longTermGoal: String = ""
     @AppStorage("shortTermGoal") var shortTermGoal: String = ""
     
-    @AppStorage("hideInfomation") var hideInfomation = true
+    @AppStorage("hideInfomation") var hideInfomation = false
     
     var startDate: String{
         makeDate(day:days.first?.date ?? Date.now)
@@ -43,23 +43,32 @@ struct ActionView: View {
             ZStack{
                 
                 ///今日のミッションが未達成ならボタンのビューを表示
-                VStack(spacing: AppSetting.screenHeight / 25){
+                VStack(spacing: AppSetting.screenHeight / 50){
                     
                         if !hideInfomation{
                             VStack(alignment: .center, spacing: 0){
                            Text("目指している姿  :  ")
                                 .fontWeight(.bold)
                                 .frame(width: AppSetting.screenWidth * 0.8, alignment: .leading)
-                            Text("\(longTermGoal)")
-                                .frame(width: AppSetting.screenWidth * 0.75 , height: 50,alignment: .center)
-                                .padding(.bottom, 5)
+                                
+                            ///Text("\(longTermGoal)")
+                                Text("Build strength and muscle mass")
+//                                    .padding(.horizontal)
+//                                    .background(.white)
+//                                    .cornerRadius(50)
+                                .frame(width: AppSetting.screenWidth * 0.75 , height: 30,alignment: .center)
+                                .padding(.bottom, 10)
                                 
                             
                             Text("100日取り組むこと : ")
                                 .fontWeight(.bold)
                                 .frame(width: AppSetting.screenWidth * 0.8, alignment: .leading)
-                            Text("\(shortTermGoal)")
-                                .frame(width: AppSetting.screenWidth * 0.75, height: 50 ,alignment: .center)
+                                Text("Work 2 kilometer without stopping")
+//                                    .padding(.horizontal)
+//                                    .background(.white)
+//                                    .cornerRadius(50)
+                            ///Text("\(shortTermGoal)")
+                                .frame(width: AppSetting.screenWidth * 0.75, height: 30 ,alignment: .center)
                             }.font(.callout.weight(.medium))
                             .frame(width: AppSetting.screenWidth * 0.8)
                             .padding(.top, 100)
@@ -114,7 +123,8 @@ struct ActionView: View {
                         day.num = Int16(dayNumber)
                         try? moc.save()
                     }, label: {
-                        CompleteButton(num:isComplete ? dayNumber - 1 : dayNumber)
+                        CompleteButton(num:52)
+                        ///CompleteButton(num:isComplete ? dayNumber - 1 : dayNumber)
                             .foregroundStyle(.primary)
                             .opacity(isComplete ? 0.3 : 1.0)
                     })
