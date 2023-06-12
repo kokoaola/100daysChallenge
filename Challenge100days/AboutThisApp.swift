@@ -79,7 +79,7 @@ struct AboutThisApp: View {
 """
                 )
             }
-            //.padding(.horizontal)
+            .padding()
         }
         //.background()
         .multilineTextAlignment(.leading)
@@ -89,9 +89,9 @@ struct AboutThisApp: View {
         .foregroundColor(.primary)
         //.padding(.top, 50)
         ///ここからは背景の設定
-        //        .frame(maxWidth: .infinity, maxHeight: AppSetting.screenHeight / 1.3)
-        //        .background(.thinMaterial)
-        //        .cornerRadius(15)
+                //.frame(maxWidth: .infinity, maxHeight: AppSetting.screenHeight / 1.3)
+                .background(.thinMaterial)
+                .cornerRadius(15)
         
         .padding(.horizontal)
         .userSettingGradient(colors: [storedColorTop, storedColorBottom])
@@ -107,8 +107,16 @@ struct AboutThisApp: View {
     }
 }
 
+
+
+
 struct AboutThisApp_Previews: PreviewProvider {
     static var previews: some View {
-        AboutThisApp()
+        Group{
+            AboutThisApp()
+                .environment(\.locale, Locale(identifier:"en"))
+            AboutThisApp()
+                .environment(\.locale, Locale(identifier:"ja"))
+        }
     }
 }

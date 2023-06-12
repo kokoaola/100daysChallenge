@@ -168,16 +168,26 @@ struct SpeechBubble: Shape {
 
 
 
+
 struct OriginalButton_Previews: PreviewProvider {
     static var previews: some View {
-        VStack{
-            TutorialButton(labelString: "次へ", labelImage: "arrowshape.right")
-            CompleteButton(num: 1)
-            OriginalButton(labelString: "シェアする", labelImage: "square.and.arrow.up")
-            //OriginalButton2(labelString: "シェアする", labelImage: "square.and.arrow.up").frame(width: 200, height: 40)
-            SpeechBubble()
-                //.frame(width: 100)
+        Group{
+            
+            VStack{
+                TutorialButton(labelString: "次へ", labelImage: "arrowshape.right")
+                CompleteButton(num: 1)
+                OriginalButton(labelString: "シェアする", labelImage: "square.and.arrow.up")
+                SpeechBubble()
+            }
+            .environment(\.locale, Locale(identifier:"en"))
+            
+            VStack{
+                TutorialButton(labelString: "次へ", labelImage: "arrowshape.right")
+                CompleteButton(num: 1)
+                OriginalButton(labelString: "シェアする", labelImage: "square.and.arrow.up")
+                SpeechBubble()
+            }
+            .environment(\.locale, Locale(identifier:"ja"))
         }
     }
 }
-

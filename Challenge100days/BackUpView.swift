@@ -156,9 +156,16 @@ struct BackUpView: View {
     }
 }
 
+
+
+
 struct BackUpView_Previews: PreviewProvider {
     static var previews: some View {
-        BackUpView()
+        Group{
+            BackUpView()
+                .environment(\.locale, Locale(identifier:"en"))
+            BackUpView()
+                .environment(\.locale, Locale(identifier:"ja"))
+        }
     }
 }
-

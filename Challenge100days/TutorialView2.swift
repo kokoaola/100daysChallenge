@@ -136,9 +136,17 @@ struct TutorialView2: View {
         
 }
 
+
+
+
 struct TutorialView2_Previews: PreviewProvider {
-    @State static var a = 1
+    @State static var sampleNum = 1
     static var previews: some View {
-        TutorialView2(page: $a)
+        Group{
+            TutorialView2(page: $sampleNum)
+                .environment(\.locale, Locale(identifier:"en"))
+            TutorialView2(page: $sampleNum)
+                .environment(\.locale, Locale(identifier:"ja"))
+        }
     }
 }

@@ -208,11 +208,15 @@ struct makeNewItemSheet: View {
     }
 }
 
+
+
 struct makeNewItemSheet_Previews: PreviewProvider {
     static var previews: some View {
-        makeNewItemSheet()
+        Group{
+            makeNewItemSheet()
+                .environment(\.locale, Locale(identifier:"en"))
+            makeNewItemSheet()
+                .environment(\.locale, Locale(identifier:"ja"))
+        }
     }
 }
-
-
-

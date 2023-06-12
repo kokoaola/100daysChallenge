@@ -101,14 +101,6 @@ struct Privacy: View{
         ///グラデーション背景設定
         .background(.ultraThinMaterial)
         .userSettingGradient(colors: [storedColorTop, storedColorBottom])
-//        .background(.secondary)
-//        .foregroundStyle(
-//            .linearGradient(
-//                colors: [storedColorTop, storedColorBottom],
-//                startPoint: .topLeading,
-//                endPoint: .bottomTrailing
-//            )
-//        )
         .ignoresSafeArea()
         
         .toolbar {
@@ -141,8 +133,14 @@ struct WebView: UIViewRepresentable {
     }
 }
 
+
 struct Privacy_Previews: PreviewProvider {
     static var previews: some View {
-        Privacy()
+        Group{
+            Privacy()
+                .environment(\.locale, Locale(identifier:"en"))
+            Privacy()
+                .environment(\.locale, Locale(identifier:"ja"))
+        }
     }
 }

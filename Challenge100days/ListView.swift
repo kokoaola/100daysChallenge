@@ -110,16 +110,6 @@ struct ListView: View {
     }
 }
 
-struct ListView_Previews: PreviewProvider {
-    static private var dataController = DataController()
-    static let moc = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
-    
-    
-    static var previews: some View {
-        ListView()
-    }
-}
-
 func makeDate(day: Date)-> String{
     let df = DateFormatter()
     df.locale = Locale(identifier: "ja-Jp")
@@ -128,3 +118,13 @@ func makeDate(day: Date)-> String{
 }
 
 
+struct ListView_Previews: PreviewProvider {
+    static var previews: some View {
+        Group{
+            ListView()
+                .environment(\.locale, Locale(identifier:"en"))
+            ListView()
+                .environment(\.locale, Locale(identifier:"ja"))
+        }
+    }
+}

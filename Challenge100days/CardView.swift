@@ -100,9 +100,14 @@ struct CardView: View {
 
 struct CardView_Previews: PreviewProvider {
     static private var dataController = DataController()
-    @State static var path = [String]()
     static var previews: some View {
-        CardView()
-        // .environment(\.managedObjectContext, dataController.container.viewContext)
+        Group{
+            CardView()
+                .environment(\.locale, Locale(identifier:"en"))
+            CardView()
+                .environment(\.locale, Locale(identifier:"ja"))
+        }
     }
 }
+
+

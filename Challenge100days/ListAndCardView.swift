@@ -69,14 +69,6 @@ struct ListAndCardView: View {
 
             ///グラデーション背景設定
             .userSettingGradient(colors: [storedColorTop, storedColorBottom])
-//            .background(.secondary)
-//            .foregroundStyle(
-//                .linearGradient(
-//                    colors: [storedColorTop, storedColorBottom],
-//                    startPoint: .topLeading,
-//                    endPoint: .bottomTrailing
-//                )
-//            )
             
             
             .toolbar{
@@ -100,11 +92,18 @@ struct ListAndCardView: View {
     }
 }
 
+
+
 struct ListAndCardView_Previews: PreviewProvider {
     static private var dataController = DataController()
-    
     static var previews: some View {
-        ListAndCardView()
-            .environment(\.managedObjectContext, dataController.container.viewContext)
+        Group{
+            ListAndCardView()
+                .environment(\.managedObjectContext, dataController.container.viewContext)
+                .environment(\.locale, Locale(identifier:"en"))
+            ListAndCardView()
+                .environment(\.managedObjectContext, dataController.container.viewContext)
+                .environment(\.locale, Locale(identifier:"ja"))
+        }
     }
 }

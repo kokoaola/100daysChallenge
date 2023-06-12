@@ -95,14 +95,15 @@ struct CompleteView: View {
 }
 
 
+
 struct CompleteDoneView_Previews: PreviewProvider {
     @Environment(\.managedObjectContext) var moc
     @State static var aa = false
-    static private var dataController = DataController()
-    
     static var previews: some View {
-        CompleteView(showCompleteWindew: $aa, image: Image("noImage"))
+        Group{
+            CompleteView(showCompleteWindew: $aa, image: Image("noImage"))                .environment(\.locale, Locale(identifier:"en"))
+            CompleteView(showCompleteWindew: $aa, image: Image("noImage"))
+                .environment(\.locale, Locale(identifier:"ja"))
+        }
     }
 }
-
-

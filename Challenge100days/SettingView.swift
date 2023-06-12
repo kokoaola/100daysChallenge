@@ -218,6 +218,11 @@ struct SettingView: View {
 
 struct SettingView_Previews: PreviewProvider {
     static var previews: some View {
-        SettingView()
+        Group{
+            SettingView()
+                .environment(\.locale, Locale(identifier:"en"))
+            SettingView()
+                .environment(\.locale, Locale(identifier:"ja"))
+        }
     }
 }

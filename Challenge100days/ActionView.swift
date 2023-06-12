@@ -163,10 +163,14 @@ struct ActionView: View {
     }
 }
 
+
 struct ActionView_Previews: PreviewProvider {
-    static private var dataController = DataController()
-    
     static var previews: some View {
-        ActionView()
+        Group{
+            ActionView()
+                .environment(\.locale, Locale(identifier:"en"))
+            ActionView()
+                .environment(\.locale, Locale(identifier:"ja"))
+        }
     }
 }

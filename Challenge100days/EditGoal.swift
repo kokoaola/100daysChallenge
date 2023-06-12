@@ -107,10 +107,18 @@ struct EditGoal: View {
     }
 }
 
+
+
+
 struct EditGoal_Previews: PreviewProvider {
     @State static var isEdit = false
     @State static var str = "目標を変更する"
     static var previews: some View {
-        EditGoal(showAlert: $isEdit,isLong: true)
+        Group{
+            EditGoal(showAlert: $isEdit,isLong: true)
+                .environment(\.locale, Locale(identifier:"en"))
+            EditGoal(showAlert: $isEdit,isLong: true)
+                .environment(\.locale, Locale(identifier:"ja"))
+        }
     }
 }

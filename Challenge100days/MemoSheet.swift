@@ -119,11 +119,14 @@ struct MemoSheet: View {
     }
 }
 
+
 struct MemoSheet_Previews: PreviewProvider {
-    static private var dataController = DataController()
-    
     static var previews: some View {
-        MemoSheet()
-        //.environment(\.managedObjectContext, dataController.container.viewContext)
+        Group{
+            MemoSheet()
+                .environment(\.locale, Locale(identifier:"en"))
+            MemoSheet()
+                .environment(\.locale, Locale(identifier:"ja"))
+        }
     }
 }

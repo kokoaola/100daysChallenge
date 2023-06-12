@@ -107,10 +107,12 @@ struct ContentView: View {
 }
 
 struct ContentView_Previews: PreviewProvider {
-    static private var dataController = DataController()
-    
     static var previews: some View {
-        ContentView()
-            .environment(\.managedObjectContext, dataController.container.viewContext)
+        Group{
+            ContentView()
+                .environment(\.locale, Locale(identifier:"en"))
+            ContentView()
+                .environment(\.locale, Locale(identifier:"ja"))
+        }
     }
 }
