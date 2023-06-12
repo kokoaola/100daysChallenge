@@ -7,12 +7,10 @@
 
 import SwiftUI
 
-struct TutorialButton: View {
+struct NextButton: View {
     let radius:CGFloat = 10.0
     let width = AppSetting.screenWidth / 3
     let height = AppSetting.screenWidth / 6
-    let labelString: String
-    let labelImage : String
     let 文字と内側の枠の色 = Color(UIColor.white)
     
     var body: some View {
@@ -21,13 +19,56 @@ struct TutorialButton: View {
             RoundedRectangle(cornerRadius: radius)
                 .frame(width: width, height: height)
             
-            HStack(alignment: .firstTextBaseline, spacing: 0){
-                Text(labelString)
-                Image(systemName: labelImage)
+            HStack(alignment: .firstTextBaseline, spacing: 5){
+                Text("次へ")
+                Image(systemName: "arrowshape.right")
             }
             .font(.title2.weight(.bold))
             .foregroundColor(文字と内側の枠の色)
+        }
+    }
+}
+
+struct BackButton: View {
+    let radius:CGFloat = 10.0
+    let width = AppSetting.screenWidth / 3
+    let height = AppSetting.screenWidth / 6
+    let 文字と内側の枠の色 = Color(UIColor.white)
+    
+    var body: some View {
+        ZStack(alignment: .center){
             
+            RoundedRectangle(cornerRadius: radius)
+                .frame(width: width, height: height)
+            
+            HStack(alignment: .firstTextBaseline, spacing: 5){
+                Image(systemName: "arrowshape.left")
+                Text("戻る")
+            }
+            .font(.title2.weight(.bold))
+            .foregroundColor(文字と内側の枠の色)
+        }
+    }
+}
+
+struct StartButton: View {
+    let radius:CGFloat = 10.0
+    let width = AppSetting.screenWidth / 3
+    let height = AppSetting.screenWidth / 6
+    let 文字と内側の枠の色 = Color(UIColor.white)
+    
+    var body: some View {
+        ZStack(alignment: .center){
+            
+            RoundedRectangle(cornerRadius: radius)
+                .frame(width: width, height: height)
+            
+            HStack(alignment: .firstTextBaseline, spacing: 5){
+                Text("始める")
+                Image(systemName: "arrowshape.right")
+            }
+            .font(.title2.weight(.bold))
+            .foregroundColor(文字と内側の枠の色)
         }
     }
 }
@@ -174,7 +215,8 @@ struct OriginalButton_Previews: PreviewProvider {
         Group{
             
             VStack{
-                TutorialButton(labelString: "次へ", labelImage: "arrowshape.right")
+                NextButton()
+                BackButton()
                 CompleteButton(num: 1)
                 OriginalButton(labelString: "シェアする", labelImage: "square.and.arrow.up")
                 SpeechBubble()
@@ -182,7 +224,8 @@ struct OriginalButton_Previews: PreviewProvider {
             .environment(\.locale, Locale(identifier:"en"))
             
             VStack{
-                TutorialButton(labelString: "次へ", labelImage: "arrowshape.right")
+                NextButton()
+                BackButton()
                 CompleteButton(num: 1)
                 OriginalButton(labelString: "シェアする", labelImage: "square.and.arrow.up")
                 SpeechBubble()

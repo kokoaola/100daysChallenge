@@ -56,7 +56,7 @@ struct TutorialView1: View {
                 page = 2
                 colorNumber = selectedColor
             } label: {
-                TutorialButton(labelString: "次へ", labelImage: "arrowshape.right")
+                NextButton()
                     .foregroundColor(.green)
                 
             }
@@ -105,9 +105,9 @@ struct TutorialView1_Previews: PreviewProvider {
     static var previews: some View {
         Group{
             TutorialView1(page: $sampleNum)
-                .environment(\.locale, Locale(identifier:"en"))
-            TutorialView1(page: $sampleNum)
                 .environment(\.locale, Locale(identifier:"ja"))
+            TutorialView1(page: $sampleNum)
+                .environment(\.locale, Locale(identifier:"en"))
         }
     }
 }

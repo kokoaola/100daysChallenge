@@ -60,9 +60,9 @@ struct TutorialView_Previews: PreviewProvider {
     static var previews: some View {
         Group{
             TutorialTopView()
-                .environment(\.locale, Locale(identifier:"en"))
-            TutorialTopView()
                 .environment(\.locale, Locale(identifier:"ja"))
+            TutorialTopView()
+                .environment(\.locale, Locale(identifier:"en"))
         }
     }
 }

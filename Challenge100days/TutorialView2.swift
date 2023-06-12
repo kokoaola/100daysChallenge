@@ -91,7 +91,7 @@ struct TutorialView2: View {
                     Button {
                         page = 1
                     } label: {
-                        TutorialButton2(labelString: "戻る", labelImage: "arrowshape.left")
+                        BackButton()
                             .foregroundColor(.orange)
                     }
                     
@@ -102,7 +102,7 @@ struct TutorialView2: View {
                         shortTermGoal = editText2
                         page = 3
                     } label: {
-                        TutorialButton(labelString: "次へ", labelImage: "arrowshape.right")
+                        NextButton()
                             .foregroundColor(!editText.isEmpty && !editText2.isEmpty && editText.count <= AppSetting.maxLngthOfTerm && editText2.count <= AppSetting.maxLngthOfTerm ? .green : .gray)
                     }
                     ///次へボタンの無効判定

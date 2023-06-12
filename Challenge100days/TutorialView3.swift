@@ -42,7 +42,7 @@ struct TutorialView3: View {
                         page = 2
                         
                     } label: {
-                        TutorialButton2(labelString: "戻る", labelImage: "arrowshape.left")
+                        BackButton()
                             .foregroundColor(.orange)
                     }
                     Spacer()
@@ -51,7 +51,7 @@ struct TutorialView3: View {
                         isFirst = false
                         
                     } label: {
-                        TutorialButton(labelString: "始める", labelImage: "arrowshape.right")
+                        StartButton()
                             .foregroundColor(.green)
                     }
                     
