@@ -63,7 +63,6 @@ struct ActionView: View {
                             }.font(.callout.weight(.medium))
                             .frame(width: AppSetting.screenWidth * 0.8)
                             .padding(.top, 100)
-                            //.fontWeight(.medium)
                             .foregroundColor(.primary)
                             
                         }else{
@@ -76,27 +75,28 @@ struct ActionView: View {
                         .foregroundColor(.white)
                         .overlay{
                             VStack{
-                                
-                                VStack{
                                     Text(isComplete ? "本日のチャレンジは達成済みです。\nお疲れ様でした！" : "今日の取り組みが終わったら、\nボタンを押して完了しよう" )
+                                    .lineSpacing(10)
+                                    .padding(.vertical, 5)
                                     
                                     if isComplete{
-                                        Button {
-                                            showCompleteWindew = true
-                                        } label: {
-                                            Text("ウインドウを再表示する")
+                                        HStack{
+                                            Spacer()
+                                            Button {
+                                                showCompleteWindew = true
+                                            } label: {
+                                                Text("ウインドウを再表示する")
+                                                    .font(.footnote)
+                                                    .foregroundColor(.blue)
+                                            }
+                                            .frame(width: AppSetting.screenWidth * 0.8, alignment: .trailing)
+                                            .padding(.trailing)
                                         }
-                                        .font(.footnote)
-                                        .foregroundColor(.blue)
-                                        .padding(.top, 1)
                                     }
-                                    
-                                }
-                                .padding(.vertical)
                             }
                             .foregroundColor(.black)
                         }
-                        .frame(width: AppSetting.screenWidth * 0.8, height: AppSetting.screenWidth * 0.3)
+                        .frame(width: AppSetting.screenWidth * 0.85, height: AppSetting.screenWidth * 0.3)
                         .opacity(0.8)
                     
                     
