@@ -187,6 +187,8 @@ struct SettingView: View {
         .alert("リセットしますか？", isPresented: $isRiset){
             Button("リセットする",role: .destructive){
                 isFirst = true
+                longTermGoal = ""
+                shortTermGoal = ""
                 delete()
             }
             Button("戻る",role: .cancel){}
