@@ -72,7 +72,7 @@ struct TutorialView3: View {
             .toolbar {
                 ToolbarItemGroup(placement: .keyboard) {
                     Spacer()
-                    Button("Done") {
+                    Button("閉じる") {
                         isInputActive = false
                         isInputActive2 = false
                         

@@ -25,6 +25,13 @@
 "例）１日１枚絵を描く\n　　英語の勉強" = "e.g.) Draw one picture a day\n Study English";
 "\(AppSetting.maxLngthOfTerm)文字以内のみ設定可能です" = "Only up to \(AppSetting.maxLngthOfTerm) characters can be set.";
 "閉じる" = "Close";
+"設定は以上です。" = "That's all for the settings.";
+"これらの設定は、アプリの設定ページからも変更可能です。" = "These settings can also be changed from the app's settings page.";
+"それでは、さっそく始めましょう。" = "Let's get started right away.";
+
+
+//アクション画面
+"目指している姿  :  " = "Aiming for: ";
 
 //"" = "";
 //"" = "";
