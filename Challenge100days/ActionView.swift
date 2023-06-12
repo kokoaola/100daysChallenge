@@ -27,7 +27,7 @@ struct ActionView: View {
     @AppStorage("longTermGoal") var longTermGoal: String = ""
     @AppStorage("shortTermGoal") var shortTermGoal: String = ""
     
-    @AppStorage("showInfomation") var showInfomation = true
+    @AppStorage("hideInfomation") var hideInfomation = true
     
     var startDate: String{
         makeDate(day:days.first?.date ?? Date.now)
@@ -45,7 +45,7 @@ struct ActionView: View {
                 ///今日のミッションが未達成ならボタンのビューを表示
                 VStack(spacing: AppSetting.screenHeight / 25){
                     
-                        if showInfomation{
+                        if !hideInfomation{
                             VStack(alignment: .center, spacing: 0){
                            Text("目指している姿  :  ")
                                 .fontWeight(.bold)

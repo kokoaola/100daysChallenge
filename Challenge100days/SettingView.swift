@@ -17,7 +17,7 @@ struct SettingView: View {
     @AppStorage("isFirst") var isFirst = true
     
     @AppStorage("colorNumber") var colorNumber = 0
-    @AppStorage("showInfomation") var showInfomation = true
+    @AppStorage("hideInfomation") var hideInfomation = true
     @State var selectedColor = 10
     @State var isRiset = false
     @State var isEdit = false
@@ -59,7 +59,7 @@ struct SettingView: View {
                             } label: {
                                 Text("アプリの色を変更する")
                             }
-                            Toggle("目標を表示", isOn: $showInfomation)
+                            Toggle("目標を隠す", isOn: $hideInfomation)
                                 .tint(.green)
                         }
                         
