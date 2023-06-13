@@ -49,29 +49,27 @@ struct ActionView: View {
                             VStack(alignment: .center, spacing: 0){
                            Text("目指している姿  :  ")
                                 .fontWeight(.bold)
-                                .frame(width: AppSetting.screenWidth * 0.8, alignment: .leading)
+                                .frame(width: AppSetting.screenWidth * 0.9, alignment: .leading)
                                 
                                 Text("\(longTermGoal)")
                                 ///Text("Build strength and muscle mass")
-//                                    .padding(.horizontal)
-//                                    .background(.white)
-//                                    .cornerRadius(50)
-                                .frame(width: AppSetting.screenWidth * 0.75 , height: 30,alignment: .center)
+                                ///Text("運動の習慣を付けて、健康的な体型を目指す！")
+
+                                .frame(width: AppSetting.screenWidth * 0.9 , height: 50,alignment: .center)
                                 .padding(.bottom, 10)
                                 
                             
                             Text("100日取り組むこと : ")
                                 .fontWeight(.bold)
-                                .frame(width: AppSetting.screenWidth * 0.8, alignment: .leading)
+                                .frame(width: AppSetting.screenWidth * 0.9, alignment: .leading)
                                 Text("\(shortTermGoal)")
                                 ///Text("Work 2 kilometer without stopping")
-//                                    .padding(.horizontal)
-//                                    .background(.white)
-//                                    .cornerRadius(50)
-                                .frame(width: AppSetting.screenWidth * 0.75, height: 30 ,alignment: .center)
+                                ///Text("２キロ歩く")
+
+                                .frame(width: AppSetting.screenWidth * 0.9, height: 50 ,alignment: .center)
                             }.font(.callout.weight(.medium))
                             .frame(width: AppSetting.screenWidth * 0.8)
-                            .padding(.top, 100)
+                            .padding(.top, 90)
                             .foregroundColor(.primary)
                             
                         }else{
@@ -105,7 +103,7 @@ struct ActionView: View {
                             }
                             .foregroundColor(.black)
                         }
-                        .frame(width: AppSetting.screenWidth * 0.85, height: AppSetting.screenWidth * 0.3)
+                        .frame(width: AppSetting.screenWidth * 0.9, height: AppSetting.screenWidth * 0.3)
                         .opacity(0.8)
                     
                     
@@ -123,11 +121,12 @@ struct ActionView: View {
                         day.num = Int16(dayNumber)
                         try? moc.save()
                     }, label: {
-                        CompleteButton(num:52)
-                        ///Text("\(shortTermGoal)")CompleteButton(num:isComplete ? dayNumber - 1 : dayNumber)
+                        ///CompleteButton(num:52)
+                        CompleteButton(num:isComplete ? dayNumber - 1 : dayNumber)
                             .foregroundStyle(.primary)
                             .opacity(isComplete ? 0.3 : 1.0)
                     })
+                    .padding(.top)
                     .disabled(isComplete)
                     
                     Spacer()

@@ -41,7 +41,7 @@
 "ウインドウを再表示する" = "Redisplay the window";
 
 //CompleteView
-"%lld日目のチャレンジ達成！" = "Challenge completed on day%lld!";
+"%lld日目のチャレンジ達成！" = "Challenge completed on day%lld.";
 "よく頑張ったね！" = "Good job!";
 "シェアする" = "Share";
 "メモを追加" = "Add a note";

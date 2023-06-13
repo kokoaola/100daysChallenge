@@ -32,7 +32,7 @@ struct CompleteView: View {
        // VStack{
             
             ///四角に画像とボタンを重ねてる
-        VStack(spacing: 50){
+        VStack(spacing: 60){
                 
             VStack{
                 ///閉じるボタン

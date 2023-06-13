@@ -65,7 +65,8 @@ struct ContentView: View {
 //                        day.memo = ""
 //
 //                        if i == 1{
-//                            day.memo = "Started today.\nI'll do my best to make time to work on it!" //"今日から開始。\n頑張って時間作って取り組むぞ！"
+//                            day.memo = "今日から開始。\n頑張って時間作って取り組むぞ！"
+//                            //"Started today.\nI'll do my best to make time to work on it!"
 //                        }
 //                        if i == 2{
 //                            day.memo = "仕事の後、１時間ほど勉強できた。"
