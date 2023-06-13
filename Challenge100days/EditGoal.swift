@@ -41,8 +41,8 @@ struct EditGoal: View {
                     .frame(height: 80)
                     .opacity(editText.isEmpty ? 0.5 : 1)
                 
-                Text("\(AppSetting.maxLngthOfTerm)文字以内のみ設定可能です").font(.caption) .font(.caption)
-                    .foregroundColor(editText.count > AppSetting.maxLngthOfTerm ? .red : .clear)
+                Text("\(AppSetting.maxLengthOfTerm)文字以内のみ設定可能です").font(.caption) .font(.caption)
+                    .foregroundColor(editText.count > AppSetting.maxLengthOfTerm ? .red : .clear)
                 
                 
                 HStack{
@@ -65,7 +65,7 @@ struct EditGoal: View {
                         Text("変更する")
                             .frame(width: AppSetting.screenWidth / 3.5, height: AppSetting.screenWidth * 0.1)
                     }.tint(.green)
-                        .disabled(editText.isEmpty || editText.count > AppSetting.maxLngthOfTerm)
+                        .disabled(editText.isEmpty || editText.count > AppSetting.maxLengthOfTerm)
                     
                     
                     
@@ -94,7 +94,7 @@ struct EditGoal: View {
     
     ///データ保存用関数
     func save() async{
-        if !editText.isEmpty && AppSetting.maxLngthOfTerm >= editText.count{
+        if !editText.isEmpty && AppSetting.maxLengthOfTerm >= editText.count{
             
             await MainActor.run{
                 if isLong{

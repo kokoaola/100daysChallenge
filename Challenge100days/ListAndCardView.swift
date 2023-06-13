@@ -41,7 +41,7 @@ struct ListAndCardView: View {
             ScrollView(.vertical, showsIndicators: false){
                 
                 HStack(){
-                        Text("開始日 : ") + Text("\(makeDate(day:items.first?.date ?? Date.now))")
+                    Text("開始日 : ") + Text("\(makeDate(day:items.first?.date ?? Date.now))")
                         .font(.footnote)
                     
                     Spacer()
@@ -66,10 +66,15 @@ struct ListAndCardView: View {
             }
             .foregroundColor(Color(UIColor.label))
             .padding(.horizontal)
-
+            
             ///グラデーション背景設定
             .userSettingGradient(colors: [storedColorTop, storedColorBottom])
             
+            .onAppear{
+                Task{
+                    await reNumber()
+                }
+            }
             
             .toolbar{
                 ///新規追加用のプラスボタン
@@ -88,6 +93,18 @@ struct ListAndCardView: View {
             .navigationTitle("100days Challenge")
             .navigationBarTitleDisplayMode(.automatic)
             
+        }
+    }
+    
+    ///データ保存後の番号振り直し用の関数
+    func reNumber() async{
+        await MainActor.run{
+            var counter = Int16(0)
+            for item in items{
+                counter += 1
+                item.num = counter
+                try? moc.save()
+            }
         }
     }
 }

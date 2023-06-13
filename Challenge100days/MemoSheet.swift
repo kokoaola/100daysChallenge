@@ -59,10 +59,10 @@ struct MemoSheet: View {
                         .focused($isInputActive)
                     
                     
-                    Label("\(AppSetting.maxLngthOfMemo)文字以内のみ設定可能です", systemImage: "exclamationmark.circle")
+                    Label("\(AppSetting.maxLengthOfMemo)文字以内のみ設定可能です", systemImage: "exclamationmark.circle")
                         .font(.footnote)
                         .padding(5)
-                        .foregroundColor(editText.count > AppSetting.maxLngthOfMemo ? .red : .clear)
+                        .foregroundColor(editText.count > AppSetting.maxLengthOfMemo ? .red : .clear)
                     
                     
                     ///保存ボタン
@@ -73,12 +73,12 @@ struct MemoSheet: View {
                     } label: {
                         SaveButton()
                         //OriginalButton(labelString: "保存する", labelImage: "checkmark.circle")
-                            .foregroundColor(editText.count <= AppSetting.maxLngthOfMemo ? .green : .gray)
-                            .opacity(editText.count <= AppSetting.maxLngthOfMemo ? 1.0 : 0.5)
+                            .foregroundColor(editText.count <= AppSetting.maxLengthOfMemo ? .green : .gray)
+                            .opacity(editText.count <= AppSetting.maxLengthOfMemo ? 1.0 : 0.5)
                     }
                     //.buttonStyle(.borderedProminent)
                     .tint(.green)
-                    .disabled(editText.count > AppSetting.maxLngthOfMemo)
+                    .disabled(editText.count > AppSetting.maxLengthOfMemo)
                     
                 }
             }

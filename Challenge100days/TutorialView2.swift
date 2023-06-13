@@ -52,9 +52,9 @@ struct TutorialView2: View {
                                 .opacity(editText.isEmpty ? 0.5 : 1)
                         }
                 
-                Text("\(AppSetting.maxLngthOfTerm)文字以内のみ設定可能です")
+                Text("\(AppSetting.maxLengthOfTerm)文字以内のみ設定可能です")
                     .font(.caption)
-                    .foregroundColor(editText.count > AppSetting.maxLngthOfTerm ? .red : .clear)
+                    .foregroundColor(editText.count > AppSetting.maxLengthOfTerm ? .red : .clear)
                     }
             
             
@@ -80,9 +80,9 @@ struct TutorialView2: View {
                                 .focused($isInputActive2)
                                 .opacity(editText2.isEmpty ? 0.5 : 1)
                         }
-                        Text("\(AppSetting.maxLngthOfTerm)文字以内のみ設定可能です")
+                        Text("\(AppSetting.maxLengthOfTerm)文字以内のみ設定可能です")
                             .font(.caption)
-                            .foregroundColor(editText2.count > AppSetting.maxLngthOfTerm ? .red : .clear)
+                            .foregroundColor(editText2.count > AppSetting.maxLengthOfTerm ? .red : .clear)
                     }
                 
                 Spacer()
@@ -103,10 +103,10 @@ struct TutorialView2: View {
                         page = 3
                     } label: {
                         NextButton()
-                            .foregroundColor(!editText.isEmpty && !editText2.isEmpty && editText.count <= AppSetting.maxLngthOfTerm && editText2.count <= AppSetting.maxLngthOfTerm ? .green : .gray)
+                            .foregroundColor(!editText.isEmpty && !editText2.isEmpty && editText.count <= AppSetting.maxLengthOfTerm && editText2.count <= AppSetting.maxLengthOfTerm ? .green : .gray)
                     }
                     ///次へボタンの無効判定
-                   .disabled(editText.isEmpty || editText2.isEmpty || editText.count > AppSetting.maxLngthOfTerm || editText2.count > AppSetting.maxLngthOfTerm)
+                   .disabled(editText.isEmpty || editText2.isEmpty || editText.count > AppSetting.maxLengthOfTerm || editText2.count > AppSetting.maxLengthOfTerm)
                 }
                 .padding(.bottom, 30)
                 }
