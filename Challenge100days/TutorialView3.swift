@@ -42,7 +42,7 @@ struct TutorialView3: View {
                         page = 2
                         
                     } label: {
-                        TutorialButton2(labelString: "戻る", labelImage: "arrowshape.left")
+                        BackButton()
                             .foregroundColor(.orange)
                     }
                     Spacer()
@@ -51,7 +51,7 @@ struct TutorialView3: View {
                         isFirst = false
                         
                     } label: {
-                        TutorialButton(labelString: "始める", labelImage: "arrowshape.right")
+                        StartButton()
                             .foregroundColor(.green)
                     }
                     
@@ -72,7 +72,7 @@ struct TutorialView3: View {
             .toolbar {
                 ToolbarItemGroup(placement: .keyboard) {
                     Spacer()
-                    Button("Done") {
+                    Button("閉じる") {
                         isInputActive = false
                         isInputActive2 = false
                         
@@ -84,9 +84,17 @@ struct TutorialView3: View {
     
 }
 
+
+
+
 struct TutorialView3_Previews: PreviewProvider {
-    @State static var a = 1
+    @State static var sampleNum = 1
     static var previews: some View {
-        TutorialView3(page: $a)
+        Group{
+            TutorialView3(page: $sampleNum)
+                .environment(\.locale, Locale(identifier:"en"))
+            TutorialView3(page: $sampleNum)
+                .environment(\.locale, Locale(identifier:"ja"))
+        }
     }
 }

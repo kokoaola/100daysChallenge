@@ -17,7 +17,7 @@ struct SettingView: View {
     @AppStorage("isFirst") var isFirst = true
     
     @AppStorage("colorNumber") var colorNumber = 0
-    @AppStorage("showInfomation") var showInfomation = true
+    @AppStorage("hideInfomation") var hideInfomation = false
     @State var selectedColor = 10
     @State var isRiset = false
     @State var isEdit = false
@@ -59,9 +59,8 @@ struct SettingView: View {
                             } label: {
                                 Text("アプリの色を変更する")
                             }
-                            Toggle("目標を表示", isOn: $showInfomation)
+                            Toggle("目標を隠す", isOn: $hideInfomation)
                                 .tint(.green)
-                            //.frame(width: AppSetting.screenWidth * 0.4)
                         }
                         
                         Section{
@@ -91,7 +90,7 @@ struct SettingView: View {
                             
                             
                             NavigationLink {
-                                WebView(urlString: "https://kokoaola.github.io/privacy.html")
+                                WebView()
                             } label: {
                                 Text("プライバシーポリシー")
                             }
@@ -137,14 +136,6 @@ struct SettingView: View {
                 .scrollContentBackground(.hidden)
                 
                 .userSettingGradient(colors: [storedColorTop, storedColorBottom])
-//                .background(.secondary)
-//                .foregroundStyle(
-//                    .linearGradient(
-//                        colors: [storedColorTop, storedColorBottom],
-//                        startPoint: .topLeading,
-//                        endPoint: .bottomTrailing
-//                    )
-//                )
                 
                 if isLongTermGoalEditedAlert{
                     VStack{
@@ -194,8 +185,10 @@ struct SettingView: View {
         
         ///削除ボタン押下時のアラート
         .alert("リセットしますか？", isPresented: $isRiset){
-            Button("破棄する",role: .destructive){
+            Button("リセットする",role: .destructive){
                 isFirst = true
+                longTermGoal = ""
+                shortTermGoal = ""
                 delete()
             }
             Button("戻る",role: .cancel){}
@@ -219,6 +212,11 @@ struct SettingView: View {
 
 struct SettingView_Previews: PreviewProvider {
     static var previews: some View {
-        SettingView()
+        Group{
+            SettingView()
+                .environment(\.locale, Locale(identifier:"en"))
+            SettingView()
+                .environment(\.locale, Locale(identifier:"ja"))
+        }
     }
 }

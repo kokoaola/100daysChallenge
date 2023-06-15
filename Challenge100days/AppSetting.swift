@@ -63,8 +63,8 @@ struct AppSetting{
     ]
     
     ///目標の文字の上限
-    static let maxLngthOfTerm = 50
+    static let maxLengthOfTerm = 50
     
     ///メモの文字の上限
-    static let maxLngthOfMemo = 300
+    static let maxLengthOfMemo = 1000
 }

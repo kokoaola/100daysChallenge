@@ -39,19 +39,12 @@ func generateImageWithText(number: Int, day: Date) -> Image {
         imageIndex = 0
     }
     
-//    guard let imageName = AppSetting.photos[imageIndex] else{
-//        let imageName =
-//    }
     
     let imageName = AppSetting.photos[imageIndex]
     
-    //guard let imageName = AppSetting.photos[imageIndex] else { return Image("")}
-    
-    //guard let imageName = AppSetting.photos.randomElement() else { return Image("")}
     
     //画像をUIImageに変換に変換
     guard let image = UIImage(named: imageName) else{
-        print("DAME")
         return Image("noImage")
     }
     
@@ -62,21 +55,15 @@ func generateImageWithText(number: Int, day: Date) -> Image {
     
     //画像に重ねたい文字を設定
     let year = Calendar(identifier: .gregorian).dateComponents([.year, .month, .day], from: day)
-    //let text = "100 days challenge\nDay \(number) Done!\n\n\(year.year!) / \(year.month!) / \(year.day!)\nPhoto by Jason Leung"
     
     
     
     //太さやサイズを指定してラベルを作る
     let label = UILabel(frame: CGRect(x: 0, y: 0, width: image.size.width, height: image.size.height))
-    //label.adjustsFontSizeToFitWidth = true
-    //label.backgroundColor = UIColor.clear
     label.textAlignment = .center
     label.textColor = UIColor(.white)
-    //label.text = text
-    //label.directionalLayoutMargins = 1.0
     //フォントサイズと書体変更している（サイズだけなら label.font.withSize(500)でOK）
-    label.font = UIFont.systemFont(ofSize: image.size.width / 10, weight: UIFont.Weight(rawValue: 0.6), width: UIFont.Width(rawValue: 0.0))
-    //label.font = UIFont(name: "Verdana-Bold", size: 100)
+    //label.font = UIFont.systemFont(ofSize: image.size.width / 10, weight: UIFont.Weight(rawValue: 0.6), width: UIFont.Width(rawValue: 0.0))
     //複数行表示するための設定(最大行使える)
     label.numberOfLines = 0
     
@@ -86,10 +73,7 @@ func generateImageWithText(number: Int, day: Date) -> Image {
     
     ///一番大きい100daysの部分
     let stringAttributes1: [NSAttributedString.Key : Any] = [
-        .font: UIFont.systemFont(ofSize: image.size.width / 11, weight: UIFont.Weight.heavy, width: UIFont.Width(rawValue: 0)),
-        .kern: 3,
-        //.baselineOffset: 0,
-        //.paragraphStyle: para
+        .font: UIFont.systemFont(ofSize: image.size.width / 11, weight: UIFont.Weight.heavy, width: UIFont.Width(rawValue: 0)),.kern: 3,
     ]
     ///本文
     let string1 = NSAttributedString(string: "100 days challenge\nDay \(number) Done!\n", attributes: stringAttributes1)
@@ -97,12 +81,7 @@ func generateImageWithText(number: Int, day: Date) -> Image {
     
     ///日付の部分
     let stringAttributes2: [NSAttributedString.Key : Any] = [
-        .font: UIFont.systemFont(ofSize: image.size.width / 16,
-                                 weight: UIFont.Weight.black,
-                                 width: UIFont.Width(rawValue: 0.0)),
-        .kern: 3,
-        //.baselineOffset: 0,
-        //.paragraphStyle: para
+        .font: UIFont.systemFont(ofSize: image.size.width / 16,weight: UIFont.Weight.black,width: UIFont.Width(rawValue: 0.0)),.kern: 3,
     ]
     ///本文
     let string2 = NSAttributedString(string: "\(year.year!) / \(year.month!) / \(year.day!)", attributes: stringAttributes2)
@@ -119,17 +98,12 @@ func generateImageWithText(number: Int, day: Date) -> Image {
     let para = NSMutableParagraphStyle()
     para.alignment = .right
     para.tailIndent = -50
-    //para.defaultTabInterval = 10
-    // para.headIndent = 100
     let stringAttributes3: [NSAttributedString.Key : Any] = [
         .font: UIFont.systemFont(ofSize: image.size.width / 30, weight: UIFont.Weight.regular),
-       //.bold: thin,
         .foregroundColor: UIColor.white.withAlphaComponent(0.7),
         .kern: 2,
         .baselineOffset: 0,
         .paragraphStyle: para,
-        //.verticalGlyphForm: 100,
-        //.backgroundColor: UIColor.white.withAlphaComponent(0.6),
     ]
     
     var formattedString = imageName
@@ -145,7 +119,7 @@ func generateImageWithText(number: Int, day: Date) -> Image {
     
     
     let mutableAttributedString = NSMutableAttributedString()
-
+    
     mutableAttributedString.append(emptystring)
     mutableAttributedString.append(emptystring)
     mutableAttributedString.append(emptystring)

@@ -49,15 +49,6 @@ struct TutorialTopView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity)
 
             .userSettingGradient(colors: [storedColorTop, storedColorBottom])
-//            .background(.secondary)
-//            .foregroundStyle(
-//                .linearGradient(
-//                    colors: [storedColorTop, storedColorBottom],
-//                    startPoint: .topLeading,
-//                    endPoint: .bottomTrailing
-//                )
-//            )
-            
             
         }
         
@@ -67,6 +58,12 @@ struct TutorialTopView: View {
 
 struct TutorialView_Previews: PreviewProvider {
     static var previews: some View {
-        TutorialTopView()
+        Group{
+            TutorialTopView()
+                .environment(\.locale, Locale(identifier:"ja"))
+            TutorialTopView()
+                .environment(\.locale, Locale(identifier:"en"))
+        }
     }
 }
+

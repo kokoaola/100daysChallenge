@@ -1,5 +1,5 @@
 //
-//  CompleteDoneView.swift
+//  CompleteView.swift
 //  Challenge100days
 //
 //  Created by koala panda on 2023/01/29.
@@ -32,7 +32,7 @@ struct CompleteView: View {
        // VStack{
             
             ///四角に画像とボタンを重ねてる
-        VStack(spacing: 50){
+        VStack(spacing: 60){
                 
             VStack{
                 ///閉じるボタン
@@ -59,7 +59,7 @@ struct CompleteView: View {
                 VStack{
                     ///シェアボタン
                     ShareLink(item: image ?? Image("noImage") , preview: SharePreview("画像", image:image ?? Image("noImage"))){
-                        OriginalButton(labelString: "シェアする", labelImage: "square.and.arrow.up")
+                        ShareButton()
                             .foregroundColor(.blue.opacity(0.9))
                             
                     }
@@ -68,7 +68,7 @@ struct CompleteView: View {
                     Button {
                         showMemo = true
                     } label: {
-                        OriginalButton(labelString:(days.last?.memo == "") ? "メモを追加" : "メモを編集", labelImage: "rectangle.and.pencil.and.ellipsis")
+                        MemoButton()
                             .foregroundColor(.green.opacity(0.9))
                             
                     }
@@ -95,14 +95,16 @@ struct CompleteView: View {
 }
 
 
+
 struct CompleteDoneView_Previews: PreviewProvider {
     @Environment(\.managedObjectContext) var moc
     @State static var aa = false
-    static private var dataController = DataController()
-    
     static var previews: some View {
-        CompleteView(showCompleteWindew: $aa, image: Image("noImage"))
+        Group{
+            CompleteView(showCompleteWindew: $aa, image: Image("noImage"))
+                .environment(\.locale, Locale(identifier:"en"))
+            CompleteView(showCompleteWindew: $aa, image: Image("noImage"))
+                .environment(\.locale, Locale(identifier:"ja"))
+        }
     }
 }
-
-

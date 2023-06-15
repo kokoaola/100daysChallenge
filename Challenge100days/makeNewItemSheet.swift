@@ -96,8 +96,8 @@ struct makeNewItemSheet: View {
                         .padding(5)
                         .foregroundColor(.red)
                         .cornerRadius(10)
-                }else if editText.count > AppSetting.maxLngthOfMemo{
-                    Label("\(AppSetting.maxLngthOfMemo)文字以内のみ設定可能です", systemImage: "exclamationmark.circle")
+                }else if editText.count > AppSetting.maxLengthOfMemo{
+                    Label("\(AppSetting.maxLengthOfMemo)文字以内のみ設定可能です", systemImage: "exclamationmark.circle")
                         .font(.footnote)
                         .padding(5)
                         .foregroundColor(.red)
@@ -113,15 +113,16 @@ struct makeNewItemSheet: View {
                     }
                     
                 } label: {
-                    OriginalButton(labelString: "保存する", labelImage: "checkmark.circle")
-                        .foregroundColor(editText.count <= AppSetting.maxLngthOfMemo && isVailed ? .green : .gray)
-                        .opacity(editText.count <= AppSetting.maxLngthOfMemo && isVailed ? 1.0 : 0.5)
+                    SaveButton()
+//                    OriginalButton(labelString: "保存する", labelImage: "checkmark.circle")
+                        .foregroundColor(editText.count <= AppSetting.maxLengthOfMemo && isVailed ? .green : .gray)
+                        .opacity(editText.count <= AppSetting.maxLengthOfMemo && isVailed ? 1.0 : 0.5)
                     
                     //                        .foregroundColor(isVailed ? .green : .gray)
                     //                        .opacity(isVailed ? 1.0 : 0.5)
                 }
                 //.padding()
-                .disabled(isVailed == false || editText.count > AppSetting.maxLngthOfMemo)
+                .disabled(isVailed == false || editText.count > AppSetting.maxLengthOfMemo)
                 
             }
             .foregroundColor(.primary)
@@ -208,11 +209,15 @@ struct makeNewItemSheet: View {
     }
 }
 
+
+
 struct makeNewItemSheet_Previews: PreviewProvider {
     static var previews: some View {
-        makeNewItemSheet()
+        Group{
+            makeNewItemSheet()
+                .environment(\.locale, Locale(identifier:"en"))
+            makeNewItemSheet()
+                .environment(\.locale, Locale(identifier:"ja"))
+        }
     }
 }
-
-
-

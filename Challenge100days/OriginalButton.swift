@@ -7,12 +7,10 @@
 
 import SwiftUI
 
-struct TutorialButton: View {
+struct NextButton: View {
     let radius:CGFloat = 10.0
     let width = AppSetting.screenWidth / 3
     let height = AppSetting.screenWidth / 6
-    let labelString: String
-    let labelImage : String
     let 文字と内側の枠の色 = Color(UIColor.white)
     
     var body: some View {
@@ -21,41 +19,108 @@ struct TutorialButton: View {
             RoundedRectangle(cornerRadius: radius)
                 .frame(width: width, height: height)
             
-            HStack(alignment: .firstTextBaseline, spacing: 0){
-                Text(labelString)
-                Image(systemName: labelImage)
+            HStack(alignment: .firstTextBaseline, spacing: 5){
+                Text("次へ")
+                Image(systemName: "arrowshape.right")
             }
             .font(.title2.weight(.bold))
             .foregroundColor(文字と内側の枠の色)
-            
         }
     }
 }
 
-struct TutorialButton2: View {
+
+struct BackButton: View {
     let radius:CGFloat = 10.0
     let width = AppSetting.screenWidth / 3
     let height = AppSetting.screenWidth / 6
-    let labelString: String
-    let labelImage : String
     let 文字と内側の枠の色 = Color(UIColor.white)
     
     var body: some View {
-        ZStack{
+        ZStack(alignment: .center){
             
             RoundedRectangle(cornerRadius: radius)
                 .frame(width: width, height: height)
-            HStack(alignment: .lastTextBaseline){
-                Image(systemName: labelImage)
-                Text(labelString)
-                
+            
+            HStack(alignment: .firstTextBaseline, spacing: 5){
+                Image(systemName: "arrowshape.left")
+                Text("戻る")
             }
             .font(.title2.weight(.bold))
             .foregroundColor(文字と内側の枠の色)
-            
         }
     }
 }
+
+struct StartButton: View {
+    let radius:CGFloat = 10.0
+    let width = AppSetting.screenWidth / 3
+    let height = AppSetting.screenWidth / 6
+    let 文字と内側の枠の色 = Color(UIColor.white)
+    
+    var body: some View {
+        ZStack(alignment: .center){
+            
+            RoundedRectangle(cornerRadius: radius)
+                .frame(width: width, height: height)
+            
+            HStack(alignment: .firstTextBaseline, spacing: 5){
+                Text("始める")
+                Image(systemName: "arrowshape.right")
+            }
+            .font(.title2.weight(.bold))
+            .foregroundColor(文字と内側の枠の色)
+        }
+    }
+}
+
+
+struct SaveButton: View {
+    let radius:CGFloat = 10.0
+    let width = AppSetting.screenWidth / 3
+    let height = AppSetting.screenWidth / 6
+    let 文字と内側の枠の色 = Color(UIColor.white)
+    
+    var body: some View {
+        ZStack(alignment: .center){
+            
+            RoundedRectangle(cornerRadius: radius)
+                .frame(width: width, height: height)
+            
+            HStack(alignment: .firstTextBaseline, spacing: 5){
+                Text("保存する")
+                Image(systemName: "checkmark.circle")
+            }
+            .font(.title2.weight(.bold))
+            .foregroundColor(文字と内側の枠の色)
+        }
+    }
+}
+
+//struct TutorialButton2: View {
+//    let radius:CGFloat = 10.0
+//    let width = AppSetting.screenWidth / 3
+//    let height = AppSetting.screenWidth / 6
+//    let labelString: String
+//    let labelImage : String
+//    let 文字と内側の枠の色 = Color(UIColor.white)
+//
+//    var body: some View {
+//        ZStack{
+//
+//            RoundedRectangle(cornerRadius: radius)
+//                .frame(width: width, height: height)
+//            HStack(alignment: .lastTextBaseline){
+//                Image(systemName: labelImage)
+//                Text(labelString)
+//
+//            }
+//            .font(.title2.weight(.bold))
+//            .foregroundColor(文字と内側の枠の色)
+//
+//        }
+//    }
+//}
 
 
 
@@ -89,33 +154,78 @@ struct CompleteButton: View {
     }
 }
 
-struct OriginalButton: View {
+//struct OriginalButton: View {
+//    let radius:CGFloat = 10.0
+//    let width = AppSetting.screenWidth / 1.7
+//    let height = AppSetting.screenWidth / 5
+//    let labelString: String
+//    let labelImage : String
+//    let 文字と内側の枠の色 = Color(UIColor.white)
+//    
+//    var body: some View {
+//        ZStack{
+//            
+//            RoundedRectangle(cornerRadius: radius)
+//                .frame(width: width, height: height)
+//                .foregroundColor(文字と内側の枠の色)
+//            
+//            
+//            RoundedRectangle(cornerRadius: radius)
+//                .frame(width: width - 7, height: height - 7)
+//            
+//            HStack(alignment: .lastTextBaseline){
+//                Image(systemName: labelImage)
+//                Text(labelString)
+//            }
+//            .font(.title2.weight(.bold))
+//            .foregroundColor(文字と内側の枠の色)
+//        }
+//    }
+//}
+
+
+struct ShareButton: View {
     let radius:CGFloat = 10.0
     let width = AppSetting.screenWidth / 1.7
     let height = AppSetting.screenWidth / 5
-    //let height = 70.0
-    let labelString: String
-    let labelImage : String
-    //let ボタンの背景 = Color(UIColor.label)
-    let 文字と内側の枠の色 = Color(UIColor.white)
+    let borderColor = Color(UIColor.white)
     
     var body: some View {
         ZStack{
-            
             RoundedRectangle(cornerRadius: radius)
                 .frame(width: width, height: height)
-                .foregroundColor(文字と内側の枠の色)
-            
-            
+                .foregroundColor(borderColor)
             RoundedRectangle(cornerRadius: radius)
                 .frame(width: width - 7, height: height - 7)
-            
             HStack(alignment: .lastTextBaseline){
-                Image(systemName: labelImage)
-                Text(labelString)
+                Image(systemName: "square.and.arrow.up")
+                Text("シェアする")
             }
             .font(.title2.weight(.bold))
-            .foregroundColor(文字と内側の枠の色)
+            .foregroundColor(borderColor)
+        }
+    }
+}
+
+struct MemoButton: View {
+    let radius:CGFloat = 10.0
+    let width = AppSetting.screenWidth / 1.7
+    let height = AppSetting.screenWidth / 5
+    let borderColor = Color(UIColor.white)
+    
+    var body: some View {
+        ZStack{
+            RoundedRectangle(cornerRadius: radius)
+                .frame(width: width, height: height)
+                .foregroundColor(borderColor)
+            RoundedRectangle(cornerRadius: radius)
+                .frame(width: width - 7, height: height - 7)
+            HStack(alignment: .lastTextBaseline){
+                Image(systemName: "rectangle.and.pencil.and.ellipsis")
+                Text("メモを追加")
+            }
+            .font(.title2.weight(.bold))
+            .foregroundColor(borderColor)
         }
     }
 }
@@ -168,16 +278,32 @@ struct SpeechBubble: Shape {
 
 
 
+
 struct OriginalButton_Previews: PreviewProvider {
     static var previews: some View {
-        VStack{
-            TutorialButton(labelString: "次へ", labelImage: "arrowshape.right")
-            CompleteButton(num: 1)
-            OriginalButton(labelString: "シェアする", labelImage: "square.and.arrow.up")
-            //OriginalButton2(labelString: "シェアする", labelImage: "square.and.arrow.up").frame(width: 200, height: 40)
-            SpeechBubble()
-                //.frame(width: 100)
+        Group{
+            
+            VStack{
+                NextButton()
+                BackButton()
+                CompleteButton(num: 1)
+                ShareButton()
+                MemoButton()
+                //OriginalButton(labelString: "シェアする", labelImage: "square.and.arrow.up")
+                SpeechBubble()
+            }
+            .environment(\.locale, Locale(identifier:"en"))
+            
+            VStack{
+                NextButton()
+                BackButton()
+                CompleteButton(num: 1)
+                ShareButton()
+                MemoButton()
+                //OriginalButton(labelString: "シェアする", labelImage: "square.and.arrow.up")
+                SpeechBubble()
+            }
+            .environment(\.locale, Locale(identifier:"ja"))
         }
     }
 }
-

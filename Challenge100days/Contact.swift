@@ -44,8 +44,16 @@ struct ContactWebView: UIViewRepresentable {
     }
 }
 
+
+
+
 struct Contact_Previews: PreviewProvider {
     static var previews: some View {
-        Contact()
+        Group{
+            Contact()
+                .environment(\.locale, Locale(identifier:"en"))
+            Contact()
+                .environment(\.locale, Locale(identifier:"ja"))
+        }
     }
 }

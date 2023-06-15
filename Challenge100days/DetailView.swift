@@ -100,14 +100,7 @@ struct DetailView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
             .background(.ultraThinMaterial)
             .userSettingGradient(colors: [storedColorTop, storedColorBottom])
-//            .background(.secondary)
-//            .foregroundStyle(
-//                .linearGradient(
-//                    colors: [storedColorTop, storedColorBottom],
-//                    startPoint: .topLeading,
-//                    endPoint: .bottomTrailing
-//                )
-//            )
+
         }
         
         .navigationBarBackButtonHidden(true)
@@ -137,9 +130,9 @@ struct DetailView: View {
             ToolbarItemGroup(placement: .keyboard) {
                 
                 
-                Text("メモは\(AppSetting.maxLngthOfTerm)文字以内のみ設定可能です")
+                Text("\(AppSetting.maxLengthOfMemo)文字以内のみ設定可能です")
                     .font(.caption)
-                    .foregroundColor(editText.count > AppSetting.maxLngthOfTerm ? .red : .clear)
+                    .foregroundColor(editText.count > AppSetting.maxLengthOfMemo ? .red : .clear)
                 
                 
                 
@@ -150,9 +143,9 @@ struct DetailView: View {
                     isInputActive = false
                 }
                 
-                .foregroundColor(editText.count <= AppSetting.maxLngthOfMemo ? .primary : .gray)
-                .opacity(editText.count <= AppSetting.maxLngthOfMemo ? 1.0 : 0.5)
-                .disabled(editText.count > AppSetting.maxLngthOfMemo)
+                .foregroundColor(editText.count <= AppSetting.maxLengthOfMemo ? .primary : .gray)
+                .opacity(editText.count <= AppSetting.maxLengthOfMemo ? 1.0 : 0.5)
+                .disabled(editText.count > AppSetting.maxLengthOfMemo)
                 
                 
             }

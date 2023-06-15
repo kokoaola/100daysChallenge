@@ -59,10 +59,10 @@ struct MemoSheet: View {
                         .focused($isInputActive)
                     
                     
-                    Label("\(AppSetting.maxLngthOfMemo)文字以内のみ設定可能です", systemImage: "exclamationmark.circle")
+                    Label("\(AppSetting.maxLengthOfMemo)文字以内のみ設定可能です", systemImage: "exclamationmark.circle")
                         .font(.footnote)
                         .padding(5)
-                        .foregroundColor(editText.count > AppSetting.maxLngthOfMemo ? .red : .clear)
+                        .foregroundColor(editText.count > AppSetting.maxLengthOfMemo ? .red : .clear)
                     
                     
                     ///保存ボタン
@@ -71,13 +71,14 @@ struct MemoSheet: View {
                         try? moc.save()
                         dismiss()
                     } label: {
-                        OriginalButton(labelString: "保存する", labelImage: "checkmark.circle")
-                            .foregroundColor(editText.count <= AppSetting.maxLngthOfMemo ? .green : .gray)
-                            .opacity(editText.count <= AppSetting.maxLngthOfMemo ? 1.0 : 0.5)
+                        SaveButton()
+                        //OriginalButton(labelString: "保存する", labelImage: "checkmark.circle")
+                            .foregroundColor(editText.count <= AppSetting.maxLengthOfMemo ? .green : .gray)
+                            .opacity(editText.count <= AppSetting.maxLengthOfMemo ? 1.0 : 0.5)
                     }
                     //.buttonStyle(.borderedProminent)
                     .tint(.green)
-                    .disabled(editText.count > AppSetting.maxLngthOfMemo)
+                    .disabled(editText.count > AppSetting.maxLengthOfMemo)
                     
                 }
             }
@@ -87,14 +88,6 @@ struct MemoSheet: View {
             ///グラデーション背景設定
             .background(.ultraThinMaterial)
             .userSettingGradient(colors: [storedColorTop, storedColorBottom])
-//            .background(.secondary)
-//            .foregroundStyle(
-//                .linearGradient(
-//                    colors: [storedColorTop, storedColorBottom],
-//                    startPoint: .topLeading,
-//                    endPoint: .bottomTrailing
-//                )
-//            )
             
             
             ///キーボード閉じるボタン
@@ -119,11 +112,14 @@ struct MemoSheet: View {
     }
 }
 
+
 struct MemoSheet_Previews: PreviewProvider {
-    static private var dataController = DataController()
-    
     static var previews: some View {
-        MemoSheet()
-        //.environment(\.managedObjectContext, dataController.container.viewContext)
+        Group{
+            MemoSheet()
+                .environment(\.locale, Locale(identifier:"en"))
+            MemoSheet()
+                .environment(\.locale, Locale(identifier:"ja"))
+        }
     }
 }

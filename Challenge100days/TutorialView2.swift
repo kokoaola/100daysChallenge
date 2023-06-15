@@ -52,9 +52,9 @@ struct TutorialView2: View {
                                 .opacity(editText.isEmpty ? 0.5 : 1)
                         }
                 
-                Text("\(AppSetting.maxLngthOfTerm)文字以内のみ設定可能です")
+                Text("\(AppSetting.maxLengthOfTerm)文字以内のみ設定可能です")
                     .font(.caption)
-                    .foregroundColor(editText.count > AppSetting.maxLngthOfTerm ? .red : .clear)
+                    .foregroundColor(editText.count > AppSetting.maxLengthOfTerm ? .red : .clear)
                     }
             
             
@@ -80,9 +80,9 @@ struct TutorialView2: View {
                                 .focused($isInputActive2)
                                 .opacity(editText2.isEmpty ? 0.5 : 1)
                         }
-                        Text("\(AppSetting.maxLngthOfTerm)文字以内のみ設定可能です")
+                        Text("\(AppSetting.maxLengthOfTerm)文字以内のみ設定可能です")
                             .font(.caption)
-                            .foregroundColor(editText2.count > AppSetting.maxLngthOfTerm ? .red : .clear)
+                            .foregroundColor(editText2.count > AppSetting.maxLengthOfTerm ? .red : .clear)
                     }
                 
                 Spacer()
@@ -91,7 +91,7 @@ struct TutorialView2: View {
                     Button {
                         page = 1
                     } label: {
-                        TutorialButton2(labelString: "戻る", labelImage: "arrowshape.left")
+                        BackButton()
                             .foregroundColor(.orange)
                     }
                     
@@ -102,11 +102,11 @@ struct TutorialView2: View {
                         shortTermGoal = editText2
                         page = 3
                     } label: {
-                        TutorialButton(labelString: "次へ", labelImage: "arrowshape.right")
-                            .foregroundColor(!editText.isEmpty && !editText2.isEmpty && editText.count <= AppSetting.maxLngthOfTerm && editText2.count <= AppSetting.maxLngthOfTerm ? .green : .gray)
+                        NextButton()
+                            .foregroundColor(!editText.isEmpty && !editText2.isEmpty && editText.count <= AppSetting.maxLengthOfTerm && editText2.count <= AppSetting.maxLengthOfTerm ? .green : .gray)
                     }
                     ///次へボタンの無効判定
-                   .disabled(editText.isEmpty || editText2.isEmpty || editText.count > AppSetting.maxLngthOfTerm || editText2.count > AppSetting.maxLngthOfTerm)
+                   .disabled(editText.isEmpty || editText2.isEmpty || editText.count > AppSetting.maxLengthOfTerm || editText2.count > AppSetting.maxLengthOfTerm)
                 }
                 .padding(.bottom, 30)
                 }
@@ -136,9 +136,17 @@ struct TutorialView2: View {
         
 }
 
+
+
+
 struct TutorialView2_Previews: PreviewProvider {
-    @State static var a = 1
+    @State static var sampleNum = 1
     static var previews: some View {
-        TutorialView2(page: $a)
+        Group{
+            TutorialView2(page: $sampleNum)
+                .environment(\.locale, Locale(identifier:"en"))
+            TutorialView2(page: $sampleNum)
+                .environment(\.locale, Locale(identifier:"ja"))
+        }
     }
 }

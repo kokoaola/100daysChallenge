@@ -66,6 +66,7 @@ struct ContentView: View {
 //
 //                        if i == 1{
 //                            day.memo = "今日から開始。\n頑張って時間作って取り組むぞ！"
+//                            //"Started today.\nI'll do my best to make time to work on it!"
 //                        }
 //                        if i == 2{
 //                            day.memo = "仕事の後、１時間ほど勉強できた。"
@@ -107,10 +108,12 @@ struct ContentView: View {
 }
 
 struct ContentView_Previews: PreviewProvider {
-    static private var dataController = DataController()
-    
     static var previews: some View {
-        ContentView()
-            .environment(\.managedObjectContext, dataController.container.viewContext)
+        Group{
+            ContentView()
+                .environment(\.locale, Locale(identifier:"en"))
+            ContentView()
+                .environment(\.locale, Locale(identifier:"ja"))
+        }
     }
 }

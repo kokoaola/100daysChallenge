@@ -27,7 +27,7 @@ struct ActionView: View {
     @AppStorage("longTermGoal") var longTermGoal: String = ""
     @AppStorage("shortTermGoal") var shortTermGoal: String = ""
     
-    @AppStorage("showInfomation") var showInfomation = true
+    @AppStorage("hideInfomation") var hideInfomation = false
     
     var startDate: String{
         makeDate(day:days.first?.date ?? Date.now)
@@ -43,27 +43,33 @@ struct ActionView: View {
             ZStack{
                 
                 ///今日のミッションが未達成ならボタンのビューを表示
-                VStack(spacing: AppSetting.screenHeight / 25){
+                VStack(spacing: AppSetting.screenHeight / 50){
                     
-                        if showInfomation{
+                        if !hideInfomation{
                             VStack(alignment: .center, spacing: 0){
                            Text("目指している姿  :  ")
                                 .fontWeight(.bold)
-                                .frame(width: AppSetting.screenWidth * 0.8, alignment: .leading)
-                            Text("\(longTermGoal)")
-                                .frame(width: AppSetting.screenWidth * 0.75 , height: 50,alignment: .center)
-                                .padding(.bottom, 5)
+                                .frame(width: AppSetting.screenWidth * 0.9, alignment: .leading)
+                                
+                                Text("\(longTermGoal)")
+                                ///Text("Build strength and muscle mass")
+                                ///Text("運動の習慣を付けて、健康的な体型を目指す！")
+
+                                .frame(width: AppSetting.screenWidth * 0.9 , height: 50,alignment: .center)
+                                .padding(.bottom, 10)
                                 
                             
                             Text("100日取り組むこと : ")
                                 .fontWeight(.bold)
-                                .frame(width: AppSetting.screenWidth * 0.8, alignment: .leading)
-                            Text("\(shortTermGoal)")
-                                .frame(width: AppSetting.screenWidth * 0.75, height: 50 ,alignment: .center)
-                        }.font(.callout)
+                                .frame(width: AppSetting.screenWidth * 0.9, alignment: .leading)
+                                Text("\(shortTermGoal)")
+                                ///Text("Work 2 kilometer without stopping")
+                                ///Text("２キロ歩く")
+
+                                .frame(width: AppSetting.screenWidth * 0.9, height: 50 ,alignment: .center)
+                            }.font(.callout.weight(.medium))
                             .frame(width: AppSetting.screenWidth * 0.8)
-                            .padding(.top, 100)
-                            .fontWeight(.medium)
+                            .padding(.top, 90)
                             .foregroundColor(.primary)
                             
                         }else{
@@ -76,27 +82,28 @@ struct ActionView: View {
                         .foregroundColor(.white)
                         .overlay{
                             VStack{
-                                
-                                VStack{
                                     Text(isComplete ? "本日のチャレンジは達成済みです。\nお疲れ様でした！" : "今日の取り組みが終わったら、\nボタンを押して完了しよう" )
+                                    .lineSpacing(10)
+                                    .padding(.vertical, 5)
                                     
                                     if isComplete{
-                                        Button {
-                                            showCompleteWindew = true
-                                        } label: {
-                                            Text("ウインドウを再表示する")
+                                        HStack{
+                                            Spacer()
+                                            Button {
+                                                showCompleteWindew = true
+                                            } label: {
+                                                Text("ウインドウを再表示する")
+                                                    .font(.footnote)
+                                                    .foregroundColor(.blue)
+                                            }
+                                            .frame(width: AppSetting.screenWidth * 0.8, alignment: .trailing)
+                                            .padding(.trailing)
                                         }
-                                        .font(.footnote)
-                                        .foregroundColor(.blue)
-                                        .padding(.top, 1)
                                     }
-                                    
-                                }
-                                .padding(.vertical)
                             }
                             .foregroundColor(.black)
                         }
-                        .frame(width: AppSetting.screenWidth * 0.8, height: AppSetting.screenWidth * 0.3)
+                        .frame(width: AppSetting.screenWidth * 0.9, height: AppSetting.screenWidth * 0.3)
                         .opacity(0.8)
                     
                     
@@ -114,10 +121,12 @@ struct ActionView: View {
                         day.num = Int16(dayNumber)
                         try? moc.save()
                     }, label: {
+                        ///CompleteButton(num:52)
                         CompleteButton(num:isComplete ? dayNumber - 1 : dayNumber)
                             .foregroundStyle(.primary)
                             .opacity(isComplete ? 0.3 : 1.0)
                     })
+                    .padding(.top)
                     .disabled(isComplete)
                     
                     Spacer()
@@ -135,14 +144,6 @@ struct ActionView: View {
             
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .userSettingGradient(colors: [storedColorTop, storedColorBottom])
-//            .background(.secondary)
-//            .foregroundStyle(
-//                .linearGradient(
-//                    colors: [storedColorTop, storedColorBottom],
-//                    startPoint: .topLeading,
-//                    endPoint: .bottomTrailing
-//                )
-//            )
             
             .onAppear{
                 ///アプリ起動時に今日のミッションがすでに完了しているか確認
@@ -163,10 +164,14 @@ struct ActionView: View {
     }
 }
 
+
 struct ActionView_Previews: PreviewProvider {
-    static private var dataController = DataController()
-    
     static var previews: some View {
-        ActionView()
+        Group{
+            ActionView()
+                .environment(\.locale, Locale(identifier:"en"))
+            ActionView()
+                .environment(\.locale, Locale(identifier:"ja"))
+        }
     }
 }
