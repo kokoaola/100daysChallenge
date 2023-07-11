@@ -14,6 +14,9 @@ struct ContentView: View {
     @Environment(\.managedObjectContext) var moc
     @FetchRequest(sortDescriptors: [NSSortDescriptor(key:"date", ascending: true)]) var items: FetchedResults<DailyData>
     
+    @AppStorage("longTermGoal") var longTermGoal: String = ""
+    @AppStorage("shortTermGoal") var shortTermGoal: String = ""
+    
     ///初回起動確認用
     @AppStorage("isFirst") var isFirst = true
     
@@ -52,9 +55,16 @@ struct ContentView: View {
             .tint(Color(uiColor: UIColor.label))
 
 //            .onAppear{
+//                longTermGoal =
+//                "Build strength and muscle mass"
+//                //"運動の習慣を付けて、健康的な体型を目指す！"
+//                shortTermGoal =
+//                "Work 2 kilometer without stopping"
+//                //"２キロ歩く"
+//
 //                ///起動時に今日が何日目になるか計算して保存（他のビューで編集するとズレるため）
 //                //UserDefaults.standard.set((days.last?.num ?? 0) + 1, forKey: "todayIs")
-//                for i in 1...8{
+//                for i in 1...25{
 //                    if i == 4 || i == 9 || i == 12 || i == 13 {
 //                        continue
 //                    }else{
@@ -65,33 +75,33 @@ struct ContentView: View {
 //                        day.memo = ""
 //
 //                        if i == 1{
-//                            day.memo = "今日から開始。\n頑張って時間作って取り組むぞ！"
-//                            //"Started today.\nI'll do my best to make time to work on it!"
+//                            day.memo = //"今日から開始。\n頑張って時間作って取り組むぞ！"
+//                            "Started today.\nI'll do my best to make time to work on it!"
 //                        }
-//                        if i == 2{
-//                            day.memo = "仕事の後、１時間ほど勉強できた。"
-//                        }
-//
-//                        if i == 5{
-//                            day.memo = "昨日は疲れてお休み。代わりに今日は寝る前まで集中した。"
-//                        }
-//
-//                        if i == 7{
-//                            day.memo = "仕事の後、１時間ほど勉強できた。"
-//                        }
-//
-//                        if i == 8{
-//                            day.memo = "新しい参考書が届いた！"
-//                        }
-//
-//                        if i == 10{
-//                            day.memo = "リスニングを集中的に頑張った。"
-//                        }
-//                        if i == 14{
-//                            day.memo = "最近残業続きで休みがちだったけど、今日からまた再開。"
-//                        }
-//                        day.num = Int16(i)
-//                        try? moc.save()
+////                        if i == 2{
+////                            day.memo = "仕事の後、１時間ほど勉強できた。"
+////                        }
+////
+////                        if i == 5{
+////                            day.memo = "昨日は疲れてお休み。代わりに今日は寝る前まで集中した。"
+////                        }
+////
+////                        if i == 7{
+////                            day.memo = "仕事の後、１時間ほど勉強できた。"
+////                        }
+////
+////                        if i == 8{
+////                            day.memo = "新しい参考書が届いた！"
+////                        }
+////
+////                        if i == 10{
+////                            day.memo = "リスニングを集中的に頑張った。"
+////                        }
+////                        if i == 14{
+////                            day.memo = "最近残業続きで休みがちだったけど、今日からまた再開。"
+////                        }
+////                        day.num = Int16(i)
+////                        try? moc.save()
 //                    }
 //                }
 //

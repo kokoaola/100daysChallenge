@@ -29,11 +29,11 @@ struct CompleteView: View {
     
     var body: some View {
         
-       // VStack{
-            
-            ///四角に画像とボタンを重ねてる
+        // VStack{
+        
+        ///四角に画像とボタンを重ねてる
         VStack(spacing: 60){
-                
+            
             VStack{
                 ///閉じるボタン
                 Button(action: {
@@ -41,45 +41,52 @@ struct CompleteView: View {
                 }){
                     Image(systemName: "xmark")
                         .font(.title3).foregroundColor(.primary)
-                }.frame(maxWidth: .infinity,minHeight: 30, alignment: .topLeading)
+                }
+                    .frame(maxWidth: .infinity,minHeight: 30, alignment: .topLeading)
                     .padding(.vertical)
+
                 
-                
+                VStack{
                     Text("\(dayNumber)日目のチャレンジ達成！")
                     Text("よく頑張ったね！")
-                    ///コンプリート画像
-                    image?
-                        .resizable().scaledToFit()
                 }
-                .foregroundColor(Color(UIColor.label))
+                .frame(width: AppSetting.screenWidth * 0.9)
+                .contentShape(Rectangle())
+                    .accessibilityElement().accessibilityLabel("\(dayNumber)日目のチャレンジ達成！よく頑張ったね！")
                 
-                
-                
-
-                VStack{
-                    ///シェアボタン
-                    ShareLink(item: image ?? Image("noImage") , preview: SharePreview("画像", image:image ?? Image("noImage"))){
-                        ShareButton()
-                            .foregroundColor(.blue.opacity(0.9))
-                            
-                    }
-                    
-                    ///メモ追加ボタン
-                    Button {
-                        showMemo = true
-                    } label: {
-                        MemoButton()
-                            .foregroundColor(.green.opacity(0.9))
-                            
-                    }
-                }
-                .padding(.bottom)
-                
+                ///コンプリート画像
+                image?
+                    .resizable().scaledToFit()
             }
-            .padding()
-            .background(.thinMaterial)
-            .cornerRadius(15)
+            .foregroundColor(Color(UIColor.label))
             
+            
+            
+            
+            VStack{
+                ///シェアボタン
+                ShareLink(item: image ?? Image("noImage") , preview: SharePreview("画像", image:image ?? Image("noImage"))){
+                    ShareButton()
+                        .foregroundColor(.blue.opacity(0.9))
+                    
+                }
+                
+                ///メモ追加ボタン
+                Button {
+                    showMemo = true
+                } label: {
+                    MemoButton()
+                        .foregroundColor(.green.opacity(0.9))
+                    
+                }
+            }
+            .padding(.bottom)
+            
+        }
+        .padding()
+        .background(.thinMaterial)
+        .cornerRadius(15)
+        
         
         
         ///画面表示時にコンプリート画像を生成して表示
