@@ -45,6 +45,7 @@ struct CardView: View {
                                 .opacity(0.5)
                         }
                     }
+                    .accessibilityHidden(true)
                 }
             }//背面のグリッドビューここまで
             
@@ -84,7 +85,9 @@ struct CardView: View {
                         }
                     }
                     
-                    
+                    .accessibilityElement()
+                    // MARK: -
+                    .accessibilityLabel("\(item.num)日目の記録")
                 }
             }//全面のグリッドビューここまで
         }
