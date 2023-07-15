@@ -135,6 +135,7 @@ struct ActionView: View {
                             .foregroundStyle(.primary)
                             .opacity(isComplete ? 0.3 : 1.0)
                     })
+                    .accessibilityLabel("\(isComplete ? dayNumber - 1 : dayNumber)日目を完了する")
                     .padding(.top)
                     .disabled(isComplete)
                     
