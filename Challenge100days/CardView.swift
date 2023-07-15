@@ -83,6 +83,8 @@ struct CardView: View {
                             }
                         }
                     }
+                    
+                    
                 }
             }//全面のグリッドビューここまで
         }

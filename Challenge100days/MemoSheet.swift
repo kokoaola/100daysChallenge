@@ -43,10 +43,10 @@ struct MemoSheet: View {
                         
                         ///画面タイトル
                         Text("メモの追加").font(.title3)
+                            .padding()
                             .foregroundColor(Color(UIColor.label))
                         
                     }//ZStackここまで
-                    .padding()
                     
                     ///テキストエディター
                     TextEditor(text: $editText)

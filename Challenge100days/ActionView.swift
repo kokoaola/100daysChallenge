@@ -60,7 +60,9 @@ struct ActionView: View {
                                     .padding(.bottom, 10)
                             }
                             .contentShape(Rectangle())
-                            .accessibilityElement().accessibilityLabel("目指している姿、\(longTermGoal)")
+                            .accessibilityElement()
+                            // MARK: -
+                            .accessibilityLabel("目指している姿、\(longTermGoal)")
                             
                             
                             VStack{
@@ -73,7 +75,9 @@ struct ActionView: View {
                                 .frame(width: AppSetting.screenWidth * 0.9, height: 50 ,alignment: .center)
                             }
                             .contentShape(Rectangle())
-                            .accessibilityElement().accessibilityLabel("100日取り組むこと、\(shortTermGoal)")
+                            .accessibilityElement()
+                            // MARK: -
+                            .accessibilityLabel("100日取り組むこと、\(shortTermGoal)")
                             
                             
                         }.font(.callout.weight(.medium))
@@ -135,6 +139,8 @@ struct ActionView: View {
                             .foregroundStyle(.primary)
                             .opacity(isComplete ? 0.3 : 1.0)
                     })
+                    
+                    // MARK: -
                     .accessibilityLabel("\(isComplete ? dayNumber - 1 : dayNumber)日目を完了する")
                     .padding(.top)
                     .disabled(isComplete)

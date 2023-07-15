@@ -49,12 +49,14 @@ struct CompleteView: View {
                 .foregroundColor(.primary)
                 .contentShape(Rectangle())
                 .accessibilityElement()
+                // MARK: -
                 .accessibilityLabel("\(dayNumber)日目のチャレンジ達成！よく頑張ったね！")
                 
                 
                 //コンプリート画像
                 image?
                     .resizable().scaledToFit()
+                // MARK: -
                     .accessibilityLabel("シェア用画像")
                 
                 

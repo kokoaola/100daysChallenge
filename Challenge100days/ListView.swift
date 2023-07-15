@@ -87,6 +87,9 @@ struct ListView: View {
                                 .foregroundColor(.gray)
                             
                         }
+                        .accessibilityElement()
+                        // MARK: -
+                        .accessibilityLabel("\(item.num)日目の記録、\(makeAccessibilityDate(day: item.date ?? Date()))")
                         ///１行あたり縦が最大150pxまで大きくなれる
                         .frame(maxHeight: 150)
                         .fixedSize(horizontal: false, vertical: true)
@@ -114,6 +117,13 @@ func makeDate(day: Date)-> String{
     let df = DateFormatter()
     df.locale = Locale(identifier: "ja-Jp")
     df.dateStyle = .short
+    return df.string(from: day)
+}
+
+func makeAccessibilityDate(day: Date) -> String {
+    let df = DateFormatter()
+    df.locale = Locale(identifier: "ja_JP")
+    df.dateFormat = "yyyy年M月d日"
     return df.string(from: day)
 }
 
