@@ -36,10 +36,10 @@ struct MemoSheet: View {
                         Button {
                             dismiss()
                         } label: {
-                            Image(systemName: "xmark")
-                                .font(.title2).foregroundColor(.primary)
-                                .frame(maxWidth: .infinity, alignment: .leading)
+                           CloseButton()
+//                                .font(.title2).foregroundColor(.primary)
                         }
+                        .frame(maxWidth: .infinity, alignment: .leading)
                         
                         ///画面タイトル
                         Text("メモの追加").font(.title3)
@@ -72,13 +72,13 @@ struct MemoSheet: View {
                         dismiss()
                     } label: {
                         SaveButton()
-                        //OriginalButton(labelString: "保存する", labelImage: "checkmark.circle")
-                            .foregroundColor(editText.count <= AppSetting.maxLengthOfMemo ? .green : .gray)
+                            .foregroundColor(editText.count <= AppSetting.maxLengthOfMemo && editText.count > 0 ? .green : .gray)
                             .opacity(editText.count <= AppSetting.maxLengthOfMemo ? 1.0 : 0.5)
                     }
-                    //.buttonStyle(.borderedProminent)
+                    // MARK: -
+                    .accessibilityLabel("メモを保存する")
                     .tint(.green)
-                    .disabled(editText.count > AppSetting.maxLengthOfMemo)
+                    .disabled(editText.count > AppSetting.maxLengthOfMemo || editText.count <= 0)
                     
                 }
             }

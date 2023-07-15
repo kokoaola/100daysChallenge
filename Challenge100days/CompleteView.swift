@@ -59,8 +59,6 @@ struct CompleteView: View {
                 
                 
                 VStack{
-                    
-                    
                     ///シェアボタン
                     ShareLink(item: image ?? Image("noImage") , preview: SharePreview("画像", image:image ?? Image("noImage"))){
                         ShareButton()
@@ -82,61 +80,6 @@ struct CompleteView: View {
         .padding()
         .background(.thinMaterial)
         .cornerRadius(15)
-        
-        // VStack{
-        
-        //        ///四角に画像とボタンを重ねてる
-        //        VStack(alignment: .center,spacing: 60){
-        //
-        //            VStack(alignment: .leading){
-        //                ///閉じるボタン
-        //                Button(action: {
-        //                    showCompleteWindew = false
-        //                }){
-        //                    CloseButton()
-        //                }
-        //
-        //
-        //                VStack(alignment: .center){
-        //                    Text("\(dayNumber)日目のチャレンジ達成！\nよく頑張ったね！")
-        //                }
-        //                .frame(width: AppSetting.screenWidth * 0.9, alignment: .center)
-        //                .contentShape(Rectangle())
-        //                    .accessibilityElement().accessibilityLabel("\(dayNumber)日目のチャレンジ達成！よく頑張ったね！")
-        //
-        //                ///コンプリート画像
-        //                image?
-        //                    .resizable().scaledToFit()
-        //                    .accessibilityLabel("シェア用画像")
-        //            }
-        //            .foregroundColor(Color(UIColor.label))
-        //
-        //
-        //
-        //
-        //            VStack{
-        //                ///シェアボタン
-        //                ShareLink(item: image ?? Image("noImage") , preview: SharePreview("画像", image:image ?? Image("noImage"))){
-        //                    ShareButton()
-        //                        .foregroundColor(.blue.opacity(0.9))
-        //
-        //                }
-        //
-        //                ///メモ追加ボタン
-        //                Button {
-        //                    showMemo = true
-        //                } label: {
-        //                    MemoButton()
-        //                        .foregroundColor(.green.opacity(0.9))
-        //
-        //                }
-        //            }
-        //            .padding(.bottom)
-        //
-        //        }
-        //        .padding()
-        //        .background(.thinMaterial)
-        //        .cornerRadius(15)
         
         
         
