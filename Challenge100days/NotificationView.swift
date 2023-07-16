@@ -9,7 +9,23 @@ import SwiftUI
 
 struct NotificationView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Button("Open Settings") {
+            if let url = URL(string: UIApplication.openSettingsURLString) {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            }
+        }
+
+//        Button {
+//            // Create the URL that deep links to your app's notification settings.
+//            if let url = URL(string: UIApplication.openNotificationSettingsURLString) {
+//                // Ask the system to open that URL.
+//                await UIApplication.shared.open(url)
+//            }
+//        } label: {
+//            Text("A")
+//        }
+
+
     }
 }
 
