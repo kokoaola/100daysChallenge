@@ -65,9 +65,17 @@ struct SettingView: View {
                             Toggle("目標を隠す", isOn: $hideInfomation)
                                 .tint(.green)
                                 .accessibilityHint("トップ画面の目標を非表示にします")
+                            
+                            //                            バックアップ
+                            NavigationLink {
+                                NotificationView()
+                            } label: {
+                                Text("通知を設定する")
+                            }
                         }
                         
                         Section{
+                            
 //                            長期目標変更用のボタン
                             Button("目標を変更する") {
                                 withAnimation(.easeOut(duration: 0.1)) {
