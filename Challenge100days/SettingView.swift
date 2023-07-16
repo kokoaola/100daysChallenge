@@ -50,6 +50,7 @@ struct SettingView: View {
                 
                 VStack(spacing: 50) {
                     List{
+//                        アプリ全体の色を変更するボタン
                         Section(){
                             Picker(selection: $selectedColor) {
                                 Text("青").tag(0)
@@ -59,12 +60,16 @@ struct SettingView: View {
                             } label: {
                                 Text("アプリの色を変更する")
                             }
+                            
+//                            トップ画面の目標を非表示にするボタン
                             Toggle("目標を隠す", isOn: $hideInfomation)
                                 .tint(.green)
+                            // MARK: -
+                                .accessibilityHint("トップ画面の目標を非表示にします")
                         }
                         
                         Section{
-                            
+//                            長期目標変更用のボタン
                             Button("目標を変更する") {
                                 withAnimation(.easeOut(duration: 0.1)) {
                                     isLongTermGoalEditedAlert = true
@@ -72,6 +77,7 @@ struct SettingView: View {
                                 currentLongTermGoal = longTermGoal
                             }
                             
+//                            短期目標変更用のボタン
                             Button("100日取り組む内容を変更する") {
                                 withAnimation(.easeOut(duration: 0.1)) {
                                     isShortTermGoalEditedAlert = true
@@ -81,7 +87,7 @@ struct SettingView: View {
                         }
                         
                         Section{
-                            
+//                            バックアップ
                             NavigationLink {
                                 BackUpView()
                             } label: {
@@ -131,9 +137,10 @@ struct SettingView: View {
                 .navigationTitle("設定")
                 .navigationBarTitleDisplayMode(.inline)
                 .navigationViewStyle(.stack)
-                
-                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+//                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
                 .scrollContentBackground(.hidden)
+                .accessibilityHidden(isLongTermGoalEditedAlert || isShortTermGoalEditedAlert)
+                .opacity(isLongTermGoalEditedAlert || isShortTermGoalEditedAlert ? 0.3 : 1.0)
                 
                 .userSettingGradient(colors: [storedColorTop, storedColorBottom])
                 
@@ -142,13 +149,13 @@ struct SettingView: View {
                         EditGoal(showAlert: $isLongTermGoalEditedAlert, isLong: true)
                             .transition(.offset(CGSizeZero))
                     }
-                    .background(.black.opacity(0.6))
+//                    .background(.black.opacity(0.6))
 
                 }else if isShortTermGoalEditedAlert{
                     VStack{
                         EditGoal(showAlert: $isShortTermGoalEditedAlert, isLong: false)
                     }
-                    .background(.black.opacity(0.6))
+//                    .background(.black.opacity(0.6))
                 }
             }
             
