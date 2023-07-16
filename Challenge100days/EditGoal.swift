@@ -77,10 +77,6 @@ struct EditGoal: View {
             .background(.white)
             .cornerRadius(15)
             .padding()
-//            .background(.clear)
-            
-//        }
-//        .frame(maxHeight: .infinity)
         
         .onAppear{
             if isLong{
