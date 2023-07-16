@@ -61,7 +61,6 @@ struct ActionView: View {
                             }
                             .contentShape(Rectangle())
                             .accessibilityElement()
-                            // MARK: -
                             .accessibilityLabel("目指している姿、\(longTermGoal)")
                             
                             
@@ -76,7 +75,6 @@ struct ActionView: View {
                             }
                             .contentShape(Rectangle())
                             .accessibilityElement()
-                            // MARK: -
                             .accessibilityLabel("100日取り組むこと、\(shortTermGoal)")
                             
                             
@@ -140,7 +138,7 @@ struct ActionView: View {
                             .opacity(isComplete ? 0.3 : 1.0)
                     })
                     
-                    // MARK: -
+
                     .accessibilityLabel("\(isComplete ? dayNumber - 1 : dayNumber)日目を完了する")
                     .padding(.top)
                     .disabled(isComplete)

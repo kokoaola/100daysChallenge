@@ -137,8 +137,6 @@ struct BackUpView: View {
                         .foregroundColor(.primary)
                         .frame(width: 65)
                 })
-//                .disabled(messageAlert.isPreview)
-                // MARK: -
                 .accessibilityLabel(messageAlert.isPreview ? "コピーしました" : "コピー")
                 
             }

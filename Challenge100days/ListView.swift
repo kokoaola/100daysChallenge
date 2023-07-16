@@ -73,7 +73,8 @@ struct ListView: View {
                                     .foregroundColor(Color(UIColor.label))
                                 
                                 ///日付を右下に配置
-                                Text(makeDate(day: item.date ?? Date()))
+                                Text(item.date ?? Date(), format:.dateTime.day().month().year())
+//                                Text(makeDate(day: item.date ?? Date()))
                                     .foregroundColor(.secondary)
                                     .frame(maxWidth: .infinity,alignment: .bottomTrailing)
                                 
@@ -88,8 +89,8 @@ struct ListView: View {
                             
                         }
                         .accessibilityElement()
-                        // MARK: -
-                        .accessibilityLabel("\(item.num)日目の記録、\(makeAccessibilityDate(day: item.date ?? Date()))")
+                        .accessibilityLabel("\(item.num)日目の記録、\(item.date ?? Date(), format:.dateTime.day().month().year())")
+                        .accessibilityAddTraits(.isLink)
                         ///１行あたり縦が最大150pxまで大きくなれる
                         .frame(maxHeight: 150)
                         .fixedSize(horizontal: false, vertical: true)

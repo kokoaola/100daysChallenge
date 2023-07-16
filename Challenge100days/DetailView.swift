@@ -115,7 +115,7 @@ struct DetailView: View {
             }
             
             ///シェア用の画像を生成
-            image = generateImageWithText(number: Int(item.num), day: item.date ?? Date.now)
+//            image = generateImageWithText(number: Int(item.num), day: item.date ?? Date.now)
             
             ///その他の初期設定
             editText = item.memo ?? ""

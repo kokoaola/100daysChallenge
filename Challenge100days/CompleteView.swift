@@ -48,16 +48,16 @@ struct CompleteView: View {
                 }
                 .foregroundColor(.primary)
                 .contentShape(Rectangle())
-                .accessibilityElement()
-                // MARK: -
-                .accessibilityLabel("\(dayNumber)日目のチャレンジ達成！よく頑張ったね！")
+                .accessibilityElement(children: .combine)
                 
                 
                 //コンプリート画像
                 image?
                     .resizable().scaledToFit()
                 // MARK: -
-                    .accessibilityLabel("シェア用画像")
+                    .accessibilityLabel("日付入りの画像")
+//                    .accessibilityRemoveTraits(.isImage)
+//                    .accessibilityAddTraits(.isImage)
                 
                 
                 VStack{

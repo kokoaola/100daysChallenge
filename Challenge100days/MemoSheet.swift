@@ -75,7 +75,6 @@ struct MemoSheet: View {
                             .foregroundColor(editText.count <= AppSetting.maxLengthOfMemo && editText.count > 0 ? .green : .gray)
                             .opacity(editText.count <= AppSetting.maxLengthOfMemo ? 1.0 : 0.5)
                     }
-                    // MARK: -
                     .accessibilityLabel("メモを保存する")
                     .tint(.green)
                     .disabled(editText.count > AppSetting.maxLengthOfMemo || editText.count <= 0)

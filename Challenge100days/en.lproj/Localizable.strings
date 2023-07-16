@@ -35,10 +35,13 @@
 
 //ActionView.swift
 "目指している姿  :  " = "Aiming for: ";
+"目指している姿、%@" = "Aiming for %@";
 "100日取り組むこと : " = "Commitment for 100 days: ";
+"100日取り組むこと、%@" = "Commitment for 100 days %@";
 "本日のチャレンジは達成済みです。\nお疲れ様でした！" = "Today's challenge has been completed.\nWell done!";
 "今日の取り組みが終わったら、\nボタンを押して完了しよう" = "Once you're done with today's tasks,\npress the button to complete";
 "ウインドウを再表示する" = "Redisplay the window";
+"%lld日目を完了する" = "Complete tasks on Day %lld";
 
 //CompleteView
 "%lld日目のチャレンジ達成！" = "Challenge completed on day%lld.";
@@ -49,10 +52,12 @@
 
 //  MemoSheet
 "画像" = "Image";
+"日付入りの画像" = "Image with date";
 "メモの追加" = "Addition of a note";
-//文字列は@.
+//文字列は%@. Int32は％d　https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/Strings/Articles/formatSpecifiers.html
 "%lld文字以内のみ設定可能です" = "Only up to %lld characters can be set";
 "保存する" = "Save";
+"メモを保存する" = "Save a note";
 
 
 //リストとカードのビュー
@@ -70,13 +75,18 @@
 "追加する日付" = "Date to add";
 "メモ" = "Note";
 "選択した日はすでに記録が存在しています。" = "There is already a record for the selected day.";
+"%d日目の記録、%@" = "Record of day %d, %@";
+"%d日目の記録" = "Record of day %d";
 
 //セッティング画面
 "アプリの色を変更する" = "Change app color";
 "目標を隠す" = "Hide goal";
+"トップ画面の目標を非表示にします" = "Hide the target on the top screen.";
 "目標を変更する" = "Change goal";
 "100日取り組む内容を変更する" = "Change 100-day challenge content";
 "バックアップ" = "Backup";
+"コピーしました" = "Copied";
+"コピー" = "Copy";
 "プライバシーポリシー" = "Privacy Policy";
 "このアプリについて" = "About this app";
 "お問い合わせ" = "Contact Us";

@@ -64,7 +64,6 @@ struct SettingView: View {
 //                            トップ画面の目標を非表示にするボタン
                             Toggle("目標を隠す", isOn: $hideInfomation)
                                 .tint(.green)
-                            // MARK: -
                                 .accessibilityHint("トップ画面の目標を非表示にします")
                         }
                         
