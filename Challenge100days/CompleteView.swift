@@ -29,39 +29,42 @@ struct CompleteView: View {
     
     var body: some View {
         
-       // VStack{
+        ///四角に画像とボタンを重ねてる
+        VStack(alignment: .leading){
             
-            ///四角に画像とボタンを重ねてる
-        VStack(spacing: 60){
-                
-            VStack{
-                ///閉じるボタン
-                Button(action: {
-                    showCompleteWindew = false
-                }){
-                    Image(systemName: "xmark")
-                        .font(.title3).foregroundColor(.primary)
-                }.frame(maxWidth: .infinity,minHeight: 30, alignment: .topLeading)
-                    .padding(.vertical)
-                
-                
+            ///閉じるボタン
+            Button(action: {
+                showCompleteWindew = false
+            }){
+                CloseButton()
+            }
+            
+            
+            VStack(alignment: .center){
+                //読み上げ用のVStack
+                VStack{
                     Text("\(dayNumber)日目のチャレンジ達成！")
                     Text("よく頑張ったね！")
-                    ///コンプリート画像
-                    image?
-                        .resizable().scaledToFit()
                 }
-                .foregroundColor(Color(UIColor.label))
+                .foregroundColor(.primary)
+                .contentShape(Rectangle())
+                .accessibilityElement(children: .combine)
                 
                 
+                //コンプリート画像
+                image?
+                    .resizable().scaledToFit()
+                // MARK: -
+                    .accessibilityLabel("日付入りの画像")
+//                    .accessibilityRemoveTraits(.isImage)
+//                    .accessibilityAddTraits(.isImage)
                 
-
+                
                 VStack{
                     ///シェアボタン
                     ShareLink(item: image ?? Image("noImage") , preview: SharePreview("画像", image:image ?? Image("noImage"))){
                         ShareButton()
                             .foregroundColor(.blue.opacity(0.9))
-                            
                     }
                     
                     ///メモ追加ボタン
@@ -70,16 +73,16 @@ struct CompleteView: View {
                     } label: {
                         MemoButton()
                             .foregroundColor(.green.opacity(0.9))
-                            
                     }
-                }
-                .padding(.bottom)
-                
+                    
+                }.padding(30)
             }
-            .padding()
-            .background(.thinMaterial)
-            .cornerRadius(15)
             
+        }
+        .padding()
+        .background(.thinMaterial)
+        .cornerRadius(15)
+        
         
         
         ///画面表示時にコンプリート画像を生成して表示

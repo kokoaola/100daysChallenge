@@ -276,7 +276,17 @@ struct SpeechBubble: Shape {
     }
 }
 
+struct CloseButton: View{
+    var body: some View {
+        Image(systemName: "xmark")
+            .font(.title3).foregroundColor(.primary)
+            .padding()
 
+//            .background(.red)
+//            .frame(maxWidth: .infinity, alignment: .leading)
+    }
+    
+}
 
 
 struct OriginalButton_Previews: PreviewProvider {
@@ -284,6 +294,7 @@ struct OriginalButton_Previews: PreviewProvider {
         Group{
             
             VStack{
+                CloseButton()
                 NextButton()
                 BackButton()
                 CompleteButton(num: 1)

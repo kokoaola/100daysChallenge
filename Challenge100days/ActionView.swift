@@ -45,36 +45,47 @@ struct ActionView: View {
                 ///今日のミッションが未達成ならボタンのビューを表示
                 VStack(spacing: AppSetting.screenHeight / 50){
                     
-                        if !hideInfomation{
-                            VStack(alignment: .center, spacing: 0){
-                           Text("目指している姿  :  ")
-                                .fontWeight(.bold)
-                                .frame(width: AppSetting.screenWidth * 0.9, alignment: .leading)
+                    if !hideInfomation{
+                        VStack(alignment: .center, spacing: 0){
+                            VStack{
+                                Text("目指している姿  :  ")
+                                    .fontWeight(.bold)
+                                    .frame(width: AppSetting.screenWidth * 0.9, alignment: .leading)
                                 
                                 Text("\(longTermGoal)")
                                 ///Text("Build strength and muscle mass")
                                 ///Text("運動の習慣を付けて、健康的な体型を目指す！")
-
-                                .frame(width: AppSetting.screenWidth * 0.9 , height: 50,alignment: .center)
-                                .padding(.bottom, 10)
                                 
+                                    .frame(width: AppSetting.screenWidth * 0.9 , height: 50,alignment: .center)
+                                    .padding(.bottom, 10)
+                            }
+                            .contentShape(Rectangle())
+                            .accessibilityElement()
+                            .accessibilityLabel("目指している姿、\(longTermGoal)")
                             
+                            
+                            VStack{
                             Text("100日取り組むこと : ")
                                 .fontWeight(.bold)
                                 .frame(width: AppSetting.screenWidth * 0.9, alignment: .leading)
-                                Text("\(shortTermGoal)")
-                                ///Text("Work 2 kilometer without stopping")
-                                ///Text("２キロ歩く")
-
+                            Text("\(shortTermGoal)")
+                            ///Text("Work 2 kilometer without stopping")
+                            ///Text("２キロ歩く")
                                 .frame(width: AppSetting.screenWidth * 0.9, height: 50 ,alignment: .center)
-                            }.font(.callout.weight(.medium))
+                            }
+                            .contentShape(Rectangle())
+                            .accessibilityElement()
+                            .accessibilityLabel("100日取り組むこと、\(shortTermGoal)")
+                            
+                            
+                        }.font(.callout.weight(.medium))
                             .frame(width: AppSetting.screenWidth * 0.8)
                             .padding(.top, 90)
                             .foregroundColor(.primary)
-                            
-                        }else{
-                            Spacer()
-                        }
+                        
+                    }else{
+                        Spacer()
+                    }
                     
                     ///白い吹き出し
                     SpeechBubble()
@@ -82,24 +93,24 @@ struct ActionView: View {
                         .foregroundColor(.white)
                         .overlay{
                             VStack{
-                                    Text(isComplete ? "本日のチャレンジは達成済みです。\nお疲れ様でした！" : "今日の取り組みが終わったら、\nボタンを押して完了しよう" )
+                                Text(isComplete ? "本日のチャレンジは達成済みです。\nお疲れ様でした！" : "今日の取り組みが終わったら、\nボタンを押して完了しよう" )
                                     .lineSpacing(10)
                                     .padding(.vertical, 5)
-                                    
-                                    if isComplete{
-                                        HStack{
-                                            Spacer()
-                                            Button {
-                                                showCompleteWindew = true
-                                            } label: {
-                                                Text("ウインドウを再表示する")
-                                                    .font(.footnote)
-                                                    .foregroundColor(.blue)
-                                            }
-                                            .frame(width: AppSetting.screenWidth * 0.8, alignment: .trailing)
-                                            .padding(.trailing)
+                                
+                                if isComplete{
+                                    HStack{
+                                        Spacer()
+                                        Button {
+                                            showCompleteWindew = true
+                                        } label: {
+                                            Text("ウインドウを再表示する")
+                                                .font(.footnote)
+                                                .foregroundColor(.blue)
                                         }
+                                        .frame(width: AppSetting.screenWidth * 0.8, alignment: .trailing)
+                                        .padding(.trailing)
                                     }
+                                }
                             }
                             .foregroundColor(.black)
                         }
@@ -126,11 +137,15 @@ struct ActionView: View {
                             .foregroundStyle(.primary)
                             .opacity(isComplete ? 0.3 : 1.0)
                     })
+                    
+
+                    .accessibilityLabel("\(isComplete ? dayNumber - 1 : dayNumber)日目を完了する")
                     .padding(.top)
                     .disabled(isComplete)
                     
                     Spacer()
                 }
+                .accessibilityHidden(showCompleteWindew)
                 
                 
                 

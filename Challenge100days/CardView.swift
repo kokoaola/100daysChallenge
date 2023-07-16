@@ -45,6 +45,7 @@ struct CardView: View {
                                 .opacity(0.5)
                         }
                     }
+                    .accessibilityHidden(true)
                 }
             }//背面のグリッドビューここまで
             
@@ -55,7 +56,7 @@ struct CardView: View {
                 
                 ///CoreDataに保存されている全データを取り出す
                 ForEach(days, id: \.self) { item in
-                    
+//                    遷移先はDetailView
                     NavigationLink(destination: {
                         DetailView(item: item)
                     }){
@@ -83,6 +84,9 @@ struct CardView: View {
                             }
                         }
                     }
+                    
+                    .accessibilityElement()
+                    .accessibilityLabel("\(item.num)日目の記録")
                 }
             }//全面のグリッドビューここまで
         }

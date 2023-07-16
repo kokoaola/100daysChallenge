@@ -59,13 +59,13 @@ struct DetailView: View {
                         .font(.title)
                     
                     Spacer()
-                    
-                    
                     ///日付表示
                     Text(makeDate(day: item.date ?? Date.now))
                         .font(.title3.weight(.ultraLight))
                         .padding(.leading, 40)
                 }
+                .accessibilityElement()
+                .accessibilityLabel("\(item.num)日目の記録、\(makeAccessibilityDate(day: item.date ?? Date()))")
                 .foregroundColor(.primary)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 
@@ -115,7 +115,7 @@ struct DetailView: View {
             }
             
             ///シェア用の画像を生成
-            image = generateImageWithText(number: Int(item.num), day: item.date ?? Date.now)
+//            image = generateImageWithText(number: Int(item.num), day: item.date ?? Date.now)
             
             ///その他の初期設定
             editText = item.memo ?? ""
