@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import UserNotifications
 
 struct SettingView: View {
     ///CoreData用の変数
@@ -25,7 +26,7 @@ struct SettingView: View {
     
     @State var isButtonPressed = false
     @State var myName = ""
-    
+    let center = UNUserNotificationCenter.current()
     
     ///長期目標再設定用
     ///アラート表示
@@ -41,6 +42,11 @@ struct SettingView: View {
     @State var currentShortTermGoal = ""
     ///現在の目標
     @AppStorage("shortTermGoal") var shortTermGoal: String = ""
+    
+    @State private var isNotificationEnabled = false
+    @State private var showNotificationAlert = false
+    //scenePhaseと呼ばれる環境値を監視するための新しいプロパティを追加します。
+    @Environment(\.scenePhase) var scenePhase
     
     
     var body: some View {
@@ -61,17 +67,44 @@ struct SettingView: View {
                                 Text("アプリの色を変更する")
                             }
                             
-//                            トップ画面の目標を非表示にするボタン
+                            //                            トップ画面の目標を非表示にするボタン
                             Toggle("目標を隠す", isOn: $hideInfomation)
                                 .tint(.green)
                                 .accessibilityHint("トップ画面の目標を非表示にします")
                             
                             //                            バックアップ
-                            NavigationLink {
-                                NotificationView()
-                            } label: {
-                                Text("通知を設定する")
+                            ZStack{
+                                Rectangle().foregroundColor(.clear)
+                                
+                                    .contentShape(Rectangle())
+                                    .onTapGesture {
+                                        center.requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
+                                            if let error = error {
+                                                print(error.localizedDescription)
+                                            }
+                                            
+                                            if success {
+                                                print("通知OK")
+                                                isNotificationEnabled = true
+                                            }else {
+                                                print("通知NG")
+                                                showNotificationAlert = true
+                                                isNotificationEnabled = false
+                                            }
+                                        }
+                                    }
+                                    .disabled(isNotificationEnabled)
+                                
+                                
+                                
+                                NavigationLink {
+                                    NotificationView()
+                                } label: {
+                                    Text("通知を設定する")
+                                }
+
                             }
+
                         }
                         
                         Section{
@@ -192,6 +225,22 @@ struct SettingView: View {
             colorNumber = selectedColor
         }
         
+        .onChange(of: scenePhase) { newPhase in
+            center.requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
+                if let error = error {
+                    print(error.localizedDescription)
+                }
+                
+                if success {
+                    print("All set!")
+                    isNotificationEnabled = true
+                }else {
+                    print("!")
+                    isNotificationEnabled = false
+                }
+            }
+        }
+        
         .onAppear{
             selectedColor = colorNumber
             //            print("aa")
@@ -208,6 +257,17 @@ struct SettingView: View {
             Button("戻る",role: .cancel){}
         }message: {
             Text("この動作は取り消せません。")
+        }
+        
+        .alert("通知が許可されていません", isPresented: $showNotificationAlert){
+            Button("通知画面を開く") {
+                if let url = URL(string: UIApplication.openSettingsURLString) {
+                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                }
+            }
+            Button("戻る",role: .cancel){}
+        }message: {
+            Text("設定画面から通知を許可してください")
         }
     }
     
