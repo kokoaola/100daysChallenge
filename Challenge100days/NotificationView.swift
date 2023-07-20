@@ -11,17 +11,18 @@ import UserNotifications
 
 
 struct NotificationView: View {
+    @EnvironmentObject var vm :ViewModel
+    
+    ///CoreData用の変数
+    @Environment(\.managedObjectContext) var moc
+    @FetchRequest(sortDescriptors: [NSSortDescriptor(key:"date", ascending: true)]) var days: FetchedResults<DailyData>
+    
     @State private var time = Date.now
 //    @State private var day: Set<String> = []
     ///画面破棄用
     @Environment(\.dismiss) var dismiss
     @State private var week = [1,2,3,4,5,6,7]
-    //    ["日", "月", "火", "水", "木", "金", "土"]
-    
-    
-//    @State var datas = ["item1", "item2", "item3"]
     @State var itemsSelection:Set = [1,2,3,4,5,6,7]
-//    @State var itemSelection:String?
     
     var body: some View {
         
@@ -44,8 +45,9 @@ struct NotificationView: View {
             
             
             Button {
-                setNotification(time: time, date: itemsSelection)
-                dismiss()
+                Task{
+                    await setNotification(time: time, date: itemsSelection)
+                    dismiss()}
             } label: {
                 okButton()
                     .foregroundColor(.green)
@@ -93,7 +95,8 @@ struct NotificationView: View {
     //            Text("A")
     //        }
     
-    func setNotification(time:Date, date: Set<Int>){
+    func setNotification(time:Date, date: Set<Int>) async{
+        await print(vm.checkTodaysTask(items: days))
         UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
         
         let content = UNMutableNotificationContent()
@@ -114,7 +117,7 @@ struct NotificationView: View {
         var setDate = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: Date())
         
         //今日のタスク完了済みなら明日から
-        if false{
+        if await vm.checkTodaysTask(items: days){
             setDate = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: Date().addingTimeInterval(24*60*60))
         }
         

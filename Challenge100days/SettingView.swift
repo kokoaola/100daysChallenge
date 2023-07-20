@@ -9,6 +9,10 @@ import SwiftUI
 import UserNotifications
 
 struct SettingView: View {
+//    @Environment(\.managedObjectContext) var moc
+    
+    @State var vm = ViewModel()
+    
     ///CoreData用の変数
     @Environment(\.managedObjectContext) var moc
     @FetchRequest(sortDescriptors: [NSSortDescriptor(key:"date", ascending: true)]) var days: FetchedResults<DailyData>
@@ -98,7 +102,7 @@ struct SettingView: View {
                                 
                                 
                                 NavigationLink {
-                                    NotificationView()
+                                    NotificationView().environmentObject(ViewModel())
                                 } label: {
                                     Text("通知を設定する")
                                 }
