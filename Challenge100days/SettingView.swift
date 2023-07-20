@@ -11,7 +11,7 @@ import UserNotifications
 struct SettingView: View {
 //    @Environment(\.managedObjectContext) var moc
     
-    @State var vm = ViewModel()
+    @State var notificationViewModel = NotificationViewModel()
     
     ///CoreData用の変数
     @Environment(\.managedObjectContext) var moc
@@ -102,7 +102,7 @@ struct SettingView: View {
                                 
                                 
                                 NavigationLink {
-                                    NotificationView().environmentObject(ViewModel())
+                                    NotificationView().environmentObject(NotificationViewModel())
                                 } label: {
                                     Text("通知を設定する")
                                 }
