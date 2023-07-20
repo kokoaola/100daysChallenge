@@ -8,38 +8,41 @@
 import SwiftUI
 
 struct NotificationView: View {
-    @EnvironmentObject var vm :NotificationViewModel
+    @EnvironmentObject var notificationViewModel :NotificationViewModel
     
     ///CoreData用の変数
     @Environment(\.managedObjectContext) var moc
     @FetchRequest(sortDescriptors: [NSSortDescriptor(key:"date", ascending: true)]) var items: FetchedResults<DailyData>
     ///画面破棄用
     @Environment(\.dismiss) var dismiss
-    let week = [1,2,3,4,5,6,7]
+    let week = Array(1...7)
 
     
     var body: some View {
         
         VStack{
-            DatePicker("", selection: $vm.userSettingNotificationTime, displayedComponents: .hourAndMinute)
+            DatePicker("", selection: $notificationViewModel.userSettingNotificationTime, displayedComponents: .hourAndMinute)
                 .datePickerStyle(.wheel)
                 .labelsHidden()
                 .frame(height: 150)
             
-            List(selection: $vm.userSettingNotificationDay){
+            List(selection: $notificationViewModel.userSettingNotificationDay){
                 Section(header: Text("通知を出す曜日")){
                     ForEach(week, id: \.self) { item in
                         Text("\(numToDate(num:item))")
                     }
                 }
             }
+
             .scrollContentBackground(.hidden)
             .environment(\.editMode, .constant(.active))
             .tint(.green)
             
             
             Button {
-                vm.setNotification(items: items)
+                notificationViewModel.setNotification(item: items.last)
+                print("通知は：\(notificationViewModel.isNotificationOn)")
+                print("今日のタスクは\(notificationViewModel.checkTodaysTask(item: items.last))")
                     dismiss()
             } label: {
                 okButton()

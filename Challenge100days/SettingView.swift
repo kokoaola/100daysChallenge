@@ -9,9 +9,7 @@ import SwiftUI
 import UserNotifications
 
 struct SettingView: View {
-//    @Environment(\.managedObjectContext) var moc
-    
-    @State var notificationViewModel = NotificationViewModel()
+    @EnvironmentObject var notificationViewModel :NotificationViewModel
     
     ///CoreData用の変数
     @Environment(\.managedObjectContext) var moc
@@ -257,6 +255,7 @@ struct SettingView: View {
                 longTermGoal = ""
                 shortTermGoal = ""
                 delete()
+                notificationViewModel.resetNotification()
             }
             Button("戻る",role: .cancel){}
         }message: {
@@ -293,8 +292,10 @@ struct SettingView_Previews: PreviewProvider {
         Group{
             SettingView()
                 .environment(\.locale, Locale(identifier:"en"))
+
             SettingView()
                 .environment(\.locale, Locale(identifier:"ja"))
         }
+        .environmentObject(NotificationViewModel())
     }
 }

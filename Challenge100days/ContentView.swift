@@ -10,6 +10,10 @@ import SwiftUI
 
 
 struct ContentView: View {
+    
+    
+    @State var notificationViewModel = NotificationViewModel()
+    
     ///CoreDataに保存したデータ呼び出し用
     @Environment(\.managedObjectContext) var moc
     @FetchRequest(sortDescriptors: [NSSortDescriptor(key:"date", ascending: true)]) var items: FetchedResults<DailyData>
@@ -51,9 +55,12 @@ struct ContentView: View {
                     }.tag("Three")
                 
             }
-            
+            .environmentObject(notificationViewModel)
             .tint(Color(uiColor: UIColor.label))
-
+            .onAppear{
+                print("通知は：\(notificationViewModel.isNotificationOn)")
+                print("今日のタスクは\(notificationViewModel.checkTodaysTask(item: items.last))")
+            }
 //            .onAppear{
 //                longTermGoal =
 //                "Build strength and muscle mass"
@@ -124,6 +131,6 @@ struct ContentView_Previews: PreviewProvider {
                 .environment(\.locale, Locale(identifier:"en"))
             ContentView()
                 .environment(\.locale, Locale(identifier:"ja"))
-        }
+        }.environmentObject(NotificationViewModel())
     }
 }

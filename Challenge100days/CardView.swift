@@ -11,7 +11,7 @@ struct CardView: View {
     ///CoreData用の変数
     @Environment(\.managedObjectContext) var moc
     @FetchRequest(sortDescriptors: [NSSortDescriptor(key:"date", ascending: true)]) var days: FetchedResults<DailyData>
-    
+    @EnvironmentObject var notificationViewModel :NotificationViewModel
     ///グリッドレイアウトの設定用変数
     let columns = Array(repeating: GridItem(.flexible()), count: 10)
     
@@ -89,6 +89,7 @@ struct CardView: View {
                     .accessibilityLabel("\(item.num)日目の記録")
                 }
             }//全面のグリッドビューここまで
+            .environmentObject(notificationViewModel)
         }
         
         .padding()
@@ -110,7 +111,7 @@ struct CardView_Previews: PreviewProvider {
                 .environment(\.locale, Locale(identifier:"en"))
             CardView()
                 .environment(\.locale, Locale(identifier:"ja"))
-        }
+        }.environmentObject(NotificationViewModel())
     }
 }
 
