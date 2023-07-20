@@ -11,13 +11,11 @@ import UserNotifications
 
 
 struct NotificationView: View {
-    @State private var isNotificationEnabled = false
     let center = UNUserNotificationCenter.current()
     @State private var time = Date.now
     @State private var day: Set<String> = []
-    @State private var notificationON = true
-    @State private var ooo = 0
-    
+    ///画面破棄用
+    @Environment(\.dismiss) var dismiss
     @State private var week = ["月", "火", "水", "木", "金", "土", "日"]
     
     
@@ -27,65 +25,33 @@ struct NotificationView: View {
     
     var body: some View {
         
-        VStack {
-            //Toggle("通知を有効にする", isOn: $notificationON)
-              //  .padding(.horizontal)
-
+        VStack{
+            DatePicker("", selection: $time, displayedComponents: .hourAndMinute)
+                .datePickerStyle(.wheel)
+                .labelsHidden()
+                .frame(height: 150)
             
-            Group{
-                
-                        //.offset(x:-30)
-                    DatePicker("", selection: $time, displayedComponents: .hourAndMinute)
-                    .datePickerStyle(.wheel)
-//                        .padding(.horizontal, 20)
-//                        .frame(height: 120)
-
-                
-                
-//                Picker("AA", selection: $ooo){
-//                    Text("毎日通知")
-//                        .tag(0)
-//                    Text("曜日で指定")
-//                        .tag(1)
-//                }
-//                .pickerStyle(.segmented)
-//                .padding(.horizontal, 20)
-                
-                
-                Text("※その日のタスクが完了していない場合のみ、通知が送信されます")
-                    .font(.caption)
-                
-                List(selection: $itemsSelection){
+            List(selection: $itemsSelection){
+                Section(header: Text("通知を出す曜日")){
                     ForEach(week, id: \.self) { str in
                         Text("\(str)")
                     }
                 }
-                .scrollContentBackground(.hidden)
-                .environment(\.editMode, .constant(.active))
-                .tint(.green)
-                
             }
+            .scrollContentBackground(.hidden)
+            .environment(\.editMode, .constant(.active))
+            .tint(.green)
             
-
             
-            Button("決定") {
-                
+            Button {
+                dismiss()
+            } label: {
+                okButton()
+                    .foregroundColor(.green)
+                    .padding(.bottom)
             }
-            .buttonStyle(.borderedProminent)
-            
         }
     }
-    
-    
-    
-    
-    
-    
-    //                }
-    //                .disabled(!notificationON)
-    
-    
-    
     
     //        .onAppear{
     //            print("P")
