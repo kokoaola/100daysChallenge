@@ -20,25 +20,14 @@ class NotificationViewModel: ObservableObject{
     let notificationCenter = UNUserNotificationCenter.current()
     
     init(){
-        self.userSettingNotificationTime = Date()
-        self.userSettingNotificationDay = Set(1...7)
+        self.userSettingNotificationTime = defaults.object(forKey:"notificationTime") as? Date ?? Date()
+        let array = defaults.object(forKey:"notificationDay") as? [Int] ?? []
+        self.userSettingNotificationDay = Set(array)
         self.isNotificationOn = defaults.bool(forKey: "notificationOn")
     }
-
+    
     
     func checkTodaysTask(item: DailyData?) -> Bool{
-//    func checkTodaysTask(items: FetchedResults<DailyData>) -> Bool{
-        ///アプリ起動時に今日のミッションがすでに完了しているか確認
-//        let todaysData = items.filter{
-//            ///CoreDataに保存されたデータの中に今日と同じ日付が存在するか確認
-//            Calendar.current.isDate(Date.now, equalTo: $0.date ?? Date.now, toGranularity: .day)
-//        }
-        ///もし同日が存在していたら完了フラグをTrueにする
-//        if todaysData.isEmpty{
-//            return false
-//        }else{
-//            return true
-//        }
         guard let item else {return false}
         if Calendar.current.isDate(Date.now, equalTo: item.date ?? Date.now, toGranularity: .day){
             return true
@@ -52,20 +41,22 @@ class NotificationViewModel: ObservableObject{
         defaults.set(isOn, forKey: "notificationOn")
     }
     ///通知を送る時間を保存する
-    func saveUserSelectedTime(time: Date){
-        defaults.set(time, forKey: "notificationTime")
+    func saveUserSelectedTime(){
+        defaults.set(userSettingNotificationTime, forKey: "notificationTime")
     }
     ///通知を送る時間を取り出す
-    func getUserSelectedTime() async -> Date{
+    func getUserSelectedTime() -> Date{
         return defaults.object(forKey:"notificationTime") as? Date ?? Date()
     }
     ///通知を送る曜日を保存する
-    func saveUserSelectedDays(day: Set<Int>){
-        defaults.set(day, forKey: "notificationDay")
+    func saveUserSelectedDays(){
+        let array = Array(userSettingNotificationDay)
+        defaults.set(array, forKey: "notificationDay")
     }
     ///通知を送る曜日を取得する
     func getUserSelectedDays() ->  Set<Int>{
-        return defaults.object(forKey:"notificationDay") as?  Set<Int> ?? []
+        let array = defaults.object(forKey:"notificationDay") as? [Int] ?? []
+        return Set(array)
     }
     ///通知を全てキャンセルする
     func resetNotification(){
@@ -75,6 +66,9 @@ class NotificationViewModel: ObservableObject{
     ///通知をセットする
     func setNotification(item: DailyData?){
         resetNotification()
+        
+        saveUserSelectedDays()
+        saveUserSelectedTime()
         
         //日付にひとつもチェックが入っていなければ通知をOFFにしてreturn
         if self.userSettingNotificationDay.isEmpty{
@@ -92,10 +86,9 @@ class NotificationViewModel: ObservableObject{
         content.body = "今日のタスクを達成させよう"
         // 通知時刻を指定
         let component = Calendar.current.dateComponents([.hour, .minute], from: self.userSettingNotificationTime)
-
+        
         var setDate = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: Date())
         //今日のタスク完了済みなら明日から
-//        if self.checkTodaysTask(items: items){
         if self.checkTodaysTask(item: item){
             setDate = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: Date().addingTimeInterval(24*60*60))
         }
