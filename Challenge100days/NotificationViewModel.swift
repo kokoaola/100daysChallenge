@@ -7,7 +7,7 @@
 
 import Swift
 import Foundation
-import Combine
+import CoreData
 import NotificationCenter
 import SwiftUI
 
@@ -33,6 +33,18 @@ class NotificationViewModel: ObservableObject{
             return true
         }else{
             return false
+        }
+    }
+    
+    func getAll(){
+        let context = DataController()
+        let cc = context.container.viewContext
+        let req = NSFetchRequest<DailyData>(entityName: "DailyData")
+        do{
+            let tasks = try cc.fetch(req)
+            print(tasks)
+        }catch{
+            fatalError()
         }
     }
     
@@ -78,7 +90,7 @@ class NotificationViewModel: ObservableObject{
             switchUserNotification(isOn: true)
         }
         
-        print(self.checkTodaysTask(item: item))
+//        print(self.checkTodaysTask(item: item))
         content.sound = UNNotificationSound.default
         // MARK: -
         content.title = "100日チャレンジ継続中！"
@@ -117,7 +129,8 @@ class NotificationViewModel: ObservableObject{
             // ローカル通知をスケジュール
             notificationCenter.add(notificationRequest) { (error) in
                 if let error = error {
-                    print("Error \(error.localizedDescription)")
+//                    print("Error \(error.localizedDescription)")
+                    return
                 }
             }
         }

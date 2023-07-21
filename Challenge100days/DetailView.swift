@@ -230,8 +230,6 @@ struct DetailView: View {
         }
         if notificationViewModel.isNotificationOn{
             notificationViewModel.setNotification(item: days.last)
-            print("通知は：\(notificationViewModel.isNotificationOn)")
-            print("今日のタスクは\(notificationViewModel.checkTodaysTask(item: days.last))")
         }
     }
     

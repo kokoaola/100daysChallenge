@@ -41,8 +41,6 @@ struct NotificationView: View {
             
             Button {
                 notificationViewModel.setNotification(item: items.last)
-                print("通知は：\(notificationViewModel.isNotificationOn)")
-                print("今日のタスクは\(notificationViewModel.checkTodaysTask(item: items.last))")
                     dismiss()
             } label: {
                 okButton()

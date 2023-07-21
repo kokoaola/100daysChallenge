@@ -86,10 +86,10 @@ struct SettingView: View {
                                             }
                                             
                                             if success {
-                                                print("通知OK")
+                                                //通知OK
                                                 isNotificationEnabled = true
                                             }else {
-                                                print("通知NG")
+                                                //通知NG
                                                 showNotificationAlert = true
                                                 isNotificationEnabled = false
                                             }
@@ -230,14 +230,15 @@ struct SettingView: View {
         .onChange(of: scenePhase) { newPhase in
             center.requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
                 if let error = error {
-                    print(error.localizedDescription)
+                    return
+                    //error.localizedDescription
                 }
                 
                 if success {
-                    print("All set!")
+//                    print("All set!")
                     isNotificationEnabled = true
                 }else {
-                    print("!")
+//                    print("!")
                     isNotificationEnabled = false
                 }
             }
