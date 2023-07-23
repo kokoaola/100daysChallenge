@@ -15,10 +15,12 @@ struct NotificationView: View {
     @FetchRequest(sortDescriptors: [NSSortDescriptor(key:"date", ascending: true)]) var items: FetchedResults<DailyData>
     ///画面破棄用
     @Environment(\.dismiss) var dismiss
+
     let week = Array(1...7)
 
     
     var body: some View {
+        
         
         VStack{
             DatePicker("", selection: $notificationViewModel.userSettingNotificationTime, displayedComponents: .hourAndMinute)
@@ -27,10 +29,9 @@ struct NotificationView: View {
                 .frame(height: 150)
             
             List(selection: $notificationViewModel.userSettingNotificationDay){
-                //MARK: -
                 Section(header: Text("通知を出す曜日")){
                     ForEach(week, id: \.self) { item in
-                        Text("\(numToDate(num:item))")
+                        numToDate(num:item)
                     }
                 }
             }
@@ -38,11 +39,16 @@ struct NotificationView: View {
             .scrollContentBackground(.hidden)
             .environment(\.editMode, .constant(.active))
             .tint(.green)
-            
+            .alert(isPresented: $notificationViewModel.showAlert) {
+                Alert(title: Text("通知を設定しました。"),
+                      dismissButton: .default(Text("OK"),
+                                              action: {dismiss()
+                })) // ボタンがタップされた時の処理
+            }
             
             Button {
                 notificationViewModel.setNotification(item: items.last)
-                    dismiss()
+                notificationViewModel.showAlert = true
             } label: {
                 okButton()
                     .foregroundColor(.green)
@@ -52,25 +58,25 @@ struct NotificationView: View {
 
     }
     
-    
-    func numToDate(num: Int) -> String{
+
+    func numToDate(num: Int) -> some View{
         switch num{
         case 1:
-            return "日曜"
+            return Text("日曜")
         case 2:
-            return "月曜"
+            return Text("月曜")
         case 3:
-            return "火曜"
+            return Text("火曜")
         case 4:
-            return "水曜"
+            return Text("水曜")
         case 5:
-            return "木曜"
+            return Text("木曜")
         case 6:
-            return "金曜"
+            return Text("金曜")
         case 7:
-            return "土曜"
+            return Text("土曜")
         default:
-            return ""
+            return Text("")
         }
     }
 }
@@ -78,6 +84,13 @@ struct NotificationView: View {
 
 struct Notification_Previews: PreviewProvider {
     static var previews: some View {
-        NotificationView().environmentObject(NotificationViewModel())
+        Group{
+            NotificationView()
+                .environment(\.locale, Locale(identifier:"en"))
+            
+            NotificationView()
+                .environment(\.locale, Locale(identifier:"ja"))
+        }
+        .environmentObject(NotificationViewModel())
     }
 }

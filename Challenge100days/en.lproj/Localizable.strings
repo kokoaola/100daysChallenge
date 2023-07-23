@@ -108,3 +108,17 @@
 
 "このアプリにはデータを外部に保存する機能はありません。\nデータを消して最初から新しく始める際など、これまでの記録を残しておきたい場合は、このページからコピーしてデバイスへ保存をお願いいたします。" = "This app does not have the ability to save data externally. \nIf you wish to keep a record of what you have done so far, such as when you erase your data and start fresh from scratch, please copy the data from this page and save it to your device.";
 "コピーしました" = "Copied.";
+
+"通知を設定する" = "Set up notifications";
+"通知を出す曜日" = "Repeat";
+"日曜" = "Every Sunday";
+"月曜" = "Every Monday";
+"火曜" = "Every Tuesday";
+"水曜" = "Every Wednesday";
+"木曜" = "Every Thursday";
+"金曜" = "Every Friday";
+"土曜" = "Every Saturday";
+"決定" = "Set Schedule";
+"100日チャレンジ継続中！" = "Continuing the 100-day Challenge!";
+"本日のタスクが未達成です。挑戦を続けて、新たな習慣を築きましょう。" = "Today's task remains incomplete. Continue your challenge and build a new habit.";
+"通知を設定しました。" = "Notifications Set!";
