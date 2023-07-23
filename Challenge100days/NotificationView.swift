@@ -27,6 +27,7 @@ struct NotificationView: View {
                 .frame(height: 150)
             
             List(selection: $notificationViewModel.userSettingNotificationDay){
+                //MARK: -
                 Section(header: Text("通知を出す曜日")){
                     ForEach(week, id: \.self) { item in
                         Text("\(numToDate(num:item))")

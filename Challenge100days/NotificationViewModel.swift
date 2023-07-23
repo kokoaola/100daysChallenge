@@ -21,7 +21,7 @@ class NotificationViewModel: ObservableObject{
     
     init(){
         self.userSettingNotificationTime = defaults.object(forKey:"notificationTime") as? Date ?? Date()
-        let array = defaults.object(forKey:"notificationDay") as? [Int] ?? []
+        let array = defaults.object(forKey:"notificationDay") as? [Int] ?? [1, 2, 3, 4, 5, 6, 7]
         self.userSettingNotificationDay = Set(array)
         self.isNotificationOn = defaults.bool(forKey: "notificationOn")
     }
@@ -67,12 +67,15 @@ class NotificationViewModel: ObservableObject{
     }
     ///通知を送る曜日を取得する
     func getUserSelectedDays() ->  Set<Int>{
-        let array = defaults.object(forKey:"notificationDay") as? [Int] ?? []
+        let array = defaults.object(forKey:"notificationDay") as? [Int] ?? [1, 2, 3, 4, 5, 6, 7]
         return Set(array)
     }
     ///通知を全てキャンセルする
     func resetNotification(){
         notificationCenter.removeAllPendingNotificationRequests()
+        switchUserNotification(isOn: false)
+        self.userSettingNotificationDay = [1, 2, 3, 4, 5, 6, 7]
+        saveUserSelectedDays()
     }
     
     ///通知をセットする
@@ -95,7 +98,7 @@ class NotificationViewModel: ObservableObject{
         // MARK: -
         content.title = "100日チャレンジ継続中！"
         // MARK: -
-        content.body = "今日のタスクを達成させよう"
+        content.body = "本日のタスクが未達成です。挑戦を続けて、新たな習慣を築きましょう。"
         // 通知時刻を指定
         let component = Calendar.current.dateComponents([.hour, .minute], from: self.userSettingNotificationTime)
         

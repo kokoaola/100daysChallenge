@@ -58,7 +58,7 @@ struct ContentView: View {
             .environmentObject(notificationViewModel)
             .tint(Color(uiColor: UIColor.label))
             .onAppear{
-                notificationViewModel.getAll()
+//                notificationViewModel.getAll()
 //                print("通知は：\(notificationViewModel.isNotificationOn)")
 //                print("今日のタスクは\(notificationViewModel.checkTodaysTask(item: items.last))")
             }
