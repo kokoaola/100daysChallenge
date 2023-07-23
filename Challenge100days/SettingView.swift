@@ -55,7 +55,7 @@ struct SettingView: View {
         NavigationStack{
             
             ZStack{
-                
+
                 VStack(spacing: 50) {
                     List{
 //                        アプリ全体の色を変更するボタン
@@ -102,6 +102,7 @@ struct SettingView: View {
                                 NavigationLink {
                                     NotificationView().environmentObject(NotificationViewModel())
                                 } label: {
+                                    
                                     Text("通知を設定する")
                                 }
 
@@ -170,12 +171,12 @@ struct SettingView: View {
                                 isRiset = true
                             }
                         }
-                        
                     }
                     .disabled(isEdit)
                     .foregroundColor(Color(UIColor.label))
                     
                 }
+                
                 .navigationTitle("設定")
                 .navigationBarTitleDisplayMode(.inline)
                 .navigationViewStyle(.stack)
@@ -191,16 +192,14 @@ struct SettingView: View {
                         EditGoal(showAlert: $isLongTermGoalEditedAlert, isLong: true)
                             .transition(.offset(CGSizeZero))
                     }
-//                    .background(.black.opacity(0.6))
+
 
                 }else if isShortTermGoalEditedAlert{
                     VStack{
                         EditGoal(showAlert: $isShortTermGoalEditedAlert, isLong: false)
                     }
-//                    .background(.black.opacity(0.6))
                 }
             }
-            
         }
         
         
@@ -297,6 +296,5 @@ struct SettingView_Previews: PreviewProvider {
             SettingView()
                 .environment(\.locale, Locale(identifier:"ja"))
         }
-        .environmentObject(NotificationViewModel())
     }
 }

@@ -71,7 +71,9 @@ class DataController: ObservableObject {
  func getAll(){
  let context = DataController()
  let cc = context.container.viewContext
- let req = NSFetchRequest<DailyData>(entityName: "DailyData")
+ let request = NSFetchRequest<DailyData>(entityName: "DailyData")
+ request.predicate = NSPredicate(format: "counts = %@", true)
+ request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: true)]
  do{
  let tasks = try cc.fetch(req)
  print(tasks)
