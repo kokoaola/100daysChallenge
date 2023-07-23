@@ -21,6 +21,7 @@ extension AnyTransition {
 
 
 struct ListAndCardView: View {
+    @EnvironmentObject var notificationViewModel :NotificationViewModel
     ///CoreData用の変数
     @Environment(\.managedObjectContext) var moc
     @FetchRequest(sortDescriptors: [NSSortDescriptor(key:"date", ascending: true)]) var items: FetchedResults<DailyData>
@@ -64,6 +65,7 @@ struct ListAndCardView: View {
                     CardView()
                 }
             }
+            .environmentObject(notificationViewModel)
             .foregroundColor(Color(UIColor.label))
             .padding(.horizontal)
             
@@ -122,5 +124,6 @@ struct ListAndCardView_Previews: PreviewProvider {
                 .environment(\.managedObjectContext, dataController.container.viewContext)
                 .environment(\.locale, Locale(identifier:"ja"))
         }
+        .environmentObject(NotificationViewModel())
     }
 }

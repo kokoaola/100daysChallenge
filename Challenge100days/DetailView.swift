@@ -19,7 +19,7 @@ struct DetailView: View {
     ///CoreData用の変数
     @FetchRequest(sortDescriptors: [NSSortDescriptor(key:"date", ascending: true)]) var days: FetchedResults<DailyData>
     @Environment(\.managedObjectContext) var moc
-    
+    @EnvironmentObject var notificationViewModel :NotificationViewModel
     ///画面破棄用の変数
     @Environment(\.dismiss) var dismiss
     
@@ -50,10 +50,7 @@ struct DetailView: View {
             
             
             VStack{
-                
-                
                 HStack{
-                    
                     ///日付けのセルは通常モードの時と同じ
                     Text("\(num ?? 1) / 100")
                         .font(.title)
@@ -88,7 +85,6 @@ struct DetailView: View {
                 }
                 
             }
-            
             .padding()
             .frame(maxHeight: AppSetting.screenHeight / 1.4)
             .background(.thinMaterial)
@@ -231,6 +227,9 @@ struct DetailView: View {
             counter += 1
             i.num = counter
             try? moc.save()
+        }
+        if notificationViewModel.isNotificationOn{
+            notificationViewModel.setNotification(item: days.last)
         }
     }
     

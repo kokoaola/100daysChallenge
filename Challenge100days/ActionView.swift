@@ -10,12 +10,13 @@ import SwiftUI
 
 
 struct ActionView: View {
+    @EnvironmentObject var notificationViewModel :NotificationViewModel
     ///CoreDataに保存したデータ呼び出し用
     @Environment(\.managedObjectContext) var moc
     @FetchRequest(sortDescriptors: [NSSortDescriptor(key:"date", ascending: true)]) var days: FetchedResults<DailyData>
     
     ///今日のワークが達成されているかの確認用フラグ
-    @State var isComplete = false
+//    @State var isComplete = false
     
     ///コンプリートウインドウ出現フラグ
     @State var showCompleteWindew = false
@@ -93,11 +94,11 @@ struct ActionView: View {
                         .foregroundColor(.white)
                         .overlay{
                             VStack{
-                                Text(isComplete ? "本日のチャレンジは達成済みです。\nお疲れ様でした！" : "今日の取り組みが終わったら、\nボタンを押して完了しよう" )
+                                Text(notificationViewModel.checkTodaysTask(item: days.last) ? "本日のチャレンジは達成済みです。\nお疲れ様でした！" : "今日の取り組みが終わったら、\nボタンを押して完了しよう" )
                                     .lineSpacing(10)
                                     .padding(.vertical, 5)
                                 
-                                if isComplete{
+                                if notificationViewModel.checkTodaysTask(item: days.last){
                                     HStack{
                                         Spacer()
                                         Button {
@@ -122,7 +123,7 @@ struct ActionView: View {
                     ///Completeボタンが押されたら本日分のDailyDataを保存
                     Button(action: {
                         withAnimation{
-                            isComplete = true
+//                            isComplete = true
                             showCompleteWindew = true
                         }
                         let day = DailyData(context: moc)
@@ -131,17 +132,21 @@ struct ActionView: View {
                         day.memo = ""
                         day.num = Int16(dayNumber)
                         try? moc.save()
+                        
+                        if notificationViewModel.isNotificationOn{
+                            notificationViewModel.setNotification(item: days.last)
+                        }
                     }, label: {
                         ///CompleteButton(num:52)
-                        CompleteButton(num:isComplete ? dayNumber - 1 : dayNumber)
+                        CompleteButton(num:notificationViewModel.checkTodaysTask(item: days.last) ? dayNumber - 1 : dayNumber)
                             .foregroundStyle(.primary)
-                            .opacity(isComplete ? 0.3 : 1.0)
+                            .opacity(notificationViewModel.checkTodaysTask(item: days.last) ? 0.3 : 1.0)
                     })
                     
 
-                    .accessibilityLabel("\(isComplete ? dayNumber - 1 : dayNumber)日目を完了する")
+                    .accessibilityLabel("\(notificationViewModel.checkTodaysTask(item: days.last) ? dayNumber - 1 : dayNumber)日目を完了する")
                     .padding(.top)
-                    .disabled(isComplete)
+                    .disabled(notificationViewModel.checkTodaysTask(item: days.last))
                     
                     Spacer()
                 }
@@ -160,20 +165,20 @@ struct ActionView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .userSettingGradient(colors: [storedColorTop, storedColorBottom])
             
-            .onAppear{
-                ///アプリ起動時に今日のミッションがすでに完了しているか確認
-                let todaysData = days.filter{
-                    ///CoreDataに保存されたデータの中に今日と同じ日付が存在するか確認
-                    Calendar.current.isDate(Date.now, equalTo: $0.date ?? Date.now, toGranularity: .day)
-                }
-                
-                ///もし同日が存在していたら完了フラグをTrueにする
-                if todaysData.isEmpty{
-                    isComplete = false
-                }else{
-                    isComplete = true
-                }
-            }
+//            .onAppear{
+//                ///アプリ起動時に今日のミッションがすでに完了しているか確認
+//                let todaysData = days.filter{
+//                    ///CoreDataに保存されたデータの中に今日と同じ日付が存在するか確認
+//                    Calendar.current.isDate(Date.now, equalTo: $0.date ?? Date.now, toGranularity: .day)
+//                }
+//
+//                ///もし同日が存在していたら完了フラグをTrueにする
+//                if todaysData.isEmpty{
+//                    isComplete = false
+//                }else{
+//                    isComplete = true
+//                }
+//            }
         }
         .navigationViewStyle(.stack)
     }
@@ -187,6 +192,6 @@ struct ActionView_Previews: PreviewProvider {
                 .environment(\.locale, Locale(identifier:"en"))
             ActionView()
                 .environment(\.locale, Locale(identifier:"ja"))
-        }
+        }.environmentObject(NotificationViewModel())
     }
 }

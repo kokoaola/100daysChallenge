@@ -6,8 +6,11 @@
 //
 
 import SwiftUI
+import UserNotifications
 
 struct SettingView: View {
+    @EnvironmentObject var notificationViewModel :NotificationViewModel
+    
     ///CoreData用の変数
     @Environment(\.managedObjectContext) var moc
     @FetchRequest(sortDescriptors: [NSSortDescriptor(key:"date", ascending: true)]) var days: FetchedResults<DailyData>
@@ -25,7 +28,7 @@ struct SettingView: View {
     
     @State var isButtonPressed = false
     @State var myName = ""
-    
+    let center = UNUserNotificationCenter.current()
     
     ///長期目標再設定用
     ///アラート表示
@@ -41,6 +44,11 @@ struct SettingView: View {
     @State var currentShortTermGoal = ""
     ///現在の目標
     @AppStorage("shortTermGoal") var shortTermGoal: String = ""
+    
+    @State private var isNotificationEnabled = false
+    @State private var showNotificationAlert = false
+    //scenePhaseと呼ばれる環境値を監視するための新しいプロパティを追加します。
+    @Environment(\.scenePhase) var scenePhase
     
     
     var body: some View {
@@ -61,13 +69,48 @@ struct SettingView: View {
                                 Text("アプリの色を変更する")
                             }
                             
-//                            トップ画面の目標を非表示にするボタン
+                            //                            トップ画面の目標を非表示にするボタン
                             Toggle("目標を隠す", isOn: $hideInfomation)
                                 .tint(.green)
                                 .accessibilityHint("トップ画面の目標を非表示にします")
+                            
+                            //                            バックアップ
+                            ZStack{
+                                Rectangle().foregroundColor(.clear)
+                                
+                                    .contentShape(Rectangle())
+                                    .onTapGesture {
+                                        center.requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
+                                            if let error = error {
+                                                print(error.localizedDescription)
+                                            }
+                                            
+                                            if success {
+                                                //通知OK
+                                                isNotificationEnabled = true
+                                            }else {
+                                                //通知NG
+                                                showNotificationAlert = true
+                                                isNotificationEnabled = false
+                                            }
+                                        }
+                                    }
+                                    .disabled(isNotificationEnabled)
+                                
+                                
+                                
+                                NavigationLink {
+                                    NotificationView().environmentObject(NotificationViewModel())
+                                } label: {
+                                    Text("通知を設定する")
+                                }
+
+                            }
+
                         }
                         
                         Section{
+                            
 //                            長期目標変更用のボタン
                             Button("目標を変更する") {
                                 withAnimation(.easeOut(duration: 0.1)) {
@@ -184,6 +227,23 @@ struct SettingView: View {
             colorNumber = selectedColor
         }
         
+        .onChange(of: scenePhase) { newPhase in
+            center.requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
+                if let error = error {
+                    return
+                    //error.localizedDescription
+                }
+                
+                if success {
+//                    print("All set!")
+                    isNotificationEnabled = true
+                }else {
+//                    print("!")
+                    isNotificationEnabled = false
+                }
+            }
+        }
+        
         .onAppear{
             selectedColor = colorNumber
             //            print("aa")
@@ -196,10 +256,22 @@ struct SettingView: View {
                 longTermGoal = ""
                 shortTermGoal = ""
                 delete()
+                notificationViewModel.resetNotification()
             }
             Button("戻る",role: .cancel){}
         }message: {
             Text("この動作は取り消せません。")
+        }
+        
+        .alert("通知が許可されていません", isPresented: $showNotificationAlert){
+            Button("通知画面を開く") {
+                if let url = URL(string: UIApplication.openSettingsURLString) {
+                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                }
+            }
+            Button("戻る",role: .cancel){}
+        }message: {
+            Text("設定画面から通知を許可してください")
         }
     }
     
@@ -221,8 +293,10 @@ struct SettingView_Previews: PreviewProvider {
         Group{
             SettingView()
                 .environment(\.locale, Locale(identifier:"en"))
+
             SettingView()
                 .environment(\.locale, Locale(identifier:"ja"))
         }
+        .environmentObject(NotificationViewModel())
     }
 }

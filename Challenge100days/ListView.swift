@@ -12,6 +12,7 @@ struct ListView: View {
     ///CoreData用の変数
     @Environment(\.managedObjectContext) var moc
     @FetchRequest(sortDescriptors: [NSSortDescriptor(key:"date", ascending: false)]) var items: FetchedResults<DailyData>
+    @EnvironmentObject var notificationViewModel :NotificationViewModel
     
     var body: some View {
         
@@ -29,8 +30,7 @@ struct ListView: View {
                     
                 Spacer()
             }
-            .frame(height: AppSetting.screenWidth)
-            //.background()
+            //.frame(height: AppSetting.screenWidth)
                 
         }else{
             
@@ -105,12 +105,13 @@ struct ListView: View {
                     
                 }
             }
-            
+            .environmentObject(notificationViewModel)
             .fixedSize(horizontal: false, vertical: true)
             .padding()
             .background(.thinMaterial)
             .cornerRadius(15)
         }
+        
     }
 }
 
@@ -136,6 +137,6 @@ struct ListView_Previews: PreviewProvider {
                 .environment(\.locale, Locale(identifier:"en"))
             ListView()
                 .environment(\.locale, Locale(identifier:"ja"))
-        }
+        }.environmentObject(NotificationViewModel())
     }
 }
