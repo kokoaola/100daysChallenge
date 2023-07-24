@@ -8,16 +8,6 @@
 import SwiftUI
 
 
-extension AnyTransition {
-    static var moveAndFade: AnyTransition {
-        .asymmetric(
-            insertion: .offset(x: 0, y: -30).combined(with: .opacity),
-            //insertion: .move(edge: .trailing).combined(with: .opacity),
-            removal: .offset(x: 0, y: -30).combined(with: .opacity)
-        )
-        
-    }
-}
 
 
 struct ListAndCardView: View {
