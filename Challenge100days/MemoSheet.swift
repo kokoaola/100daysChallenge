@@ -105,7 +105,7 @@ struct MemoSheet: View {
             
             ///メモデータが格納されていればテキストエディターの初期値に設定
             .onAppear{
-//                editText = days.last?.memo ?? ""
+                editText = coreDataViewModel.allData.last?.memo ?? ""
             }
         }
         
@@ -121,5 +121,6 @@ struct MemoSheet_Previews: PreviewProvider {
             MemoSheet()
                 .environment(\.locale, Locale(identifier:"ja"))
         }
+        .environmentObject(CoreDataViewModel())
     }
 }

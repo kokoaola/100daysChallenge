@@ -13,6 +13,8 @@ struct ActionView: View {
     @EnvironmentObject var notificationViewModel :NotificationViewModel
     @EnvironmentObject var coreDataViewModel :CoreDataViewModel
     
+    @Environment(\.scenePhase) var scenePhase
+    
     ///CoreDataに保存したデータ呼び出し用
 //    @Environment(\.managedObjectContext) var moc
 //    @FetchRequest(sortDescriptors: [NSSortDescriptor(key:"date", ascending: true)]) var days: FetchedResults<DailyData>
@@ -171,21 +173,9 @@ struct ActionView: View {
             
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .userSettingGradient(colors: [storedColorTop, storedColorBottom])
+                
             
-//            .onAppear{
-//                ///アプリ起動時に今日のミッションがすでに完了しているか確認
-//                let todaysData = days.filter{
-//                    ///CoreDataに保存されたデータの中に今日と同じ日付が存在するか確認
-//                    Calendar.current.isDate(Date.now, equalTo: $0.date ?? Date.now, toGranularity: .day)
-//                }
-//
-//                ///もし同日が存在していたら完了フラグをTrueにする
-//                if todaysData.isEmpty{
-//                    isComplete = false
-//                }else{
-//                    isComplete = true
-//                }
-//            }
+            
         }
         .navigationViewStyle(.stack)
     }
