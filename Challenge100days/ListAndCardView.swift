@@ -12,9 +12,10 @@ import SwiftUI
 
 struct ListAndCardView: View {
     @EnvironmentObject var notificationViewModel :NotificationViewModel
+    @EnvironmentObject var coreDataViewModel :CoreDataViewModel
     ///CoreData用の変数
-    @Environment(\.managedObjectContext) var moc
-    @FetchRequest(sortDescriptors: [NSSortDescriptor(key:"date", ascending: true)]) var items: FetchedResults<DailyData>
+//    @Environment(\.managedObjectContext) var moc
+//    @FetchRequest(sortDescriptors: [NSSortDescriptor(key:"date", ascending: true)]) var items: FetchedResults<DailyData>
     
     @AppStorage("colorkeyTop") var storedColorTop: Color = .blue
     @AppStorage("colorkeyBottom") var storedColorBottom: Color = .green
@@ -32,7 +33,7 @@ struct ListAndCardView: View {
             ScrollView(.vertical, showsIndicators: false){
                 
                 HStack(){
-                    Text("開始日 : ") + Text("\(makeDate(day:items.first?.date ?? Date.now))")
+                    Text("開始日 : ") + Text("\(makeDate(day:coreDataViewModel.allData.first?.date ?? Date.now))")
                         .font(.footnote)
                     
                     Spacer()
@@ -56,6 +57,7 @@ struct ListAndCardView: View {
                 }
             }
             .environmentObject(notificationViewModel)
+            .environmentObject(coreDataViewModel)
             .foregroundColor(Color(UIColor.label))
             .padding(.horizontal)
             
@@ -63,8 +65,9 @@ struct ListAndCardView: View {
             .userSettingGradient(colors: [storedColorTop, storedColorBottom])
             
             .onAppear{
+                
                 Task{
-                    await reNumber()
+                    await coreDataViewModel.assignNumbers()
                 }
             }
             
@@ -81,7 +84,7 @@ struct ListAndCardView: View {
                 
             }
             
-            .sheet(isPresented: $showSheet, content: makeNewItemSheet.init)
+//            .sheet(isPresented: $showSheet, content: makeNewItemSheet.init)
             .navigationTitle("100days Challenge")
             .navigationBarTitleDisplayMode(.automatic)
             
@@ -89,31 +92,31 @@ struct ListAndCardView: View {
     }
     
     ///データ保存後の番号振り直し用の関数
-    func reNumber() async{
-        await MainActor.run{
-            var counter = Int16(0)
-            for item in items{
-                counter += 1
-                item.num = counter
-                try? moc.save()
-            }
-        }
-    }
+//    func reNumber() async{
+//        await MainActor.run{
+//            var counter = Int16(0)
+//            for item in items{
+//                counter += 1
+//                item.num = counter
+//                try? moc.save()
+//            }
+//        }
+//    }
 }
 
 
 
 struct ListAndCardView_Previews: PreviewProvider {
-    static private var dataController = DataController()
     static var previews: some View {
         Group{
             ListAndCardView()
-                .environment(\.managedObjectContext, dataController.container.viewContext)
+//                .environment(\.managedObjectContext, dataController.container.viewContext)
                 .environment(\.locale, Locale(identifier:"en"))
             ListAndCardView()
-                .environment(\.managedObjectContext, dataController.container.viewContext)
+//                .environment(\.managedObjectContext, dataController.container.viewContext)
                 .environment(\.locale, Locale(identifier:"ja"))
         }
         .environmentObject(NotificationViewModel())
+        .environmentObject(CoreDataViewModel())
     }
 }

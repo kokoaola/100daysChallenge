@@ -36,17 +36,17 @@ class NotificationViewModel: ObservableObject{
         }
     }
     
-    func getAll(){
-        let context = DataController()
-        let cc = context.container.viewContext
-        let req = NSFetchRequest<DailyData>(entityName: "DailyData")
-        do{
-            let tasks = try cc.fetch(req)
-            print(tasks)
-        }catch{
-            fatalError()
-        }
-    }
+//    func getAll(){
+//        let context = DataController()
+//        let cc = context.container.viewContext
+//        let req = NSFetchRequest<DailyData>(entityName: "DailyData")
+//        do{
+//            let tasks = try cc.fetch(req)
+//            print(tasks)
+//        }catch{
+//            fatalError()
+//        }
+//    }
     
     ///通知のオンオフを切り替える
     func switchUserNotification(isOn: Bool){

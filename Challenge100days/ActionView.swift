@@ -131,7 +131,7 @@ struct ActionView: View {
                             showCompleteWindew = true
                         }
                         
-                        coreDataViewModel.saveData(date: Date.now, memo: "", num: Int16(dayNumber))
+                        coreDataViewModel.saveData()
 //                        let day = DailyData(context: moc)
 //                        day.id = UUID()
 //                        day.date = Date.now
@@ -200,5 +200,6 @@ struct ActionView_Previews: PreviewProvider {
             ActionView()
                 .environment(\.locale, Locale(identifier:"ja"))
         }.environmentObject(NotificationViewModel())
+            .environmentObject(CoreDataViewModel())
     }
 }

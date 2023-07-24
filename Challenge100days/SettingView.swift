@@ -12,8 +12,8 @@ struct SettingView: View {
     @EnvironmentObject var notificationViewModel :NotificationViewModel
     
     ///CoreData用の変数
-    @Environment(\.managedObjectContext) var moc
-    @FetchRequest(sortDescriptors: [NSSortDescriptor(key:"date", ascending: true)]) var days: FetchedResults<DailyData>
+//    @Environment(\.managedObjectContext) var moc
+//    @FetchRequest(sortDescriptors: [NSSortDescriptor(key:"date", ascending: true)]) var days: FetchedResults<DailyData>
     
     @AppStorage("colorkeyTop") var storedColorTop: Color = .blue
     @AppStorage("colorkeyBottom") var storedColorBottom: Color = .green
@@ -278,11 +278,11 @@ struct SettingView: View {
     
     ///削除用の関数
     func delete(){
-        for item in days{
-            moc.delete(item)
-            try? moc.save()
-        }
-        UserDefaults.standard.set(1, forKey: "todayIs")
+//        for item in days{
+//            moc.delete(item)
+//            try? moc.save()
+//        }
+//        UserDefaults.standard.set(1, forKey: "todayIs")
     }
 }
 

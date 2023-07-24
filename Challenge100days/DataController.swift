@@ -10,7 +10,7 @@ import Foundation
 import CoreData
 import SwiftUI
 
-class DataController: ObservableObject {
+class DataController2: ObservableObject {
     let container = NSPersistentContainer(name: "challengedDay")
     //    static let shared = PersistenceController()
     

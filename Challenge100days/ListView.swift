@@ -10,14 +10,17 @@ import CoreData
 
 struct ListView: View {
     ///CoreData用の変数
-    @Environment(\.managedObjectContext) var moc
-    @FetchRequest(sortDescriptors: [NSSortDescriptor(key:"date", ascending: false)]) var items: FetchedResults<DailyData>
+//    @Environment(\.managedObjectContext) var moc
+//    @FetchRequest(sortDescriptors: [NSSortDescriptor(key:"date", ascending: false)]) var items: FetchedResults<DailyData>
+//    @EnvironmentObject var notificationViewModel :NotificationViewModel
+    
     @EnvironmentObject var notificationViewModel :NotificationViewModel
+    @EnvironmentObject var coreDataViewModel :CoreDataViewModel
     
     var body: some View {
         
         ///データが一件も存在しない時の表示
-        if items.isEmpty{
+        if coreDataViewModel.allData.isEmpty{
             
             VStack{
                 Spacer()
@@ -37,13 +40,13 @@ struct ListView: View {
             VStack(spacing: 5){
                 
                 ///CoreDataに保存されている全データを取り出す
-                ForEach(items) { item in
+                ForEach(coreDataViewModel.allData) { item in
                     
                     
                     ///タップするとDetailを表示
                     NavigationLink(destination: {
                         
-                        DetailView(item: item)
+//                        DetailView(item: item)
                         
                     }){
                         
@@ -98,7 +101,7 @@ struct ListView: View {
                     }
                     
                     ///ラインの表示
-                    if (items.firstIndex(of: item) ?? items.count) + 1 < items.count{
+                    if (coreDataViewModel.allData.firstIndex(of: item) ?? coreDataViewModel.allData.count) + 1 < coreDataViewModel.allData.count{
                         Divider()
                             .padding(.vertical, 5)
                     }
@@ -138,5 +141,6 @@ struct ListView_Previews: PreviewProvider {
             ListView()
                 .environment(\.locale, Locale(identifier:"ja"))
         }.environmentObject(NotificationViewModel())
+            .environmentObject(CoreDataViewModel())
     }
 }

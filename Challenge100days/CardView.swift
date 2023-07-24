@@ -58,7 +58,7 @@ struct CardView: View {
                 ForEach(days, id: \.self) { item in
 //                    遷移先はDetailView
                     NavigationLink(destination: {
-                        DetailView(item: item)
+//                        DetailView(item: item)
                     }){
                         
                         VStack(spacing: -3){
@@ -104,7 +104,7 @@ struct CardView: View {
 
 
 struct CardView_Previews: PreviewProvider {
-    static private var dataController = DataController()
+//    static private var dataController2 = DataController()
     static var previews: some View {
         Group{
             CardView()
