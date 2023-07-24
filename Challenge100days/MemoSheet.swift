@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct MemoSheet: View {
-    
+    @EnvironmentObject var coreDataViewModel :CoreDataViewModel
     ///CoreData用の変数
-    @Environment(\.managedObjectContext) var moc
-    @FetchRequest(sortDescriptors: []) var days: FetchedResults<DailyData>
+//    @Environment(\.managedObjectContext) var moc
+//    @FetchRequest(sortDescriptors: []) var days: FetchedResults<DailyData>
     
     ///キーボードフォーカス用変数（Doneボタン表示のため）
     @FocusState var isInputActive: Bool
@@ -67,8 +67,9 @@ struct MemoSheet: View {
                     
                     ///保存ボタン
                     Button {
-                        days.last?.memo = editText
-                        try? moc.save()
+//                        days.last?.memo = editText
+//                        try? moc.save()
+                        coreDataViewModel.updateLastDataMemo(newMemo: editText)
                         dismiss()
                     } label: {
                         SaveButton()
@@ -104,7 +105,7 @@ struct MemoSheet: View {
             
             ///メモデータが格納されていればテキストエディターの初期値に設定
             .onAppear{
-                editText = days.last?.memo ?? ""
+//                editText = days.last?.memo ?? ""
             }
         }
         

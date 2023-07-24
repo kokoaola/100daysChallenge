@@ -12,11 +12,12 @@ import SwiftUI
 struct ContentView: View {
     
     
-    @State var notificationViewModel = NotificationViewModel()
+    @ObservedObject var notificationViewModel = NotificationViewModel()
+    @ObservedObject var coreDataViewModel = CoreDataViewModel()
     
-    ///CoreDataに保存したデータ呼び出し用
-    @Environment(\.managedObjectContext) var moc
-    @FetchRequest(sortDescriptors: [NSSortDescriptor(key:"date", ascending: true)]) var items: FetchedResults<DailyData>
+//    /CoreDataに保存したデータ呼び出し用
+//    @Environment(\.managedObjectContext) var moc
+//    @FetchRequest(sortDescriptors: [NSSortDescriptor(key:"date", ascending: true)]) var items: FetchedResults<DailyData>
     
     @AppStorage("longTermGoal") var longTermGoal: String = ""
     @AppStorage("shortTermGoal") var shortTermGoal: String = ""
@@ -55,6 +56,7 @@ struct ContentView: View {
                     }.tag("Three")
                 
             }
+            .environmentObject(coreDataViewModel)
             .environmentObject(notificationViewModel)
             .tint(Color(uiColor: UIColor.label))
             .onAppear{
@@ -74,6 +76,8 @@ struct ContentView_Previews: PreviewProvider {
                 .environment(\.locale, Locale(identifier:"en"))
             ContentView()
                 .environment(\.locale, Locale(identifier:"ja"))
-        }.environmentObject(NotificationViewModel())
+        }
+        .environmentObject(NotificationViewModel())
+            .environmentObject(CoreDataViewModel())
     }
 }

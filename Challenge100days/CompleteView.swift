@@ -9,9 +9,12 @@ import SwiftUI
 import UIKit
 
 struct CompleteView: View {
+    
+    @EnvironmentObject var coreDataViewModel :CoreDataViewModel
+    
     ///CoreData用の変数
-    @Environment(\.managedObjectContext) var moc
-    @FetchRequest(sortDescriptors: [NSSortDescriptor(key:"date", ascending: true)]) var days: FetchedResults<DailyData>
+//    @Environment(\.managedObjectContext) var moc
+//    @FetchRequest(sortDescriptors: [NSSortDescriptor(key:"date", ascending: true)]) var days: FetchedResults<DailyData>
     
     ///メモ追加シート表示用のフラグ
     @State var showMemo = false
@@ -24,7 +27,7 @@ struct CompleteView: View {
     @State var image: Image?
     
     var dayNumber: Int{
-        days.isEmpty ? 1 : days.count
+        coreDataViewModel.allData.isEmpty ? 1 : coreDataViewModel.allData.count
     }
     
     var body: some View {
@@ -87,7 +90,7 @@ struct CompleteView: View {
         
         ///画面表示時にコンプリート画像を生成して表示
         .onAppear{
-            image =  generateImageWithText(number: dayNumber, day: days.last?.date ?? Date.now)
+            image =  generateImageWithText(number: dayNumber, day: coreDataViewModel.allData.last?.date ?? Date.now)
         }
         
         ///メモ追加編集用のビュー
@@ -108,6 +111,6 @@ struct CompleteDoneView_Previews: PreviewProvider {
                 .environment(\.locale, Locale(identifier:"en"))
             CompleteView(showCompleteWindew: $aa, image: Image("noImage"))
                 .environment(\.locale, Locale(identifier:"ja"))
-        }
+        }.environmentObject(CoreDataViewModel())
     }
 }

@@ -11,12 +11,14 @@ import SwiftUI
 
 struct ActionView: View {
     @EnvironmentObject var notificationViewModel :NotificationViewModel
+    @EnvironmentObject var coreDataViewModel :CoreDataViewModel
+    
     ///CoreDataに保存したデータ呼び出し用
-    @Environment(\.managedObjectContext) var moc
-    @FetchRequest(sortDescriptors: [NSSortDescriptor(key:"date", ascending: true)]) var days: FetchedResults<DailyData>
+//    @Environment(\.managedObjectContext) var moc
+//    @FetchRequest(sortDescriptors: [NSSortDescriptor(key:"date", ascending: true)]) var days: FetchedResults<DailyData>
     
     ///今日のワークが達成されているかの確認用フラグ
-//    @State var isComplete = false
+    @State var isComplete = false
     
     ///コンプリートウインドウ出現フラグ
     @State var showCompleteWindew = false
@@ -31,11 +33,13 @@ struct ActionView: View {
     @AppStorage("hideInfomation") var hideInfomation = false
     
     var startDate: String{
-        makeDate(day:days.first?.date ?? Date.now)
+        makeDate(day: coreDataViewModel.allData.first?.date ?? Date.now)
+        //makeDate(day:days.first?.date ?? Date.now)
     }
     
     var dayNumber: Int{
-        days.count + 1
+        coreDataViewModel.allData.count + 1
+        //days.count + 1
     }
     
     
@@ -94,11 +98,11 @@ struct ActionView: View {
                         .foregroundColor(.white)
                         .overlay{
                             VStack{
-                                Text(notificationViewModel.checkTodaysTask(item: days.last) ? "本日のチャレンジは達成済みです。\nお疲れ様でした！" : "今日の取り組みが終わったら、\nボタンを押して完了しよう" )
+                                Text(notificationViewModel.checkTodaysTask(item: coreDataViewModel.allData.last) ? "本日のチャレンジは達成済みです。\nお疲れ様でした！" : "今日の取り組みが終わったら、\nボタンを押して完了しよう" )
                                     .lineSpacing(10)
                                     .padding(.vertical, 5)
                                 
-                                if notificationViewModel.checkTodaysTask(item: days.last){
+                                if notificationViewModel.checkTodaysTask(item: coreDataViewModel.allData.last){
                                     HStack{
                                         Spacer()
                                         Button {
@@ -126,27 +130,29 @@ struct ActionView: View {
 //                            isComplete = true
                             showCompleteWindew = true
                         }
-                        let day = DailyData(context: moc)
-                        day.id = UUID()
-                        day.date = Date.now
-                        day.memo = ""
-                        day.num = Int16(dayNumber)
-                        try? moc.save()
+                        
+                        coreDataViewModel.saveData(date: Date.now, memo: "", num: Int16(dayNumber))
+//                        let day = DailyData(context: moc)
+//                        day.id = UUID()
+//                        day.date = Date.now
+//                        day.memo = ""
+//                        day.num = Int16(dayNumber)
+//                        try? moc.save()
                         
                         if notificationViewModel.isNotificationOn{
-                            notificationViewModel.setNotification(item: days.last)
+                            notificationViewModel.setNotification(item: coreDataViewModel.allData.last)
                         }
                     }, label: {
                         ///CompleteButton(num:52)
-                        CompleteButton(num:notificationViewModel.checkTodaysTask(item: days.last) ? dayNumber - 1 : dayNumber)
+                        CompleteButton(num:notificationViewModel.checkTodaysTask(item: coreDataViewModel.allData.last) ? dayNumber - 1 : dayNumber)
                             .foregroundStyle(.primary)
-                            .opacity(notificationViewModel.checkTodaysTask(item: days.last) ? 0.3 : 1.0)
+                            .opacity(notificationViewModel.checkTodaysTask(item: coreDataViewModel.allData.last) ? 0.3 : 1.0)
                     })
                     
 
-                    .accessibilityLabel("\(notificationViewModel.checkTodaysTask(item: days.last) ? dayNumber - 1 : dayNumber)日目を完了する")
+                    .accessibilityLabel("\(notificationViewModel.checkTodaysTask(item: coreDataViewModel.allData.last) ? dayNumber - 1 : dayNumber)日目を完了する")
                     .padding(.top)
-                    .disabled(notificationViewModel.checkTodaysTask(item: days.last))
+                    .disabled(notificationViewModel.checkTodaysTask(item: coreDataViewModel.allData.last))
                     
                     Spacer()
                 }
@@ -159,6 +165,7 @@ struct ActionView: View {
                     CompleteView(showCompleteWindew: $showCompleteWindew)
                         .padding(.horizontal)
                         .transition(.scale)
+                        .environmentObject(coreDataViewModel)
                 }
             }
             
