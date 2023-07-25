@@ -16,8 +16,8 @@ struct ActionView: View {
     @Environment(\.scenePhase) var scenePhase
     
     ///CoreDataに保存したデータ呼び出し用
-//    @Environment(\.managedObjectContext) var moc
-//    @FetchRequest(sortDescriptors: [NSSortDescriptor(key:"date", ascending: true)]) var days: FetchedResults<DailyData>
+    //    @Environment(\.managedObjectContext) var moc
+    //    @FetchRequest(sortDescriptors: [NSSortDescriptor(key:"date", ascending: true)]) var days: FetchedResults<DailyData>
     
     ///今日のワークが達成されているかの確認用フラグ
     @State var isComplete = false
@@ -72,13 +72,13 @@ struct ActionView: View {
                             
                             
                             VStack{
-                            Text("100日取り組むこと : ")
-                                .fontWeight(.bold)
-                                .frame(width: AppSetting.screenWidth * 0.9, alignment: .leading)
-                            Text("\(shortTermGoal)")
-                            ///Text("Work 2 kilometer without stopping")
-                            ///Text("２キロ歩く")
-                                .frame(width: AppSetting.screenWidth * 0.9, height: 50 ,alignment: .center)
+                                Text("100日取り組むこと : ")
+                                    .fontWeight(.bold)
+                                    .frame(width: AppSetting.screenWidth * 0.9, alignment: .leading)
+                                Text("\(shortTermGoal)")
+                                ///Text("Work 2 kilometer without stopping")
+                                ///Text("２キロ歩く")
+                                    .frame(width: AppSetting.screenWidth * 0.9, height: 50 ,alignment: .center)
                             }
                             .contentShape(Rectangle())
                             .accessibilityElement()
@@ -129,17 +129,10 @@ struct ActionView: View {
                     ///Completeボタンが押されたら本日分のDailyDataを保存
                     Button(action: {
                         withAnimation{
-//                            isComplete = true
                             showCompleteWindew = true
                         }
                         
                         coreDataViewModel.saveData()
-//                        let day = DailyData(context: moc)
-//                        day.id = UUID()
-//                        day.date = Date.now
-//                        day.memo = ""
-//                        day.num = Int16(dayNumber)
-//                        try? moc.save()
                         
                         if notificationViewModel.isNotificationOn{
                             notificationViewModel.setNotification(item: coreDataViewModel.allData.last)
@@ -151,7 +144,7 @@ struct ActionView: View {
                             .opacity(notificationViewModel.checkTodaysTask(item: coreDataViewModel.allData.last) ? 0.3 : 1.0)
                     })
                     
-
+                    
                     .accessibilityLabel("\(notificationViewModel.checkTodaysTask(item: coreDataViewModel.allData.last) ? dayNumber - 1 : dayNumber)日目を完了する")
                     .padding(.top)
                     .disabled(notificationViewModel.checkTodaysTask(item: coreDataViewModel.allData.last))
@@ -161,9 +154,8 @@ struct ActionView: View {
                 .accessibilityHidden(showCompleteWindew)
                 
                 
-                
                 ///ボタン押下後は完了のビューを重ねて表示
-                if showCompleteWindew{
+                if showCompleteWindew {
                     CompleteView(showCompleteWindew: $showCompleteWindew)
                         .padding(.horizontal)
                         .transition(.scale)
@@ -171,17 +163,15 @@ struct ActionView: View {
                 }
             }
             
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .userSettingGradient(colors: [storedColorTop, storedColorBottom])
             
-//                if coreDataViewModel.allData.last?.date != nil && Calendar.current.isDate(coreDataViewModel.allData.last?.date, equalTo: Date.now, toGranularity: .day)
             .onAppear{
-                if (!coreDataViewModel.allData.isEmpty && !Calendar.current.isDate((coreDataViewModel.allData.last?.date)!, equalTo: Date.now, toGranularity: .day)){
+                if !coreDataViewModel.checkTodaysTask{
                     showCompleteWindew = false
                 }
             }
             
-            
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .userSettingGradient(colors: [storedColorTop, storedColorBottom])
         }
         .navigationViewStyle(.stack)
     }

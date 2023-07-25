@@ -27,6 +27,7 @@ class NotificationViewModel: ObservableObject{
         self.isNotificationOn = defaults.bool(forKey: "notificationOn")
     }
     
+    ///今日のタスクが終了しているか確認
     func checkTodaysTask(item: DailyData?) -> Bool{
         guard let item else {return false}
         if Calendar.current.isDate(Date.now, equalTo: item.date ?? Date.now, toGranularity: .day){

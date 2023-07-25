@@ -12,6 +12,16 @@ import CoreData
 class CoreDataViewModel: ObservableObject{
     @Published var allData : [DailyData]
     let persistenceController = DataController2()
+    var checkTodaysTask: Bool{
+        if let lastData = allData.last?.date{
+            if Calendar.current.isDate(Date.now, equalTo: lastData, toGranularity: .day){
+                return true
+            }else{
+                return false
+            }
+        }
+        return false
+    }
     
     init() {
         let context = persistenceController.container.viewContext
@@ -24,6 +34,15 @@ class CoreDataViewModel: ObservableObject{
             fatalError()
         }
     }
+    
+    
+//    func checkTodaysTask() -> Bool{
+//        if Calendar.current.isDate(Date.now, equalTo: allData.last?.date ?? Date.now, toGranularity: .day){
+//            return true
+//        }else{
+//            return false
+//        }
+//    }
     
     func getAll() -> [DailyData]{
 

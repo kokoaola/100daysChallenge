@@ -55,7 +55,7 @@ struct CompleteView: View {
                 
                 
                 //コンプリート画像
-                image?
+                generateImageWithText(number: dayNumber, day: coreDataViewModel.allData.last?.date ?? Date.now)
                     .resizable().scaledToFit()
                 // MARK: -
                     .accessibilityLabel("日付入りの画像")
@@ -89,9 +89,9 @@ struct CompleteView: View {
         
         
         ///画面表示時にコンプリート画像を生成して表示
-        .onAppear{
-            image =  generateImageWithText(number: dayNumber, day: coreDataViewModel.allData.last?.date ?? Date.now)
-        }
+//        .onAppear{
+//            image =  generateImageWithText(number: dayNumber, day: coreDataViewModel.allData.last?.date ?? Date.now)
+//        }
         
         ///メモ追加編集用のビュー
         .sheet(isPresented: $showMemo) {
