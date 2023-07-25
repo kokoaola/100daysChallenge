@@ -46,7 +46,7 @@ struct ListView: View {
                     ///タップするとDetailを表示
                     NavigationLink(destination: {
                         
-//                        DetailView(item: item)
+                        DetailView(item: item)
                         
                     }){
                         

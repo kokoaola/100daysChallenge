@@ -173,7 +173,13 @@ struct ActionView: View {
             
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .userSettingGradient(colors: [storedColorTop, storedColorBottom])
-                
+            
+//                if coreDataViewModel.allData.last?.date != nil && Calendar.current.isDate(coreDataViewModel.allData.last?.date, equalTo: Date.now, toGranularity: .day)
+            .onAppear{
+                if (!coreDataViewModel.allData.isEmpty && !Calendar.current.isDate((coreDataViewModel.allData.last?.date)!, equalTo: Date.now, toGranularity: .day)){
+                    showCompleteWindew = false
+                }
+            }
             
             
         }

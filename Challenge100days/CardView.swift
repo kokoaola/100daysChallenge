@@ -9,9 +9,12 @@ import SwiftUI
 
 struct CardView: View {
     ///CoreData用の変数
-    @Environment(\.managedObjectContext) var moc
-    @FetchRequest(sortDescriptors: [NSSortDescriptor(key:"date", ascending: true)]) var days: FetchedResults<DailyData>
+//    @Environment(\.managedObjectContext) var moc
+//    @FetchRequest(sortDescriptors: [NSSortDescriptor(key:"date", ascending: true)]) var days: FetchedResults<DailyData>
+
     @EnvironmentObject var notificationViewModel :NotificationViewModel
+    @EnvironmentObject var coreDataViewModel :CoreDataViewModel
+    
     ///グリッドレイアウトの設定用変数
     let columns = Array(repeating: GridItem(.flexible()), count: 10)
     
@@ -55,10 +58,10 @@ struct CardView: View {
             LazyVGrid(columns: columns) {
                 
                 ///CoreDataに保存されている全データを取り出す
-                ForEach(days, id: \.self) { item in
+                ForEach(coreDataViewModel.allData, id: \.self) { item in
 //                    遷移先はDetailView
                     NavigationLink(destination: {
-//                        DetailView(item: item)
+                        DetailView(item: item)
                     }){
                         
                         VStack(spacing: -3){
@@ -75,7 +78,7 @@ struct CardView: View {
                                 ///最終アイテム追加してから１日以内ならキラキラを表示
                                 Image(systemName: "sparkles")
                                     .offset(x:8, y:-9)
-                                    .foregroundColor(item == days.last && Calendar.current.isDate(Date.now, equalTo: item.date ?? Date.now, toGranularity: .day) ? .yellow : .clear)
+                                    .foregroundColor(item == coreDataViewModel.allData.last && Calendar.current.isDate(Date.now, equalTo: item.date ?? Date.now, toGranularity: .day) ? .yellow : .clear)
                                 
                                 ///セルに番号を重ねる
                                 Text("\(item.num)")
@@ -90,6 +93,7 @@ struct CardView: View {
                 }
             }//全面のグリッドビューここまで
             .environmentObject(notificationViewModel)
+            .environmentObject(coreDataViewModel)
         }
         
         .padding()
@@ -104,7 +108,7 @@ struct CardView: View {
 
 
 struct CardView_Previews: PreviewProvider {
-//    static private var dataController2 = DataController()
+//    static private var dataController = DataController()
     static var previews: some View {
         Group{
             CardView()
@@ -112,6 +116,7 @@ struct CardView_Previews: PreviewProvider {
             CardView()
                 .environment(\.locale, Locale(identifier:"ja"))
         }.environmentObject(NotificationViewModel())
+            .environmentObject(CoreDataViewModel())
     }
 }
 

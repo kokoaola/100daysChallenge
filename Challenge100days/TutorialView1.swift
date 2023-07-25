@@ -16,8 +16,8 @@ struct TutorialView1: View {
     @AppStorage("colorNumber") var colorNumber = 0
     
     ///CoreData用の変数
-    @Environment(\.managedObjectContext) var moc
-    @FetchRequest(sortDescriptors: [NSSortDescriptor(key:"date", ascending: true)]) var days: FetchedResults<DailyData>
+//    @Environment(\.managedObjectContext) var moc
+//    @FetchRequest(sortDescriptors: [NSSortDescriptor(key:"date", ascending: true)]) var days: FetchedResults<DailyData>
     
     ///カラー設定ピッカー用の変数
     @State var selectedColor = 0
@@ -70,10 +70,10 @@ struct TutorialView1: View {
         .onAppear{
             UserDefaults.standard.set(1, forKey: "todayIs")
             selectedColor = colorNumber
-            for item in days{
-                moc.delete(item)
-                try? moc.save()
-            }
+//            for item in days{
+//                moc.delete(item)
+//                try? moc.save()
+//            }
         }
         
         .onChange(of: selectedColor) { newValue in

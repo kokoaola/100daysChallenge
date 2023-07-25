@@ -33,7 +33,7 @@ struct CompleteView: View {
     var body: some View {
         
         ///四角に画像とボタンを重ねてる
-        VStack(alignment: .leading){
+        VStack(alignment: .leading, spacing: 20){
             
             ///閉じるボタン
             Button(action: {
@@ -43,7 +43,7 @@ struct CompleteView: View {
             }
             
             
-            VStack(alignment: .center){
+            VStack(alignment: .center, spacing: 30){
                 //読み上げ用のVStack
                 VStack{
                     Text("\(dayNumber)日目のチャレンジ達成！")
@@ -103,7 +103,7 @@ struct CompleteView: View {
 
 
 struct CompleteDoneView_Previews: PreviewProvider {
-    @Environment(\.managedObjectContext) var moc
+//    @Environment(\.managedObjectContext) var moc
     @State static var aa = false
     static var previews: some View {
         Group{
