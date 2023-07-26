@@ -11,7 +11,7 @@ struct TutorialTopView: View {
     ///ページ全体のカラー情報を格納
     @AppStorage("colorkeyTop") var storedColorTop: Color = .blue
     @AppStorage("colorkeyBottom") var storedColorBottom: Color = .green
-    @EnvironmentObject var appSetting:AppSetting
+    @EnvironmentObject var userSettingViewModel:UserSettingViewModel
     
     ///現在のページ
     @State var page = 1
@@ -22,6 +22,7 @@ struct TutorialTopView: View {
             
             ///ページに応じたチュートリアルを表示
             VStack{
+                Text(userSettingViewModel.finishedTutorial ? "true":"false")
                 Text("\(page) / 3")
                     .padding(.top)
                     .font(.title.weight(.bold))
@@ -36,7 +37,7 @@ struct TutorialTopView: View {
                     TutorialView3(page: $page)
                 }
             }
-            .environmentObject(appSetting)
+            .environmentObject(userSettingViewModel)
             
             ///ここからは背景の設定
             .frame(maxHeight: AppSetting.screenHeight / 1.3)
@@ -50,7 +51,6 @@ struct TutorialTopView: View {
             .userSettingGradient(colors: [storedColorTop, storedColorBottom])
             
         }
-        
         .navigationViewStyle(.stack)
     }
 }
@@ -63,7 +63,7 @@ struct TutorialView_Previews: PreviewProvider {
             TutorialTopView()
                 .environment(\.locale, Locale(identifier:"en"))
         }
-        .environmentObject(AppSetting())
+        .environmentObject(UserSettingViewModel())
     }
 }
 

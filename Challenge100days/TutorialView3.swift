@@ -8,20 +8,21 @@
 import SwiftUI
 
 struct TutorialView3: View {
-    ///入力したテキストを格納するプロパティ
-    @State private var editText = ""
+    @EnvironmentObject var userSettingViewModel:UserSettingViewModel
+//    ///入力したテキストを格納するプロパティ
+//    @State private var editText = ""
+    
+//    ///キーボードフォーカス用変数（Doneボタン表示のため）
+//    @FocusState var isInputActive: Bool
+    
+//    ///入力したテキストを格納するプロパティ
+//    @State private var editText2 = ""
     
     ///キーボードフォーカス用変数（Doneボタン表示のため）
-    @FocusState var isInputActive: Bool
-    
-    ///入力したテキストを格納するプロパティ
-    @State private var editText2 = ""
-    
-    ///キーボードフォーカス用変数（Doneボタン表示のため）
-    @FocusState var isInputActive2: Bool
+//    @FocusState var isInputActive2: Bool
     @Binding var page: Int
-    
-    @AppStorage("isFirst") var isFirst = true
+//
+//    @AppStorage("isFirst") var isFirst = true
     
     var body: some View {
         
@@ -47,9 +48,7 @@ struct TutorialView3: View {
                     }
                     Spacer()
                     Button {
-                        
-                        isFirst = false
-                        
+                        userSettingViewModel.toggleTutorialStatus(isFinish: true)
                     } label: {
                         StartButton()
                             .foregroundColor(.green)
@@ -69,16 +68,16 @@ struct TutorialView3: View {
             
             
             ///キーボード閉じるボタンを配置
-            .toolbar {
-                ToolbarItemGroup(placement: .keyboard) {
-                    Spacer()
-                    Button("閉じる") {
-                        isInputActive = false
-                        isInputActive2 = false
-                        
-                    }
-                }
-            }
+//            .toolbar {
+//                ToolbarItemGroup(placement: .keyboard) {
+//                    Spacer()
+//                    Button("閉じる") {
+//                        isInputActive = false
+//                        isInputActive2 = false
+//
+//                    }
+//                }
+//            }
         }
     }
     
@@ -96,5 +95,6 @@ struct TutorialView3_Previews: PreviewProvider {
             TutorialView3(page: $sampleNum)
                 .environment(\.locale, Locale(identifier:"ja"))
         }
+        .environmentObject(UserSettingViewModel())
     }
 }

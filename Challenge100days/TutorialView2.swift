@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TutorialView2: View {
-    @EnvironmentObject var appSetting :AppSetting
+    @EnvironmentObject var userSettingViewModel:UserSettingViewModel
     
     ///入力したテキストを格納するプロパティ
     @State private var editText = ""
@@ -99,10 +99,8 @@ struct TutorialView2: View {
                     Spacer()
                     
                     Button {
-                        appSetting.saveUserSettingGoal(isLong: true, goal: editText)
-                        appSetting.saveUserSettingGoal(isLong: false, goal: editText2)
-//                        longTermGoal = editText
-//                        shortTermGoal = editText2
+                        userSettingViewModel.saveUserSettingGoal(isLong: true, goal: editText)
+                        userSettingViewModel.saveUserSettingGoal(isLong: false, goal: editText2)
                         page = 3
                     } label: {
                         NextButton()
@@ -119,8 +117,8 @@ struct TutorialView2: View {
         .foregroundColor(Color(UIColor.label))
         
         .onAppear{
-            editText = appSetting.longTermGoal
-            editText2 = appSetting.shortTermGoal
+            editText = userSettingViewModel.longTermGoal
+            editText2 = userSettingViewModel.shortTermGoal
         }
 
             
@@ -151,6 +149,6 @@ struct TutorialView2_Previews: PreviewProvider {
             TutorialView2(page: $sampleNum)
                 .environment(\.locale, Locale(identifier:"ja"))
         }
-        .environmentObject(AppSetting())
+        .environmentObject(UserSettingViewModel())
     }
 }

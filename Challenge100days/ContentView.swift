@@ -59,6 +59,7 @@ struct ContentView: View {
         }else{
             //            初回起動時はチュートリアルを表示
             TutorialTopView()
+                .environmentObject(userSettingViewModel)
         }
         
     }

@@ -15,24 +15,38 @@ class UserSettingViewModel: ObservableObject{
     @Published var finishedTutorial: Bool
     
     private let longTermGoalKey = "longTermGoal"
-    private let shorTermGoalKey = "shortTermGoal"
+    private let shortTermGoalKey = "shortTermGoal"
     private let finishedTutorialKey = "finishedTutorial"
     private let defaults = UserDefaults.standard
     
     init(){
         self.longTermGoal = defaults.string(forKey:longTermGoalKey) ?? ""
-        self.shortTermGoal = defaults.string(forKey:shorTermGoalKey) ?? ""
+        self.shortTermGoal = defaults.string(forKey:shortTermGoalKey) ?? ""
         self.finishedTutorial = defaults.bool(forKey:finishedTutorialKey)
     }
     
     ///ユーザーが選んだ目標を保存するメソッド
     func saveUserSettingGoal(isLong: Bool, goal: String){
+        objectWillChange.send()
         if isLong{
             longTermGoal = goal
             defaults.set(goal, forKey: longTermGoalKey)
         }else{
             shortTermGoal = goal
-            defaults.set(goal, forKey: shorTermGoalKey)
+            defaults.set(goal, forKey: shortTermGoalKey)
         }
+    }
+    
+    func toggleTutorialStatus(isFinish:Bool){
+        objectWillChange.send()
+        finishedTutorial = isFinish
+        defaults.setValue(isFinish, forKey: finishedTutorialKey)
+    }
+    
+    
+    func resetUserSetting(){
+        self.saveUserSettingGoal(isLong: true, goal: "")
+        self.saveUserSettingGoal(isLong: false, goal: "")
+        self.toggleTutorialStatus(isFinish: false)
     }
 }
