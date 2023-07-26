@@ -10,6 +10,8 @@ import SwiftUI
 struct NotificationView: View {
     @EnvironmentObject var notificationViewModel :NotificationViewModel
     @EnvironmentObject var coreDataViewModel :CoreDataViewModel
+    @Binding var showToast: Bool
+    @Binding var toastText: String
     
     ///CoreData用の変数
 //    @Environment(\.managedObjectContext) var moc
@@ -22,41 +24,50 @@ struct NotificationView: View {
     
     var body: some View {
         
-        
-        VStack{
-            DatePicker("", selection: $notificationViewModel.userSettingNotificationTime, displayedComponents: .hourAndMinute)
-                .datePickerStyle(.wheel)
-                .labelsHidden()
-                .frame(height: 150)
-            
-            List(selection: $notificationViewModel.userSettingNotificationDay){
-                Section(header: Text("通知を出す曜日")){
-                    ForEach(week, id: \.self) { item in
-                        numToDate(num:item)
+        ZStack{
+            VStack{
+                DatePicker("", selection: $notificationViewModel.userSettingNotificationTime, displayedComponents: .hourAndMinute)
+                    .datePickerStyle(.wheel)
+                    .labelsHidden()
+                    .frame(height: 150)
+                
+                List(selection: $notificationViewModel.userSettingNotificationDay){
+                    Section(header: Text("通知を出す曜日")){
+                        ForEach(week, id: \.self) { item in
+                            numToDate(num:item)
+                        }
                     }
                 }
-            }
+                
+                .scrollContentBackground(.hidden)
+                .environment(\.editMode, .constant(.active))
+                .tint(.green)
+                
+                
+                //            .alert(isPresented: $notificationViewModel.showAlert) {
+                //                Alert(title: Text("通知を設定しました。"),
+                //                      dismissButton: .default(Text("OK"),
+                //                                              action: {dismiss()
+                //                })) // ボタンがタップされた時の処理
+                //            }
+                
+                Button {
+                    notificationViewModel.setNotification(item: coreDataViewModel.allData.last)
 
-            .scrollContentBackground(.hidden)
-            .environment(\.editMode, .constant(.active))
-            .tint(.green)
-            .alert(isPresented: $notificationViewModel.showAlert) {
-                Alert(title: Text("通知を設定しました。"),
-                      dismissButton: .default(Text("OK"),
-                                              action: {dismiss()
-                })) // ボタンがタップされた時の処理
+                    
+                    dismiss()
+                    showToast = true
+
+                    toastText = "通知を設定しました。"
+
+                } label: {
+                    okButton()
+                        .foregroundColor(.green)
+                        .padding(.bottom)
+                }
             }
-            
-            Button {
-                notificationViewModel.setNotification(item: coreDataViewModel.allData.last)
-                notificationViewModel.showAlert = true
-            } label: {
-                okButton()
-                    .foregroundColor(.green)
-                    .padding(.bottom)
-            }
+//            ToastView(show: $notificationViewModel.showAlert, text: "通知を設定しました。")
         }
-
     }
     
 
@@ -84,12 +95,14 @@ struct NotificationView: View {
 
 
 struct Notification_Previews: PreviewProvider {
+    @State static var showToast = false
+    @State static var toastText: String = ""
     static var previews: some View {
         Group{
-            NotificationView()
+            NotificationView(showToast: $showToast, toastText: $toastText)
                 .environment(\.locale, Locale(identifier:"en"))
             
-            NotificationView()
+            NotificationView(showToast: $showToast, toastText: $toastText)
                 .environment(\.locale, Locale(identifier:"ja"))
         }
         .environmentObject(NotificationViewModel())

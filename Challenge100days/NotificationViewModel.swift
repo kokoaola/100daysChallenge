@@ -14,7 +14,6 @@ import SwiftUI
 class NotificationViewModel: ObservableObject{
     @Published var userSettingNotificationTime: Date
     @Published var userSettingNotificationDay: Set<Int>
-    @Published var showAlert: Bool = false
     let isNotificationOn: Bool
     private let defaults = UserDefaults.standard
     let content = UNMutableNotificationContent()

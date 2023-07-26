@@ -24,8 +24,10 @@ struct SettingView: View {
 //    @AppStorage("colorNumber") var colorNumber = 0
     
     @AppStorage("hideInfomation") var hideInfomation = false
-    @State var selectedColor = 0
-    @State var showResetAlert = false
+    @State private var selectedColor = 0
+    @State private var showResetAlert = false
+    @State private var showToast = false
+    @State private var toastText = ""
 //    @State var isEdit = false
 //    @State var isLong = false
     
@@ -103,7 +105,8 @@ struct SettingView: View {
                                 
                                 
                                 NavigationLink {
-                                    NotificationView().environmentObject(NotificationViewModel())
+                                    NotificationView(showToast: $showToast, toastText: $toastText)
+                                        .environmentObject(NotificationViewModel())
                                 } label: {
                                     Text("通知を設定する")
                                 }
@@ -116,6 +119,7 @@ struct SettingView: View {
                             
 //                            長期目標変更用のボタン
                             Button("目標を変更する") {
+                                showToast = false
                                 withAnimation(.easeOut(duration: 0.1)) {
                                     isLongTermGoal = true
                                     withAnimation {
@@ -127,6 +131,7 @@ struct SettingView: View {
                             
 //                            短期目標変更用のボタン
                             Button("100日取り組む内容を変更する") {
+                                showToast = false
                                 withAnimation(.easeOut(duration: 0.1)) {
                                     isLongTermGoal = false
                                     withAnimation {
@@ -197,13 +202,14 @@ struct SettingView: View {
 //                .userSettingGradient(colors: [storedColorTop, storedColorBottom])
                 
                 if showGoalEdittingAlert{
-                        EditGoal(showAlert: $showGoalEdittingAlert, isLong: isLongTermGoal)
+                        EditGoal(showAlert: $showGoalEdittingAlert,showToast: $showToast,toastText: $toastText, isLong: isLongTermGoal)
                         .transition(.slide)
                         .environmentObject(userSettingViewModel)
                 }
-//                else if showShortTermGoalEditedAlert{
-//                        EditGoal(showAlert: $showShortTermGoalEditedAlert, isLong: false)
-//                }
+                
+                // MARK: -
+                ToastView(show: $showToast, text: toastText)
+//                    .transition(.opacity)
             }
         }
 
@@ -234,10 +240,7 @@ struct SettingView: View {
         ///削除ボタン押下時のアラート
         .alert("リセットしますか？", isPresented: $showResetAlert){
             Button("リセットする",role: .destructive){
-//                isFirst = true
-//                longTermGoal = ""
-//                shortTermGoal = ""
-                delete()
+
                 notificationViewModel.resetNotification()
                 userSettingViewModel.resetUserSetting()
             }
@@ -259,15 +262,6 @@ struct SettingView: View {
     }
     
     
-    
-    ///削除用の関数
-    func delete(){
-//        for item in days{
-//            moc.delete(item)
-//            try? moc.save()
-//        }
-//        UserDefaults.standard.set(1, forKey: "todayIs")
-    }
 }
 
 
@@ -280,6 +274,8 @@ struct SettingView_Previews: PreviewProvider {
             SettingView()
                 .environment(\.locale, Locale(identifier:"ja"))
         }
+        .environmentObject(CoreDataViewModel())
         .environmentObject(UserSettingViewModel())
+        .environmentObject(NotificationViewModel())
     }
 }

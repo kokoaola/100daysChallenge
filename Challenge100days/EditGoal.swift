@@ -9,13 +9,10 @@ import SwiftUI
 
 struct EditGoal: View {
     @EnvironmentObject var userSettingViewModel:UserSettingViewModel
-    //    @AppStorage("longTermGoal") var longTermGoal: String = ""
-    //    @AppStorage("shortTermGoal") var shortTermGoal: String = ""
-    //
-    //    @AppStorage("colorkeyTop") var storedColorTop: Color = .blue
-    //    @AppStorage("colorkeyBottom") var storedColorBottom: Color = .green
-    
+    @EnvironmentObject var notificationViewModel: NotificationViewModel
     @Binding var showAlert: Bool
+    @Binding var showToast: Bool
+    @Binding var toastText: String
     
     ///入力したテキストを格納するプロパティ
     @State var editText: String = ""
@@ -61,6 +58,8 @@ struct EditGoal: View {
                         userSettingViewModel.saveUserSettingGoal(isLong: isLong, goal: editText)
                     }
                     showAlert = false
+                    showToast = true
+                    toastText = "目標を変更しました"
                 } label: {
                     Text("変更する")
                         .frame(width: AppSetting.screenWidth / 3.5, height: AppSetting.screenWidth * 0.1)
@@ -95,14 +94,16 @@ struct EditGoal: View {
 
 struct EditGoal_Previews: PreviewProvider {
     @State static var isEdit = false
-    @State static var str = "目標を変更する"
+    @State static var showToast = false
+    @State static var toastText = "目標を変更しました"
     static var previews: some View {
         Group{
-            EditGoal(showAlert: $isEdit,isLong: true)
+            EditGoal(showAlert: $isEdit,showToast: $showToast,toastText: $toastText, isLong: true)
                 .environment(\.locale, Locale(identifier:"en"))
-            EditGoal(showAlert: $isEdit,isLong: true)
+            EditGoal(showAlert: $isEdit,showToast: $showToast,toastText: $toastText, isLong: true)
                 .environment(\.locale, Locale(identifier:"ja"))
         }
         .environmentObject(UserSettingViewModel())
+        .environmentObject(NotificationViewModel())
     }
 }
