@@ -62,8 +62,8 @@ class CoreDataViewModel: ObservableObject{
         let context = persistenceController.container.viewContext
         let entity = NSEntityDescription.insertNewObject(forEntityName: "DailyData", into: context) as! DailyData
         entity.id = UUID()
-        entity.date = Date()
-        entity.memo = ""
+        entity.date = date
+        entity.memo = memo
         entity.num = Int16(allData.count + 1)
         
         do {

@@ -91,7 +91,7 @@ struct makeNewItemSheet: View {
                     .focused($isInputActive)
                 
                 
-                ///選択された日付が有効ではない時に表示する警告
+//                選択された日付が有効ではない時に表示する警告
                 if !isVailed{
                     Label("選択した日はすでに記録が存在しています。", systemImage: "exclamationmark.circle")
                         .font(.footnote)
@@ -99,6 +99,7 @@ struct makeNewItemSheet: View {
                         .foregroundColor(.red)
                         .cornerRadius(10)
                 }else if editText.count > AppSetting.maxLengthOfMemo{
+//                    メモの文字数が上限を超えていた場合に表示する警告
                     Label("\(AppSetting.maxLengthOfMemo)文字以内のみ設定可能です", systemImage: "exclamationmark.circle")
                         .font(.footnote)
                         .padding(5)
@@ -146,7 +147,7 @@ struct makeNewItemSheet: View {
             
             
             .onChange(of: userSelectedData) { newValue in
-                ///フェッチリクエストに存在するアイテムの日付とダブってればSaveボタンを無効にしてリターン
+                ///フェッチリクエストに存在するアイテムの日付とダブってればSaveボタンを無効にする
                 for item in coreDataViewModel.allData{
                     if Calendar.current.isDate(item.date!, equalTo: newValue , toGranularity: .day){
                         isVailed = false
@@ -159,7 +160,7 @@ struct makeNewItemSheet: View {
             
             .onAppear{
                 let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: Date())!
-                ///フェッチリクエストに存在するアイテムの日付とダブってればSaveボタンを無効にしてリターン
+                ///フェッチリクエストに昨日の日付があれば、Saveボタンを無効にする
                 for item in coreDataViewModel.allData{
                     if Calendar.current.isDate(item.date!, equalTo: yesterday , toGranularity: .day){
                         
