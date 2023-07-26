@@ -82,6 +82,7 @@ struct TutorialView2: View {
                 
                 Spacer()
             
+            
 //                        戻るボタン
                 HStack{
                     Button {

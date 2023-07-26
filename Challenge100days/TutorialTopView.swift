@@ -12,8 +12,8 @@ struct TutorialTopView: View {
     @EnvironmentObject var userSettingViewModel:UserSettingViewModel
 
     ///ページ全体のカラー情報を格納する変数
-    @AppStorage("colorkeyTop") var storedColorTop: Color = .blue
-    @AppStorage("colorkeyBottom") var storedColorBottom: Color = .green
+//    @AppStorage("colorkeyTop") var storedColorTop: Color = .blue
+//    @AppStorage("colorkeyBottom") var storedColorBottom: Color = .green
 
     ///表示中のページ番号を格納する変数
     @State private var page = 1

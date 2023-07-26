@@ -10,40 +10,42 @@ import UserNotifications
 
 struct SettingView: View {
     @EnvironmentObject var notificationViewModel :NotificationViewModel
+    @EnvironmentObject var userSettingViewModel:UserSettingViewModel
     
     ///CoreData用の変数
 //    @Environment(\.managedObjectContext) var moc
 //    @FetchRequest(sortDescriptors: [NSSortDescriptor(key:"date", ascending: true)]) var days: FetchedResults<DailyData>
     
-    @AppStorage("colorkeyTop") var storedColorTop: Color = .blue
-    @AppStorage("colorkeyBottom") var storedColorBottom: Color = .green
-    @AppStorage("isFirst") var isFirst = true
+//    @AppStorage("colorkeyTop") var storedColorTop: Color = .blue
+//    @AppStorage("colorkeyBottom") var storedColorBottom: Color = .green
+//    @AppStorage("isFirst") var isFirst = true
     
-    @AppStorage("colorNumber") var colorNumber = 0
+//    @AppStorage("colorNumber") var colorNumber = 0
+    
     @AppStorage("hideInfomation") var hideInfomation = false
-    @State var selectedColor = 10
-    @State var isRiset = false
-    @State var isEdit = false
-    @State var isLong = false
+    @State var selectedColor = 0
+    @State var showResetAlert = false
+//    @State var isEdit = false
+//    @State var isLong = false
     
-    @State var isButtonPressed = false
-    @State var myName = ""
     let center = UNUserNotificationCenter.current()
     
     ///長期目標再設定用
     ///アラート表示
-    @State var isLongTermGoalEditedAlert = false
+    @State var showGoalEdittingAlert = false
+    @State private var isLongTermGoal = false
+//    @State var  showLongTermGoalEditedAlert = false
     ///編集中の文章の格納
-    @State var currentLongTermGoal = ""
+//    @State var edittingLongTermGoal = ""
     ///現在の目標
-    @AppStorage("longTermGoal") var longTermGoal: String = ""
+//    @AppStorage("longTermGoal") var longTermGoal: String = ""
     
     ///アラート表示
-    @State var isShortTermGoalEditedAlert = false
+//    @State var showShortTermGoalEditedAlert = false
     ///編集中の文章の格納
-    @State var currentShortTermGoal = ""
+//    @State var currentShortTermGoal = ""
     ///現在の目標
-    @AppStorage("shortTermGoal") var shortTermGoal: String = ""
+//    @AppStorage("shortTermGoal") var shortTermGoal: String = ""
     
     @State private var isNotificationEnabled = false
     @State private var showNotificationAlert = false
@@ -102,7 +104,6 @@ struct SettingView: View {
                                 NavigationLink {
                                     NotificationView().environmentObject(NotificationViewModel())
                                 } label: {
-                                    
                                     Text("通知を設定する")
                                 }
 
@@ -115,17 +116,23 @@ struct SettingView: View {
 //                            長期目標変更用のボタン
                             Button("目標を変更する") {
                                 withAnimation(.easeOut(duration: 0.1)) {
-                                    isLongTermGoalEditedAlert = true
+                                    isLongTermGoal = true
+                                    withAnimation {
+                                        showGoalEdittingAlert = true
+                                    }
                                 }
-                                currentLongTermGoal = longTermGoal
+//                                edittingLongTermGoal = longTermGoal
                             }
                             
 //                            短期目標変更用のボタン
                             Button("100日取り組む内容を変更する") {
                                 withAnimation(.easeOut(duration: 0.1)) {
-                                    isShortTermGoalEditedAlert = true
+                                    isLongTermGoal = false
+                                    withAnimation {
+                                        showGoalEdittingAlert = true
+                                    }
                                 }
-                                currentShortTermGoal = shortTermGoal
+//                                currentShortTermGoal = shortTermGoal
                             }
                         }
                         
@@ -168,11 +175,11 @@ struct SettingView: View {
                             }
                             .contentShape(Rectangle())
                             .onTapGesture {
-                                isRiset = true
+                                showResetAlert = true
                             }
                         }
                     }
-                    .disabled(isEdit)
+                    .disabled(showGoalEdittingAlert)
                     .foregroundColor(Color(UIColor.label))
                     
                 }
@@ -182,56 +189,31 @@ struct SettingView: View {
                 .navigationViewStyle(.stack)
 //                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
                 .scrollContentBackground(.hidden)
-                .accessibilityHidden(isLongTermGoalEditedAlert || isShortTermGoalEditedAlert)
-                .opacity(isLongTermGoalEditedAlert || isShortTermGoalEditedAlert ? 0.3 : 1.0)
+                .accessibilityHidden(showGoalEdittingAlert)
+                .opacity(showGoalEdittingAlert ? 0.3 : 1.0)
+                .modifier(UserSettingGradient(appColorNum: userSettingViewModel.userSelectedColor))
+//                .userSettingGradient(colors: [storedColorTop, storedColorBottom])
                 
-                .userSettingGradient(colors: [storedColorTop, storedColorBottom])
-                
-                if isLongTermGoalEditedAlert{
-                    VStack{
-                        EditGoal(showAlert: $isLongTermGoalEditedAlert, isLong: true)
-                            .transition(.offset(CGSizeZero))
-                    }
-
-
-                }else if isShortTermGoalEditedAlert{
-                    VStack{
-                        EditGoal(showAlert: $isShortTermGoalEditedAlert, isLong: false)
-                    }
+                if showGoalEdittingAlert{
+                        EditGoal(showAlert: $showGoalEdittingAlert, isLong: isLongTermGoal)
+                        .transition(.slide)
+                        .environmentObject(userSettingViewModel)
                 }
+//                else if showShortTermGoalEditedAlert{
+//                        EditGoal(showAlert: $showShortTermGoalEditedAlert, isLong: false)
+//                }
             }
         }
-        
+
         
         .onChange(of: selectedColor) { newValue in
-            switch newValue{
-            case 0:
-                storedColorTop = .blue
-                storedColorBottom = .green
-                
-            case 1:
-                storedColorTop = .green
-                storedColorBottom = .yellow
-            case 2:
-                storedColorTop = .purple
-                storedColorBottom = .blue
-            case 3:
-                storedColorTop = .black
-                storedColorBottom = .black
-                
-            default:
-                storedColorTop = .blue
-                storedColorBottom = .green
-            }
-            colorNumber = selectedColor
+            userSettingViewModel.userSelectedColor = newValue
+            userSettingViewModel.saveUserSettingAppColor(colorNum: newValue)
         }
+        
         
         .onChange(of: scenePhase) { newPhase in
             center.requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
-                if let error = error {
-                    return
-                    //error.localizedDescription
-                }
                 
                 if success {
 //                    print("All set!")
@@ -244,18 +226,18 @@ struct SettingView: View {
         }
         
         .onAppear{
-            selectedColor = colorNumber
-            //            print("aa")
+            selectedColor = userSettingViewModel.userSelectedColor
         }
         
         ///削除ボタン押下時のアラート
-        .alert("リセットしますか？", isPresented: $isRiset){
+        .alert("リセットしますか？", isPresented: $showResetAlert){
             Button("リセットする",role: .destructive){
-                isFirst = true
-                longTermGoal = ""
-                shortTermGoal = ""
+//                isFirst = true
+//                longTermGoal = ""
+//                shortTermGoal = ""
                 delete()
                 notificationViewModel.resetNotification()
+                userSettingViewModel.resetUserSetting()
             }
             Button("戻る",role: .cancel){}
         }message: {
@@ -296,5 +278,6 @@ struct SettingView_Previews: PreviewProvider {
             SettingView()
                 .environment(\.locale, Locale(identifier:"ja"))
         }
+        .environmentObject(UserSettingViewModel())
     }
 }

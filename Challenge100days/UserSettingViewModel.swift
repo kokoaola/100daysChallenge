@@ -48,6 +48,7 @@ class UserSettingViewModel: ObservableObject{
     
     ///ユーザーが選んだアプリの色を保存するメソッド
     func saveUserSettingAppColor(colorNum: Int){
+        self.userSelectedColor = colorNum
         defaults.set(colorNum, forKey: userSelectedColorKey)
     }
     
@@ -75,6 +76,7 @@ class UserSettingViewModel: ObservableObject{
         self.saveUserSettingGoal(isLong: true, goal: "")
         self.saveUserSettingGoal(isLong: false, goal: "")
         self.toggleTutorialStatus(isFinish: false)
+        self.saveUserSettingAppColor(colorNum: 0)
     }
 }
 
