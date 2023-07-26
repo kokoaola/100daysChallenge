@@ -7,7 +7,12 @@
 
 import SwiftUI
 
-
+enum AppColor {
+    case blue
+    case orange
+    case purple
+    case monotone
+}
 
 
 ///アプリ全体の設定

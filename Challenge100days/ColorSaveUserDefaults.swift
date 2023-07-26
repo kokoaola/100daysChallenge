@@ -20,6 +20,33 @@ extension View{
     }
 }
 
+struct UserSettingGradient: ViewModifier{
+    let appColorNum: Int
+    var colors:[Color]{
+        switch appColorNum{
+        case 0:
+            return [.blue, .green]
+        case 1:
+            return [.green, .yellow]
+        case 2:
+            return [.purple, .blue]
+        case 3:
+            return [.black, .black]
+        default:
+            return [.blue, .green]
+        }
+    }
+    
+    func body(content: Content) -> some View{
+        content.background(.secondary).foregroundStyle(LinearGradient(
+            colors: [colors[0], colors[1]],
+            startPoint: .topLeading,
+            endPoint: .bottomTrailing
+        ))
+    }
+}
+
+
 
 extension Color: RawRepresentable {
     
@@ -31,14 +58,12 @@ extension Color: RawRepresentable {
         }
         
         do{
-            
             let color = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? UIColor ?? .black
             //let color = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? UIColor ?? .black
             self = Color(color)
         }catch{
             self = .black
         }
-        
     }
     
     public var rawValue: String {

@@ -8,12 +8,15 @@
 import SwiftUI
 
 struct TutorialView1: View {
-    ///ページ全体のカラー情報を格納
-    @AppStorage("colorkeyTop") var storedColorTop: Color = .blue
-    @AppStorage("colorkeyBottom") var storedColorBottom: Color = .green
+    ///ViewModel用の変数
+    @EnvironmentObject var userSettingViewModel:UserSettingViewModel
     
-    ///カラー設定ピッカー用の変数
-    @AppStorage("colorNumber") var colorNumber = 0
+    ///ページ全体のカラー情報を格納
+//    @AppStorage("colorkeyTop") var storedColorTop: Color = .blue
+//    @AppStorage("colorkeyBottom") var storedColorBottom: Color = .green
+//
+//    ///カラー設定ピッカー用の変数
+//    @AppStorage("colorNumber") var colorNumber = 0
     
     ///カラー設定ピッカー用の変数
     @State var selectedColor = 0
@@ -50,7 +53,8 @@ struct TutorialView1: View {
 //            進むボタン
             Button {
                 page = 2
-                colorNumber = selectedColor
+                userSettingViewModel.saveUserSettingAppColor(colorNum: selectedColor)
+//                colorNumber = selectedColor
             } label: {
                 NextButton(isStart: false)
             }
@@ -58,30 +62,30 @@ struct TutorialView1: View {
             .frame(maxWidth: .infinity,alignment: .bottomTrailing)
         }
         .padding()
-        .foregroundColor(Color(UIColor.label))
+        .foregroundColor(.primary)
         
-        .onAppear{
-            selectedColor = colorNumber
-        }
+//        .onAppear{
+//            selectedColor = colorNumber
+//        }
         
         .onChange(of: selectedColor) { newValue in
-            switch newValue{
-            case 0:
-                storedColorTop = .blue
-                storedColorBottom = .green
-            case 1:
-                storedColorTop = .green
-                storedColorBottom = .yellow
-            case 2:
-                storedColorTop = .purple
-                storedColorBottom = .blue
-            case 3:
-                storedColorTop = .black
-                storedColorBottom = .black
-                
-            default:
-                return
-            }
+            userSettingViewModel.userSelectedColor = newValue
+//            switch newValue{
+//            case 0:
+//                storedColorTop = .blue
+//                storedColorBottom = .green
+//            case 1:
+//                storedColorTop = .green
+//                storedColorBottom = .yellow
+//            case 2:
+//                storedColorTop = .purple
+//                storedColorBottom = .blue
+//            case 3:
+//                storedColorTop = .black
+//                storedColorBottom = .black
+//            default:
+//                return
+//            }
         }
         
     }
@@ -97,5 +101,6 @@ struct TutorialView1_Previews: PreviewProvider {
             TutorialView1(page: $sampleNum)
                 .environment(\.locale, Locale(identifier:"en"))
         }
+        .environmentObject(UserSettingViewModel())
     }
 }

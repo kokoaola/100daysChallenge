@@ -46,7 +46,8 @@ struct TutorialTopView: View {
             .cornerRadius(15)
             .padding(.horizontal)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .userSettingGradient(colors: [storedColorTop, storedColorBottom])
+            //.userSettingGradient(colors: [storedColorTop, storedColorBottom])
+            .modifier(UserSettingGradient(appColorNum: userSettingViewModel.userSelectedColor))
             
         }
         .navigationViewStyle(.stack)
