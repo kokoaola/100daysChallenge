@@ -15,15 +15,12 @@ struct TutorialView1: View {
     ///カラー設定ピッカー用の変数
     @AppStorage("colorNumber") var colorNumber = 0
     
-    ///CoreData用の変数
-//    @Environment(\.managedObjectContext) var moc
-//    @FetchRequest(sortDescriptors: [NSSortDescriptor(key:"date", ascending: true)]) var days: FetchedResults<DailyData>
-    
     ///カラー設定ピッカー用の変数
     @State var selectedColor = 0
     
     ///表示中のページ番号を格納
     @Binding var page: Int
+    
     
     var body: some View {
 
@@ -45,35 +42,26 @@ struct TutorialView1: View {
             } label: {
                 Text("")
             }
-            
             .pickerStyle(.segmented)
             
-            
-            
-            
+
             Spacer()
+            
+//            進むボタン
             Button {
                 page = 2
                 colorNumber = selectedColor
             } label: {
-                NextButton()
-                    .foregroundColor(.green)
-                
+                NextButton(isStart: false)
             }
             .padding(.bottom, 30)
             .frame(maxWidth: .infinity,alignment: .bottomTrailing)
-            
         }
         .padding()
         .foregroundColor(Color(UIColor.label))
         
         .onAppear{
-            UserDefaults.standard.set(1, forKey: "todayIs")
             selectedColor = colorNumber
-//            for item in days{
-//                moc.delete(item)
-//                try? moc.save()
-//            }
         }
         
         .onChange(of: selectedColor) { newValue in

@@ -16,16 +16,7 @@ struct ContentView: View {
     @ObservedObject var coreDataViewModel = CoreDataViewModel()
     @ObservedObject var userSettingViewModel = UserSettingViewModel()
     
-    //    /CoreDataに保存したデータ呼び出し用
-    //    @Environment(\.managedObjectContext) var moc
-    //    @FetchRequest(sortDescriptors: [NSSortDescriptor(key:"date", ascending: true)]) var items: FetchedResults<DailyData>
-    
-    
-    //    ///初回起動確認用
-    //    @AppStorage("isFirst") var isFirst = true
-    
-    ///ページのタグ用の変数
-    //    @State var selected = "One"
+
     
     var body: some View {
         

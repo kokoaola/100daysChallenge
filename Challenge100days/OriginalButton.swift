@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct NextButton: View {
+    var isStart: Bool
     let radius:CGFloat = 10.0
     let width = AppSetting.screenWidth / 3
     let height = AppSetting.screenWidth / 6
@@ -20,12 +21,13 @@ struct NextButton: View {
                 .frame(width: width, height: height)
             
             HStack(alignment: .firstTextBaseline, spacing: 5){
-                Text("次へ")
+                Text(isStart ? "始める":"次へ")
                 Image(systemName: "arrowshape.right")
             }
             .font(.title2.weight(.bold))
             .foregroundColor(文字と内側の枠の色)
         }
+        .foregroundColor(.green)
     }
 }
 
@@ -49,28 +51,7 @@ struct BackButton: View {
             .font(.title2.weight(.bold))
             .foregroundColor(文字と内側の枠の色)
         }
-    }
-}
-
-struct StartButton: View {
-    let radius:CGFloat = 10.0
-    let width = AppSetting.screenWidth / 3
-    let height = AppSetting.screenWidth / 6
-    let 文字と内側の枠の色 = Color(UIColor.white)
-    
-    var body: some View {
-        ZStack(alignment: .center){
-            
-            RoundedRectangle(cornerRadius: radius)
-                .frame(width: width, height: height)
-            
-            HStack(alignment: .firstTextBaseline, spacing: 5){
-                Text("始める")
-                Image(systemName: "arrowshape.right")
-            }
-            .font(.title2.weight(.bold))
-            .foregroundColor(文字と内側の枠の色)
-        }
+        .foregroundColor(.orange)
     }
 }
 
@@ -96,32 +77,6 @@ struct SaveButton: View {
         }
     }
 }
-
-//struct TutorialButton2: View {
-//    let radius:CGFloat = 10.0
-//    let width = AppSetting.screenWidth / 3
-//    let height = AppSetting.screenWidth / 6
-//    let labelString: String
-//    let labelImage : String
-//    let 文字と内側の枠の色 = Color(UIColor.white)
-//
-//    var body: some View {
-//        ZStack{
-//
-//            RoundedRectangle(cornerRadius: radius)
-//                .frame(width: width, height: height)
-//            HStack(alignment: .lastTextBaseline){
-//                Image(systemName: labelImage)
-//                Text(labelString)
-//
-//            }
-//            .font(.title2.weight(.bold))
-//            .foregroundColor(文字と内側の枠の色)
-//
-//        }
-//    }
-//}
-
 
 
 struct CompleteButton: View {
@@ -153,35 +108,6 @@ struct CompleteButton: View {
             }
     }
 }
-
-//struct OriginalButton: View {
-//    let radius:CGFloat = 10.0
-//    let width = AppSetting.screenWidth / 1.7
-//    let height = AppSetting.screenWidth / 5
-//    let labelString: String
-//    let labelImage : String
-//    let 文字と内側の枠の色 = Color(UIColor.white)
-//    
-//    var body: some View {
-//        ZStack{
-//            
-//            RoundedRectangle(cornerRadius: radius)
-//                .frame(width: width, height: height)
-//                .foregroundColor(文字と内側の枠の色)
-//            
-//            
-//            RoundedRectangle(cornerRadius: radius)
-//                .frame(width: width - 7, height: height - 7)
-//            
-//            HStack(alignment: .lastTextBaseline){
-//                Image(systemName: labelImage)
-//                Text(labelString)
-//            }
-//            .font(.title2.weight(.bold))
-//            .foregroundColor(文字と内側の枠の色)
-//        }
-//    }
-//}
 
 
 struct CloseButton: View{
@@ -216,6 +142,7 @@ struct ShareButton: View {
         }
     }
 }
+
 
 struct MemoButton: View {
     let radius:CGFloat = 10.0
@@ -309,14 +236,17 @@ struct okButton: View {
     }
 }
 
+
 struct OriginalButton_Previews: PreviewProvider {
     static var previews: some View {
         Group{
             
             VStack{
                 CloseButton()
-                NextButton()
-                BackButton()
+                HStack{
+                    BackButton()
+                    NextButton(isStart: false)
+                }
                 CompleteButton(num: 1)
                 ShareButton()
                 MemoButton()
@@ -326,12 +256,13 @@ struct OriginalButton_Previews: PreviewProvider {
             .environment(\.locale, Locale(identifier:"en"))
             
             VStack{
-                NextButton()
-                BackButton()
+                HStack{
+                    BackButton()
+                    NextButton(isStart: false)
+                }
                 CompleteButton(num: 1)
                 ShareButton()
                 MemoButton()
-                //OriginalButton(labelString: "シェアする", labelImage: "square.and.arrow.up")
                 SpeechBubble()
             }
             .environment(\.locale, Locale(identifier:"ja"))

@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct TutorialView2: View {
+    ///ViewModel用の変数
     @EnvironmentObject var userSettingViewModel:UserSettingViewModel
     
     ///入力したテキストを格納するプロパティ
@@ -17,18 +18,11 @@ struct TutorialView2: View {
     ///キーボードフォーカス用変数（Doneボタン表示のため）
     @FocusState var isInputActive: Bool
     
-    
     ///キーボードフォーカス用変数（Doneボタン表示のため）
     @FocusState var isInputActive2: Bool
     
+    ///表示中のページ番号を格納
     @Binding var page: Int
-    
-//    @AppStorage("longTermGoal") var longTermGoal: String = ""
-//    @AppStorage("shortTermGoal") var shortTermGoal: String = ""
-    
-    @AppStorage("isFirst") var isFirst = true
-
-    
     
     var body: some View {
         VStack(alignment: .leading, spacing: 20){
@@ -88,25 +82,27 @@ struct TutorialView2: View {
                 
                 Spacer()
             
+//                        戻るボタン
                 HStack{
                     Button {
                         page = 1
                     } label: {
                         BackButton()
-                            .foregroundColor(.orange)
                     }
                     
                     Spacer()
                     
+//                    進むボタン
                     Button {
+                        page = 3
                         userSettingViewModel.saveUserSettingGoal(isLong: true, goal: editText)
                         userSettingViewModel.saveUserSettingGoal(isLong: false, goal: editText2)
-                        page = 3
                     } label: {
-                        NextButton()
-                            .foregroundColor(!editText.isEmpty && !editText2.isEmpty && editText.count <= AppSetting.maxLengthOfTerm && editText2.count <= AppSetting.maxLengthOfTerm ? .green : .gray)
+                        NextButton(isStart: false)
+                            .opacity(!editText.isEmpty && !editText2.isEmpty && editText.count <= AppSetting.maxLengthOfTerm && editText2.count <= AppSetting.maxLengthOfTerm ? 1 : 0.4)
                     }
-                    ///次へボタンの無効判定
+                    
+//                    次へボタンの無効判定
                    .disabled(editText.isEmpty || editText2.isEmpty || editText.count > AppSetting.maxLengthOfTerm || editText2.count > AppSetting.maxLengthOfTerm)
                 }
                 .padding(.bottom, 30)

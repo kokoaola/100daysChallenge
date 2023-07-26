@@ -11,6 +11,8 @@ class UserSettingViewModel: ObservableObject{
     @Published var longTermGoal:String
     @Published var shortTermGoal:String
     @Published var userSelectedTag = "one"
+    @Published var userSelectedColor: AppColor
+    
     ///初回起動確認用
     @Published var finishedTutorial: Bool
     
@@ -23,6 +25,7 @@ class UserSettingViewModel: ObservableObject{
         self.longTermGoal = defaults.string(forKey:longTermGoalKey) ?? ""
         self.shortTermGoal = defaults.string(forKey:shortTermGoalKey) ?? ""
         self.finishedTutorial = defaults.bool(forKey:finishedTutorialKey)
+//        self.userSelectedColor 
     }
     
     ///ユーザーが選んだ目標を保存するメソッド
@@ -49,4 +52,11 @@ class UserSettingViewModel: ObservableObject{
         self.saveUserSettingGoal(isLong: false, goal: "")
         self.toggleTutorialStatus(isFinish: false)
     }
+}
+
+enum AppColor {
+    case blue
+    case orange
+    case purple
+    case monotone
 }

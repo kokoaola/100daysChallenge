@@ -8,21 +8,22 @@
 import SwiftUI
 
 struct TutorialTopView: View {
-    ///ページ全体のカラー情報を格納
+    ///ViewModel用の変数する変数
+    @EnvironmentObject var userSettingViewModel:UserSettingViewModel
+
+    ///ページ全体のカラー情報を格納する変数
     @AppStorage("colorkeyTop") var storedColorTop: Color = .blue
     @AppStorage("colorkeyBottom") var storedColorBottom: Color = .green
-    @EnvironmentObject var userSettingViewModel:UserSettingViewModel
-    
-    ///現在のページ
-    @State var page = 1
+
+    ///表示中のページ番号を格納する変数
+    @State private var page = 1
     
     
     var body: some View {
         NavigationView {
             
-            ///ページに応じたチュートリアルを表示
+//            ページに応じたチュートリアルを表示
             VStack{
-                Text(userSettingViewModel.finishedTutorial ? "true":"false")
                 Text("\(page) / 3")
                     .padding(.top)
                     .font(.title.weight(.bold))
@@ -39,19 +40,20 @@ struct TutorialTopView: View {
             }
             .environmentObject(userSettingViewModel)
             
-            ///ここからは背景の設定
+//            ここからは背景の設定
             .frame(maxHeight: AppSetting.screenHeight / 1.3)
             .background(.thinMaterial)
             .cornerRadius(15)
-            
             .padding(.horizontal)
-            
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-
             .userSettingGradient(colors: [storedColorTop, storedColorBottom])
             
         }
         .navigationViewStyle(.stack)
+//                    チュートリアル表示時にユーザーのセッティングをすべてリセット
+        .onAppear{
+            userSettingViewModel.resetUserSetting()
+        }
     }
 }
 

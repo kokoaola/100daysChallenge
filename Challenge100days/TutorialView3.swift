@@ -8,21 +8,11 @@
 import SwiftUI
 
 struct TutorialView3: View {
+    ///ViewModel用の変数
     @EnvironmentObject var userSettingViewModel:UserSettingViewModel
-//    ///入力したテキストを格納するプロパティ
-//    @State private var editText = ""
     
-//    ///キーボードフォーカス用変数（Doneボタン表示のため）
-//    @FocusState var isInputActive: Bool
-    
-//    ///入力したテキストを格納するプロパティ
-//    @State private var editText2 = ""
-    
-    ///キーボードフォーカス用変数（Doneボタン表示のため）
-//    @FocusState var isInputActive2: Bool
+    ///表示中のページ番号を格納
     @Binding var page: Int
-//
-//    @AppStorage("isFirst") var isFirst = true
     
     var body: some View {
         
@@ -30,30 +20,24 @@ struct TutorialView3: View {
             
             VStack(alignment: .leading, spacing: 30){
                 Text("設定は以上です。").padding(.bottom)
-                
                 Text("これらの設定は、アプリの設定ページからも変更可能です。")
-                
                 Text("それでは、さっそく始めましょう。")
                 
                 Spacer()
                 HStack{
-                    
+                    //                        戻るボタン
                     Button{
-                        
                         page = 2
-                        
                     } label: {
                         BackButton()
-                            .foregroundColor(.orange)
                     }
                     Spacer()
+                    //                        Startボタン
                     Button {
                         userSettingViewModel.toggleTutorialStatus(isFinish: true)
                     } label: {
-                        StartButton()
-                            .foregroundColor(.green)
+                        NextButton(isStart: true)
                     }
-                    
                 }
                 .padding(.bottom, 30)
                 .frame(maxWidth: .infinity, alignment: .bottom)
@@ -62,25 +46,8 @@ struct TutorialView3: View {
             .padding()
             .foregroundColor(Color(UIColor.label))
             
-            
-            
-            
-            
-            
-            ///キーボード閉じるボタンを配置
-//            .toolbar {
-//                ToolbarItemGroup(placement: .keyboard) {
-//                    Spacer()
-//                    Button("閉じる") {
-//                        isInputActive = false
-//                        isInputActive2 = false
-//
-//                    }
-//                }
-//            }
         }
     }
-    
 }
 
 
