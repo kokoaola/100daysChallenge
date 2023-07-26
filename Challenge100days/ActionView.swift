@@ -20,10 +20,10 @@ struct ActionView: View {
     //    @FetchRequest(sortDescriptors: [NSSortDescriptor(key:"date", ascending: true)]) var days: FetchedResults<DailyData>
     
     ///今日のワークが達成されているかの確認用フラグ
-    @State var isComplete = false
+//    @State var isComplete = false
     
     ///コンプリートウインドウ出現フラグ
-    @State var showCompleteWindew = false
+    @State private var showCompleteWindew = false
     
     
     @AppStorage("colorkeyTop") var storedColorTop: Color = .blue
@@ -41,7 +41,6 @@ struct ActionView: View {
     
     var dayNumber: Int{
         coreDataViewModel.allData.count + 1
-        //days.count + 1
     }
     
     
@@ -132,7 +131,7 @@ struct ActionView: View {
                             showCompleteWindew = true
                         }
                         
-                        coreDataViewModel.saveData()
+                        coreDataViewModel.saveData(date: Date(), memo: "")
                         
                         if notificationViewModel.isNotificationOn{
                             notificationViewModel.setNotification(item: coreDataViewModel.allData.last)
@@ -156,7 +155,7 @@ struct ActionView: View {
                 
                 ///ボタン押下後は完了のビューを重ねて表示
                 if showCompleteWindew {
-                    CompleteView(showCompleteWindew: $showCompleteWindew)
+                    CompleteWindowView(showCompleteWindew: $showCompleteWindew)
                         .padding(.horizontal)
                         .transition(.scale)
                         .environmentObject(coreDataViewModel)

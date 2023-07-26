@@ -65,14 +65,13 @@ struct ListAndCardView: View {
             .userSettingGradient(colors: [storedColorTop, storedColorBottom])
             
             .onAppear{
-                
                 Task{
                     await coreDataViewModel.assignNumbers()
                 }
             }
             
             .toolbar{
-                ///新規追加用のプラスボタン
+//                新規追加用のプラスボタン
                 ToolbarItem{
                     Button(action: {
                         showSheet.toggle()
@@ -80,11 +79,11 @@ struct ListAndCardView: View {
                         Image(systemName: "plus")
                     })
                 }
-                
-                
             }
-            
-//            .sheet(isPresented: $showSheet, content: makeNewItemSheet.init)
+//            プラスボタンを押したら出てくるシート
+            .sheet(isPresented: $showSheet, content: makeNewItemSheet.init)
+            .environmentObject(notificationViewModel)
+            .environmentObject(coreDataViewModel)
             .navigationTitle("100days Challenge")
             .navigationBarTitleDisplayMode(.automatic)
             

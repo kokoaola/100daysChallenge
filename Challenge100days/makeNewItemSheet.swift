@@ -10,8 +10,10 @@ import SwiftUI
 struct makeNewItemSheet: View {
     
     ///CoreData用の変数
-    @FetchRequest(sortDescriptors: [NSSortDescriptor(key:"date", ascending: true)]) var items: FetchedResults<DailyData>
-    @Environment(\.managedObjectContext) var moc
+//    @FetchRequest(sortDescriptors: [NSSortDescriptor(key:"date", ascending: true)]) var items: FetchedResults<DailyData>
+//    @Environment(\.managedObjectContext) var moc
+    
+    @EnvironmentObject var coreDataViewModel :CoreDataViewModel
     
     ///画面破棄用の変数
     @Environment(\.dismiss) var dismiss
@@ -23,7 +25,7 @@ struct makeNewItemSheet: View {
     @State private var editText = ""
     
     ///選択された日付を格納するプロパティ
-    @State private var theDate = Calendar.current.date(byAdding: .day, value: -1, to: Date())!
+    @State private var userSelectedData = Calendar.current.date(byAdding: .day, value: -1, to: Date())!
     
     ///編集時のデータピッカー用の変数（未来のデータは追加できないようにするため）
     var dateClosedRange : ClosedRange<Date>{
@@ -67,7 +69,7 @@ struct makeNewItemSheet: View {
                 HStack(alignment: .top){
                     Text("日付")
                     Spacer()
-                    DatePicker(selection: $theDate, in: dateClosedRange, displayedComponents: .date, label: {Text("追加する日付")})
+                    DatePicker(selection: $userSelectedData, in: dateClosedRange, displayedComponents: .date, label: {Text("追加する日付")})
                         .environment(\.locale, Locale(identifier: "ja-Jp"))
                         .datePickerStyle(.compact)
                         .padding(.top, -10)
@@ -108,8 +110,9 @@ struct makeNewItemSheet: View {
                 Button{
                     dismiss()
                     Task{
-                        await save()
-                        await reNumber()
+                        coreDataViewModel.saveData(date:userSelectedData, memo:editText)
+//                        await save()
+//                        await reNumber()
                     }
                     
                 } label: {
@@ -142,9 +145,9 @@ struct makeNewItemSheet: View {
 //            )
             
             
-            .onChange(of: theDate) { newValue in
+            .onChange(of: userSelectedData) { newValue in
                 ///フェッチリクエストに存在するアイテムの日付とダブってればSaveボタンを無効にしてリターン
-                for item in items{
+                for item in coreDataViewModel.allData{
                     if Calendar.current.isDate(item.date!, equalTo: newValue , toGranularity: .day){
                         isVailed = false
                         return
@@ -157,7 +160,7 @@ struct makeNewItemSheet: View {
             .onAppear{
                 let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: Date())!
                 ///フェッチリクエストに存在するアイテムの日付とダブってればSaveボタンを無効にしてリターン
-                for item in items{
+                for item in coreDataViewModel.allData{
                     if Calendar.current.isDate(item.date!, equalTo: yesterday , toGranularity: .day){
                         
                         isVailed = false
@@ -185,28 +188,28 @@ struct makeNewItemSheet: View {
     }
     
     ///データ保存用関数
-    func save() async{
-        await MainActor.run{
-            let day = DailyData(context: moc)
-            day.id = UUID()
-            day.date = theDate
-            day.memo = editText
-            try? moc.save()
-            
-        }
-    }
-    
-    ///データ保存後の番号振り直し用の関数
-    func reNumber() async{
-        await MainActor.run{
-            var counter = Int16(0)
-            for item in items{
-                counter += 1
-                item.num = counter
-                try? moc.save()
-            }
-        }
-    }
+//    func save() async{
+//        await MainActor.run{
+//            let day = DailyData(context: moc)
+//            day.id = UUID()
+//            day.date = theDate
+//            day.memo = editText
+//            try? moc.save()
+//            
+//        }
+//    }
+//    
+//    ///データ保存後の番号振り直し用の関数
+//    func reNumber() async{
+//        await MainActor.run{
+//            var counter = Int16(0)
+//            for item in items{
+//                counter += 1
+//                item.num = counter
+//                try? moc.save()
+//            }
+//        }
+//    }
 }
 
 
@@ -219,5 +222,6 @@ struct makeNewItemSheet_Previews: PreviewProvider {
             makeNewItemSheet()
                 .environment(\.locale, Locale(identifier:"ja"))
         }
+        .environmentObject(CoreDataViewModel())
     }
 }

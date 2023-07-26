@@ -8,7 +8,7 @@
 import SwiftUI
 import UIKit
 
-struct CompleteView: View {
+struct CompleteWindowView: View {
     
     @EnvironmentObject var coreDataViewModel :CoreDataViewModel
     
@@ -107,9 +107,9 @@ struct CompleteDoneView_Previews: PreviewProvider {
     @State static var aa = false
     static var previews: some View {
         Group{
-            CompleteView(showCompleteWindew: $aa, image: Image("noImage"))
+            CompleteWindowView(showCompleteWindew: $aa, image: Image("noImage"))
                 .environment(\.locale, Locale(identifier:"en"))
-            CompleteView(showCompleteWindew: $aa, image: Image("noImage"))
+            CompleteWindowView(showCompleteWindew: $aa, image: Image("noImage"))
                 .environment(\.locale, Locale(identifier:"ja"))
         }.environmentObject(CoreDataViewModel())
     }

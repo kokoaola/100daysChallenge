@@ -69,7 +69,7 @@ struct MemoSheet: View {
                     Button {
 //                        days.last?.memo = editText
 //                        try? moc.save()
-                        coreDataViewModel.updateLastDataMemo(newMemo: editText)
+                        coreDataViewModel.updateDataMemo(newMemo: editText, data: nil)
                         dismiss()
                     } label: {
                         SaveButton()

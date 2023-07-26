@@ -44,8 +44,7 @@ class CoreDataViewModel: ObservableObject{
 //        }
 //    }
     
-    func getAll() -> [DailyData]{
-
+    func getAllData() -> [DailyData]{
         let context = persistenceController.container.viewContext
         let request = NSFetchRequest<DailyData>(entityName: "DailyData")
         request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: true)]
@@ -57,7 +56,9 @@ class CoreDataViewModel: ObservableObject{
         }
     }
     
-    func saveData() {
+    
+    ///新しくデータを保存するメソッド
+    func saveData(date:Date, memo: String) {
         let context = persistenceController.container.viewContext
         let entity = NSEntityDescription.insertNewObject(forEntityName: "DailyData", into: context) as! DailyData
         entity.id = UUID()
@@ -71,42 +72,57 @@ class CoreDataViewModel: ObservableObject{
         } catch let error as NSError {
             print("Could not save. \(error), \(error.userInfo)")
         }
-        
         objectWillChange.send()
-        allData = getAll()
+        allData = getAllData()
     }
     
     
-    func updateDataMemo(newMemo: String, data: DailyData) {
+    ///引数で受け取った日のメモを更新するメソッド、データがnilなら最新のメモを更新
+    func updateDataMemo(newMemo: String, data: DailyData?) {
         let context = persistenceController.container.viewContext
-        do {
-                data.memo = newMemo //最新のデータのメモを更新
-                try context.save() //変更を保存
-        } catch let error as NSError {
-            print("Could not save. \(error), \(error.userInfo)")
-        }
         
-        objectWillChange.send()
-        allData = getAll()
-    }
-    
-    
-    func updateLastDataMemo(newMemo: String) {
-        let context = persistenceController.container.viewContext
-        do {
-            if let lastData = self.allData.last{
-                lastData.memo = newMemo //最新のデータのメモを更新
-                try context.save() //変更を保存
+        guard let data = data else {
+            do {
+                if let lastData = self.allData.last{
+                    lastData.memo = newMemo //最新のデータのメモを更新
+                    try context.save() //変更を保存
+                }
+            } catch let error as NSError {
+                print("Could not save. \(error), \(error.userInfo)")
             }
+            objectWillChange.send()
+            allData = getAllData()
+            return
+        }
+        
+        do {
+                data.memo = newMemo //受け取ったデータのメモを更新
+                try context.save() //変更を保存
         } catch let error as NSError {
             print("Could not save. \(error), \(error.userInfo)")
         }
         
         objectWillChange.send()
-        allData = getAll()
+        allData = getAllData()
     }
     
     
+//    func updateLastDataMemo(newMemo: String) {
+//        let context = persistenceController.container.viewContext
+//        do {
+//            if let lastData = self.allData.last{
+//                lastData.memo = newMemo //最新のデータのメモを更新
+//                try context.save() //変更を保存
+//            }
+//        } catch let error as NSError {
+//            print("Could not save. \(error), \(error.userInfo)")
+//        }
+//
+//        objectWillChange.send()
+//        allData = getAllData()
+//    }
+    
+    ///引数で受け取ったデータを削除するメソッド
     func deleteData(data: DailyData) {
         let context = persistenceController.container.viewContext
         context.delete(data)
@@ -117,7 +133,7 @@ class CoreDataViewModel: ObservableObject{
         }
         
         objectWillChange.send()
-        allData = getAll()
+        allData = getAllData()
     }
 
     
@@ -136,7 +152,7 @@ class CoreDataViewModel: ObservableObject{
             }
             
             objectWillChange.send()
-            allData = getAll()
+            allData = getAllData()
         }
     }
 }

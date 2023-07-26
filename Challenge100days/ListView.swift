@@ -40,7 +40,7 @@ struct ListView: View {
             VStack(spacing: 5){
                 
                 ///CoreDataに保存されている全データを取り出す
-                ForEach(coreDataViewModel.allData) { item in
+                ForEach(coreDataViewModel.allData.reversed()) { item in
                     
                     
                     ///タップするとDetailを表示
@@ -101,7 +101,7 @@ struct ListView: View {
                     }
                     
                     ///ラインの表示
-                    if (coreDataViewModel.allData.firstIndex(of: item) ?? coreDataViewModel.allData.count) + 1 < coreDataViewModel.allData.count{
+                    if item != coreDataViewModel.allData.first{
                         Divider()
                             .padding(.vertical, 5)
                     }

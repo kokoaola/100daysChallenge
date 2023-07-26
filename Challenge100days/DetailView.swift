@@ -53,7 +53,6 @@ struct DetailView: View {
             
             VStack{
                 HStack{
-                    ///日付けのセルは通常モードの時と同じ
                     Text("\(num ?? 1) / 100")
                         .font(.title)
                     
@@ -82,10 +81,7 @@ struct DetailView: View {
                         .frame(maxHeight: .infinity)
                         .focused($isInputActive)
                         .tint(.white)
-                    
-                    
                 }
-                
             }
             .padding()
             .frame(maxHeight: AppSetting.screenHeight / 1.4)
@@ -113,7 +109,7 @@ struct DetailView: View {
             }
             
             ///シェア用の画像を生成
-            //            image = generateImageWithText(number: Int(item.num), day: item.date ?? Date.now)
+                        image = generateImageWithText(number: Int(item.num), day: item.date ?? Date.now)
             
             ///その他の初期設定
             editText = item.memo ?? ""
@@ -127,30 +123,25 @@ struct DetailView: View {
             ///保存ボタンを配置
             ToolbarItemGroup(placement: .keyboard) {
                 
-                
+//                文字数が上限を超えてる時の注意書き
                 Text("\(AppSetting.maxLengthOfMemo)文字以内のみ設定可能です")
                     .font(.caption)
                     .foregroundColor(editText.count > AppSetting.maxLengthOfMemo ? .red : .clear)
                 
                 
-                
+//                保存ボタン
                 Button("保存する") {
-                    Task{
-                        await coreDataViewModel.updateDataMemo(newMemo:editText, data:item )
-                    }
+                        coreDataViewModel.updateDataMemo(newMemo:editText, data:item )
                     isInputActive = false
                 }
                 
                 .foregroundColor(editText.count <= AppSetting.maxLengthOfMemo ? .primary : .gray)
                 .opacity(editText.count <= AppSetting.maxLengthOfMemo ? 1.0 : 0.5)
                 .disabled(editText.count > AppSetting.maxLengthOfMemo)
-                
-                
             }
             
             
-            
-            ///アイテム削除用ごみ箱アイコン
+//            アイテム削除用ごみ箱アイコン
             ToolbarItem(placement: .navigationBarTrailing){
                 Button {
                     showCansel = true
@@ -161,7 +152,8 @@ struct DetailView: View {
                 .padding(.trailing)
             }
             
-            ///画像シェア用のリンク
+            
+//            画像シェア用のリンク
             ToolbarItem(placement: .navigationBarTrailing) {
                 ShareLink(item: image ?? Image("noImage") , preview: SharePreview("画像", image:image ?? Image("noImage") )){
                     Image(systemName: "square.and.arrow.up")
@@ -169,7 +161,8 @@ struct DetailView: View {
                 }
             }
             
-            ///戻るボタン
+            
+//            戻るボタン
             ToolbarItem(placement: .navigationBarLeading) {
                 Button {
                     dismiss()
@@ -183,7 +176,9 @@ struct DetailView: View {
         }
         .foregroundColor(Color(UIColor.label))
         
-        ///削除ボタン押下時のアラート
+        
+        
+//        削除ボタン押下時のアラート
         .alert("この日の記録を破棄しますか？", isPresented: $showCansel){
             Button("破棄する",role: .destructive){
                 coreDataViewModel.deleteData(data:item)
