@@ -11,6 +11,7 @@ struct TutorialTopView: View {
     ///ページ全体のカラー情報を格納
     @AppStorage("colorkeyTop") var storedColorTop: Color = .blue
     @AppStorage("colorkeyBottom") var storedColorBottom: Color = .green
+    @EnvironmentObject var appSetting:AppSetting
     
     ///現在のページ
     @State var page = 1
@@ -35,6 +36,7 @@ struct TutorialTopView: View {
                     TutorialView3(page: $page)
                 }
             }
+            .environmentObject(appSetting)
             
             ///ここからは背景の設定
             .frame(maxHeight: AppSetting.screenHeight / 1.3)
@@ -61,6 +63,7 @@ struct TutorialView_Previews: PreviewProvider {
             TutorialTopView()
                 .environment(\.locale, Locale(identifier:"en"))
         }
+        .environmentObject(AppSetting())
     }
 }
 

@@ -14,29 +14,24 @@ struct ContentView: View {
     
     @ObservedObject var notificationViewModel = NotificationViewModel()
     @ObservedObject var coreDataViewModel = CoreDataViewModel()
+    @ObservedObject var userSettingViewModel = UserSettingViewModel()
     
-//    /CoreDataに保存したデータ呼び出し用
-//    @Environment(\.managedObjectContext) var moc
-//    @FetchRequest(sortDescriptors: [NSSortDescriptor(key:"date", ascending: true)]) var items: FetchedResults<DailyData>
+    //    /CoreDataに保存したデータ呼び出し用
+    //    @Environment(\.managedObjectContext) var moc
+    //    @FetchRequest(sortDescriptors: [NSSortDescriptor(key:"date", ascending: true)]) var items: FetchedResults<DailyData>
     
-    @AppStorage("longTermGoal") var longTermGoal: String = ""
-    @AppStorage("shortTermGoal") var shortTermGoal: String = ""
     
-    ///初回起動確認用
-    @AppStorage("isFirst") var isFirst = true
+    //    ///初回起動確認用
+    //    @AppStorage("isFirst") var isFirst = true
     
     ///ページのタグ用の変数
-    @State var selected = "One"
-    
+    //    @State var selected = "One"
     
     var body: some View {
         
-        if isFirst{
-            ///初回起動時はチュートリアルを表示
-            TutorialTopView()
-        }else{
-            ///２回目以降はこっち
-            TabView(selection: $selected){
+        //        ユーザーが初回のチュートリアルを終わらせていればタブを表示
+        if userSettingViewModel.finishedTutorial{
+            TabView(selection: $userSettingViewModel.userSelectedTag){
                 
                 ///達成用のビュー
                 ActionView()
@@ -56,17 +51,16 @@ struct ContentView: View {
                     }.tag("Three")
                 
             }
+            .tint(.primary)
             .environmentObject(coreDataViewModel)
             .environmentObject(notificationViewModel)
-            .tint(Color(uiColor: UIColor.label))
-            .onAppear{
-
-//                notificationViewModel.getAll()
-//                print("通知は：\(notificationViewModel.isNotificationOn)")
-//                print("今日のタスクは\(notificationViewModel.checkTodaysTask(item: items.last))")
-            }
-
+            .environmentObject(userSettingViewModel)
+            
+        }else{
+            //            初回起動時はチュートリアルを表示
+            TutorialTopView()
         }
+        
     }
 }
 
@@ -79,6 +73,7 @@ struct ContentView_Previews: PreviewProvider {
                 .environment(\.locale, Locale(identifier:"ja"))
         }
         .environmentObject(NotificationViewModel())
-            .environmentObject(CoreDataViewModel())
+        .environmentObject(CoreDataViewModel())
+        .environmentObject(UserSettingViewModel())
     }
 }

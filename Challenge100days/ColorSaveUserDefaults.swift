@@ -9,6 +9,18 @@ import Foundation
 import SwiftUI
 import UIKit
 
+
+extension View{
+    public func userSettingGradient(colors:[Color]) -> some View{
+        self.background(.secondary).foregroundStyle(LinearGradient(
+            colors: [colors[0], colors[1]],
+            startPoint: .topLeading,
+            endPoint: .bottomTrailing
+        ))
+    }
+}
+
+
 extension Color: RawRepresentable {
     
     public init?(rawValue: String) {

@@ -8,15 +8,7 @@
 import SwiftUI
 
 
-extension View{
-    public func userSettingGradient(colors:[Color]) -> some View{
-        self.background(.secondary).foregroundStyle(LinearGradient(
-            colors: [colors[0], colors[1]],
-            startPoint: .topLeading,
-            endPoint: .bottomTrailing
-        ))
-    }
-}
+
 
 ///アプリ全体の設定
 struct AppSetting{

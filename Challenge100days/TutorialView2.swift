@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct TutorialView2: View {
+    @EnvironmentObject var appSetting :AppSetting
+    
     ///入力したテキストを格納するプロパティ
     @State private var editText = ""
     @State private var editText2 = ""
@@ -21,8 +23,8 @@ struct TutorialView2: View {
     
     @Binding var page: Int
     
-    @AppStorage("longTermGoal") var longTermGoal: String = ""
-    @AppStorage("shortTermGoal") var shortTermGoal: String = ""
+//    @AppStorage("longTermGoal") var longTermGoal: String = ""
+//    @AppStorage("shortTermGoal") var shortTermGoal: String = ""
     
     @AppStorage("isFirst") var isFirst = true
 
@@ -43,7 +45,6 @@ struct TutorialView2: View {
 
                             ///テキストエディター
                             TextEditor(text: $editText)
-                                //.foregroundColor(Color(UIColor.label))
                                 .scrollContentBackground(Visibility.hidden)
                                 .background(.ultraThinMaterial)
                                 .border(.white, width: 1)
@@ -98,8 +99,10 @@ struct TutorialView2: View {
                     Spacer()
                     
                     Button {
-                        longTermGoal = editText
-                        shortTermGoal = editText2
+                        appSetting.saveUserSettingGoal(isLong: true, goal: editText)
+                        appSetting.saveUserSettingGoal(isLong: false, goal: editText2)
+//                        longTermGoal = editText
+//                        shortTermGoal = editText2
                         page = 3
                     } label: {
                         NextButton()
@@ -116,8 +119,8 @@ struct TutorialView2: View {
         .foregroundColor(Color(UIColor.label))
         
         .onAppear{
-            editText = longTermGoal
-            editText2 = shortTermGoal
+            editText = appSetting.longTermGoal
+            editText2 = appSetting.shortTermGoal
         }
 
             
@@ -148,5 +151,6 @@ struct TutorialView2_Previews: PreviewProvider {
             TutorialView2(page: $sampleNum)
                 .environment(\.locale, Locale(identifier:"ja"))
         }
+        .environmentObject(AppSetting())
     }
 }
