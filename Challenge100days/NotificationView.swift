@@ -9,10 +9,11 @@ import SwiftUI
 
 struct NotificationView: View {
     @EnvironmentObject var notificationViewModel :NotificationViewModel
+    @EnvironmentObject var coreDataViewModel :CoreDataViewModel
     
     ///CoreData用の変数
-    @Environment(\.managedObjectContext) var moc
-    @FetchRequest(sortDescriptors: [NSSortDescriptor(key:"date", ascending: true)]) var items: FetchedResults<DailyData>
+//    @Environment(\.managedObjectContext) var moc
+//    @FetchRequest(sortDescriptors: [NSSortDescriptor(key:"date", ascending: true)]) var items: FetchedResults<DailyData>
     ///画面破棄用
     @Environment(\.dismiss) var dismiss
 
@@ -47,7 +48,7 @@ struct NotificationView: View {
             }
             
             Button {
-                notificationViewModel.setNotification(item: items.last)
+                notificationViewModel.setNotification(item: coreDataViewModel.allData.last)
                 notificationViewModel.showAlert = true
             } label: {
                 okButton()
@@ -92,5 +93,6 @@ struct Notification_Previews: PreviewProvider {
                 .environment(\.locale, Locale(identifier:"ja"))
         }
         .environmentObject(NotificationViewModel())
+        .environmentObject(CoreDataViewModel())
     }
 }

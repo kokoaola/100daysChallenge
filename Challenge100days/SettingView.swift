@@ -11,6 +11,7 @@ import UserNotifications
 struct SettingView: View {
     @EnvironmentObject var notificationViewModel :NotificationViewModel
     @EnvironmentObject var userSettingViewModel:UserSettingViewModel
+    @EnvironmentObject var coreDataViewModel:CoreDataViewModel
     
     ///CoreData用の変数
 //    @Environment(\.managedObjectContext) var moc
@@ -165,6 +166,7 @@ struct SettingView: View {
                                 Text("お問い合わせ")
                             }
                         }
+                        .environmentObject(coreDataViewModel)
                         
                         Section{
                             HStack{
