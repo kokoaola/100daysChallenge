@@ -61,7 +61,7 @@ struct NotificationView: View {
                     toastText = "通知を設定しました。"
 
                 } label: {
-                    LeftIconButton(icon: nil, text: "決定")
+                    LeftIconBigButton(icon: nil, text: "決定")
 //                    SetScheduleButton()
                         .foregroundColor(.green)
                         .padding(.bottom)

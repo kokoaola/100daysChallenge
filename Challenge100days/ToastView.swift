@@ -7,16 +7,26 @@
 
 import SwiftUI
 
+
+///ポップアップのビュー
 struct ToastView: View {
+    ///自分自身の表示状態を格納するフラグ
     @Binding var show: Bool
+    
+    ///トースト内に表示する文章を格納する変数
     var text: String
+    
+    ///opacityの値を格納する変数
     @State private var opa = 0.0
+    
+    ///タイマー用変数
     @State var timer: Timer?
     
+    
     var body: some View {
+        //フラグがtrueで表示
         if show {
             Text(text)
-//                .frame(width: AppSetting.screenWidth/2)
                 .foregroundColor(.black)
                 .fontWeight(.semibold)
                 .padding(.horizontal, 60)
@@ -24,7 +34,7 @@ struct ToastView: View {
                 .background(.white)
                 .cornerRadius(15.0)
                 .opacity(opa <= 0.3 ? 1 : 1.0 - opa)
-//                .opacity(show ? 1 : 0)
+                //0.1秒は普通に表示、その後徐々に消失0.5秒経過で完全消失
                 .onAppear {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                         self.timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { _ in
@@ -36,27 +46,11 @@ struct ToastView: View {
                             }
                         })
                     }
-
-//                    self.timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { _ in
-//                        opa += 0.1
-//                        if opa >= 0.7{
-//                            withAnimation(.easeOut(duration: 3.0)) {
-//                                show = false
-//                            }
-//                            self.timer?.invalidate()
-//                            opa = 0.0
-//                        }
-////                        if opa >= 1.0{
-////                            self.timer?.invalidate()
-////                            show = false
-////                            opa = 0.0
-////                        }
-//                    })
                 }
-//                .frame(width: AppSetting.screenWidth * 0.8)
+            }
         }
     }
-}
+
 
 struct ToastView_Previews: PreviewProvider {
     @State static var show = true

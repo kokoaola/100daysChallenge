@@ -81,9 +81,7 @@ struct ActionView: View {
                     }
                     
                     ///白い吹き出し
-                    SpeechBubble()
-                        .rotation(Angle(degrees: 180))
-                        .foregroundColor(.white)
+                    SpeechBubbleView()
                         .overlay{
                             VStack{
                                 Text(notificationViewModel.checkTodaysTask(item: coreDataViewModel.allData.last) ? "本日のチャレンジは達成済みです。\nお疲れ様でした！" : "今日の取り組みが終わったら、\nボタンを押して完了しよう" )
@@ -107,8 +105,6 @@ struct ActionView: View {
                             }
                             .foregroundColor(.black)
                         }
-                        .frame(width: AppSetting.screenWidth * 0.9, height: AppSetting.screenWidth * 0.3)
-                        .opacity(0.8)
                     
                     
                     

@@ -9,106 +9,52 @@ import SwiftUI
 import Combine
 
 
-// コピーしました用のメッセージバルーン
-//class MessageBalloon:ObservableObject{
-//
-//    // opacityモディファイアの引数に使用
-//    @Published  var opacity:Double = 10.0
-//    // 表示/非表示を切り替える用
-//    @Published  var isPreview:Bool = false
-//
-//    private var timer = Timer()
-//
-//    // Double型にキャスト＆opacityモディファイア用の数値に割り算
-//    func castOpacity() -> Double{
-//        Double(self.opacity / 10)
-//    }
-//
-//    // opacityを徐々に減らすことでアニメーションを実装
-//    func vanishMessage(){
-//        timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true){ _ in
-//            self.opacity = self.opacity - 1.0 // デクリメント
-//
-//            if(self.opacity == 0.0){
-//                self.isPreview = false  // 非表示
-//                self.opacity = 10.0     // 初期値リセット
-//                self.timer.invalidate() // タイマーストップ
-//            }
-//        }
-//    }
-//}
-
-
-
+///バックアップデータ保存用のビュー
 struct BackUpView: View {
+    ///ViewModel用の変数
     @EnvironmentObject var coreDataViewModel :CoreDataViewModel
-    
-    ///CoreData用の変数
-//    @Environment(\.managedObjectContext) var moc
-//    @FetchRequest(sortDescriptors: [NSSortDescriptor(key:"date", ascending: true)]) var days: FetchedResults<DailyData>
+    @EnvironmentObject var userSettingViewModel:UserSettingViewModel
     
     ///キーボードフォーカス用変数（Doneボタン表示のため）
     @FocusState var isInputActive: Bool
     
-    ///画面破棄用
-    @Environment(\.dismiss) var dismiss
-    
-    ///編集文章格納用
+    ///編集文章格納用変数
     @State var string = ""
     
+    ///ポップアップ表示フラグ格納用変数
     @State private var showToast = false
     
     
     var body: some View {
         ZStack {
-        
-        VStack{
             
-
+            VStack(alignment: .leading){
+                //説明文
+                Text("このアプリにはデータを外部に保存する機能はありません。\nデータを消して最初から新しく始める際など、これまでの記録を残しておきたい場合は、このページからコピーしてデバイスへ保存をお願いいたします。")
+                    .foregroundColor(.primary)
+                    .padding([.horizontal, .top])
                 
-                ///短期目標
-                VStack(alignment: .leading){
-                    Text("このアプリにはデータを外部に保存する機能はありません。\nデータを消して最初から新しく始める際など、これまでの記録を残しておきたい場合は、このページからコピーしてデバイスへ保存をお願いいたします。")
-                        .foregroundColor(.primary)
-                        .padding([.horizontal, .top])
-                    
-                    
-                    ///テキストエディター
-                    TextEditor(text: $string)
-                        .foregroundColor(Color(UIColor.label))
-                        .scrollContentBackground(Visibility.hidden)
-                        .background(.ultraThinMaterial)
-                        .border(.white, width: 1)
-                        .focused($isInputActive)
-                        .padding()
-                    
-                    
-                    
-
-                }
-
-                
-                
-                    .frame(minHeight: AppSetting.screenHeight/1.6)
-                
-                
-                    .onReceive(NotificationCenter.default.publisher(for: UITextField.textDidBeginEditingNotification)) { obj in
-                        if let textField = obj.object as? UITextField {
-                            textField.selectedTextRange = textField.textRange(from: textField.beginningOfDocument, to: textField.endOfDocument)
-                        }
-                    }
-
+                ///テキストエディター
+                TextEditor(text: $string)
+                    .foregroundColor(Color(UIColor.label))
+                    .scrollContentBackground(Visibility.hidden)
+                    .background(.ultraThinMaterial)
+                    .border(.white, width: 1)
+                    .focused($isInputActive)
+                    .padding()
             }
-                ToastView(show: $showToast, text: "コピーしました")
+            .frame(minHeight: AppSetting.screenHeight/1.6)
+            
+            ToastView(show: $showToast, text: "コピーしました")
             
         }
         .navigationTitle(Text("バックアップ"))
-        ///グラデーション背景設定
-        .background(.ultraThinMaterial)
-
-        
         .toolbarBackground(.visible, for: .navigationBar)
-        ///キーボード閉じるボタン
+        
+        //背景グラデーション設定
+        .modifier(UserSettingGradient(appColorNum: userSettingViewModel.userSelectedColor))
+        
+        //キーボード閉じるボタン
         .toolbar {
             ToolbarItemGroup(placement: .keyboard) {
                 Spacer()
@@ -118,14 +64,11 @@ struct BackUpView: View {
             }
             
             
+            //コピーボタン
             ToolbarItemGroup(placement: .navigationBarTrailing) {
                 Button(action: {
+                    UIPasteboard.general.string = string
                     showToast = true
-//                    if !messageAlert.isPreview{
-//                        UIPasteboard.general.string = string
-//                        messageAlert.isPreview = true
-//                        messageAlert.vanishMessage()
-//                    }
                 }, label: {
                     Image(systemName: "doc.on.doc")
                         .foregroundColor(.primary)
@@ -136,13 +79,11 @@ struct BackUpView: View {
             }
         }
         
-        ///メモデータが格納されていればテキストエディターの初期値に設定
+        //データが1つ以上格納されていればテキストエディターの初期値に設定
         .onAppear{
             for item in coreDataViewModel.allData{
                 string = string + "\n" + "Day" + String(item.num) + "  " +  makeDate(day: item.date ?? Date.now) + "\n" + (item.memo ?? "") + "\n"
             }
-            
-//            messageAlert.isPreview = false
         }
     }
 }

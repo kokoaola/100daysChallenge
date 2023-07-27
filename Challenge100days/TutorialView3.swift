@@ -33,7 +33,7 @@ struct TutorialView3: View {
                     Button{
                         page = 2
                     } label: {
-                        BackButton()
+                        ArrowButton(isBackButton: true, labelText: "戻る")
                     }
                     
                     Spacer()
@@ -43,7 +43,7 @@ struct TutorialView3: View {
                         userSettingViewModel.userSelectedTag = "One"
                         userSettingViewModel.toggleTutorialStatus(isFinish: true)
                     } label: {
-                        NextButton(isStart: true)
+                        ArrowButton(isBackButton: false, labelText: "スタート")
                     }
                 }
                 .padding(.bottom, 30)

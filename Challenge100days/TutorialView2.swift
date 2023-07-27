@@ -91,7 +91,7 @@ struct TutorialView2: View {
                     Button {
                         page = 1
                     } label: {
-                        BackButton()
+                        ArrowButton(isBackButton: true, labelText: "戻る")
                     }
                     
                     Spacer()
@@ -102,7 +102,7 @@ struct TutorialView2: View {
                         userSettingViewModel.saveUserSettingGoal(isLong: true, goal: editText)
                         userSettingViewModel.saveUserSettingGoal(isLong: false, goal: editText2)
                     } label: {
-                        NextButton(isStart: false)
+                        ArrowButton(isBackButton: false, labelText: "次へ")
                             .opacity(!editText.isEmpty && !editText2.isEmpty && editText.count <= AppSetting.maxLengthOfTerm && editText2.count <= AppSetting.maxLengthOfTerm ? 1 : 0.4)
                     }
                     

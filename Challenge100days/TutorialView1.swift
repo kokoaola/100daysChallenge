@@ -48,7 +48,7 @@ struct TutorialView1: View {
                 page = 2
                 userSettingViewModel.saveUserSettingAppColor(colorNum: selectedColor)
             } label: {
-                NextButton(isStart: false)
+                ArrowButton(isBackButton: false, labelText: "次へ")
             }
             .padding(.bottom, 30)
             .frame(maxWidth: .infinity,alignment: .bottomTrailing)
