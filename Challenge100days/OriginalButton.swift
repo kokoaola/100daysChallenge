@@ -7,6 +7,18 @@
 
 import SwiftUI
 
+
+
+struct CloseButton: View{
+    var body: some View {
+        Image(systemName: "xmark")
+            .font(.title3).foregroundColor(.primary)
+            .padding()
+    }
+    
+}
+
+
 struct NextButton: View {
     var isStart: Bool
     let radius:CGFloat = 10.0
@@ -110,17 +122,11 @@ struct CompleteButton: View {
 }
 
 
-struct CloseButton: View{
-    var body: some View {
-        Image(systemName: "xmark")
-            .font(.title3).foregroundColor(.primary)
-            .padding()
-    }
+
+struct LeftIconButton: View{
+    let icon: Image?
+    let text: String
     
-}
-
-
-struct ShareButton: View {
     let radius:CGFloat = 10.0
     let width = AppSetting.screenWidth / 1.7
     let height = AppSetting.screenWidth / 5
@@ -134,8 +140,8 @@ struct ShareButton: View {
             RoundedRectangle(cornerRadius: radius)
                 .frame(width: width - 7, height: height - 7)
             HStack(alignment: .lastTextBaseline){
-                Image(systemName: "square.and.arrow.up")
-                Text("シェアする")
+                icon
+                Text(text)
             }
             .font(.title2.weight(.bold))
             .foregroundColor(borderColor)
@@ -144,28 +150,75 @@ struct ShareButton: View {
 }
 
 
-struct MemoButton: View {
-    let radius:CGFloat = 10.0
-    let width = AppSetting.screenWidth / 1.7
-    let height = AppSetting.screenWidth / 5
-    let borderColor = Color(UIColor.white)
-    
-    var body: some View {
-        ZStack{
-            RoundedRectangle(cornerRadius: radius)
-                .frame(width: width, height: height)
-                .foregroundColor(borderColor)
-            RoundedRectangle(cornerRadius: radius)
-                .frame(width: width - 7, height: height - 7)
-            HStack(alignment: .lastTextBaseline){
-                Image(systemName: "rectangle.and.pencil.and.ellipsis")
-                Text("メモを追加")
-            }
-            .font(.title2.weight(.bold))
-            .foregroundColor(borderColor)
-        }
-    }
-}
+//struct ShareButton: View {
+//    let radius:CGFloat = 10.0
+//    let width = AppSetting.screenWidth / 1.7
+//    let height = AppSetting.screenWidth / 5
+//    let borderColor = Color(UIColor.white)
+//
+//    var body: some View {
+//        ZStack{
+//            RoundedRectangle(cornerRadius: radius)
+//                .frame(width: width, height: height)
+//                .foregroundColor(borderColor)
+//            RoundedRectangle(cornerRadius: radius)
+//                .frame(width: width - 7, height: height - 7)
+//            HStack(alignment: .lastTextBaseline){
+//                Image(systemName: "square.and.arrow.up")
+//                Text("シェアする")
+//            }
+//            .font(.title2.weight(.bold))
+//            .foregroundColor(borderColor)
+//        }
+//    }
+//}
+//
+//
+//struct MemoButton: View {
+//    let radius:CGFloat = 10.0
+//    let width = AppSetting.screenWidth / 1.7
+//    let height = AppSetting.screenWidth / 5
+//    let borderColor = Color(UIColor.white)
+//
+//    var body: some View {
+//        ZStack{
+//            RoundedRectangle(cornerRadius: radius)
+//                .frame(width: width, height: height)
+//                .foregroundColor(borderColor)
+//            RoundedRectangle(cornerRadius: radius)
+//                .frame(width: width - 7, height: height - 7)
+//            HStack(alignment: .lastTextBaseline){
+//                Image(systemName: "rectangle.and.pencil.and.ellipsis")
+//                Text("メモを追加")
+//            }
+//            .font(.title2.weight(.bold))
+//            .foregroundColor(borderColor)
+//        }
+//    }
+//}
+//
+//
+//struct SetScheduleButton: View {
+//    let radius:CGFloat = 10.0
+//    let width = AppSetting.screenWidth / 1.7
+//    let height = AppSetting.screenWidth / 5
+//    let borderColor = Color(UIColor.white)
+//
+//    var body: some View {
+//        ZStack{
+//            RoundedRectangle(cornerRadius: radius)
+//                .frame(width: width, height: height)
+//                .foregroundColor(borderColor)
+//            RoundedRectangle(cornerRadius: radius)
+//                .frame(width: width - 7, height: height - 7)
+//            HStack(alignment: .lastTextBaseline){
+//                Text("決定")
+//            }
+//            .font(.title2.weight(.bold))
+//            .foregroundColor(borderColor)
+//        }
+//    }
+//}
 
 
 struct SpeechBubble: Shape {
@@ -214,32 +267,22 @@ struct SpeechBubble: Shape {
 }
 
 
-struct okButton: View {
-    let radius:CGFloat = 10.0
-    let width = AppSetting.screenWidth / 1.7
-    let height = AppSetting.screenWidth / 5
-    let borderColor = Color(UIColor.white)
-    
-    var body: some View {
-        ZStack{
-            RoundedRectangle(cornerRadius: radius)
-                .frame(width: width, height: height)
-                .foregroundColor(borderColor)
-            RoundedRectangle(cornerRadius: radius)
-                .frame(width: width - 7, height: height - 7)
-            HStack(alignment: .lastTextBaseline){
-                Text("決定")
-            }
-            .font(.title2.weight(.bold))
-            .foregroundColor(borderColor)
-        }
-    }
-}
-
-
 struct OriginalButton_Previews: PreviewProvider {
     static var previews: some View {
         Group{
+            
+            VStack{
+                LeftIconButton(icon: Image(systemName: "rectangle.and.pencil.and.ellipsis"), text: "メモを追加")
+//                CloseButton()
+//                HStack{
+//                    BackButton()
+//                    NextButton(isStart: false)
+//                }
+//                SaveButton()
+//                CompleteButton(num: 1)
+//                SpeechBubble()
+            }
+            .environment(\.locale, Locale(identifier:"en"))
             
             VStack{
                 CloseButton()
@@ -247,22 +290,11 @@ struct OriginalButton_Previews: PreviewProvider {
                     BackButton()
                     NextButton(isStart: false)
                 }
+                SaveButton()
                 CompleteButton(num: 1)
-                ShareButton()
-                MemoButton()
-                okButton()
-                SpeechBubble()
-            }
-            .environment(\.locale, Locale(identifier:"en"))
-            
-            VStack{
-                HStack{
-                    BackButton()
-                    NextButton(isStart: false)
-                }
-                CompleteButton(num: 1)
-                ShareButton()
-                MemoButton()
+//                ShareButton()
+//                MemoButton()
+//                SetScheduleButton()
                 SpeechBubble()
             }
             .environment(\.locale, Locale(identifier:"ja"))

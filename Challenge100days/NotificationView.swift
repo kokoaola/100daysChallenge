@@ -61,7 +61,8 @@ struct NotificationView: View {
                     toastText = "通知を設定しました。"
 
                 } label: {
-                    okButton()
+                    LeftIconButton(icon: nil, text: "決定")
+//                    SetScheduleButton()
                         .foregroundColor(.green)
                         .padding(.bottom)
                 }
@@ -96,7 +97,7 @@ struct NotificationView: View {
 
 struct Notification_Previews: PreviewProvider {
     @State static var showToast = false
-    @State static var toastText: String = ""
+    @State static var toastText = ""
     static var previews: some View {
         Group{
             NotificationView(showToast: $showToast, toastText: $toastText)

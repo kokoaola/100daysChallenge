@@ -26,10 +26,10 @@ struct ToastView: View {
                 .opacity(opa <= 0.3 ? 1 : 1.0 - opa)
 //                .opacity(show ? 1 : 0)
                 .onAppear {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                         self.timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { _ in
                             opa += 0.1
-                            if opa >= 0.7{
+                            if opa >= 0.5{
                                 show = false
                                 self.timer?.invalidate()
                                 opa = 0.0

@@ -66,7 +66,8 @@ struct CompleteWindowView: View {
                 VStack{
                     ///シェアボタン
                     ShareLink(item: image ?? Image("noImage") , preview: SharePreview("画像", image:image ?? Image("noImage"))){
-                        ShareButton()
+                        LeftIconButton(icon: Image(systemName: "square.and.arrow.up"), text: "シェアする")
+//                        ShareButton()
                             .foregroundColor(.blue.opacity(0.9))
                     }
                     
@@ -74,7 +75,8 @@ struct CompleteWindowView: View {
                     Button {
                         showMemo = true
                     } label: {
-                        MemoButton()
+                        LeftIconButton(icon: Image(systemName: "rectangle.and.pencil.and.ellipsis"), text: "メモを追加")
+//                        MemoButton()
                             .foregroundColor(.green.opacity(0.9))
                     }
                     
