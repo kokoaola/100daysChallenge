@@ -9,7 +9,7 @@ import SwiftUI
 import UIKit
 
 struct CompleteWindowView: View {
-    
+    @EnvironmentObject var userSettingViewModel:UserSettingViewModel
     @EnvironmentObject var coreDataViewModel :CoreDataViewModel
     
     ///CoreData用の変数
@@ -98,6 +98,7 @@ struct CompleteWindowView: View {
         ///メモ追加編集用のビュー
         .sheet(isPresented: $showMemo) {
             MemoSheet()
+                .environmentObject(userSettingViewModel)
         }
     }
 }

@@ -9,6 +9,7 @@ import SwiftUI
 
 struct MemoSheet: View {
     @EnvironmentObject var coreDataViewModel :CoreDataViewModel
+    @EnvironmentObject var userSettingViewModel:UserSettingViewModel
     ///CoreData用の変数
 //    @Environment(\.managedObjectContext) var moc
 //    @FetchRequest(sortDescriptors: []) var days: FetchedResults<DailyData>
@@ -22,8 +23,8 @@ struct MemoSheet: View {
     ///編集文章格納用
     @State var editText = ""
     
-    @AppStorage("colorkeyTop") var storedColorTop: Color = .blue
-    @AppStorage("colorkeyBottom") var storedColorBottom: Color = .green
+//    @AppStorage("colorkeyTop") var storedColorTop: Color = .blue
+//    @AppStorage("colorkeyBottom") var storedColorBottom: Color = .green
     
     var body: some View {
         NavigationView{
@@ -87,7 +88,8 @@ struct MemoSheet: View {
             
             ///グラデーション背景設定
             .background(.ultraThinMaterial)
-            .userSettingGradient(colors: [storedColorTop, storedColorBottom])
+            //背景色の設定
+            .modifier(UserSettingGradient(appColorNum: userSettingViewModel.userSelectedColor))
             
             
             ///キーボード閉じるボタン
@@ -122,5 +124,6 @@ struct MemoSheet_Previews: PreviewProvider {
                 .environment(\.locale, Locale(identifier:"ja"))
         }
         .environmentObject(CoreDataViewModel())
+        .environmentObject(UserSettingViewModel())
     }
 }

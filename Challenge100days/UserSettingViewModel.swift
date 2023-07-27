@@ -12,6 +12,7 @@ class UserSettingViewModel: ObservableObject{
     @Published var shortTermGoal:String
     @Published var userSelectedTag = "one"
     @Published var userSelectedColor: Int
+    @Published var hideGoal: Bool
     
     ///初回起動確認用
     @Published var finishedTutorial: Bool
@@ -26,6 +27,8 @@ class UserSettingViewModel: ObservableObject{
     private let finishedTutorialKey = "finishedTutorial"
     ///ユーザーデフォルト用キー：アプリカラー選択用
     private let userSelectedColorKey = "userSelectedColorKey"
+    ///ユーザーデフォルト用キー：目標非表示用
+    private let hideGoalKey = "hideGoal"
     
     
     init(){
@@ -33,6 +36,7 @@ class UserSettingViewModel: ObservableObject{
         self.shortTermGoal = defaults.string(forKey:shortTermGoalKey) ?? ""
         self.finishedTutorial = defaults.bool(forKey:finishedTutorialKey)
         self.userSelectedColor = defaults.integer(forKey:userSelectedColorKey)
+        self.hideGoal = defaults.bool(forKey:hideGoalKey)
         
 //        switch savedColor{
 //        case 1:

@@ -14,18 +14,15 @@ struct ActionView: View {
     ///ViewModel用の変数
     @EnvironmentObject var notificationViewModel :NotificationViewModel
     @EnvironmentObject var coreDataViewModel :CoreDataViewModel
+    @EnvironmentObject var userSettingViewModel:UserSettingViewModel
     
     ///コンプリートウインドウを表示するかどうかのフラグ
     @State private var showCompleteWindew = false
     
+//    @AppStorage("longTermGoal") var longTermGoal: String = ""
+//    @AppStorage("shortTermGoal") var shortTermGoal: String = ""
     
-    @AppStorage("colorkeyTop") var storedColorTop: Color = .blue
-    @AppStorage("colorkeyBottom") var storedColorBottom: Color = .green
-    
-    @AppStorage("longTermGoal") var longTermGoal: String = ""
-    @AppStorage("shortTermGoal") var shortTermGoal: String = ""
-    
-    @AppStorage("hideInfomation") var hideInfomation = false
+//    @AppStorage("hideInfomation") var hideInfomation = false
     
     var startDate: String{
         makeDate(day: coreDataViewModel.allData.first?.date ?? Date.now)
@@ -44,37 +41,37 @@ struct ActionView: View {
                 ///今日のミッションが未達成ならボタンのビューを表示
                 VStack(spacing: AppSetting.screenHeight / 50){
                     
-                    if !hideInfomation{
-                        VStack(alignment: .center, spacing: 0){
+                    if userSettingViewModel.hideGoal == false{
+                        VStack(alignment: .center, spacing: 10){
                             VStack{
                                 Text("目指している姿  :  ")
                                     .fontWeight(.bold)
                                     .frame(width: AppSetting.screenWidth * 0.9, alignment: .leading)
                                 
-                                Text("\(longTermGoal)")
+                                Text("\(userSettingViewModel.longTermGoal)")
                                 ///Text("Build strength and muscle mass")
                                 ///Text("運動の習慣を付けて、健康的な体型を目指す！")
                                 
-                                    .frame(width: AppSetting.screenWidth * 0.9 , height: 50,alignment: .center)
-                                    .padding(.bottom, 10)
+//                                    .frame(width: AppSetting.screenWidth * 0.9 , height: 50,alignment: .center)
+//                                    .padding(.bottom, 10)
                             }
                             .contentShape(Rectangle())
                             .accessibilityElement()
-                            .accessibilityLabel("目指している姿、\(longTermGoal)")
+                            .accessibilityLabel("目指している姿、\(userSettingViewModel.longTermGoal)")
                             
                             
                             VStack{
                                 Text("100日取り組むこと : ")
                                     .fontWeight(.bold)
                                     .frame(width: AppSetting.screenWidth * 0.9, alignment: .leading)
-                                Text("\(shortTermGoal)")
+                                Text("\(userSettingViewModel.shortTermGoal)")
                                 ///Text("Work 2 kilometer without stopping")
                                 ///Text("２キロ歩く")
-                                    .frame(width: AppSetting.screenWidth * 0.9, height: 50 ,alignment: .center)
+//                                    .frame(width: AppSetting.screenWidth * 0.9, height: 50 ,alignment: .center)
                             }
                             .contentShape(Rectangle())
                             .accessibilityElement()
-                            .accessibilityLabel("100日取り組むこと、\(shortTermGoal)")
+                            .accessibilityLabel("100日取り組むこと、\(userSettingViewModel.shortTermGoal)")
                             
                             
                         }.font(.callout.weight(.medium))
@@ -163,7 +160,9 @@ struct ActionView: View {
             }
             
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .userSettingGradient(colors: [storedColorTop, storedColorBottom])
+            
+            //グラデーション背景の設定
+            .modifier(UserSettingGradient(appColorNum: userSettingViewModel.userSelectedColor))
         }
         .navigationViewStyle(.stack)
     }
@@ -179,5 +178,6 @@ struct ActionView_Previews: PreviewProvider {
                 .environment(\.locale, Locale(identifier:"ja"))
         }.environmentObject(NotificationViewModel())
             .environmentObject(CoreDataViewModel())
+            .environmentObject(UserSettingViewModel())
     }
 }

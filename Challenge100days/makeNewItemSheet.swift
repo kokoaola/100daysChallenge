@@ -14,6 +14,7 @@ struct makeNewItemSheet: View {
 //    @Environment(\.managedObjectContext) var moc
     
     @EnvironmentObject var coreDataViewModel :CoreDataViewModel
+    @EnvironmentObject var userSettingViewModel: UserSettingViewModel
     
     ///画面破棄用の変数
     @Environment(\.dismiss) var dismiss
@@ -36,9 +37,6 @@ struct makeNewItemSheet: View {
     
     ///選択された日付が有効か判定するプロパティ
     @State var isVailed = false
-    
-    @AppStorage("colorkeyTop") var storedColorTop: Color = .blue
-    @AppStorage("colorkeyBottom") var storedColorBottom: Color = .green
     
     var body: some View {
         NavigationStack{
@@ -135,15 +133,9 @@ struct makeNewItemSheet: View {
             .padding()
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
             .background(.ultraThinMaterial)
-            .userSettingGradient(colors: [storedColorTop, storedColorBottom])
-//            .background(.secondary)
-//            .foregroundStyle(
-//                .linearGradient(
-//                    colors: [storedColorTop, storedColorBottom],
-//                    startPoint: .topLeading,
-//                    endPoint: .bottomTrailing
-//                )
-//            )
+            
+            //グラデーション背景の設定
+            .modifier(UserSettingGradient(appColorNum: userSettingViewModel.userSelectedColor))
             
             
             .onChange(of: userSelectedData) { newValue in
@@ -224,5 +216,6 @@ struct makeNewItemSheet_Previews: PreviewProvider {
                 .environment(\.locale, Locale(identifier:"ja"))
         }
         .environmentObject(CoreDataViewModel())
+        .environmentObject(UserSettingViewModel())
     }
 }

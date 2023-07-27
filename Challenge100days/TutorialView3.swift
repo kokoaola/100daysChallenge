@@ -40,6 +40,7 @@ struct TutorialView3: View {
                     
                     //startボタン
                     Button {
+                        userSettingViewModel.userSelectedTag = "One"
                         userSettingViewModel.toggleTutorialStatus(isFinish: true)
                     } label: {
                         NextButton(isStart: true)

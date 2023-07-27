@@ -19,8 +19,9 @@ struct DetailView: View {
     ///CoreData用の変数
     //    @FetchRequest(sortDescriptors: [NSSortDescriptor(key:"date", ascending: true)]) var days: FetchedResults<DailyData>
     //    @Environment(\.managedObjectContext) var moc
-    @EnvironmentObject var notificationViewModel :NotificationViewModel
-    @EnvironmentObject var coreDataViewModel :CoreDataViewModel
+    @EnvironmentObject var notificationViewModel: NotificationViewModel
+    @EnvironmentObject var coreDataViewModel: CoreDataViewModel
+    @EnvironmentObject var userSettingViewModel: UserSettingViewModel
     
     ///画面破棄用の変数
     @Environment(\.dismiss) var dismiss
@@ -35,17 +36,17 @@ struct DetailView: View {
     @State private var editText = ""
     
     ///シェア用の画像格納用変数
-    @State var image: Image?
+    @State private var image: Image?
     
     ///表示されているデータが何日目か表示するのに使う変数
-    @State var num: Int? = nil
+    @State private var num: Int? = nil
     
     
     ///キーボードフォーカス用変数（Doneボタン表示のため）
     @FocusState var isInputActive: Bool
     
-    @AppStorage("colorkeyTop") var storedColorTop: Color = .blue
-    @AppStorage("colorkeyBottom") var storedColorBottom: Color = .green
+//    @AppStorage("colorkeyTop") var storedColorTop: Color = .blue
+//    @AppStorage("colorkeyBottom") var storedColorBottom: Color = .green
     
     var body: some View {
         NavigationStack{
@@ -93,7 +94,9 @@ struct DetailView: View {
             .padding()
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
             .background(.ultraThinMaterial)
-            .userSettingGradient(colors: [storedColorTop, storedColorBottom])
+            
+            //グラデーション背景の設定
+            .modifier(UserSettingGradient(appColorNum: userSettingViewModel.userSelectedColor))
             
         }
         

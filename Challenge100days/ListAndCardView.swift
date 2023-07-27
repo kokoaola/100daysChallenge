@@ -8,23 +8,22 @@
 import SwiftUI
 
 
-
-
 struct ListAndCardView: View {
-    @EnvironmentObject var notificationViewModel :NotificationViewModel
-    @EnvironmentObject var coreDataViewModel :CoreDataViewModel
+    @EnvironmentObject var notificationViewModel: NotificationViewModel
+    @EnvironmentObject var coreDataViewModel: CoreDataViewModel
+    @EnvironmentObject var userSettingViewModel: UserSettingViewModel
     ///CoreData用の変数
 //    @Environment(\.managedObjectContext) var moc
 //    @FetchRequest(sortDescriptors: [NSSortDescriptor(key:"date", ascending: true)]) var items: FetchedResults<DailyData>
     
-    @AppStorage("colorkeyTop") var storedColorTop: Color = .blue
-    @AppStorage("colorkeyBottom") var storedColorBottom: Color = .green
+//    @AppStorage("colorkeyTop") var storedColorTop: Color = .blue
+//    @AppStorage("colorkeyBottom") var storedColorBottom: Color = .green
     
     ///アイテム新規追加用シート格納変数
-    @State var showSheet = false
+    @State private var showSheet = false
     
     ///リストで表示が選択されたときのフラグ
-    @State var showList = true
+    @State private var showList = true
     
     var body: some View {
         NavigationStack(){
@@ -61,8 +60,8 @@ struct ListAndCardView: View {
             .foregroundColor(Color(UIColor.label))
             .padding(.horizontal)
             
-            ///グラデーション背景設定
-            .userSettingGradient(colors: [storedColorTop, storedColorBottom])
+            //グラデーション背景の設定
+            .modifier(UserSettingGradient(appColorNum: userSettingViewModel.userSelectedColor))
             
             .onAppear{
                 Task{
@@ -117,5 +116,6 @@ struct ListAndCardView_Previews: PreviewProvider {
         }
         .environmentObject(NotificationViewModel())
         .environmentObject(CoreDataViewModel())
+        .environmentObject(UserSettingViewModel())
     }
 }
