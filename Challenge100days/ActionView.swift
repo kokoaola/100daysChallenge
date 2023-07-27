@@ -8,21 +8,14 @@
 import SwiftUI
 
 
-
+///タスク達成時にコンプリートボタンを押すためのビュー
 struct ActionView: View {
+    
+    ///ViewModel用の変数
     @EnvironmentObject var notificationViewModel :NotificationViewModel
     @EnvironmentObject var coreDataViewModel :CoreDataViewModel
     
-    @Environment(\.scenePhase) var scenePhase
-    
-    ///CoreDataに保存したデータ呼び出し用
-    //    @Environment(\.managedObjectContext) var moc
-    //    @FetchRequest(sortDescriptors: [NSSortDescriptor(key:"date", ascending: true)]) var days: FetchedResults<DailyData>
-    
-    ///今日のワークが達成されているかの確認用フラグ
-//    @State var isComplete = false
-    
-    ///コンプリートウインドウ出現フラグ
+    ///コンプリートウインドウを表示するかどうかのフラグ
     @State private var showCompleteWindew = false
     
     

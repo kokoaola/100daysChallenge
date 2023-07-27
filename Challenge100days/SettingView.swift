@@ -237,7 +237,7 @@ struct SettingView: View {
             selectedColor = userSettingViewModel.userSelectedColor
         }
         
-        ///削除ボタン押下時のアラート
+        ///リセットボタン押下時のアラート
         .alert("リセットしますか？", isPresented: $showResetAlert){
             Button("リセットする",role: .destructive){
 

@@ -7,7 +7,10 @@
 
 import SwiftUI
 
+
+///チュートリアル３ページ目
 struct TutorialView3: View {
+    
     ///ViewModel用の変数
     @EnvironmentObject var userSettingViewModel:UserSettingViewModel
     
@@ -18,21 +21,24 @@ struct TutorialView3: View {
         
         ZStack(alignment: .top){
             
-            VStack(alignment: .leading, spacing: 30){
+            VStack(alignment: .leading, spacing: 50){
                 Text("設定は以上です。").padding(.bottom)
                 Text("これらの設定は、アプリの設定ページからも変更可能です。")
                 Text("それでは、さっそく始めましょう。")
                 
                 Spacer()
+                
                 HStack{
-                    //                        戻るボタン
+                    //戻るボタン
                     Button{
                         page = 2
                     } label: {
                         BackButton()
                     }
+                    
                     Spacer()
-                    //                        Startボタン
+                    
+                    //startボタン
                     Button {
                         userSettingViewModel.toggleTutorialStatus(isFinish: true)
                     } label: {
@@ -44,7 +50,6 @@ struct TutorialView3: View {
                 
             }
             .padding()
-            .foregroundColor(Color(UIColor.label))
             
         }
     }

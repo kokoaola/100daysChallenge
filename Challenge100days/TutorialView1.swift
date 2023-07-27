@@ -7,16 +7,12 @@
 
 import SwiftUI
 
+
+///チュートリアル１ページ目
 struct TutorialView1: View {
+    
     ///ViewModel用の変数
     @EnvironmentObject var userSettingViewModel:UserSettingViewModel
-    
-    ///ページ全体のカラー情報を格納
-//    @AppStorage("colorkeyTop") var storedColorTop: Color = .blue
-//    @AppStorage("colorkeyBottom") var storedColorBottom: Color = .green
-//
-//    ///カラー設定ピッカー用の変数
-//    @AppStorage("colorNumber") var colorNumber = 0
     
     ///カラー設定ピッカー用の変数
     @State var selectedColor = 0
@@ -27,16 +23,13 @@ struct TutorialView1: View {
     
     var body: some View {
 
-        VStack(alignment: .leading){
+        VStack(alignment: .leading, spacing: 50){
 
             Text("はじめまして。")
-                .padding(.bottom, 50)
-            Text("このアプリは、あなたの目標達成までの道のりを\n100日間サポートするためのアプリです。")
-                .padding(.bottom, 50)
-            
+            Text("このアプリは、あなたの目標達成までの道のりを100日間サポートするためのアプリです。")
             Text("まずはアプリ全体の色を選んでください。")
-                .padding(.bottom, 20)
             
+            //背景色選択用のピッカー
             Picker(selection: $selectedColor) {
                 Text("青").tag(0)
                 Text("オレンジ").tag(1)
@@ -50,11 +43,10 @@ struct TutorialView1: View {
 
             Spacer()
             
-//            進むボタン
+            //進むボタン
             Button {
                 page = 2
                 userSettingViewModel.saveUserSettingAppColor(colorNum: selectedColor)
-//                colorNumber = selectedColor
             } label: {
                 NextButton(isStart: false)
             }
@@ -62,32 +54,12 @@ struct TutorialView1: View {
             .frame(maxWidth: .infinity,alignment: .bottomTrailing)
         }
         .padding()
-        .foregroundColor(.primary)
         
-//        .onAppear{
-//            selectedColor = colorNumber
-//        }
         
+        //ピッカーが選択される毎に背景色を変更
         .onChange(of: selectedColor) { newValue in
             userSettingViewModel.userSelectedColor = newValue
-//            switch newValue{
-//            case 0:
-//                storedColorTop = .blue
-//                storedColorBottom = .green
-//            case 1:
-//                storedColorTop = .green
-//                storedColorBottom = .yellow
-//            case 2:
-//                storedColorTop = .purple
-//                storedColorBottom = .blue
-//            case 3:
-//                storedColorTop = .black
-//                storedColorBottom = .black
-//            default:
-//                return
-//            }
         }
-        
     }
 }
 

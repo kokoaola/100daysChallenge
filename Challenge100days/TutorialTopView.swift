@@ -7,13 +7,12 @@
 
 import SwiftUI
 
-struct TutorialTopView: View {
-    ///ViewModel用の変数する変数
-    @EnvironmentObject var userSettingViewModel:UserSettingViewModel
 
-    ///ページ全体のカラー情報を格納する変数
-//    @AppStorage("colorkeyTop") var storedColorTop: Color = .blue
-//    @AppStorage("colorkeyBottom") var storedColorBottom: Color = .green
+///チュートリアル共通項目
+struct TutorialTopView: View {
+    
+    ///ViewModel用の変数
+    @EnvironmentObject var userSettingViewModel:UserSettingViewModel
 
     ///表示中のページ番号を格納する変数
     @State private var page = 1
@@ -22,13 +21,15 @@ struct TutorialTopView: View {
     var body: some View {
         NavigationView {
             
-//            ページに応じたチュートリアルを表示
+
             VStack{
+                //上部のページ番号
                 Text("\(page) / 3")
                     .padding(.top)
                     .font(.title.weight(.bold))
                     .foregroundColor(.primary)
                 
+                //ページに応じたチュートリアルを表示
                 switch page{
                 case 1:
                     TutorialView1(page: $page)
@@ -38,23 +39,20 @@ struct TutorialTopView: View {
                     TutorialView3(page: $page)
                 }
             }
+            .foregroundColor(.primary)
             .environmentObject(userSettingViewModel)
             
-//            ここからは背景の設定
+            //背景の設定
             .frame(maxHeight: AppSetting.screenHeight / 1.3)
             .background(.thinMaterial)
             .cornerRadius(15)
             .padding(.horizontal)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            //.userSettingGradient(colors: [storedColorTop, storedColorBottom])
             .modifier(UserSettingGradient(appColorNum: userSettingViewModel.userSelectedColor))
+            //背景の設定ここまで
             
         }
         .navigationViewStyle(.stack)
-//                    チュートリアル表示時にユーザーのセッティングをすべてリセット
-        .onAppear{
-            userSettingViewModel.resetUserSetting()
-        }
     }
 }
 

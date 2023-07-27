@@ -7,7 +7,10 @@
 
 import SwiftUI
 
+
+///チュートリアル２ページ目
 struct TutorialView2: View {
+    
     ///ViewModel用の変数
     @EnvironmentObject var userSettingViewModel:UserSettingViewModel
     

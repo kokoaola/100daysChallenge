@@ -10,45 +10,42 @@ import SwiftUI
 
 
 struct ContentView: View {
-    
-    
+    ///ViewModel用の変数
     @ObservedObject var notificationViewModel = NotificationViewModel()
     @ObservedObject var coreDataViewModel = CoreDataViewModel()
     @ObservedObject var userSettingViewModel = UserSettingViewModel()
     
-
     
     var body: some View {
-        
-        //        ユーザーが初回のチュートリアルを終わらせていればタブを表示
+        //ユーザーが初回のチュートリアルを終わらせていればタブを表示
         if userSettingViewModel.finishedTutorial{
             TabView(selection: $userSettingViewModel.userSelectedTag){
                 
-                ///達成用のビュー
+                //達成用のビュー
                 ActionView()
                     .tabItem{
                         Label("取り組む", systemImage: "figure.stairs")
                     }.tag("One")
                 
-                ///実績表示用のビュー
+                //実績表示用のビュー
                 ListAndCardView()
                     .tabItem{
                         Label("これまでの記録", systemImage: "list.clipboard")
                     }.tag("Two")
                 
+                //設定用のビュー
                 SettingView()
                     .tabItem{
                         Label("設定", systemImage: "gearshape")
                     }.tag("Three")
                 
             }
-            .tint(.primary)
             .environmentObject(coreDataViewModel)
             .environmentObject(notificationViewModel)
             .environmentObject(userSettingViewModel)
             
         }else{
-            //            初回起動時はチュートリアルを表示
+            //初回起動時はチュートリアルを表示
             TutorialTopView()
                 .environmentObject(userSettingViewModel)
         }

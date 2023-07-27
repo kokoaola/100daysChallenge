@@ -23,8 +23,11 @@ struct AppSetting{
     ///使用端末の縦画面サイズ
     static let screenHeight = UIScreen.main.bounds.height
     
-    ///文字の色
-    static let labelColr = Color(UIColor.label)
+    ///目標の文字の上限
+    static let maxLengthOfTerm = 50
+    
+    ///メモの文字の上限
+    static let maxLengthOfMemo = 1000
     
     /// 全画像名を格納した配列
     static let photos =
@@ -58,10 +61,4 @@ struct AppSetting{
         //グラデーション
         "Codioful (Formerly Gradienta)"
     ]
-    
-    ///目標の文字の上限
-    static let maxLengthOfTerm = 50
-    
-    ///メモの文字の上限
-    static let maxLengthOfMemo = 1000
 }
