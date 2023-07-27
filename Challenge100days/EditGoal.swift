@@ -8,8 +8,11 @@
 import SwiftUI
 
 struct EditGoal: View {
+    ///ViewModel用の変数
     @EnvironmentObject var userSettingViewModel:UserSettingViewModel
     @EnvironmentObject var notificationViewModel: NotificationViewModel
+    
+    
     @Binding var showAlert: Bool
     @Binding var showToast: Bool
     @Binding var toastText: String
@@ -20,8 +23,6 @@ struct EditGoal: View {
     let isLong: Bool
     
     var body: some View {
-        
-        //        VStack{
         
         VStack(alignment: .leading){
             

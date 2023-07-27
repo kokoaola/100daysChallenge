@@ -12,17 +12,14 @@ import SwiftUI
 struct ActionView: View {
     
     ///ViewModel用の変数
-    @EnvironmentObject var notificationViewModel :NotificationViewModel
-    @EnvironmentObject var coreDataViewModel :CoreDataViewModel
-    @EnvironmentObject var userSettingViewModel:UserSettingViewModel
+    @EnvironmentObject var notificationViewModel: NotificationViewModel
+    @EnvironmentObject var coreDataViewModel: CoreDataViewModel
+    @EnvironmentObject var userSettingViewModel: UserSettingViewModel
     
     ///コンプリートウインドウを表示するかどうかのフラグ
     @State private var showCompleteWindew = false
     
-//    @AppStorage("longTermGoal") var longTermGoal: String = ""
-//    @AppStorage("shortTermGoal") var shortTermGoal: String = ""
-    
-//    @AppStorage("hideInfomation") var hideInfomation = false
+    @AppStorage("hideInfomation") var hideInfomation = false
     
     var startDate: String{
         makeDate(day: coreDataViewModel.allData.first?.date ?? Date.now)
@@ -41,7 +38,7 @@ struct ActionView: View {
                 ///今日のミッションが未達成ならボタンのビューを表示
                 VStack(spacing: AppSetting.screenHeight / 50){
                     
-                    if userSettingViewModel.hideGoal == false{
+                    if hideInfomation == false{
                         VStack(alignment: .center, spacing: 10){
                             VStack{
                                 Text("目指している姿  :  ")

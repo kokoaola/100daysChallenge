@@ -59,6 +59,7 @@ struct TutorialView1: View {
         //ピッカーが選択される毎に背景色を変更
         .onChange(of: selectedColor) { newValue in
             userSettingViewModel.userSelectedColor = newValue
+            userSettingViewModel.saveUserSettingAppColor(colorNum: newValue)
         }
     }
 }

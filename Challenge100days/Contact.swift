@@ -13,15 +13,12 @@ struct Contact: View {
     var body: some View {
         ZStack{
             ContactWebView()
-            
         }
     }
 }
 
+
 struct ContactWebView: UIViewRepresentable {
-    //var urlString: String
-    //"https://kokoaola.github.io" //表示するWEBページのURLを指定
-    
     let html = """
 <html>
 <head>

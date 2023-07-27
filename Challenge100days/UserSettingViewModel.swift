@@ -12,7 +12,6 @@ class UserSettingViewModel: ObservableObject{
     @Published var shortTermGoal:String
     @Published var userSelectedTag = "one"
     @Published var userSelectedColor: Int
-    @Published var hideGoal: Bool
     
     ///初回起動確認用
     @Published var finishedTutorial: Bool
@@ -27,27 +26,12 @@ class UserSettingViewModel: ObservableObject{
     private let finishedTutorialKey = "finishedTutorial"
     ///ユーザーデフォルト用キー：アプリカラー選択用
     private let userSelectedColorKey = "userSelectedColorKey"
-    ///ユーザーデフォルト用キー：目標非表示用
-    private let hideGoalKey = "hideGoal"
-    
     
     init(){
         self.longTermGoal = defaults.string(forKey:longTermGoalKey) ?? ""
         self.shortTermGoal = defaults.string(forKey:shortTermGoalKey) ?? ""
         self.finishedTutorial = defaults.bool(forKey:finishedTutorialKey)
         self.userSelectedColor = defaults.integer(forKey:userSelectedColorKey)
-        self.hideGoal = defaults.bool(forKey:hideGoalKey)
-        
-//        switch savedColor{
-//        case 1:
-//            userSelectedColor = AppColor.orange
-//        case 2:
-//            userSelectedColor = AppColor.purple
-//        case 3:
-//            userSelectedColor = AppColor.monotone
-//        default:
-//            userSelectedColor = AppColor.blue
-//        }
     }
     
     ///ユーザーが選んだアプリの色を保存するメソッド
@@ -77,6 +61,7 @@ class UserSettingViewModel: ObservableObject{
     
     ///ユーザーのカスタムセッティングをすべてリセットするメソッド
     func resetUserSetting(){
+        userSelectedTag = "one"
         self.saveUserSettingGoal(isLong: true, goal: "")
         self.saveUserSettingGoal(isLong: false, goal: "")
         self.toggleTutorialStatus(isFinish: false)

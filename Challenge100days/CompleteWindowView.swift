@@ -106,7 +106,6 @@ struct CompleteWindowView: View {
 
 
 struct CompleteDoneView_Previews: PreviewProvider {
-//    @Environment(\.managedObjectContext) var moc
     @State static var aa = false
     static var previews: some View {
         Group{
