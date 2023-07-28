@@ -17,8 +17,13 @@ struct CompleteWindowView: View {
     
     ///メモ追加シート表示用のフラグ
     @State var showMemo = false
+    
     ///画面戻る用のフラグ
     @Binding var showCompleteWindew:Bool
+    
+    ///画面戻る用のフラグ
+    @Binding var closed:Bool
+    
     ///実績取り消し押下後の確認アラート用のフラグ
     @State var showCansel = false
     
@@ -26,9 +31,7 @@ struct CompleteWindowView: View {
     @State var image: Image?
     
     ///今日が何日目か計算する変数
-    var dayNumber: Int{
-        coreDataViewModel.allData.isEmpty ? 1 : coreDataViewModel.allData.count
-    }
+    let dayNumber: Int
     
     
     var body: some View {
@@ -38,6 +41,7 @@ struct CompleteWindowView: View {
             
             //閉じるボタン
             Button(action: {
+                closed = true
                 showCompleteWindew = false
             }){
                 CloseButton()
@@ -92,14 +96,14 @@ struct CompleteWindowView: View {
 
 
 
-struct CompleteDoneView_Previews: PreviewProvider {
-    @State static var aa = false
-    static var previews: some View {
-        Group{
-            CompleteWindowView(showCompleteWindew: $aa, image: Image("noImage"))
-                .environment(\.locale, Locale(identifier:"en"))
-            CompleteWindowView(showCompleteWindew: $aa, image: Image("noImage"))
-                .environment(\.locale, Locale(identifier:"ja"))
-        }.environmentObject(CoreDataViewModel())
-    }
-}
+//struct CompleteDoneView_Previews: PreviewProvider {
+//    @State static var aa = false
+//    static var previews: some View {
+//        Group{
+//            CompleteWindowView(showCompleteWindew: $aa, image: Image("noImage"), dayNumber: 1)
+//                .environment(\.locale, Locale(identifier:"en"))
+//            CompleteWindowView(showCompleteWindew: $aa, image: Image("noImage"), dayNumber: 1)
+//                .environment(\.locale, Locale(identifier:"ja"))
+//        }.environmentObject(CoreDataViewModel())
+//    }
+//}

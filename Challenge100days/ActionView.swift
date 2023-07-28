@@ -22,11 +22,11 @@ struct ActionView: View {
     ///ユーザーデフォルトに目標表示設定を格納する変数
     @AppStorage("hideInfomation") var hideInfomation = false
     
-    ///今日が何日目か計算する変数
-    var dayNumber: Int{
-        coreDataViewModel.allData.count + 1
-    }
+    ///今日が何日目か格納する変数
+    @State private var dayNumber: Int?
     
+    ///吹き出し文言の内容を変更する変数
+    @State private var showAfterFinishString = false
     
     var body: some View {
         NavigationView{
@@ -72,11 +72,11 @@ struct ActionView: View {
                         .offset(x:0, y:-10)
                         .overlay{
                             VStack{
-                                Text(notificationViewModel.checkTodaysTask(item: coreDataViewModel.allData.last) ? "本日のチャレンジは達成済みです。\nお疲れ様でした！" : "今日の取り組みが終わったら、\nボタンを押して完了しよう" )
+                                Text(showAfterFinishString ? "本日のチャレンジは達成済みです。\nお疲れ様でした！" : "今日の取り組みが終わったら、\nボタンを押して完了しよう" )
                                     .lineSpacing(10)
                                 
                                 //今日のタスク完了済みならコンプリートウインドウ再表示ボタンを配置
-                                if notificationViewModel.checkTodaysTask(item: coreDataViewModel.allData.last){
+                                if showAfterFinishString{
                                     HStack{
                                         Button {
                                             showCompleteWindew = true
@@ -113,14 +113,15 @@ struct ActionView: View {
                         }
                     }, label: {
                         //達成済みの場合ラベルは薄く表示
-                        CompleteButton(num:notificationViewModel.checkTodaysTask(item: coreDataViewModel.allData.last) ? dayNumber - 1 : dayNumber)
-                            .opacity(notificationViewModel.checkTodaysTask(item: coreDataViewModel.allData.last) ? 0.3 : 1.0)
+//                        CompleteButton(num:(coreDataViewModel.checkTodaysTask2 ? (dayNumber ?? 1) - 1 : dayNumber) ?? 1)
+                        CompleteButton(num:dayNumber ?? 1)
+                            .opacity(coreDataViewModel.checkTodaysTask2 ? 0.3 : 1.0)
                     })
                     
                     
-                    .accessibilityLabel("\(notificationViewModel.checkTodaysTask(item: coreDataViewModel.allData.last) ? dayNumber - 1 : dayNumber)日目を完了する")
-                    .padding(.top)
-                    .disabled(notificationViewModel.checkTodaysTask(item: coreDataViewModel.allData.last))
+//                    .accessibilityLabel("\(coreDataViewModel.checkTodaysTask2 ? ((dayNumber ?? 1) - 1) : dayNumber)日目を完了する")
+//                    .padding(.top)
+                    .disabled(coreDataViewModel.checkTodaysTask2)
                     
                     Spacer()
                 }
@@ -129,17 +130,23 @@ struct ActionView: View {
                 
                 //ボタン押下後は完了のビューを重ねて表示
                 if showCompleteWindew {
-                    CompleteWindowView(showCompleteWindew: $showCompleteWindew)
+                    CompleteWindowView(showCompleteWindew: $showCompleteWindew, closed: $showAfterFinishString, dayNumber: dayNumber ?? 1)
                         .padding(.horizontal)
                         .transition(.scale)
                         .environmentObject(coreDataViewModel)
                 }
             }
             
-            //アプリを開いた日のタスクが未達成の場合、コンプリートウインドウを非表示
+            //アプリを開いた日のタスクが未達成の場合、コンプリートウインドウを非表示、表示する番号は総データ数＋1、吹き出し文言はボタン押下前のものにする
             .onAppear{
-                if !coreDataViewModel.checkTodaysTask{
+                if !coreDataViewModel.checkTodaysTask2{
                     showCompleteWindew = false
+                    dayNumber = coreDataViewModel.allData.count + 1
+                    showAfterFinishString = false
+                }else{
+                    //タスク達成済みなら表示する番号は総データ数と同じ、吹き出し文言はボタン押下後のものにする
+                    dayNumber = coreDataViewModel.allData.count
+                    showAfterFinishString = true
                 }
             }
             
