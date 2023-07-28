@@ -8,11 +8,14 @@
 import Foundation
 
 class UserSettingViewModel: ObservableObject{
+    ///長期目標を格納する変数
     @Published var longTermGoal:String
+    ///短期目標を格納する変数
     @Published var shortTermGoal:String
+    ///表示中のタブを格納する変数
     @Published var userSelectedTag = "one"
+    ///背景色を格納する変数
     @Published var userSelectedColor: Int
-    
     ///初回起動確認用
     @Published var finishedTutorial: Bool
     
@@ -27,7 +30,9 @@ class UserSettingViewModel: ObservableObject{
     ///ユーザーデフォルト用キー：アプリカラー選択用
     private let userSelectedColorKey = "userSelectedColorKey"
     
+
     init(){
+        //アプリ起動時はユーザーデフォルトからデータを取得
         self.longTermGoal = defaults.string(forKey:longTermGoalKey) ?? ""
         self.shortTermGoal = defaults.string(forKey:shortTermGoalKey) ?? ""
         self.finishedTutorial = defaults.bool(forKey:finishedTutorialKey)

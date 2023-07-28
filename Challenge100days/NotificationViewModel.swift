@@ -5,28 +5,40 @@
 //  Created by koala panda on 2023/07/20.
 //
 
-import Swift
-import Foundation
-import CoreData
 import NotificationCenter
 import SwiftUI
 
+
+///通知関連のビューモデル
 class NotificationViewModel: ObservableObject{
+    ///通知を設定する時間を格納する変数
     @Published var userSettingNotificationTime: Date
+    ///通知を設定する曜日を格納する変数
     @Published var userSettingNotificationDay: Set<Int>
+    ///ユーザーによる通知設定がされているかを格納する変数
     let isNotificationOn: Bool
-    private let defaults = UserDefaults.standard
+    ///通知用変数
     let content = UNMutableNotificationContent()
     let notificationCenter = UNUserNotificationCenter.current()
     
+    ///ユーザーデフォルト用変数
+    private let defaults = UserDefaults.standard
+    ///ユーザーデフォルト用キー：通知時間用
+    private let userSettingNotificationTimeKey = "notificationTime"
+    ///ユーザーデフォルト用キー：通知曜日用
+    private let userSettingNotificationDayKey = "notificationDay"
+    ///ユーザーデフォルト用キー：通知ON-OFF用
+    private let isNotificationOnKey = "isNotificationOn"
+    
     init(){
-        self.userSettingNotificationTime = defaults.object(forKey:"notificationTime") as? Date ?? Date()
-        let array = defaults.object(forKey:"notificationDay") as? [Int] ?? [1, 2, 3, 4, 5, 6, 7]
+        //アプリ起動時はユーザーデフォルトからデータを取得
+        self.userSettingNotificationTime = defaults.object(forKey: userSettingNotificationTimeKey) as? Date ?? Date()
+        let array = defaults.object(forKey: userSettingNotificationDayKey) as? [Int] ?? [1, 2, 3, 4, 5, 6, 7]
         self.userSettingNotificationDay = Set(array)
-        self.isNotificationOn = defaults.bool(forKey: "notificationOn")
+        self.isNotificationOn = defaults.bool(forKey: isNotificationOnKey)
     }
     
-    ///今日のタスクが終了しているか確認
+    ///今日のタスクが終了しているか確認してBool型で返すメソッド
     func checkTodaysTask(item: DailyData?) -> Bool{
         guard let item else {return false}
         if Calendar.current.isDate(Date.now, equalTo: item.date ?? Date.now, toGranularity: .day){
@@ -36,41 +48,34 @@ class NotificationViewModel: ObservableObject{
         }
     }
     
-//    func getAll(){
-//        let context = DataController()
-//        let cc = context.container.viewContext
-//        let req = NSFetchRequest<DailyData>(entityName: "DailyData")
-//        do{
-//            let tasks = try cc.fetch(req)
-//            print(tasks)
-//        }catch{
-//            fatalError()
-//        }
-//    }
-    
-    ///通知のオンオフを切り替える
+    ///通知のオンオフを切り替えるメソッド
     func switchUserNotification(isOn: Bool){
         defaults.set(isOn, forKey: "notificationOn")
     }
-    ///通知を送る時間を保存する
+    
+    ///通知を送る時間を保存するメソッド
     func saveUserSelectedTime(){
         defaults.set(userSettingNotificationTime, forKey: "notificationTime")
     }
-    ///通知を送る時間を取り出す
+    
+    ///通知を送る時間を取り出すメソッド
     func getUserSelectedTime() -> Date{
         return defaults.object(forKey:"notificationTime") as? Date ?? Date()
     }
-    ///通知を送る曜日を保存する
+    
+    ///通知を送る曜日を保存するメソッド
     func saveUserSelectedDays(){
         let array = Array(userSettingNotificationDay)
         defaults.set(array, forKey: "notificationDay")
     }
-    ///通知を送る曜日を取得する
+    
+    ///通知を送る曜日を取得するメソッド
     func getUserSelectedDays() ->  Set<Int>{
         let array = defaults.object(forKey:"notificationDay") as? [Int] ?? [1, 2, 3, 4, 5, 6, 7]
         return Set(array)
     }
-    ///通知を全てキャンセルする
+    
+    ///通知を全てキャンセルするメソッド
     func resetNotification(){
         notificationCenter.removeAllPendingNotificationRequests()
         switchUserNotification(isOn: false)
@@ -78,7 +83,7 @@ class NotificationViewModel: ObservableObject{
         saveUserSelectedDays()
     }
     
-    ///通知をセットする
+    ///通知をセットするメソッド（当日のタスクが達成済みなら翌日から開始する）
     func setNotification(item: DailyData?){
         saveUserSelectedDays()
         saveUserSelectedTime()
@@ -93,7 +98,6 @@ class NotificationViewModel: ObservableObject{
             switchUserNotification(isOn: true)
         }
         
-//        print(self.checkTodaysTask(item: item))
         content.sound = UNNotificationSound.default
         content.title = "100日チャレンジ継続中！"
         content.body = "本日のタスクが未達成です。挑戦を続けて、新たな習慣を築きましょう。"
@@ -130,12 +134,11 @@ class NotificationViewModel: ObservableObject{
             // ローカル通知をスケジュール
             notificationCenter.add(notificationRequest) { (error) in
                 if let error = error {
-//                    print("Error \(error.localizedDescription)")
+                    print("Error \(error.localizedDescription)")
                     return
                 }
             }
         }
     }
-    
 }
 

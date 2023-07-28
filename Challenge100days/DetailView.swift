@@ -132,7 +132,8 @@ struct DetailView: View {
             
             //画像シェア用のリンク
             ToolbarItem(placement: .navigationBarTrailing) {
-                ShareLink(item: image ?? Image("noImage") , preview: SharePreview("画像", image:image ?? Image("noImage") )){
+                // MARK: -
+                ShareLink(item: image ?? Image("noImage") , preview: SharePreview("Image", image:image ?? Image("noImage") )){
                     Image(systemName: "square.and.arrow.up")
                     
                 }

@@ -9,9 +9,15 @@ import Foundation
 import CoreData
 
 @MainActor
+///CoreData関連のViewModel
 class CoreDataViewModel: ObservableObject{
+    ///データを全件格納する変数
     @Published var allData : [DailyData]
-    let persistenceController = DataController2()
+    
+    ///データコントローラー格納変数
+    let persistenceController = DataController()
+    
+    ///当日のタスクが達成済みかを格納するコンピューテッドプロパティ
     var checkTodaysTask: Bool{
         if let lastData = allData.last?.date{
             if Calendar.current.isDate(Date.now, equalTo: lastData, toGranularity: .day){
@@ -22,6 +28,7 @@ class CoreDataViewModel: ObservableObject{
         }
         return false
     }
+    
     
     init() {
         let context = persistenceController.container.viewContext
@@ -36,14 +43,7 @@ class CoreDataViewModel: ObservableObject{
     }
     
     
-//    func checkTodaysTask() -> Bool{
-//        if Calendar.current.isDate(Date.now, equalTo: allData.last?.date ?? Date.now, toGranularity: .day){
-//            return true
-//        }else{
-//            return false
-//        }
-//    }
-    
+    ///すべてのデータを再取得するメソッド
     func getAllData() -> [DailyData]{
         let context = persistenceController.container.viewContext
         let request = NSFetchRequest<DailyData>(entityName: "DailyData")
@@ -57,7 +57,7 @@ class CoreDataViewModel: ObservableObject{
     }
     
     
-    ///新しくデータを保存するメソッド
+    ///新規作成したデータを保存するメソッド
     func saveData(date:Date, memo: String) {
         let context = persistenceController.container.viewContext
         let entity = NSEntityDescription.insertNewObject(forEntityName: "DailyData", into: context) as! DailyData
@@ -82,23 +82,16 @@ class CoreDataViewModel: ObservableObject{
     func updateDataMemo(newMemo: String, data: DailyData?) {
         let context = persistenceController.container.viewContext
         
-        guard let data = data else {
-            do {
-                if let lastData = self.allData.last{
-                    lastData.memo = newMemo //最新のデータのメモを更新
-                    try context.save() //変更を保存
-                }
-            } catch let error as NSError {
-                print("Could not save. \(error), \(error.userInfo)")
+        if let data = data{
+            data.memo = newMemo
+        } else{
+            if let lastData = self.allData.last{
+                lastData.memo = newMemo
             }
-            objectWillChange.send()
-            allData = getAllData()
-            return
         }
         
         do {
-                data.memo = newMemo //受け取ったデータのメモを更新
-                try context.save() //変更を保存
+            try context.save()
         } catch let error as NSError {
             print("Could not save. \(error), \(error.userInfo)")
         }
@@ -121,18 +114,20 @@ class CoreDataViewModel: ObservableObject{
         objectWillChange.send()
         allData = getAllData()
     }
-
     
     
+    ///データの番号を振り直すメソッド
     func assignNumbers() async{
         let context = persistenceController.container.viewContext
         
         await MainActor.run{
             for (index, data) in self.allData.enumerated() {
-                data.num = Int16(index + 1) // numを1から順に割り当てる
+                // numを1から順に割り当てる
+                data.num = Int16(index + 1)
             }
             do {
-                try context.save() // 変更を保存
+                // 変更を保存
+                try context.save()
             } catch let error as NSError {
                 print("Could not save. \(error), \(error.userInfo)")
             }

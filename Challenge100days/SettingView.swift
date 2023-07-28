@@ -225,7 +225,6 @@ struct SettingView: View {
         //リセットボタン押下時のアラート
         .alert("リセットしますか？", isPresented: $showResetAlert){
             Button("リセットする",role: .destructive){
-                
                 notificationViewModel.resetNotification()
                 userSettingViewModel.resetUserSetting()
             }
@@ -247,6 +246,8 @@ struct SettingView: View {
         }
     }
 }
+
+
 
 
 struct SettingView_Previews: PreviewProvider {
