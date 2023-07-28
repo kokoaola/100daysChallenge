@@ -19,13 +19,10 @@ struct ActionView: View {
     ///コンプリートウインドウを表示するかどうかのフラグ
     @State private var showCompleteWindew = false
     
+    ///ユーザーデフォルトに目標表示設定を格納する変数
     @AppStorage("hideInfomation") var hideInfomation = false
     
-    var startDate: String{
-        makeDate(day: coreDataViewModel.allData.first?.date ?? Date.now)
-        //makeDate(day:days.first?.date ?? Date.now)
-    }
-    
+    ///今日が何日目か計算する変数
     var dayNumber: Int{
         coreDataViewModel.allData.count + 1
     }
@@ -35,94 +32,88 @@ struct ActionView: View {
         NavigationView{
             ZStack{
                 
-                ///今日のミッションが未達成ならボタンのビューを表示
-                VStack(spacing: AppSetting.screenHeight / 50){
-                    
+                VStack(spacing: 20){
+                    //目標非表示設定がOFFになってれば目標を表示
                     if hideInfomation == false{
                         VStack(alignment: .center, spacing: 10){
                             VStack{
+                                //長期目標の表示
                                 Text("目指している姿  :  ")
                                     .fontWeight(.bold)
                                     .frame(width: AppSetting.screenWidth * 0.9, alignment: .leading)
                                 
                                 Text("\(userSettingViewModel.longTermGoal)")
-                                ///Text("Build strength and muscle mass")
-                                ///Text("運動の習慣を付けて、健康的な体型を目指す！")
-                                
-//                                    .frame(width: AppSetting.screenWidth * 0.9 , height: 50,alignment: .center)
-//                                    .padding(.bottom, 10)
                             }
                             .contentShape(Rectangle())
                             .accessibilityElement()
                             .accessibilityLabel("目指している姿、\(userSettingViewModel.longTermGoal)")
                             
-                            
+                            //短期目標の表示
                             VStack{
                                 Text("100日取り組むこと : ")
                                     .fontWeight(.bold)
                                     .frame(width: AppSetting.screenWidth * 0.9, alignment: .leading)
                                 Text("\(userSettingViewModel.shortTermGoal)")
-                                ///Text("Work 2 kilometer without stopping")
-                                ///Text("２キロ歩く")
-//                                    .frame(width: AppSetting.screenWidth * 0.9, height: 50 ,alignment: .center)
                             }
                             .contentShape(Rectangle())
                             .accessibilityElement()
                             .accessibilityLabel("100日取り組むこと、\(userSettingViewModel.shortTermGoal)")
-                            
-                            
                         }.font(.callout.weight(.medium))
                             .frame(width: AppSetting.screenWidth * 0.8)
                             .padding(.top, 90)
                             .foregroundColor(.primary)
-                        
                     }else{
                         Spacer()
                     }
                     
-                    ///白い吹き出し
+                    
+                    //コメントが入る白い吹き出し
                     SpeechBubbleView()
+                        .offset(x:0, y:-10)
                         .overlay{
                             VStack{
                                 Text(notificationViewModel.checkTodaysTask(item: coreDataViewModel.allData.last) ? "本日のチャレンジは達成済みです。\nお疲れ様でした！" : "今日の取り組みが終わったら、\nボタンを押して完了しよう" )
                                     .lineSpacing(10)
-                                    .padding(.vertical, 5)
-                                
+
+                                //今日のタスク完了済みならコンプリートウインドウ再表示ボタンを配置
                                 if notificationViewModel.checkTodaysTask(item: coreDataViewModel.allData.last){
                                     HStack{
-                                        Spacer()
                                         Button {
                                             showCompleteWindew = true
                                         } label: {
                                             Text("ウインドウを再表示する")
-                                                .font(.footnote)
+                                                .font(.callout)
                                                 .foregroundColor(.blue)
                                         }
                                         .frame(width: AppSetting.screenWidth * 0.8, alignment: .trailing)
-                                        .padding(.trailing)
                                     }
                                 }
                             }
+                            .frame(width: AppSetting.screenWidth * 0.9, height: AppSetting.screenWidth * 0.3)
                             .foregroundColor(.black)
+
                         }
                     
                     
-                    
-                    ///Completeボタンが押されたら本日分のDailyDataを保存
+                    //Completeボタン:今日のミッションが未達成ならボタンを有効にして表示
                     Button(action: {
                         withAnimation{
                             showCompleteWindew = true
                         }
+                        //データを保存
+                            coreDataViewModel.saveData(date: Date(), memo: "")
+                    
+                        Task{
+                            await coreDataViewModel.assignNumbers()
+                        }
                         
-                        coreDataViewModel.saveData(date: Date(), memo: "")
-                        
+                        //通知設定している場合、本日の通知はスキップする
                         if notificationViewModel.isNotificationOn{
                             notificationViewModel.setNotification(item: coreDataViewModel.allData.last)
                         }
                     }, label: {
-                        ///CompleteButton(num:52)
+                        //達成済みの場合ラベルは薄く表示
                         CompleteButton(num:notificationViewModel.checkTodaysTask(item: coreDataViewModel.allData.last) ? dayNumber - 1 : dayNumber)
-                            .foregroundStyle(.primary)
                             .opacity(notificationViewModel.checkTodaysTask(item: coreDataViewModel.allData.last) ? 0.3 : 1.0)
                     })
                     
@@ -136,7 +127,7 @@ struct ActionView: View {
                 .accessibilityHidden(showCompleteWindew)
                 
                 
-                ///ボタン押下後は完了のビューを重ねて表示
+                //ボタン押下後は完了のビューを重ねて表示
                 if showCompleteWindew {
                     CompleteWindowView(showCompleteWindew: $showCompleteWindew)
                         .padding(.horizontal)
@@ -145,14 +136,14 @@ struct ActionView: View {
                 }
             }
             
-            
+            //アプリを開いた日のタスクが未達成の場合、コンプリートウインドウを非表示
             .onAppear{
                 if !coreDataViewModel.checkTodaysTask{
                     showCompleteWindew = false
                 }
             }
             
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .frame(maxWidth: .infinity)
             
             //グラデーション背景の設定
             .modifier(UserSettingGradient(appColorNum: userSettingViewModel.userSelectedColor))

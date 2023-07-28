@@ -43,7 +43,7 @@ struct TutorialView3: View {
                         userSettingViewModel.userSelectedTag = "One"
                         userSettingViewModel.toggleTutorialStatus(isFinish: true)
                     } label: {
-                        ArrowButton(isBackButton: false, labelText: "スタート")
+                        ArrowButton(isBackButton: false, labelText: "始める")
                     }
                 }
                 .padding(.bottom, 30)

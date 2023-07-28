@@ -37,9 +37,9 @@ struct ArrowButton: View{
             HStack(alignment: .firstTextBaseline, spacing: 5){
                 if isBackButton{
                     Image(systemName: "arrowshape.left")
-                    Text(labelText)
+                    Text(LocalizedStringKey(labelText))
                 }else{
-                    Text(labelText)
+                    Text(LocalizedStringKey(labelText))
                     Image(systemName: "arrowshape.right")
                 }
             }
@@ -126,7 +126,7 @@ struct LeftIconBigButton: View{
                 .frame(width: width - 7, height: height - 7)
             HStack(alignment: .lastTextBaseline){
                 icon
-                Text(text)
+                Text(LocalizedStringKey(text))
             }
             .font(.title2.weight(.bold))
             .foregroundColor(borderColor)

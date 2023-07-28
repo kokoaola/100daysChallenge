@@ -8,17 +8,10 @@
 import SwiftUI
 import CoreData
 
-extension View {
-    func endEditing() {
-        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-    }
-}
 
-
+///記録の詳細を表示するビュー
 struct DetailView: View {
-    ///CoreData用の変数
-    //    @FetchRequest(sortDescriptors: [NSSortDescriptor(key:"date", ascending: true)]) var days: FetchedResults<DailyData>
-    //    @Environment(\.managedObjectContext) var moc
+    ///ViewModel用の変数
     @EnvironmentObject var notificationViewModel: NotificationViewModel
     @EnvironmentObject var coreDataViewModel: CoreDataViewModel
     @EnvironmentObject var userSettingViewModel: UserSettingViewModel
@@ -38,103 +31,86 @@ struct DetailView: View {
     ///シェア用の画像格納用変数
     @State private var image: Image?
     
-    ///表示されているデータが何日目か表示するのに使う変数
-    @State private var num: Int? = nil
-    
-    
     ///キーボードフォーカス用変数（Doneボタン表示のため）
     @FocusState var isInputActive: Bool
     
-//    @AppStorage("colorkeyTop") var storedColorTop: Color = .blue
-//    @AppStorage("colorkeyBottom") var storedColorBottom: Color = .green
+    
     
     var body: some View {
-        NavigationStack{
-            
-            
-            VStack{
-                HStack{
-                    Text("\(num ?? 1) / 100")
-                        .font(.title)
-                    
-                    Spacer()
-                    ///日付表示
-                    Text(makeDate(day: item.date ?? Date.now))
-                        .font(.title3.weight(.ultraLight))
-                        .padding(.leading, 40)
-                }
-                .accessibilityElement()
-                .accessibilityLabel("\(item.num)日目の記録、\(makeAccessibilityDate(day: item.date ?? Date()))")
-                .foregroundColor(.primary)
-                .frame(maxWidth: .infinity, alignment: .leading)
-                
-                ZStack(alignment: .topLeading){
-                    if editText.isEmpty{
-                        Text("保存されたメモはありません。\nタップで追加できます。")
-                            .padding(8)
-                            .foregroundColor(.primary)
-                            .opacity(0.5)
-                    }
-                    ///メモ編集用のテキストエディター
-                    TextEditor(text: $editText)
-                        .lineSpacing(2)
-                        .scrollContentBackground(Visibility.hidden)
-                        .frame(maxHeight: .infinity)
-                        .focused($isInputActive)
-                        .tint(.white)
-                }
-            }
-            .padding()
-            .frame(maxHeight: AppSetting.screenHeight / 1.4)
-            .background(.thinMaterial)
-            .cornerRadius(15)
-            .foregroundColor(.primary)
-            .padding(.top, -50)
-            
-            .padding()
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-            .background(.ultraThinMaterial)
-            
-            //グラデーション背景の設定
-            .modifier(UserSettingGradient(appColorNum: userSettingViewModel.userSelectedColor))
-            
-        }
         
+        VStack{
+            //100日のうち何日目＋記録の日付を横並びで表示
+            HStack{
+                Text("\(item.num ) / 100")
+                    .font(.title)
+                
+                Spacer()
+                
+                Text(makeDate(day: item.date ?? Date.now))
+                    .font(.title3.weight(.ultraLight))
+                    .padding(.leading, 40)
+            }
+            .accessibilityElement()
+            .accessibilityLabel("\(item.num)日目の記録、\(makeAccessibilityDate(day: item.date ?? Date()))")
+            .foregroundColor(.primary)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            
+            //メモが何も記入されていない場合はプレースホルダーを表示
+            ZStack(alignment: .topLeading){
+                if editText.isEmpty{
+                    Text("保存されたメモはありません。\nタップで追加できます。")
+                        .padding(8)
+                        .foregroundColor(.primary)
+                        .opacity(0.5)
+                }
+                //メモ編集用のテキストエディター
+                TextEditor(text: $editText)
+                    .lineSpacing(2)
+                    .scrollContentBackground(Visibility.hidden)
+                    .frame(maxHeight: .infinity)
+                    .focused($isInputActive)
+                    .tint(.white)
+            }
+        }
+        .padding()
+        .frame(maxHeight: AppSetting.screenHeight / 1.4)
+        .background(.thinMaterial)
+        .cornerRadius(15)
+        .foregroundColor(.primary)
+        .padding(.top, -50)
+        .padding()
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+        .background(.ultraThinMaterial)
         .navigationBarBackButtonHidden(true)
         
-        
+        //グラデーション背景の設定
+        .modifier(UserSettingGradient(appColorNum: userSettingViewModel.userSelectedColor))
         
         
         .onAppear{
-            ///アクションタブの方から削除済みのアイテムを詳細を表示していた時に、空白の画面が表示されてしまう問題を避けるための処理
-            if coreDataViewModel.allData.firstIndex(of: item) == nil{
-                dismiss()
-            }
+            //シェア用の画像を生成
+            image = generateImageWithText(number: Int(item.num), day: item.date ?? Date.now)
             
-            ///シェア用の画像を生成
-                        image = generateImageWithText(number: Int(item.num), day: item.date ?? Date.now)
-            
-            ///その他の初期設定
+            //保存されたメモ内容があれば、テキストエディターの初期値として表示
             editText = item.memo ?? ""
-            num =  Int(item.num)
         }
         
         
-        
         .toolbar{
-            
-            ///保存ボタンを配置
+            //保存ボタンを配置
             ToolbarItemGroup(placement: .keyboard) {
                 
-//                文字数が上限を超えてる時の注意書き
+                //文字数が上限を超えてる時の注意書き
                 Text("\(AppSetting.maxLengthOfMemo)文字以内のみ設定可能です")
                     .font(.caption)
                     .foregroundColor(editText.count > AppSetting.maxLengthOfMemo ? .red : .clear)
                 
-                
-//                保存ボタン
+                //編集内容保存ボタン
                 Button("保存する") {
-                        coreDataViewModel.updateDataMemo(newMemo:editText, data:item )
+                    coreDataViewModel.updateDataMemo(newMemo:editText, data:item )
+                    Task{
+                        await coreDataViewModel.assignNumbers()
+                    }
                     isInputActive = false
                 }
                 
@@ -143,8 +119,7 @@ struct DetailView: View {
                 .disabled(editText.count > AppSetting.maxLengthOfMemo)
             }
             
-            
-//            アイテム削除用ごみ箱アイコン
+            //表示している日の記録の削除用ごみ箱アイコン
             ToolbarItem(placement: .navigationBarTrailing){
                 Button {
                     showCansel = true
@@ -155,8 +130,7 @@ struct DetailView: View {
                 .padding(.trailing)
             }
             
-            
-//            画像シェア用のリンク
+            //画像シェア用のリンク
             ToolbarItem(placement: .navigationBarTrailing) {
                 ShareLink(item: image ?? Image("noImage") , preview: SharePreview("画像", image:image ?? Image("noImage") )){
                     Image(systemName: "square.and.arrow.up")
@@ -164,8 +138,7 @@ struct DetailView: View {
                 }
             }
             
-            
-//            戻るボタン
+            //戻るボタン
             ToolbarItem(placement: .navigationBarLeading) {
                 Button {
                     dismiss()
@@ -180,14 +153,15 @@ struct DetailView: View {
         .foregroundColor(Color(UIColor.label))
         
         
-        
-//        削除ボタン押下時のアラート
+        //削除ボタン押下時のアラート
         .alert("この日の記録を破棄しますか？", isPresented: $showCansel){
             Button("破棄する",role: .destructive){
                 coreDataViewModel.deleteData(data:item)
+                
                 Task{
                     await coreDataViewModel.assignNumbers()
                 }
+                
                 if notificationViewModel.isNotificationOn{
                     notificationViewModel.setNotification(item: coreDataViewModel.allData.last)
                 }
@@ -198,42 +172,6 @@ struct DetailView: View {
             Text("表示中のデータは破棄されます。\n（この動作は取り消せません。）")
         }
     }
-    
-    ///データ保存用関数
-//    func save() async{
-//        await MainActor.run{
-//            item.memo = editText
-//            try? moc.save()
-//            isInputActive = false
-//        }
-//    }
-    
-    
-    ///データ保存後の番号振り直し用の関数
-    //    func reNumber() async{
-    //        var counter = Int16(0)
-    //        for i in days{
-    //            counter += 1
-    //            i.num = counter
-    //            try? moc.save()
-    //            UserDefaults.standard.set(days.count + 1, forKey: "todayIs")
-    //        }
-    //    }
-    
-    ///削除用の関数
-//    func delete() async{
-//        moc.delete(item)
-//        try? moc.save()
-//
-//        var counter = Int16(0)
-//        for i in days{
-//            counter += 1
-//            i.num = counter
-//            try? moc.save()
-//        }
-//
-//    }
-    
 }
 
 //

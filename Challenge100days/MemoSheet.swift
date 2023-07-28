@@ -7,13 +7,14 @@
 
 import SwiftUI
 
+
+///ユーザーが記録にメモを追加するためのビュー
 struct MemoSheet: View {
+    
+    ///ViewModel用の変数
     @EnvironmentObject var coreDataViewModel :CoreDataViewModel
     @EnvironmentObject var userSettingViewModel:UserSettingViewModel
-    ///CoreData用の変数
-//    @Environment(\.managedObjectContext) var moc
-//    @FetchRequest(sortDescriptors: []) var days: FetchedResults<DailyData>
-    
+
     ///キーボードフォーカス用変数（Doneボタン表示のため）
     @FocusState var isInputActive: Bool
     
@@ -22,34 +23,29 @@ struct MemoSheet: View {
     
     ///編集文章格納用
     @State var editText = ""
-    
-//    @AppStorage("colorkeyTop") var storedColorTop: Color = .blue
-//    @AppStorage("colorkeyBottom") var storedColorBottom: Color = .green
+
     
     var body: some View {
         NavigationView{
             ZStack{
                 VStack(spacing: 20){
-                    
                     ZStack{
                         
-                        ///左上のシート破棄用Xボタン
+                        //左上のシート破棄用Xボタン
                         Button {
                             dismiss()
                         } label: {
                            CloseButton()
-//                                .font(.title2).foregroundColor(.primary)
                         }
                         .frame(maxWidth: .infinity, alignment: .leading)
                         
-                        ///画面タイトル
+                        //画面タイトル
                         Text("メモの追加").font(.title3)
                             .padding()
                             .foregroundColor(Color(UIColor.label))
-                        
-                    }//ZStackここまで
+                    }
                     
-                    ///テキストエディター
+                    //テキストエディター
                     TextEditor(text: $editText)
                         .foregroundColor(Color(UIColor.label))
                         .lineSpacing(10)
@@ -59,17 +55,15 @@ struct MemoSheet: View {
                         .frame(height: 300)
                         .focused($isInputActive)
                     
-                    
+                    //文字数が上限オーバーした時の警告
                     Label("\(AppSetting.maxLengthOfMemo)文字以内のみ設定可能です", systemImage: "exclamationmark.circle")
                         .font(.footnote)
                         .padding(5)
                         .foregroundColor(editText.count > AppSetting.maxLengthOfMemo ? .red : .clear)
                     
                     
-                    ///保存ボタン
+                    //保存ボタン
                     Button {
-//                        days.last?.memo = editText
-//                        try? moc.save()
                         coreDataViewModel.updateDataMemo(newMemo: editText, data: nil)
                         dismiss()
                     } label: {
@@ -79,21 +73,18 @@ struct MemoSheet: View {
                     }
                     .accessibilityLabel("メモを保存する")
                     .tint(.green)
+                    //文字数が上限オーバーしている場合はボタンは無効
                     .disabled(editText.count > AppSetting.maxLengthOfMemo || editText.count <= 0)
-                    
                 }
             }
             .padding()
             .frame(maxHeight: .infinity, alignment: .top)
             
-            ///グラデーション背景設定
+            //グラデーション＋すりガラス背景設定
             .background(.ultraThinMaterial)
-            //背景色の設定
             .modifier(UserSettingGradient(appColorNum: userSettingViewModel.userSelectedColor))
             
-            
-            ///キーボード閉じるボタン
-            ///キーボード閉じるボタンを配置
+            //キーボード閉じるボタン
             .toolbar {
                 ToolbarItemGroup(placement: .keyboard) {
                     Spacer()
@@ -104,8 +95,7 @@ struct MemoSheet: View {
             }
             .foregroundColor(Color(UIColor.label))
             
-            
-            ///メモデータが格納されていればテキストエディターの初期値に設定
+            //すでにメモデータが格納されていればテキストエディターの初期値に設定
             .onAppear{
                 editText = coreDataViewModel.allData.last?.memo ?? ""
             }

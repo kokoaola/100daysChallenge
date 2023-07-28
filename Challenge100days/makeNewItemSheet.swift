@@ -7,12 +7,11 @@
 
 import SwiftUI
 
+
+///新しいデータを追加するビュー
 struct makeNewItemSheet: View {
     
-    ///CoreData用の変数
-//    @FetchRequest(sortDescriptors: [NSSortDescriptor(key:"date", ascending: true)]) var items: FetchedResults<DailyData>
-//    @Environment(\.managedObjectContext) var moc
-    
+    ///ViewModel用の変数
     @EnvironmentObject var coreDataViewModel :CoreDataViewModel
     @EnvironmentObject var userSettingViewModel: UserSettingViewModel
     
@@ -38,14 +37,15 @@ struct makeNewItemSheet: View {
     ///選択された日付が有効か判定するプロパティ
     @State var isVailed = false
     
+    
+    
     var body: some View {
         NavigationStack{
             
             
             VStack(spacing: 20){
                 ZStack{
-                    
-                    ///左上のシート破棄用Xボタン
+                    //左上のシート破棄用Xボタン
                     Button {
                         dismiss()
                     } label: {
@@ -54,7 +54,7 @@ struct makeNewItemSheet: View {
                             .frame(maxWidth: .infinity, alignment: .leading)
                     }
                     
-                    ///画面タイトル
+                    //画面タイトル
                     Text("過去の記録を追加")
                         .font(.title2)
                     
@@ -63,7 +63,7 @@ struct makeNewItemSheet: View {
                 .padding(.bottom, 30)
                 
                 
-                ///上のデートピッカー
+                //上のデートピッカー
                 HStack(alignment: .top){
                     Text("日付")
                     Spacer()
@@ -74,7 +74,7 @@ struct makeNewItemSheet: View {
                         .labelsHidden()
                 }.foregroundColor(Color(UIColor.label))
                 
-                ///メモ編集用のテキストエディター
+                //メモ編集用のテキストエディター
                 HStack{
                     Text("メモ")
                     Spacer()
@@ -89,7 +89,7 @@ struct makeNewItemSheet: View {
                     .focused($isInputActive)
                 
                 
-//                選択された日付が有効ではない時に表示する警告
+                //選択された日付が有効ではない時に表示する警告
                 if !isVailed{
                     Label("選択した日はすでに記録が存在しています。", systemImage: "exclamationmark.circle")
                         .font(.footnote)
@@ -97,7 +97,7 @@ struct makeNewItemSheet: View {
                         .foregroundColor(.red)
                         .cornerRadius(10)
                 }else if editText.count > AppSetting.maxLengthOfMemo{
-//                    メモの文字数が上限を超えていた場合に表示する警告
+                    //メモの文字数が上限を超えていた場合に表示する警告
                     Label("\(AppSetting.maxLengthOfMemo)文字以内のみ設定可能です", systemImage: "exclamationmark.circle")
                         .font(.footnote)
                         .padding(5)
@@ -105,25 +105,19 @@ struct makeNewItemSheet: View {
                 }
                 
                 
-                ///保存ボタン
+                //保存ボタン
                 Button{
                     dismiss()
+                    coreDataViewModel.saveData(date:userSelectedData, memo:editText)
                     Task{
-                        coreDataViewModel.saveData(date:userSelectedData, memo:editText)
-//                        await save()
-//                        await reNumber()
+                        await coreDataViewModel.assignNumbers()
                     }
                     
                 } label: {
                     SaveButton()
-//                    OriginalButton(labelString: "保存する", labelImage: "checkmark.circle")
                         .foregroundColor(editText.count <= AppSetting.maxLengthOfMemo && isVailed ? .green : .gray)
                         .opacity(editText.count <= AppSetting.maxLengthOfMemo && isVailed ? 1.0 : 0.5)
-                    
-                    //                        .foregroundColor(isVailed ? .green : .gray)
-                    //                        .opacity(isVailed ? 1.0 : 0.5)
                 }
-                //.padding()
                 .disabled(isVailed == false || editText.count > AppSetting.maxLengthOfMemo)
                 
             }
@@ -139,32 +133,31 @@ struct makeNewItemSheet: View {
             
             
             .onChange(of: userSelectedData) { newValue in
-                ///フェッチリクエストに存在するアイテムの日付とダブってればSaveボタンを無効にする
+                //データベースに存在するアイテムの日付とダブってればSaveボタンを無効にする
                 for item in coreDataViewModel.allData{
                     if Calendar.current.isDate(item.date!, equalTo: newValue , toGranularity: .day){
                         isVailed = false
                         return
                     }
                 }
-                ///ダブりがなければisVailedをTrueにしてリターン
+                //ダブりがなければisVailedをTrueにしてリターン
                 isVailed = true
             }
             
             .onAppear{
                 let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: Date())!
-                ///フェッチリクエストに昨日の日付があれば、Saveボタンを無効にする
+                //データベースに昨日の日付があれば、Saveボタンを無効にする
                 for item in coreDataViewModel.allData{
                     if Calendar.current.isDate(item.date!, equalTo: yesterday , toGranularity: .day){
-                        
                         isVailed = false
                         return
                     }
                 }
-                ///ダブりがなければisVailedをTrueにしてリターン
+                //ダブりがなければisVailedをTrueにしてリターン
                 isVailed = true
             }
             
-            ///キーボード閉じるボタンを配置
+            //キーボード閉じるボタンを配置
             .toolbar {
                 ToolbarItemGroup(placement: .keyboard) {
                     Spacer()
@@ -179,30 +172,6 @@ struct makeNewItemSheet: View {
         }
         
     }
-    
-    ///データ保存用関数
-//    func save() async{
-//        await MainActor.run{
-//            let day = DailyData(context: moc)
-//            day.id = UUID()
-//            day.date = theDate
-//            day.memo = editText
-//            try? moc.save()
-//            
-//        }
-//    }
-//    
-//    ///データ保存後の番号振り直し用の関数
-//    func reNumber() async{
-//        await MainActor.run{
-//            var counter = Int16(0)
-//            for item in items{
-//                counter += 1
-//                item.num = counter
-//                try? moc.save()
-//            }
-//        }
-//    }
 }
 
 

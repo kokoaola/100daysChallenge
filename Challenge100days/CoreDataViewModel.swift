@@ -8,7 +8,7 @@
 import Foundation
 import CoreData
 
-
+@MainActor
 class CoreDataViewModel: ObservableObject{
     @Published var allData : [DailyData]
     let persistenceController = DataController2()
@@ -72,6 +72,7 @@ class CoreDataViewModel: ObservableObject{
         } catch let error as NSError {
             print("Could not save. \(error), \(error.userInfo)")
         }
+        
         objectWillChange.send()
         allData = getAllData()
     }
@@ -106,21 +107,6 @@ class CoreDataViewModel: ObservableObject{
         allData = getAllData()
     }
     
-    
-//    func updateLastDataMemo(newMemo: String) {
-//        let context = persistenceController.container.viewContext
-//        do {
-//            if let lastData = self.allData.last{
-//                lastData.memo = newMemo //最新のデータのメモを更新
-//                try context.save() //変更を保存
-//            }
-//        } catch let error as NSError {
-//            print("Could not save. \(error), \(error.userInfo)")
-//        }
-//
-//        objectWillChange.send()
-//        allData = getAllData()
-//    }
     
     ///引数で受け取ったデータを削除するメソッド
     func deleteData(data: DailyData) {

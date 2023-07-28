@@ -86,6 +86,13 @@ struct BackUpView: View {
             }
         }
     }
+    //Date型をString型に変換する
+    func makeDate(day: Date) -> String{
+        let df = DateFormatter()
+        df.locale = Locale(identifier: "ja-Jp")
+        df.dateStyle = .short
+        return df.string(from: day)
+    }
 }
 
 

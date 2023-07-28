@@ -7,11 +7,10 @@
 
 import SwiftUI
 
-struct CardView: View {
-    ///CoreData用の変数
-//    @Environment(\.managedObjectContext) var moc
-//    @FetchRequest(sortDescriptors: [NSSortDescriptor(key:"date", ascending: true)]) var days: FetchedResults<DailyData>
 
+///カード形式で表示するビュー
+struct CardView: View {
+    ///ViewModel用の変数
     @EnvironmentObject var notificationViewModel :NotificationViewModel
     @EnvironmentObject var coreDataViewModel :CoreDataViewModel
     
@@ -21,27 +20,27 @@ struct CardView: View {
     
     var body: some View {
         
-        ///ビュー重ねる用のZStack
+        //ビュー重ねる用のZStack
         ZStack(alignment: .top){
             
             
-            ///背景の空白グリッド表示用のビュー
+            //背景の空白グリッド表示用のビュー
             LazyVGrid(columns: columns) {
                 ForEach(1...100, id: \.self) { num in
                     VStack(spacing: -3){
                         
-                        ///100マス目の王冠表示用
+                        //100マス目の王冠表示用
                         Image(systemName: "crown.fill")
                             .foregroundColor(num == 100 ? .yellow : .clear)
                         
                         ZStack{
-                            ///空白のマスを１００個
+                            //空白のマスを１００個
                             Image(systemName:"app")
                                 .font(.title.weight(.thin))
                                 .foregroundColor(.gray)
                                 .opacity(0.3)
                             
-                            ///１０個ずつ番号をつける
+                            //10個ずつ番号をつける
                             Text((num % 10 == 0) ? "\(num)" : "")
                                 .font(.footnote)
                                 .foregroundColor(.gray)
@@ -54,33 +53,33 @@ struct CardView: View {
             
             
             
-            ///前面の塗りつぶしセル表示用ビュー（タップした時のリンク先は詳細ビュー）
+            //前面の塗りつぶしセル表示用ビュー（タップした時のリンク先は詳細ビュー）
             LazyVGrid(columns: columns) {
                 
-                ///CoreDataに保存されている全データを取り出す
+                //CoreDataに保存されている全データを取り出す
                 ForEach(coreDataViewModel.allData, id: \.self) { item in
-//                    遷移先はDetailView
+                   //遷移先はDetailView
                     NavigationLink(destination: {
                         DetailView(item: item)
                     }){
                         
                         VStack(spacing: -3){
-                            ///ダミー用の王冠（これがないと後ろのセルとずれちゃう）
+                            //ダミー用の王冠（これがないと後ろのセルとずれちゃう）
                             Image(systemName: "crown.fill").foregroundColor(.clear)
                             
                             ZStack{
-                                ///日数に応じて青いセルを表示する
+                                //日数に応じて青いセルを表示する
                                 Image(systemName:"app.fill")
                                     .font(.title.weight(.thin))
                                     .foregroundColor(.blue)
                                 
                                 
-                                ///最終アイテム追加してから１日以内ならキラキラを表示
+                                //最終アイテム追加してから１日以内ならキラキラを表示
                                 Image(systemName: "sparkles")
                                     .offset(x:8, y:-9)
                                     .foregroundColor(item == coreDataViewModel.allData.last && Calendar.current.isDate(Date.now, equalTo: item.date ?? Date.now, toGranularity: .day) ? .yellow : .clear)
                                 
-                                ///セルに番号を重ねる
+                                //セルに番号を重ねる
                                 Text("\(item.num)")
                                     .font(.footnote)
                                     .foregroundColor(.white)
@@ -108,7 +107,6 @@ struct CardView: View {
 
 
 struct CardView_Previews: PreviewProvider {
-//    static private var dataController = DataController()
     static var previews: some View {
         Group{
             CardView()

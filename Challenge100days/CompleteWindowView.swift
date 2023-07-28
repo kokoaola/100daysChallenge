@@ -8,13 +8,12 @@
 import SwiftUI
 import UIKit
 
+
+///ユーザーが当日のタスクを達成したときに表示するコンプリートウインドウ
 struct CompleteWindowView: View {
+    ///ViewModel用の変数
     @EnvironmentObject var userSettingViewModel:UserSettingViewModel
     @EnvironmentObject var coreDataViewModel :CoreDataViewModel
-    
-    ///CoreData用の変数
-//    @Environment(\.managedObjectContext) var moc
-//    @FetchRequest(sortDescriptors: [NSSortDescriptor(key:"date", ascending: true)]) var days: FetchedResults<DailyData>
     
     ///メモ追加シート表示用のフラグ
     @State var showMemo = false
@@ -26,23 +25,25 @@ struct CompleteWindowView: View {
     ///表示＆共有用の画像
     @State var image: Image?
     
+    ///今日が何日目か計算する変数
     var dayNumber: Int{
         coreDataViewModel.allData.isEmpty ? 1 : coreDataViewModel.allData.count
     }
     
+    
     var body: some View {
         
-        ///四角に画像とボタンを重ねてる
+        //四角に画像とボタンを重ねてる
         VStack(alignment: .leading, spacing: 20){
             
-            ///閉じるボタン
+            //閉じるボタン
             Button(action: {
                 showCompleteWindew = false
             }){
                 CloseButton()
             }
             
-            
+        
             VStack(alignment: .center, spacing: 30){
                 //読み上げ用のVStack
                 VStack{
@@ -57,45 +58,31 @@ struct CompleteWindowView: View {
                 //コンプリート画像
                 generateImageWithText(number: dayNumber, day: coreDataViewModel.allData.last?.date ?? Date.now)
                     .resizable().scaledToFit()
-                // MARK: -
                     .accessibilityLabel("日付入りの画像")
-//                    .accessibilityRemoveTraits(.isImage)
-//                    .accessibilityAddTraits(.isImage)
-                
+
                 
                 VStack{
-                    ///シェアボタン
+                    //シェアボタン
                     ShareLink(item: image ?? Image("noImage") , preview: SharePreview("画像", image:image ?? Image("noImage"))){
                         LeftIconBigButton(icon: Image(systemName: "square.and.arrow.up"), text: "シェアする")
-//                        ShareButton()
                             .foregroundColor(.blue.opacity(0.9))
                     }
                     
-                    ///メモ追加ボタン
+                    //メモ追加ボタン
                     Button {
                         showMemo = true
                     } label: {
                         LeftIconBigButton(icon: Image(systemName: "rectangle.and.pencil.and.ellipsis"), text: "メモを追加")
-//                        MemoButton()
                             .foregroundColor(.green.opacity(0.9))
                     }
-                    
                 }.padding(30)
             }
-            
         }
         .padding()
         .background(.thinMaterial)
         .cornerRadius(15)
         
-        
-        
-        ///画面表示時にコンプリート画像を生成して表示
-//        .onAppear{
-//            image =  generateImageWithText(number: dayNumber, day: coreDataViewModel.allData.last?.date ?? Date.now)
-//        }
-        
-        ///メモ追加編集用のビュー
+        //メモ追加ボタンが押下されたら、MemoSheetを表示
         .sheet(isPresented: $showMemo) {
             MemoSheet()
                 .environmentObject(userSettingViewModel)
