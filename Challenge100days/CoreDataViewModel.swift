@@ -29,16 +29,30 @@ class CoreDataViewModel: ObservableObject{
         return false
     }
     
+    var checkTodaysTask2: Bool
+    
     
     init() {
         let context = persistenceController.container.viewContext
         let request = NSFetchRequest<DailyData>(entityName: "DailyData")
         request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: true)]
+        var tasks: [DailyData] = []
         do{
-            let tasks = try context.fetch(request)
+            tasks = try context.fetch(request)
             self.allData = tasks
         }catch{
             fatalError()
+        }
+        
+        
+        guard let date = tasks.last?.date else {
+            self.checkTodaysTask2 = false
+            return
+        }
+        if Calendar.current.isDate(Date.now, equalTo: date, toGranularity: .day){
+            self.checkTodaysTask2 = true
+        }else{
+            self.checkTodaysTask2 = false
         }
     }
     
@@ -75,6 +89,18 @@ class CoreDataViewModel: ObservableObject{
         
         objectWillChange.send()
         allData = getAllData()
+        
+        //本日のタスク達成済みか確認
+        var isFinish: Bool
+        if let lastData = allData.last?.date{
+            if Calendar.current.isDate(Date.now, equalTo: lastData, toGranularity: .day){
+                isFinish = true
+            }else{
+                isFinish = false
+            }
+            objectWillChange.send()
+            self.checkTodaysTask2 = isFinish
+        }
     }
     
     
@@ -113,6 +139,18 @@ class CoreDataViewModel: ObservableObject{
         
         objectWillChange.send()
         allData = getAllData()
+        
+        //本日のタスク達成済みか確認
+        var isFinish: Bool
+        if let lastData = allData.last?.date{
+            if Calendar.current.isDate(Date.now, equalTo: lastData, toGranularity: .day){
+                isFinish = true
+            }else{
+                isFinish = false
+            }
+            objectWillChange.send()
+            self.checkTodaysTask2 = isFinish
+        }
     }
     
     
