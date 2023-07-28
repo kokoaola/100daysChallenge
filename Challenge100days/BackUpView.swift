@@ -112,14 +112,7 @@ struct BackUpView: View {
         ///グラデーション背景設定
         .background(.ultraThinMaterial)
         .userSettingGradient(colors: [storedColorTop, storedColorBottom])
-//        .background(.secondary)
-//        .foregroundStyle(
-//            .linearGradient(
-//                colors: [storedColorTop, storedColorBottom],
-//                startPoint: .topLeading,
-//                endPoint: .bottomTrailing
-//            )
-//        )
+
         
         .toolbarBackground(.visible, for: .navigationBar)
         ///キーボード閉じるボタン
@@ -134,16 +127,18 @@ struct BackUpView: View {
             
             ToolbarItemGroup(placement: .navigationBarTrailing) {
                 Button(action: {
-                    UIPasteboard.general.string = string
-                    messageAlert.isPreview = true
-                    messageAlert.vanishMessage()
-                    
+                    if !messageAlert.isPreview{
+                        UIPasteboard.general.string = string
+                        messageAlert.isPreview = true
+                        messageAlert.vanishMessage()
+                    }
                 }, label: {
                     Image(systemName: "doc.on.doc")
-                        .foregroundColor(.gray)
+                        .foregroundColor(.primary)
                         .frame(width: 65)
                 })
-                .disabled(messageAlert.isPreview)
+                .accessibilityLabel(messageAlert.isPreview ? "コピーしました" : "コピー")
+                
             }
         }
         
@@ -152,6 +147,8 @@ struct BackUpView: View {
             for item in days{
                 string = string + "\n" + "Day" + String(item.num) + "  " +  makeDate(day: item.date ?? Date.now) + "\n" + (item.memo ?? "") + "\n"
             }
+            
+            messageAlert.isPreview = false
         }
     }
 }

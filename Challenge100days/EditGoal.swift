@@ -23,7 +23,7 @@ struct EditGoal: View {
     
     var body: some View {
         
-        ZStack{
+//        VStack{
             
             VStack(alignment: .leading){
                 
@@ -32,7 +32,6 @@ struct EditGoal: View {
                     .font(.title3)
                 
                 TextEditor(text: $editText)
-                
                     .foregroundColor(Color(UIColor.black))
                     .tint(.black)
                     .scrollContentBackground(Visibility.hidden)
@@ -40,6 +39,7 @@ struct EditGoal: View {
                     .border(.gray, width: 1)
                     .frame(height: 80)
                     .opacity(editText.isEmpty ? 0.5 : 1)
+                    .accessibilityLabel("目標変更用のテキストフィールド")
                 
                 Text("\(AppSetting.maxLengthOfTerm)文字以内のみ設定可能です").font(.caption) .font(.caption)
                     .foregroundColor(editText.count > AppSetting.maxLengthOfTerm ? .red : .clear)
@@ -56,7 +56,6 @@ struct EditGoal: View {
                     Spacer()
                     
                     Button {
-                        
                         Task{
                             await save()
                         }
@@ -66,22 +65,18 @@ struct EditGoal: View {
                             .frame(width: AppSetting.screenWidth / 3.5, height: AppSetting.screenWidth * 0.1)
                     }.tint(.green)
                         .disabled(editText.isEmpty || editText.count > AppSetting.maxLengthOfTerm)
-                    
-                    
-                    
-                }
+                }//HStackここまで
                 .foregroundColor(.white)
                 .buttonStyle(.borderedProminent)
                 .padding(.bottom)
-            }
+                
+            }//VStackここまで
+        
             .foregroundColor(.black)
             .padding()
             .background(.white)
             .cornerRadius(15)
             .padding()
-            
-        }
-        .frame(maxHeight: .infinity)
         
         .onAppear{
             if isLong{

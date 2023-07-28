@@ -34,9 +34,6 @@ struct TutorialTopView: View {
                 default:
                     TutorialView3(page: $page)
                 }
-                
-                
-                
             }
             
             ///ここからは背景の設定

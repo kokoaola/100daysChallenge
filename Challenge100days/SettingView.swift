@@ -6,8 +6,11 @@
 //
 
 import SwiftUI
+import UserNotifications
 
 struct SettingView: View {
+    @EnvironmentObject var notificationViewModel :NotificationViewModel
+    
     ///CoreData用の変数
     @Environment(\.managedObjectContext) var moc
     @FetchRequest(sortDescriptors: [NSSortDescriptor(key:"date", ascending: true)]) var days: FetchedResults<DailyData>
@@ -25,7 +28,7 @@ struct SettingView: View {
     
     @State var isButtonPressed = false
     @State var myName = ""
-    
+    let center = UNUserNotificationCenter.current()
     
     ///長期目標再設定用
     ///アラート表示
@@ -42,14 +45,20 @@ struct SettingView: View {
     ///現在の目標
     @AppStorage("shortTermGoal") var shortTermGoal: String = ""
     
+    @State private var isNotificationEnabled = false
+    @State private var showNotificationAlert = false
+    //scenePhaseと呼ばれる環境値を監視するための新しいプロパティを追加します。
+    @Environment(\.scenePhase) var scenePhase
+    
     
     var body: some View {
         NavigationStack{
             
             ZStack{
-                
+
                 VStack(spacing: 50) {
                     List{
+//                        アプリ全体の色を変更するボタン
                         Section(){
                             Picker(selection: $selectedColor) {
                                 Text("青").tag(0)
@@ -59,12 +68,51 @@ struct SettingView: View {
                             } label: {
                                 Text("アプリの色を変更する")
                             }
+                            
+                            //                            トップ画面の目標を非表示にするボタン
                             Toggle("目標を隠す", isOn: $hideInfomation)
                                 .tint(.green)
+                                .accessibilityHint("トップ画面の目標を非表示にします")
+                            
+                            //                            バックアップ
+                            ZStack{
+                                Rectangle().foregroundColor(.clear)
+                                
+                                    .contentShape(Rectangle())
+                                    .onTapGesture {
+                                        center.requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
+                                            if let error = error {
+                                                print(error.localizedDescription)
+                                            }
+                                            
+                                            if success {
+                                                //通知OK
+                                                isNotificationEnabled = true
+                                            }else {
+                                                //通知NG
+                                                showNotificationAlert = true
+                                                isNotificationEnabled = false
+                                            }
+                                        }
+                                    }
+                                    .disabled(isNotificationEnabled)
+                                
+                                
+                                
+                                NavigationLink {
+                                    NotificationView().environmentObject(NotificationViewModel())
+                                } label: {
+                                    
+                                    Text("通知を設定する")
+                                }
+
+                            }
+
                         }
                         
                         Section{
                             
+//                            長期目標変更用のボタン
                             Button("目標を変更する") {
                                 withAnimation(.easeOut(duration: 0.1)) {
                                     isLongTermGoalEditedAlert = true
@@ -72,6 +120,7 @@ struct SettingView: View {
                                 currentLongTermGoal = longTermGoal
                             }
                             
+//                            短期目標変更用のボタン
                             Button("100日取り組む内容を変更する") {
                                 withAnimation(.easeOut(duration: 0.1)) {
                                     isShortTermGoalEditedAlert = true
@@ -81,7 +130,7 @@ struct SettingView: View {
                         }
                         
                         Section{
-                            
+//                            バックアップ
                             NavigationLink {
                                 BackUpView()
                             } label: {
@@ -122,18 +171,19 @@ struct SettingView: View {
                                 isRiset = true
                             }
                         }
-                        
                     }
                     .disabled(isEdit)
                     .foregroundColor(Color(UIColor.label))
                     
                 }
+                
                 .navigationTitle("設定")
                 .navigationBarTitleDisplayMode(.inline)
                 .navigationViewStyle(.stack)
-                
-                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+//                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
                 .scrollContentBackground(.hidden)
+                .accessibilityHidden(isLongTermGoalEditedAlert || isShortTermGoalEditedAlert)
+                .opacity(isLongTermGoalEditedAlert || isShortTermGoalEditedAlert ? 0.3 : 1.0)
                 
                 .userSettingGradient(colors: [storedColorTop, storedColorBottom])
                 
@@ -142,16 +192,14 @@ struct SettingView: View {
                         EditGoal(showAlert: $isLongTermGoalEditedAlert, isLong: true)
                             .transition(.offset(CGSizeZero))
                     }
-                    .background(.black.opacity(0.6))
+
 
                 }else if isShortTermGoalEditedAlert{
                     VStack{
                         EditGoal(showAlert: $isShortTermGoalEditedAlert, isLong: false)
                     }
-                    .background(.black.opacity(0.6))
                 }
             }
-            
         }
         
         
@@ -178,6 +226,23 @@ struct SettingView: View {
             colorNumber = selectedColor
         }
         
+        .onChange(of: scenePhase) { newPhase in
+            center.requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
+                if let error = error {
+                    return
+                    //error.localizedDescription
+                }
+                
+                if success {
+//                    print("All set!")
+                    isNotificationEnabled = true
+                }else {
+//                    print("!")
+                    isNotificationEnabled = false
+                }
+            }
+        }
+        
         .onAppear{
             selectedColor = colorNumber
             //            print("aa")
@@ -190,10 +255,22 @@ struct SettingView: View {
                 longTermGoal = ""
                 shortTermGoal = ""
                 delete()
+                notificationViewModel.resetNotification()
             }
             Button("戻る",role: .cancel){}
         }message: {
             Text("この動作は取り消せません。")
+        }
+        
+        .alert("通知が許可されていません", isPresented: $showNotificationAlert){
+            Button("通知画面を開く") {
+                if let url = URL(string: UIApplication.openSettingsURLString) {
+                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                }
+            }
+            Button("戻る",role: .cancel){}
+        }message: {
+            Text("設定画面から通知を許可してください")
         }
     }
     
@@ -215,6 +292,7 @@ struct SettingView_Previews: PreviewProvider {
         Group{
             SettingView()
                 .environment(\.locale, Locale(identifier:"en"))
+
             SettingView()
                 .environment(\.locale, Locale(identifier:"ja"))
         }

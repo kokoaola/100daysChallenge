@@ -184,6 +184,16 @@ struct CompleteButton: View {
 //}
 
 
+struct CloseButton: View{
+    var body: some View {
+        Image(systemName: "xmark")
+            .font(.title3).foregroundColor(.primary)
+            .padding()
+    }
+    
+}
+
+
 struct ShareButton: View {
     let radius:CGFloat = 10.0
     let width = AppSetting.screenWidth / 1.7
@@ -277,19 +287,40 @@ struct SpeechBubble: Shape {
 }
 
 
-
+struct okButton: View {
+    let radius:CGFloat = 10.0
+    let width = AppSetting.screenWidth / 1.7
+    let height = AppSetting.screenWidth / 5
+    let borderColor = Color(UIColor.white)
+    
+    var body: some View {
+        ZStack{
+            RoundedRectangle(cornerRadius: radius)
+                .frame(width: width, height: height)
+                .foregroundColor(borderColor)
+            RoundedRectangle(cornerRadius: radius)
+                .frame(width: width - 7, height: height - 7)
+            HStack(alignment: .lastTextBaseline){
+                Text("決定")
+            }
+            .font(.title2.weight(.bold))
+            .foregroundColor(borderColor)
+        }
+    }
+}
 
 struct OriginalButton_Previews: PreviewProvider {
     static var previews: some View {
         Group{
             
             VStack{
+                CloseButton()
                 NextButton()
                 BackButton()
                 CompleteButton(num: 1)
                 ShareButton()
                 MemoButton()
-                //OriginalButton(labelString: "シェアする", labelImage: "square.and.arrow.up")
+                okButton()
                 SpeechBubble()
             }
             .environment(\.locale, Locale(identifier:"en"))
