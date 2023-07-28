@@ -34,7 +34,7 @@ struct BackUpView: View {
                     .foregroundColor(.primary)
                     .padding([.horizontal, .top])
                 
-                ///テキストエディター
+                //テキストエディター
                 TextEditor(text: $string)
                     .foregroundColor(Color(UIColor.label))
                     .scrollContentBackground(Visibility.hidden)

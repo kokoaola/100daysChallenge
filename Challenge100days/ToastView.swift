@@ -34,7 +34,7 @@ struct ToastView: View {
                 .background(.white)
                 .cornerRadius(15.0)
                 .opacity(opa <= 0.3 ? 1 : 1.0 - opa)
-                //0.1秒は普通に表示、その後徐々に消失0.5秒経過で完全消失
+            //0.1秒は普通に表示、その後徐々に消失0.5秒経過で完全消失
                 .onAppear {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                         self.timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { _ in
@@ -47,9 +47,9 @@ struct ToastView: View {
                         })
                     }
                 }
-            }
         }
     }
+}
 
 
 struct ToastView_Previews: PreviewProvider {

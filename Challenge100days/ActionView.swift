@@ -74,7 +74,7 @@ struct ActionView: View {
                             VStack{
                                 Text(notificationViewModel.checkTodaysTask(item: coreDataViewModel.allData.last) ? "本日のチャレンジは達成済みです。\nお疲れ様でした！" : "今日の取り組みが終わったら、\nボタンを押して完了しよう" )
                                     .lineSpacing(10)
-
+                                
                                 //今日のタスク完了済みならコンプリートウインドウ再表示ボタンを配置
                                 if notificationViewModel.checkTodaysTask(item: coreDataViewModel.allData.last){
                                     HStack{
@@ -91,7 +91,7 @@ struct ActionView: View {
                             }
                             .frame(width: AppSetting.screenWidth * 0.9, height: AppSetting.screenWidth * 0.3)
                             .foregroundColor(.black)
-
+                            
                         }
                     
                     
@@ -101,8 +101,8 @@ struct ActionView: View {
                             showCompleteWindew = true
                         }
                         //データを保存
-                            coreDataViewModel.saveData(date: Date(), memo: "")
-                    
+                        coreDataViewModel.saveData(date: Date(), memo: "")
+                        
                         Task{
                             await coreDataViewModel.assignNumbers()
                         }

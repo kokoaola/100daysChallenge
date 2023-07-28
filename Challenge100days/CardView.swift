@@ -58,7 +58,7 @@ struct CardView: View {
                 
                 //CoreDataに保存されている全データを取り出す
                 ForEach(coreDataViewModel.allData, id: \.self) { item in
-                   //遷移先はDetailView
+                    //遷移先はDetailView
                     NavigationLink(destination: {
                         DetailView(item: item)
                     }){

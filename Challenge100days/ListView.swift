@@ -19,12 +19,12 @@ struct ListView: View {
         
         ///データが一件も存在しない時の表示
         if coreDataViewModel.allData.isEmpty{
-                Text("まだデータがありません")
-                    .foregroundColor(Color(UIColor.label))
-                    .frame(maxWidth: .infinity, alignment: .center)
-                    .padding()
-                    .background(.thinMaterial)
-                    .cornerRadius(15)
+            Text("まだデータがありません")
+                .foregroundColor(Color(UIColor.label))
+                .frame(maxWidth: .infinity, alignment: .center)
+                .padding()
+                .background(.thinMaterial)
+                .cornerRadius(15)
         }else{
             
             VStack(spacing: 5){

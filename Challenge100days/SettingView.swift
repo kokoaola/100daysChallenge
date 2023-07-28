@@ -28,7 +28,7 @@ struct SettingView: View {
     ///動作完了時にのトーストポップアップ用変数
     @State private var showToast = false
     @State private var toastText = ""
-
+    
     ///通知確認用の変数
     let center = UNUserNotificationCenter.current()
     
@@ -52,7 +52,7 @@ struct SettingView: View {
         NavigationStack{
             
             ZStack{
-
+                
                 VStack(spacing: 50) {
                     List{
                         
@@ -76,7 +76,7 @@ struct SettingView: View {
                             ZStack{
                                 Rectangle().foregroundColor(.clear)
                                     .contentShape(Rectangle())
-                                    //タップ時に通知の許可を判定、許可されていれば画面遷移
+                                //タップ時に通知の許可を判定、許可されていれば画面遷移
                                     .onTapGesture {
                                         center.requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
                                             if let error = error {
@@ -100,9 +100,9 @@ struct SettingView: View {
                                 } label: {
                                     Text("通知を設定する")
                                 }
-
+                                
                             }
-
+                            
                         }
                         
                         Section{
@@ -191,7 +191,7 @@ struct SettingView: View {
                 
                 //目標編集セルタップ後に出現するテキストフィールド付きアラート
                 if showGoalEdittingAlert{
-                        EditGoal(showAlert: $showGoalEdittingAlert,showToast: $showToast,toastText: $toastText, isLong: isLongTermGoal)
+                    EditGoal(showAlert: $showGoalEdittingAlert,showToast: $showToast,toastText: $toastText, isLong: isLongTermGoal)
                         .transition(.slide)
                 }
                 
@@ -202,7 +202,7 @@ struct SettingView: View {
             .environmentObject(notificationViewModel)
             .environmentObject(userSettingViewModel)
         }
-
+        
         //ピッカーが選択される毎に背景色を変更
         .onChange(of: selectedColor) { newValue in
             userSettingViewModel.userSelectedColor = newValue
@@ -254,7 +254,7 @@ struct SettingView_Previews: PreviewProvider {
         Group{
             SettingView()
                 .environment(\.locale, Locale(identifier:"en"))
-
+            
             SettingView()
                 .environment(\.locale, Locale(identifier:"ja"))
         }

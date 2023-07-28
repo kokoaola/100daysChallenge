@@ -63,18 +63,18 @@ struct AppSetting{
     ]
 }
 
-//Date型をString型に変換する
-func makeDate(day: Date)-> String{
-    let df = DateFormatter()
-    df.locale = Locale(identifier: "ja-Jp")
-    df.dateStyle = .short
-    return df.string(from: day)
-}
-
-//Date型をString型に変換する
-func makeAccessibilityDate(day: Date) -> String {
-    let df = DateFormatter()
-    df.locale = Locale(identifier: "ja_JP")
-    df.dateFormat = "yyyy年M月d日"
-    return df.string(from: day)
+////Date型をString型に変換する
+//public func makeDate(day: Date)-> String{
+//    let df = DateFormatter()
+//    df.locale = Locale(identifier: "ja-Jp")
+//    df.dateStyle = .short
+//    return df.string(from: day)
+//}
+//
+////Date型をString型に変換する
+//func makeAccessibilityDate(day: Date) -> String {
+//    let df = DateFormatter()
+//    df.locale = Locale(identifier: "ja_JP")
+//    df.dateFormat = "yyyy年M月d日"
+//    return df.string(from: day)
 }

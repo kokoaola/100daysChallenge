@@ -20,12 +20,21 @@ struct CloseButton: View{
 
 ///チュートリアル用の矢印付きボタンのビュー
 struct ArrowButton: View{
+    ///戻るボタンか選択する変数
     var isBackButton: Bool
+    ///表示する文言を格納する変数
     var labelText: String
     
+    ///角丸のレベルを格納する変数
     let radius:CGFloat = 10.0
+    
+    ///ボタンの幅を格納する変数
     let width = AppSetting.screenWidth / 3
+    
+    ///ボタンの高さを格納する変数
     let height = AppSetting.screenWidth / 6
+    
+    ///文字色を格納する変数
     let tint = Color.white
     
     var body: some View {
@@ -53,10 +62,17 @@ struct ArrowButton: View{
 
 ///保存ボタンビュー
 struct SaveButton: View {
+    ///角丸のレベルを格納する変数
     let radius:CGFloat = 10.0
+    
+    ///ボタンの幅を格納する変数
     let width = AppSetting.screenWidth / 3
+    
+    ///ボタンの高さを格納する変数
     let height = AppSetting.screenWidth / 6
-    let 文字と内側の枠の色 = Color(UIColor.white)
+    
+    ///文字色を格納する変数
+    let tint = Color.white
     
     var body: some View {
         ZStack(alignment: .center){
@@ -69,7 +85,7 @@ struct SaveButton: View {
                 Image(systemName: "checkmark.circle")
             }
             .font(.title2.weight(.bold))
-            .foregroundColor(文字と内側の枠の色)
+            .foregroundColor(tint)
         }
     }
 }
@@ -77,8 +93,13 @@ struct SaveButton: View {
 
 ///コンプリートボタンビュー
 struct CompleteButton: View {
+    ///ボタンの幅を格納する変数
     let width = 300.0
+    
+    ///ボタンの高さを格納する変数
     let height = 170.0
+    
+    ///番号を受け取って格納する変数
     let num: Int
     
     var body: some View {
@@ -109,19 +130,29 @@ struct CompleteButton: View {
 
 ///アイコンが左にある大きいボタンのビュー
 struct LeftIconBigButton: View{
+    ///アイコンを受け取って格納する変数
     let icon: Image?
+    
+    ///表示するStringを受け取って格納する変数
     let text: String
     
+    ///角丸のレベルを格納する変数
     let radius:CGFloat = 10.0
+    
+    ///ボタンの幅を格納する変数
     let width = AppSetting.screenWidth / 1.7
+    
+    ///ボタンの高さを格納する変数
     let height = AppSetting.screenWidth / 5
-    let borderColor = Color(UIColor.white)
+    
+    ///文字色を格納する変数
+    let tint = Color(UIColor.white)
     
     var body: some View {
         ZStack{
             RoundedRectangle(cornerRadius: radius)
                 .frame(width: width, height: height)
-                .foregroundColor(borderColor)
+                .foregroundColor(tint)
             RoundedRectangle(cornerRadius: radius)
                 .frame(width: width - 7, height: height - 7)
             HStack(alignment: .lastTextBaseline){
@@ -129,7 +160,7 @@ struct LeftIconBigButton: View{
                 Text(LocalizedStringKey(text))
             }
             .font(.title2.weight(.bold))
-            .foregroundColor(borderColor)
+            .foregroundColor(tint)
         }
     }
 }

@@ -167,10 +167,7 @@ struct makeNewItemSheet: View {
                 }
             }
             .foregroundColor(Color(UIColor.label))
-            
-            
         }
-        
     }
 }
 

@@ -13,7 +13,7 @@ struct AboutThisApp: View {
     
     ///ViewModel用の変数
     @EnvironmentObject var userSettingViewModel:UserSettingViewModel
-
+    
     ///文言1を格納する変数
     let about = "アプリをインストールしてくださって、ありがとうございます。\nこのアプリは、目標に向かって進む人を応援、お手伝いしたいという思いで作りました。\n特徴としては以下の2点があります。"
     
@@ -30,7 +30,7 @@ struct AboutThisApp: View {
     let string2 = LocalizedStringKey("よく言われることですが、SNSで世界に公開しながら何かに取り組むと、挫折しづらくなるそうです。\n\nその手助けになればと思い、シェア用の画像の生成機能をつけました。宣伝っぽくなるのが少し嫌でアプリ名とかは入ってませんので、気軽に共有してください。\n\n写真は全てunsplashという素材サイトからお借りし、二次加工・再配布OKという利用規約の元で使用しております。(写真の撮影者様のクレジットのみ記載してあります。)\n\n\n初めてのリリースでまだ未熟な点の多いアプリですが、ご意見などありましたらお問い合わせフォームから気軽にご連絡ください。")
     
     var body: some View {
-        ///ページに応じたチュートリアルを表示
+        //全文をスクロール表示
         ScrollView{
             VStack(alignment: .leading){
                 
@@ -59,6 +59,7 @@ struct AboutThisApp: View {
         .background(.thinMaterial)
         .cornerRadius(15)
         .padding(.horizontal)
+        
         //グラデーション背景の設定
         .modifier(UserSettingGradient(appColorNum: userSettingViewModel.userSelectedColor))
         .navigationTitle("このアプリについて")

@@ -14,7 +14,7 @@ struct MemoSheet: View {
     ///ViewModel用の変数
     @EnvironmentObject var coreDataViewModel :CoreDataViewModel
     @EnvironmentObject var userSettingViewModel:UserSettingViewModel
-
+    
     ///キーボードフォーカス用変数（Doneボタン表示のため）
     @FocusState var isInputActive: Bool
     
@@ -23,7 +23,7 @@ struct MemoSheet: View {
     
     ///編集文章格納用
     @State var editText = ""
-
+    
     
     var body: some View {
         NavigationView{
@@ -35,7 +35,7 @@ struct MemoSheet: View {
                         Button {
                             dismiss()
                         } label: {
-                           CloseButton()
+                            CloseButton()
                         }
                         .frame(maxWidth: .infinity, alignment: .leading)
                         
@@ -100,7 +100,6 @@ struct MemoSheet: View {
                 editText = coreDataViewModel.allData.last?.memo ?? ""
             }
         }
-        
     }
 }
 

@@ -7,30 +7,36 @@
 
 import SwiftUI
 
+///通知設定するビュー
 struct NotificationView: View {
+    ///ViewModel用の変数
     @EnvironmentObject var notificationViewModel :NotificationViewModel
     @EnvironmentObject var coreDataViewModel :CoreDataViewModel
+    
+    ///トーストの表示状態を格納するフラグ
     @Binding var showToast: Bool
+    
+    ///トースト内に表示する文章を格納する変数
     @Binding var toastText: String
     
-    ///CoreData用の変数
-//    @Environment(\.managedObjectContext) var moc
-//    @FetchRequest(sortDescriptors: [NSSortDescriptor(key:"date", ascending: true)]) var items: FetchedResults<DailyData>
     ///画面破棄用
     @Environment(\.dismiss) var dismiss
-
+    
+    ///一週間分の要素を生成
     let week = Array(1...7)
-
+    
     
     var body: some View {
         
         ZStack{
             VStack{
+                //通知を受信する時間選択用のピッカー
                 DatePicker("", selection: $notificationViewModel.userSettingNotificationTime, displayedComponents: .hourAndMinute)
                     .datePickerStyle(.wheel)
                     .labelsHidden()
                     .frame(height: 150)
                 
+                //通知を受信する曜日選択用のリスト
                 List(selection: $notificationViewModel.userSettingNotificationDay){
                     Section(header: Text("通知を出す曜日")){
                         ForEach(week, id: \.self) { item in
@@ -38,41 +44,29 @@ struct NotificationView: View {
                         }
                     }
                 }
-                
                 .scrollContentBackground(.hidden)
                 .environment(\.editMode, .constant(.active))
                 .tint(.green)
                 
-                
-                //            .alert(isPresented: $notificationViewModel.showAlert) {
-                //                Alert(title: Text("通知を設定しました。"),
-                //                      dismissButton: .default(Text("OK"),
-                //                                              action: {dismiss()
-                //                })) // ボタンがタップされた時の処理
-                //            }
-                
+                //保存ボタン
                 Button {
                     notificationViewModel.setNotification(item: coreDataViewModel.allData.last)
-
-                    
-                    dismiss()
-                    showToast = true
-
+                    //トーストを表示して画面破棄
                     toastText = "通知を設定しました。"
-
+                    showToast = true
+                    dismiss()
+                    
                 } label: {
                     LeftIconBigButton(icon: nil, text: "決定")
-//                    SetScheduleButton()
                         .foregroundColor(.green)
                         .padding(.bottom)
                 }
             }
-//            ToastView(show: $notificationViewModel.showAlert, text: "通知を設定しました。")
         }
     }
     
-
-    func numToDate(num: Int) -> some View{
+    //日本語表示用のメソッド
+    private func numToDate(num: Int) -> some View{
         switch num{
         case 1:
             return Text("日曜")

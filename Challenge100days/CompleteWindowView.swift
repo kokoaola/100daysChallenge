@@ -43,7 +43,7 @@ struct CompleteWindowView: View {
                 CloseButton()
             }
             
-        
+            
             VStack(alignment: .center, spacing: 30){
                 //読み上げ用のVStack
                 VStack{
@@ -59,7 +59,7 @@ struct CompleteWindowView: View {
                 generateImageWithText(number: dayNumber, day: coreDataViewModel.allData.last?.date ?? Date.now)
                     .resizable().scaledToFit()
                     .accessibilityLabel("日付入りの画像")
-
+                
                 
                 VStack{
                     //シェアボタン
