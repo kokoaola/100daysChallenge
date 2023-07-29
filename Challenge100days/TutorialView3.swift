@@ -41,7 +41,7 @@ struct TutorialView3: View {
                     //startボタン
                     Button {
                         userSettingViewModel.userSelectedTag = "One"
-                        userSettingViewModel.toggleTutorialStatus(isFinish: true)
+                        userSettingViewModel.toggleTutorialStatus(changeTo: false)
                     } label: {
                         ArrowButton(isBackButton: false, labelText: "始める")
                     }

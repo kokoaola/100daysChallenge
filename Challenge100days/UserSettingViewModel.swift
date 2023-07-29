@@ -17,7 +17,7 @@ class UserSettingViewModel: ObservableObject{
     ///背景色を格納する変数
     @Published var userSelectedColor: Int
     ///初回起動確認用
-    @Published var finishedTutorial: Bool
+    @Published var isFirst: Bool
     
     ///ユーザーデフォルト用の変数
     private let defaults = UserDefaults.standard
@@ -26,16 +26,17 @@ class UserSettingViewModel: ObservableObject{
     ///ユーザーデフォルト用キー：取り組むこと用
     private let shortTermGoalKey = "shortTermGoal"
     ///ユーザーデフォルト用キー：初回起動確認用
-    private let finishedTutorialKey = "finishedTutorial"
+    private let isFirstKey = "isFirst"
     ///ユーザーデフォルト用キー：アプリカラー選択用
     private let userSelectedColorKey = "userSelectedColorKey"
     
 
     init(){
+        defaults.register(defaults: ["isFirst":true])
         //アプリ起動時はユーザーデフォルトからデータを取得
         self.longTermGoal = defaults.string(forKey:longTermGoalKey) ?? ""
         self.shortTermGoal = defaults.string(forKey:shortTermGoalKey) ?? ""
-        self.finishedTutorial = defaults.bool(forKey:finishedTutorialKey)
+        self.isFirst = defaults.bool(forKey:isFirstKey)
         self.userSelectedColor = defaults.integer(forKey:userSelectedColorKey)
     }
     
@@ -58,10 +59,10 @@ class UserSettingViewModel: ObservableObject{
     }
     
     ///初回起動フラグを変更して保存するメソッド
-    func toggleTutorialStatus(isFinish:Bool){
+    func toggleTutorialStatus(changeTo:Bool){
         objectWillChange.send()
-        finishedTutorial = isFinish
-        defaults.setValue(isFinish, forKey: finishedTutorialKey)
+        isFirst = changeTo
+        defaults.setValue(isFirst, forKey: isFirstKey)
     }
     
     ///ユーザーのカスタムセッティングをすべてリセットするメソッド
@@ -69,7 +70,7 @@ class UserSettingViewModel: ObservableObject{
         userSelectedTag = "one"
         self.saveUserSettingGoal(isLong: true, goal: "")
         self.saveUserSettingGoal(isLong: false, goal: "")
-        self.toggleTutorialStatus(isFinish: false)
+        self.toggleTutorialStatus(changeTo: true)
         self.saveUserSettingAppColor(colorNum: 0)
     }
 }

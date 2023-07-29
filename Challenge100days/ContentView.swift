@@ -17,10 +17,16 @@ struct ContentView: View {
     
     
     var body: some View {
-        //ユーザーが初回のチュートリアルを終わらせていればタブを表示
-        if userSettingViewModel.finishedTutorial{
+
+        if userSettingViewModel.isFirst{
+            //初回起動時はチュートリアルを表示
+            TutorialTopView()
+                .environmentObject(userSettingViewModel)
+            
+        }else{
+            
+            //ユーザーが初回のチュートリアルを終わらせていればタブを表示
             TabView(selection: $userSettingViewModel.userSelectedTag){
-                
                 //達成用のビュー
                 ActionView()
                     .tabItem{
@@ -43,11 +49,7 @@ struct ContentView: View {
             .environmentObject(coreDataViewModel)
             .environmentObject(notificationViewModel)
             .environmentObject(userSettingViewModel)
-            
-        }else{
-            //初回起動時はチュートリアルを表示
-            TutorialTopView()
-                .environmentObject(userSettingViewModel)
+
         }
 
     }

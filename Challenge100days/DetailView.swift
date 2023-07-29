@@ -70,6 +70,7 @@ struct DetailView: View {
                     .frame(maxHeight: .infinity)
                     .focused($isInputActive)
                     .tint(.white)
+                //タップでキーボードを閉じる
                     .onTapGesture {
                         AppSetting.colseKeyBoard()
                     }

@@ -77,7 +77,7 @@ struct CardView: View {
                                 //最終アイテム追加してから１日以内ならキラキラを表示
                                 Image(systemName: "sparkles")
                                     .offset(x:8, y:-9)
-                                    .foregroundColor(item == coreDataViewModel.allData.last && Calendar.current.isDate(Date.now, equalTo: item.date ?? Date.now, toGranularity: .day) ? .yellow : .clear)
+                                    .foregroundColor(item == coreDataViewModel.allData.last && coreDataViewModel.checkTodaysTask2 ? .yellow : .clear)
                                 
                                 //セルに番号を重ねる
                                 Text("\(item.num)")

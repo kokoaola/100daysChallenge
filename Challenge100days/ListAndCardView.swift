@@ -64,7 +64,7 @@ struct ListAndCardView: View {
             
             
             
-            //メモ追加ボタンが押下されたら、MemoSheetを表示
+            //メモ追加ボタンが押下されたら、makeNewItemSheetを表示
             .sheet(isPresented: $showSheet) {
                 makeNewItemSheet()
                     .environmentObject(userSettingViewModel)
@@ -80,21 +80,19 @@ struct ListAndCardView: View {
                         showSheet = true
                     }, label: {
                         Image(systemName: "plus")
+                            .foregroundColor(.primary)
+                            .padding(10)
+                            .fontWeight(.bold)
+                            .background(.thickMaterial)
+                            .cornerRadius(10)
                     })
-                }
-            //子ビューのキーボード閉じるボタンの実装
-                ToolbarItemGroup(placement: .keyboard) {
-                    Spacer()  // 右寄せにする
-                    Button("閉じる") {
-                        AppSetting.colseKeyBoard()
-                    }
-                    .foregroundColor(.primary)
                 }
             }
 
 
             .navigationTitle("100days Challenge")
             .navigationBarTitleDisplayMode(.automatic)
+
             
         }
     }
