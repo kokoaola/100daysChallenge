@@ -90,6 +90,8 @@ struct TutorialView2: View {
                 HStack{
                     Button {
                         page = 1
+                        userSettingViewModel.saveUserSettingGoal(isLong: true, goal: editText)
+                        userSettingViewModel.saveUserSettingGoal(isLong: false, goal: editText2)
                     } label: {
                         ArrowButton(isBackButton: true, labelText: "戻る")
                     }

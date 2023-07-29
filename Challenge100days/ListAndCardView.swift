@@ -30,7 +30,7 @@ struct ListAndCardView: View {
                 
                 //カード表示、リスト表示共通部分
                 HStack(){
-                    Text("開始日 : ") + Text("\(makeDate(day:coreDataViewModel.allData.first?.date ?? Date.now))")
+                    Text("開始日 : ") + Text("\(AppSetting.makeDate(day:coreDataViewModel.allData.first?.date ?? Date.now))")
                         .font(.footnote)
                     
                     Spacer()

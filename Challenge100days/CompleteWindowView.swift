@@ -34,6 +34,10 @@ struct CompleteWindowView: View {
     let dayNumber: Int
     
     
+    ///キーボードフォーカス用変数（Doneボタン表示のため）
+//    @FocusState var isInputActive: Bool
+    
+    
     var body: some View {
         
         //四角に画像とボタンを重ねてる
@@ -90,6 +94,16 @@ struct CompleteWindowView: View {
         .sheet(isPresented: $showMemo) {
             MemoSheet()
                 .environmentObject(userSettingViewModel)
+//                .focused($isInputActive)
+//                .toolbar {                   // ツールバーを親の一番上の要素に実装
+//                    ToolbarItemGroup(placement: .keyboard) {
+//                        Spacer()  // 右寄せにする
+//                        Button("Done") {
+//                            isInputActive = false
+//                        }
+//                        .foregroundColor(.primary)
+//                    }
+//                }
         }
     }
 }

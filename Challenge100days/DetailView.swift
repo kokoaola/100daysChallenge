@@ -46,12 +46,12 @@ struct DetailView: View {
                 
                 Spacer()
                 
-                Text(makeDate(day: item.date ?? Date.now))
+                Text(AppSetting.makeDate(day: item.date ?? Date.now))
                     .font(.title3.weight(.ultraLight))
                     .padding(.leading, 40)
             }
             .accessibilityElement()
-            .accessibilityLabel("\(item.num)日目の記録、\(makeAccessibilityDate(day: item.date ?? Date()))")
+            .accessibilityLabel("\(item.num)日目の記録、\(AppSetting.makeAccessibilityDate(day: item.date ?? Date()))")
             .foregroundColor(.primary)
             .frame(maxWidth: .infinity, alignment: .leading)
             

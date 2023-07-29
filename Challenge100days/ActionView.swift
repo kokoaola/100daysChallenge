@@ -28,8 +28,10 @@ struct ActionView: View {
     ///吹き出し文言の内容を変更する変数
     @State private var showAfterFinishString = false
     
+    ///キーボードフォーカス用変数（Doneボタン表示のため）
+//    @FocusState var isInputActive: Bool
+    
     var body: some View {
-        NavigationView{
             ZStack{
                 
                 VStack(spacing: 20){
@@ -131,6 +133,25 @@ struct ActionView: View {
                         .padding(.horizontal)
                         .transition(.scale)
                         .environmentObject(coreDataViewModel)
+//                        .focused($isInputActive)
+                    
+                        .toolbar {                   // ツールバーを親の一番上の要素に実装
+                            ToolbarItemGroup(placement: .keyboard) {
+                                Spacer()  // 右寄せにする
+                                Button("Done") {
+                                    let keyWindow = UIApplication.shared.connectedScenes
+                                        .filter({$0.activationState == .foregroundActive})
+                                        .map({$0 as? UIWindowScene})
+                                        .compactMap({$0})
+                                        .first?.windows
+                                        .filter({$0.isKeyWindow}).first
+                                    keyWindow?.endEditing(true)
+//                                    isInputActive = false
+//                                    print(isInputActive)
+                                }
+                                .foregroundColor(.primary)
+                            }
+                        }
                 }
             }
             
@@ -151,8 +172,6 @@ struct ActionView: View {
             
             //グラデーション背景の設定
             .modifier(UserSettingGradient(appColorNum: userSettingViewModel.userSelectedColor))
-        }
-        .navigationViewStyle(.stack)
     }
 }
 
