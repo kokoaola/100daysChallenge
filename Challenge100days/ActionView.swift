@@ -106,7 +106,6 @@ struct ActionView: View {
                         Task{
                             //データを保存
                             await coreDataViewModel.saveData(date: Date(), memo: "")
-                            
                             await coreDataViewModel.assignNumbers()
                         }
                         
@@ -133,21 +132,12 @@ struct ActionView: View {
                         .padding(.horizontal)
                         .transition(.scale)
                         .environmentObject(coreDataViewModel)
-//                        .focused($isInputActive)
                     
                         .toolbar {                   // ツールバーを親の一番上の要素に実装
                             ToolbarItemGroup(placement: .keyboard) {
                                 Spacer()  // 右寄せにする
                                 Button("Done") {
-                                    let keyWindow = UIApplication.shared.connectedScenes
-                                        .filter({$0.activationState == .foregroundActive})
-                                        .map({$0 as? UIWindowScene})
-                                        .compactMap({$0})
-                                        .first?.windows
-                                        .filter({$0.isKeyWindow}).first
-                                    keyWindow?.endEditing(true)
-//                                    isInputActive = false
-//                                    print(isInputActive)
+                                    AppSetting.colseKeyBoard()
                                 }
                                 .foregroundColor(.primary)
                             }

@@ -73,19 +73,9 @@ struct MemoSheet: View {
                                 isInputActive = true
                             }
                     
-//                            .onTapGesture {
-//                                hideKeyboard()
-//                            }
-//                            .toolbar {
-//                                ToolbarItem(placement: .keyboard) {
-//                                    HStack {
-//                                        Spacer()
-//                                        Button("閉じる") {
-//                                            isInputActive = false
-//                                        }
-//                                    }
-//                                }
-//                            }
+                            .onTapGesture {
+                                AppSetting.colseKeyBoard()
+                            }
                     
                     //保存ボタン
                     Button {
