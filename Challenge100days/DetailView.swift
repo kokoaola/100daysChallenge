@@ -107,8 +107,9 @@ struct DetailView: View {
                 
                 //編集内容保存ボタン
                 Button("保存する") {
-                    coreDataViewModel.updateDataMemo(newMemo:editText, data:item )
                     Task{
+                        await coreDataViewModel.updateDataMemo(newMemo:editText, data:item )
+                        
                         await coreDataViewModel.assignNumbers()
                     }
                     isInputActive = false
@@ -157,9 +158,9 @@ struct DetailView: View {
         //削除ボタン押下時のアラート
         .alert("この日の記録を破棄しますか？", isPresented: $showCansel){
             Button("破棄する",role: .destructive){
-                coreDataViewModel.deleteData(data:item)
-                
+
                 Task{
+                    await coreDataViewModel.deleteData(data:item)
                     await coreDataViewModel.assignNumbers()
                 }
                 

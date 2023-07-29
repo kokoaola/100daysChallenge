@@ -100,10 +100,11 @@ struct ActionView: View {
                         withAnimation{
                             showCompleteWindew = true
                         }
-                        //データを保存
-                        coreDataViewModel.saveData(date: Date(), memo: "")
                         
                         Task{
+                            //データを保存
+                            await coreDataViewModel.saveData(date: Date(), memo: "")
+                            
                             await coreDataViewModel.assignNumbers()
                         }
                         
@@ -113,14 +114,10 @@ struct ActionView: View {
                         }
                     }, label: {
                         //達成済みの場合ラベルは薄く表示
-//                        CompleteButton(num:(coreDataViewModel.checkTodaysTask2 ? (dayNumber ?? 1) - 1 : dayNumber) ?? 1)
                         CompleteButton(num:dayNumber ?? 1)
                             .opacity(coreDataViewModel.checkTodaysTask2 ? 0.3 : 1.0)
                     })
                     
-                    
-//                    .accessibilityLabel("\(coreDataViewModel.checkTodaysTask2 ? ((dayNumber ?? 1) - 1) : dayNumber)日目を完了する")
-//                    .padding(.top)
                     .disabled(coreDataViewModel.checkTodaysTask2)
                     
                     Spacer()

@@ -64,7 +64,10 @@ struct MemoSheet: View {
                     
                     //保存ボタン
                     Button {
-                        coreDataViewModel.updateDataMemo(newMemo: editText, data: nil)
+                        
+                        Task{
+                           await coreDataViewModel.updateDataMemo(newMemo: editText, data: nil)
+                        }
                         dismiss()
                     } label: {
                         SaveButton()

@@ -72,7 +72,15 @@ class CoreDataViewModel: ObservableObject{
     
     
     ///新規作成したデータを保存するメソッド
-    func saveData(date:Date, memo: String) {
+    func saveData(date:Date, memo: String) async{
+        //本日のデータを重複して登録するのを避ける処理
+        if let lastData = allData.last?.date{
+            if Calendar.current.isDate(date, equalTo: lastData, toGranularity: .day){
+                return
+            }
+        }
+        
+        //データのインスタンス生成
         let context = persistenceController.container.viewContext
         let entity = NSEntityDescription.insertNewObject(forEntityName: "DailyData", into: context) as! DailyData
         entity.id = UUID()
@@ -82,7 +90,6 @@ class CoreDataViewModel: ObservableObject{
         
         do {
             try context.save()
-            print("OK")
         } catch let error as NSError {
             print("Could not save. \(error), \(error.userInfo)")
         }
@@ -105,7 +112,7 @@ class CoreDataViewModel: ObservableObject{
     
     
     ///引数で受け取った日のメモを更新するメソッド、データがnilなら最新のメモを更新
-    func updateDataMemo(newMemo: String, data: DailyData?) {
+    func updateDataMemo(newMemo: String, data: DailyData?) async{
         let context = persistenceController.container.viewContext
         
         if let data = data{
@@ -128,7 +135,7 @@ class CoreDataViewModel: ObservableObject{
     
     
     ///引数で受け取ったデータを削除するメソッド
-    func deleteData(data: DailyData) {
+    func deleteData(data: DailyData) async{
         let context = persistenceController.container.viewContext
         context.delete(data)
         do {
