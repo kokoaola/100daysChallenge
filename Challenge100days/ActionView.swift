@@ -28,9 +28,6 @@ struct ActionView: View {
     ///吹き出し文言の内容を変更する変数
     @State private var showAfterFinishString = false
     
-    ///キーボードフォーカス用変数（Doneボタン表示のため）
-//    @FocusState var isInputActive: Bool
-    
     var body: some View {
             ZStack{
                 
@@ -133,10 +130,11 @@ struct ActionView: View {
                         .transition(.scale)
                         .environmentObject(coreDataViewModel)
                     
-                        .toolbar {                   // ツールバーを親の一番上の要素に実装
+                        //子ビューのキーボード閉じるボタンの実装
+                        .toolbar {
                             ToolbarItemGroup(placement: .keyboard) {
                                 Spacer()  // 右寄せにする
-                                Button("Done") {
+                                Button("閉じる") {
                                     AppSetting.colseKeyBoard()
                                 }
                                 .foregroundColor(.primary)

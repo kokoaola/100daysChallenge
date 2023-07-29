@@ -34,10 +34,6 @@ struct CompleteWindowView: View {
     let dayNumber: Int
     
     
-    ///キーボードフォーカス用変数（Doneボタン表示のため）
-//    @FocusState var isInputActive: Bool
-    
-    
     var body: some View {
         
         //四角に画像とボタンを重ねてる

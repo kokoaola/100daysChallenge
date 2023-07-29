@@ -87,17 +87,8 @@ struct makeNewItemSheet: View {
                     .border(.white)
                     .frame(height: 300)
                     .focused($isInputActive)
-                    .task {
-                        // 入力したされた日本語の1文字目が変換対象にならないバグに対応するため、一度空白を入力して削除する
-                        do {
-                            try await Task.sleep(nanoseconds: 200 * 1000 * 1000)
-                            isInputActive = true
-                            editText = "　　　"
-                            try await Task.sleep(nanoseconds: 500 * 1000 * 1000)
-                            editText = ""
-                        } catch {
-                            print(error)
-                        }
+                    .onTapGesture {
+                        AppSetting.colseKeyBoard()
                     }
                 
                 //選択された日付が有効ではない時に表示する警告

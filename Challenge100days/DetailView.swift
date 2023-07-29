@@ -70,6 +70,9 @@ struct DetailView: View {
                     .frame(maxHeight: .infinity)
                     .focused($isInputActive)
                     .tint(.white)
+                    .onTapGesture {
+                        AppSetting.colseKeyBoard()
+                    }
             }
         }
         .padding()

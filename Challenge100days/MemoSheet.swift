@@ -26,7 +26,6 @@ struct MemoSheet: View {
     
     
     var body: some View {
-//        NavigationStack{
                 VStack(spacing: 10){
                     ZStack{
                         
@@ -101,35 +100,7 @@ struct MemoSheet: View {
             //グラデーション＋すりガラス背景設定
             .background(.ultraThinMaterial)
             .modifier(UserSettingGradient(appColorNum: userSettingViewModel.userSelectedColor))
-            
-//            //キーボード閉じるボタン
-//            .toolbar {
-//                ToolbarItemGroup(placement: .keyboard) {
-//                    Spacer()
-//                    Button("閉じる") {
-//                        isInputActive = false
-//                    }
-//                }
-//            }
-//            .foregroundColor(Color(UIColor.label))
-            
-            //すでにメモデータが格納されていればテキストエディターの初期値に設定
-//            .onAppear{
-//                editText = coreDataViewModel.allData.last?.memo ?? ""
-//            }
-//        }
     }
-    
-    // キーボードを閉じるためのヘルパー関数
-//    private func hideKeyboard() {
-//        let keyWindow = UIApplication.shared.connectedScenes
-//            .filter({$0.activationState == .foregroundActive})
-//            .map({$0 as? UIWindowScene})
-//            .compactMap({$0})
-//            .first?.windows
-//            .filter({$0.isKeyWindow}).first
-//        keyWindow?.endEditing(true)
-//    }
 }
 
 

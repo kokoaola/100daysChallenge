@@ -27,7 +27,6 @@ struct ListAndCardView: View {
             
             //画面全体はスクロールビュー
             ScrollView(.vertical, showsIndicators: false){
-                
                 //カード表示、リスト表示共通部分
                 HStack(){
                     Text("開始日 : ") + Text("\(AppSetting.makeDate(day:coreDataViewModel.allData.first?.date ?? Date.now))")
@@ -63,21 +62,37 @@ struct ListAndCardView: View {
             //グラデーション背景の設定
             .modifier(UserSettingGradient(appColorNum: userSettingViewModel.userSelectedColor))
             
+            
+            
+            //メモ追加ボタンが押下されたら、MemoSheetを表示
+            .sheet(isPresented: $showSheet) {
+                makeNewItemSheet()
+                    .environmentObject(userSettingViewModel)
+                    .environmentObject(notificationViewModel)
+                    .environmentObject(coreDataViewModel)
+                
+            }
+            
             //データの新規追加用のプラスボタン
             .toolbar{
                 ToolbarItem{
                     Button(action: {
-                        showSheet.toggle()
+                        showSheet = true
                     }, label: {
                         Image(systemName: "plus")
                     })
                 }
+            //子ビューのキーボード閉じるボタンの実装
+                ToolbarItemGroup(placement: .keyboard) {
+                    Spacer()  // 右寄せにする
+                    Button("閉じる") {
+                        AppSetting.colseKeyBoard()
+                    }
+                    .foregroundColor(.primary)
+                }
             }
-            
-            //プラスボタンを押したら出てくるシート
-            .sheet(isPresented: $showSheet, content: makeNewItemSheet.init)
-            .environmentObject(notificationViewModel)
-            .environmentObject(coreDataViewModel)
+
+
             .navigationTitle("100days Challenge")
             .navigationBarTitleDisplayMode(.automatic)
             
