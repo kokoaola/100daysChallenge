@@ -14,10 +14,13 @@ class CoreDataViewModel: ObservableObject{
     ///データを全件格納する変数
     @Published var allData : [DailyData]
     
+    ///データを全件格納する変数
+    @Published var todaysNum : Int
+    
     ///データコントローラー格納変数
     let persistenceController = DataController()
     
-    ///当日のタスクが達成済みかを格納するコンピューテッドプロパティ
+    ///当日のタスクが達成済みかを格納する変数
     var checkTodaysTask: Bool{
         if let lastData = allData.last?.date{
             if Calendar.current.isDate(Date.now, equalTo: lastData, toGranularity: .day){
@@ -47,6 +50,7 @@ class CoreDataViewModel: ObservableObject{
         
         guard let date = tasks.last?.date else {
             self.checkTodaysTask2 = false
+            self.todaysNum = 1
             return
         }
         if Calendar.current.isDate(Date.now, equalTo: date, toGranularity: .day){
@@ -54,6 +58,7 @@ class CoreDataViewModel: ObservableObject{
         }else{
             self.checkTodaysTask2 = false
         }
+        self.todaysNum = tasks.count + 1
     }
     
     
@@ -72,7 +77,7 @@ class CoreDataViewModel: ObservableObject{
     
     
     ///新規作成したデータを保存するメソッド
-    func saveData(date:Date, memo: String) async{
+    func saveData(date:Date, memo: String){
         //本日のデータを重複して登録するのを避ける処理
         if let lastData = allData.last?.date{
             if Calendar.current.isDate(date, equalTo: lastData, toGranularity: .day){
@@ -87,7 +92,7 @@ class CoreDataViewModel: ObservableObject{
         entity.date = date
         entity.memo = memo
         entity.num = Int16(allData.count + 1)
-        
+
         do {
             try context.save()
         } catch let error as NSError {
@@ -176,9 +181,10 @@ class CoreDataViewModel: ObservableObject{
             } catch let error as NSError {
                 print("Could not save. \(error), \(error.userInfo)")
             }
-            
+        }
+        
             objectWillChange.send()
             allData = getAllData()
-        }
+
     }
 }

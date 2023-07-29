@@ -99,24 +99,24 @@ struct ActionView: View {
                         withAnimation{
                             showCompleteWindew = true
                         }
+                        //データを保存
+                        coreDataViewModel.saveData(date: Date(), memo: "")
                         
                         Task{
-                            //データを保存
-                            await coreDataViewModel.saveData(date: Date(), memo: "")
-                            await coreDataViewModel.assignNumbers()
+                            //通知設定している場合、本日の通知はスキップする
+                            if notificationViewModel.isNotificationOn{
+                                await notificationViewModel.setNotification(item: coreDataViewModel.allData.last)
+                            }
                         }
-                        
-                        //通知設定している場合、本日の通知はスキップする
-                        if notificationViewModel.isNotificationOn{
-                            notificationViewModel.setNotification(item: coreDataViewModel.allData.last)
-                        }
+
+
                     }, label: {
                         //達成済みの場合ラベルは薄く表示
                         CompleteButton(num:dayNumber ?? 1)
-                            .opacity(coreDataViewModel.checkTodaysTask2 ? 0.3 : 1.0)
+                            .opacity(showAfterFinishString ? 0.3 : 1.0)
                     })
                     
-                    .disabled(coreDataViewModel.checkTodaysTask2)
+                    .disabled(showAfterFinishString)
                     
                     Spacer()
                 }
@@ -145,13 +145,13 @@ struct ActionView: View {
             
             //アプリを開いた日のタスクが未達成の場合、コンプリートウインドウを非表示、表示する番号は総データ数＋1、吹き出し文言はボタン押下前のものにする
             .onAppear{
-                if !coreDataViewModel.checkTodaysTask2{
+                if !coreDataViewModel.checkTodaysTask{
                     showCompleteWindew = false
-                    dayNumber = coreDataViewModel.allData.count + 1
+                    dayNumber = Int(coreDataViewModel.allData.last?.num ?? 0) + 1
                     showAfterFinishString = false
                 }else{
                     //タスク達成済みなら表示する番号は総データ数と同じ、吹き出し文言はボタン押下後のものにする
-                    dayNumber = coreDataViewModel.allData.count
+                    dayNumber = Int(coreDataViewModel.allData.last?.num ?? 0)
                     showAfterFinishString = true
                 }
             }

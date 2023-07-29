@@ -18,6 +18,8 @@ class UserSettingViewModel: ObservableObject{
     @Published var userSelectedColor: Int
     ///初回起動確認用
     @Published var isFirst: Bool
+    ///コンプリートウインドウ表示フラグ
+    @Published var showCompleteWindow = false
     
     ///ユーザーデフォルト用の変数
     private let defaults = UserDefaults.standard
@@ -72,6 +74,12 @@ class UserSettingViewModel: ObservableObject{
         self.saveUserSettingGoal(isLong: false, goal: "")
         self.toggleTutorialStatus(changeTo: true)
         self.saveUserSettingAppColor(colorNum: 0)
+    }
+    
+    ///
+    func switchShowCompleteWindow(isOn: Bool){
+        objectWillChange.send()
+        self.showCompleteWindow = isOn
     }
 }
 

@@ -110,8 +110,8 @@ struct makeNewItemSheet: View {
                 //保存ボタン
                 Button{
                     dismiss()
+                    coreDataViewModel.saveData(date:userSelectedData, memo:editText)
                     Task{
-                    await coreDataViewModel.saveData(date:userSelectedData, memo:editText)
                         await coreDataViewModel.assignNumbers()
                     }
                     

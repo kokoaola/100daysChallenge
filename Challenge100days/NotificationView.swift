@@ -50,7 +50,9 @@ struct NotificationView: View {
                 
                 //保存ボタン
                 Button {
-                    notificationViewModel.setNotification(item: coreDataViewModel.allData.last)
+                    Task{
+                        await notificationViewModel.setNotification(item: coreDataViewModel.allData.last)
+                    }
                     //トーストを表示して画面破棄
                     toastText = "通知を設定しました。"
                     showToast = true

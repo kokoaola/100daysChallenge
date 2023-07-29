@@ -90,7 +90,7 @@ class NotificationViewModel: ObservableObject{
     }
     
     ///通知をセットするメソッド（当日のタスクが達成済みなら翌日から開始する）
-    func setNotification(item: DailyData?){
+    func setNotification(item: DailyData?) async{
         //ユーザーが選択した日時を保存
         saveUserSelectedDays()
         saveUserSelectedTime()
@@ -140,7 +140,7 @@ class NotificationViewModel: ObservableObject{
         
         for notificationRequest in notificationRequests {
             // ローカル通知をスケジュール
-            notificationCenter.add(notificationRequest) { (error) in
+            await notificationCenter.add(notificationRequest) { (error) in
                 if let error = error {
                     print("Error \(error.localizedDescription)")
                     return

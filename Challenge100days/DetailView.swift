@@ -166,11 +166,12 @@ struct DetailView: View {
                 Task{
                     await coreDataViewModel.deleteData(data:item)
                     await coreDataViewModel.assignNumbers()
+                    if notificationViewModel.isNotificationOn{
+                        await notificationViewModel.setNotification(item: coreDataViewModel.allData.last)
+                    }
                 }
                 
-                if notificationViewModel.isNotificationOn{
-                    notificationViewModel.setNotification(item: coreDataViewModel.allData.last)
-                }
+
                 dismiss()
             }
             Button("戻る",role: .cancel){}

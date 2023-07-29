@@ -24,9 +24,6 @@ struct CompleteWindowView: View {
     ///画面戻る用のフラグ
     @Binding var closed:Bool
     
-    ///実績取り消し押下後の確認アラート用のフラグ
-    @State var showCansel = false
-    
     ///表示＆共有用の画像
     @State var image: Image?
     
@@ -67,7 +64,7 @@ struct CompleteWindowView: View {
                 
                 VStack{
                     //シェアボタン
-                    ShareLink(item: image ?? Image("noImage") , preview: SharePreview("画像", image:image ?? Image("noImage"))){
+                    ShareLink(item: image ?? Image("noImage") , preview: SharePreview("画像", image: image ?? Image("noImage"))){
                         LeftIconBigButton(icon: Image(systemName: "square.and.arrow.up"), text: "シェアする")
                             .foregroundColor(.blue.opacity(0.9))
                     }
@@ -80,6 +77,13 @@ struct CompleteWindowView: View {
                             .foregroundColor(.green.opacity(0.9))
                     }
                 }.padding(30)
+                
+                    .onAppear{
+                        image = generateImageWithText(number: dayNumber, day: coreDataViewModel.allData.last?.date ?? Date.now)
+                    }
+                    .onDisappear{
+                        showCompleteWindew = false
+                    }
             }
         }
         .padding()
