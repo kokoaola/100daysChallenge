@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		3B0027E12A738FDD00520699 /* SpeechBubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0027E02A738FDD00520699 /* SpeechBubble.swift */; };
-		3B0027F12A7620DF00520699 /* Challenge100daysApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0027F02A7620DF00520699 /* Challenge100daysApp.swift */; };
 		3B0027F42A76216800520699 /* challengedDay.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3B0027F22A76216800520699 /* challengedDay.xcdatamodeld */; };
 		3B0027F62A76217800520699 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0027F52A76217800520699 /* DataController.swift */; };
 		3B0027F82A76218E00520699 /* AppSettingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0027F72A76218E00520699 /* AppSettingModel.swift */; };
@@ -16,6 +15,7 @@
 		3B0027FE2A7621A800520699 /* TutorialView3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0027FA2A7621A800520699 /* TutorialView3.swift */; };
 		3B0027FF2A7621A800520699 /* TutorialView1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0027FB2A7621A800520699 /* TutorialView1.swift */; };
 		3B0028002A7621A800520699 /* TutorialViewTop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0027FC2A7621A800520699 /* TutorialViewTop.swift */; };
+		3B0028042A76248800520699 /* Challenge100daysApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0028032A76248800520699 /* Challenge100daysApp.swift */; };
 		3B0D983A2A053D430001FD0A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3BC602C02986AC1500198F1B /* Assets.xcassets */; };
 		3B0D983C2A068DD20001FD0A /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0D983B2A068DD20001FD0A /* WebView.swift */; };
 		3B246ABA2A0698ED00CB7EED /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B246AB92A0698ED00CB7EED /* Contact.swift */; };
@@ -47,7 +47,6 @@
 
 /* Begin PBXFileReference section */
 		3B0027E02A738FDD00520699 /* SpeechBubble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechBubble.swift; sourceTree = "<group>"; };
-		3B0027F02A7620DF00520699 /* Challenge100daysApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Challenge100daysApp.swift; path = ../../100days/Challenge100days/Challenge100daysApp.swift; sourceTree = "<group>"; };
 		3B0027F32A76216800520699 /* challengedDay.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = challengedDay.xcdatamodel; sourceTree = "<group>"; };
 		3B0027F52A76217800520699 /* DataController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		3B0027F72A76218E00520699 /* AppSettingModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppSettingModel.swift; path = Challenge100days/AppSettingModel.swift; sourceTree = SOURCE_ROOT; };
@@ -55,6 +54,7 @@
 		3B0027FA2A7621A800520699 /* TutorialView3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TutorialView3.swift; path = Challenge100days/TutorialView3.swift; sourceTree = SOURCE_ROOT; };
 		3B0027FB2A7621A800520699 /* TutorialView1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TutorialView1.swift; path = Challenge100days/TutorialView1.swift; sourceTree = SOURCE_ROOT; };
 		3B0027FC2A7621A800520699 /* TutorialViewTop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TutorialViewTop.swift; path = Challenge100days/TutorialViewTop.swift; sourceTree = SOURCE_ROOT; };
+		3B0028032A76248800520699 /* Challenge100daysApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Challenge100daysApp.swift; sourceTree = "<group>"; };
 		3B0D983B2A068DD20001FD0A /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
 		3B246AB92A0698ED00CB7EED /* Contact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
 		3B3CFFFA298E236300102EEE /* generateImageWithText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = generateImageWithText.swift; sourceTree = "<group>"; };
@@ -228,8 +228,8 @@
 		3BC602BB2986AC1400198F1B /* Challenge100days */ = {
 			isa = PBXGroup;
 			children = (
-				3B0027F02A7620DF00520699 /* Challenge100daysApp.swift */,
 				3B0027F22A76216800520699 /* challengedDay.xcdatamodeld */,
+				3B0028032A76248800520699 /* Challenge100daysApp.swift */,
 				3B0027F52A76217800520699 /* DataController.swift */,
 				3B0027E62A7615C000520699 /* Models */,
 				3B0027E72A7615F400520699 /* Views */,
@@ -351,7 +351,7 @@
 				3BC602BF2986AC1400198F1B /* ContentView.swift in Sources */,
 				3B0027F42A76216800520699 /* challengedDay.xcdatamodeld in Sources */,
 				3B0027FF2A7621A800520699 /* TutorialView1.swift in Sources */,
-				3B0027F12A7620DF00520699 /* Challenge100daysApp.swift in Sources */,
+				3B0028042A76248800520699 /* Challenge100daysApp.swift in Sources */,
 				3B0D983C2A068DD20001FD0A /* WebView.swift in Sources */,
 				3B75EB0D298BD0B1000FCDE9 /* MemoSheet.swift in Sources */,
 				3BC602CF2986B50B00198F1B /* CompleteWindowView.swift in Sources */,

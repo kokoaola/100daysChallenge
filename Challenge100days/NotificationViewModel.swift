@@ -140,7 +140,7 @@ class NotificationViewModel: ObservableObject{
         
         for notificationRequest in notificationRequests {
             // ローカル通知をスケジュール
-            await notificationCenter.add(notificationRequest) { (error) in
+            notificationCenter.add(notificationRequest) { (error) in
                 if let error = error {
                     print("Error \(error.localizedDescription)")
                     return
