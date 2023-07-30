@@ -7,17 +7,12 @@
 
 import SwiftUI
 
+
+///チュートリアル１ページ目
 struct TutorialView1: View {
-    ///ページ全体のカラー情報を格納
-    @AppStorage("colorkeyTop") var storedColorTop: Color = .blue
-    @AppStorage("colorkeyBottom") var storedColorBottom: Color = .green
     
-    ///カラー設定ピッカー用の変数
-    @AppStorage("colorNumber") var colorNumber = 0
-    
-    ///CoreData用の変数
-    @Environment(\.managedObjectContext) var moc
-    @FetchRequest(sortDescriptors: [NSSortDescriptor(key:"date", ascending: true)]) var days: FetchedResults<DailyData>
+    ///ViewModel用の変数
+    @EnvironmentObject var userSettingViewModel:UserSettingViewModel
     
     ///カラー設定ピッカー用の変数
     @State var selectedColor = 0
@@ -25,18 +20,16 @@ struct TutorialView1: View {
     ///表示中のページ番号を格納
     @Binding var page: Int
     
+    
     var body: some View {
 
-        VStack(alignment: .leading){
+        VStack(alignment: .leading, spacing: 50){
 
             Text("はじめまして。")
-                .padding(.bottom, 50)
-            Text("このアプリは、あなたの目標達成までの道のりを\n100日間サポートするためのアプリです。")
-                .padding(.bottom, 50)
-            
+            Text("このアプリは、あなたの目標達成までの道のりを100日間サポートするためのアプリです。")
             Text("まずはアプリ全体の色を選んでください。")
-                .padding(.bottom, 20)
             
+            //背景色選択用のピッカー
             Picker(selection: $selectedColor) {
                 Text("青").tag(0)
                 Text("オレンジ").tag(1)
@@ -45,57 +38,29 @@ struct TutorialView1: View {
             } label: {
                 Text("")
             }
-            
             .pickerStyle(.segmented)
             
-            
-            
-            
+
             Spacer()
+            
+            //進むボタン
             Button {
                 page = 2
-                colorNumber = selectedColor
+                userSettingViewModel.saveUserSettingAppColor(colorNum: selectedColor)
             } label: {
-                NextButton()
-                    .foregroundColor(.green)
-                
+                ArrowButton(isBackButton: false, labelText: "次へ")
             }
             .padding(.bottom, 30)
             .frame(maxWidth: .infinity,alignment: .bottomTrailing)
-            
         }
         .padding()
-        .foregroundColor(Color(UIColor.label))
         
-        .onAppear{
-            UserDefaults.standard.set(1, forKey: "todayIs")
-            selectedColor = colorNumber
-            for item in days{
-                moc.delete(item)
-                try? moc.save()
-            }
-        }
         
+        //ピッカーが選択される毎に背景色を変更
         .onChange(of: selectedColor) { newValue in
-            switch newValue{
-            case 0:
-                storedColorTop = .blue
-                storedColorBottom = .green
-            case 1:
-                storedColorTop = .green
-                storedColorBottom = .yellow
-            case 2:
-                storedColorTop = .purple
-                storedColorBottom = .blue
-            case 3:
-                storedColorTop = .black
-                storedColorBottom = .black
-                
-            default:
-                return
-            }
+            userSettingViewModel.userSelectedColor = newValue
+            userSettingViewModel.saveUserSettingAppColor(colorNum: newValue)
         }
-        
     }
 }
 
@@ -109,5 +74,6 @@ struct TutorialView1_Previews: PreviewProvider {
             TutorialView1(page: $sampleNum)
                 .environment(\.locale, Locale(identifier:"en"))
         }
+        .environmentObject(UserSettingViewModel())
     }
 }

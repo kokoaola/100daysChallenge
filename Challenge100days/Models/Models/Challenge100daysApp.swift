@@ -1,8 +1,8 @@
 //
-//  App.swift
+//  Challenge100daysApp.swift
 //  Challenge100days
 //
-//  Created by koala panda on 2023/07/30.
+//  Created by koala panda on 2023/01/29.
 //
 
 import SwiftUI

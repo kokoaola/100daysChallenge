@@ -7,11 +7,35 @@
 
 import SwiftUI
 
-struct NextButton: View {
+
+///シート等の閉じるボタンのビュー
+struct CloseButton: View{
+    var body: some View {
+        Image(systemName: "xmark")
+            .font(.title3).foregroundColor(.primary)
+            .padding()
+    }
+}
+
+
+///チュートリアル用の矢印付きボタンのビュー
+struct ArrowButton: View{
+    ///戻るボタンか選択する変数
+    var isBackButton: Bool
+    ///表示する文言を格納する変数
+    var labelText: String
+    
+    ///角丸のレベルを格納する変数
     let radius:CGFloat = 10.0
+    
+    ///ボタンの幅を格納する変数
     let width = AppSetting.screenWidth / 3
+    
+    ///ボタンの高さを格納する変数
     let height = AppSetting.screenWidth / 6
-    let 文字と内側の枠の色 = Color(UIColor.white)
+    
+    ///文字色を格納する変数
+    let tint = Color.white
     
     var body: some View {
         ZStack(alignment: .center){
@@ -20,66 +44,35 @@ struct NextButton: View {
                 .frame(width: width, height: height)
             
             HStack(alignment: .firstTextBaseline, spacing: 5){
-                Text("次へ")
-                Image(systemName: "arrowshape.right")
+                if isBackButton{
+                    Image(systemName: "arrowshape.left")
+                    Text(LocalizedStringKey(labelText))
+                }else{
+                    Text(LocalizedStringKey(labelText))
+                    Image(systemName: "arrowshape.right")
+                }
             }
             .font(.title2.weight(.bold))
-            .foregroundColor(文字と内側の枠の色)
+            .foregroundColor(tint)
         }
+        .foregroundColor( isBackButton ? .orange : .green)
     }
 }
 
 
-struct BackButton: View {
-    let radius:CGFloat = 10.0
-    let width = AppSetting.screenWidth / 3
-    let height = AppSetting.screenWidth / 6
-    let 文字と内側の枠の色 = Color(UIColor.white)
-    
-    var body: some View {
-        ZStack(alignment: .center){
-            
-            RoundedRectangle(cornerRadius: radius)
-                .frame(width: width, height: height)
-            
-            HStack(alignment: .firstTextBaseline, spacing: 5){
-                Image(systemName: "arrowshape.left")
-                Text("戻る")
-            }
-            .font(.title2.weight(.bold))
-            .foregroundColor(文字と内側の枠の色)
-        }
-    }
-}
-
-struct StartButton: View {
-    let radius:CGFloat = 10.0
-    let width = AppSetting.screenWidth / 3
-    let height = AppSetting.screenWidth / 6
-    let 文字と内側の枠の色 = Color(UIColor.white)
-    
-    var body: some View {
-        ZStack(alignment: .center){
-            
-            RoundedRectangle(cornerRadius: radius)
-                .frame(width: width, height: height)
-            
-            HStack(alignment: .firstTextBaseline, spacing: 5){
-                Text("始める")
-                Image(systemName: "arrowshape.right")
-            }
-            .font(.title2.weight(.bold))
-            .foregroundColor(文字と内側の枠の色)
-        }
-    }
-}
-
-
+///保存ボタンビュー
 struct SaveButton: View {
+    ///角丸のレベルを格納する変数
     let radius:CGFloat = 10.0
+    
+    ///ボタンの幅を格納する変数
     let width = AppSetting.screenWidth / 3
+    
+    ///ボタンの高さを格納する変数
     let height = AppSetting.screenWidth / 6
-    let 文字と内側の枠の色 = Color(UIColor.white)
+    
+    ///文字色を格納する変数
+    let tint = Color.white
     
     var body: some View {
         ZStack(alignment: .center){
@@ -92,41 +85,21 @@ struct SaveButton: View {
                 Image(systemName: "checkmark.circle")
             }
             .font(.title2.weight(.bold))
-            .foregroundColor(文字と内側の枠の色)
+            .foregroundColor(tint)
         }
     }
 }
 
-//struct TutorialButton2: View {
-//    let radius:CGFloat = 10.0
-//    let width = AppSetting.screenWidth / 3
-//    let height = AppSetting.screenWidth / 6
-//    let labelString: String
-//    let labelImage : String
-//    let 文字と内側の枠の色 = Color(UIColor.white)
-//
-//    var body: some View {
-//        ZStack{
-//
-//            RoundedRectangle(cornerRadius: radius)
-//                .frame(width: width, height: height)
-//            HStack(alignment: .lastTextBaseline){
-//                Image(systemName: labelImage)
-//                Text(labelString)
-//
-//            }
-//            .font(.title2.weight(.bold))
-//            .foregroundColor(文字と内側の枠の色)
-//
-//        }
-//    }
-//}
 
-
-
+///コンプリートボタンビュー
 struct CompleteButton: View {
+    ///ボタンの幅を格納する変数
     let width = 300.0
+    
+    ///ボタンの高さを格納する変数
     let height = 170.0
+    
+    ///番号を受け取って格納する変数
     let num: Int
     
     var body: some View {
@@ -154,185 +127,72 @@ struct CompleteButton: View {
     }
 }
 
-//struct OriginalButton: View {
-//    let radius:CGFloat = 10.0
-//    let width = AppSetting.screenWidth / 1.7
-//    let height = AppSetting.screenWidth / 5
-//    let labelString: String
-//    let labelImage : String
-//    let 文字と内側の枠の色 = Color(UIColor.white)
-//    
-//    var body: some View {
-//        ZStack{
-//            
-//            RoundedRectangle(cornerRadius: radius)
-//                .frame(width: width, height: height)
-//                .foregroundColor(文字と内側の枠の色)
-//            
-//            
-//            RoundedRectangle(cornerRadius: radius)
-//                .frame(width: width - 7, height: height - 7)
-//            
-//            HStack(alignment: .lastTextBaseline){
-//                Image(systemName: labelImage)
-//                Text(labelString)
-//            }
-//            .font(.title2.weight(.bold))
-//            .foregroundColor(文字と内側の枠の色)
-//        }
-//    }
-//}
 
-
-struct CloseButton: View{
-    var body: some View {
-        Image(systemName: "xmark")
-            .font(.title3).foregroundColor(.primary)
-            .padding()
-    }
+///アイコンが左にある大きいボタンのビュー
+struct LeftIconBigButton: View{
+    ///アイコンを受け取って格納する変数
+    let icon: Image?
     
-}
-
-
-struct ShareButton: View {
+    ///表示するStringを受け取って格納する変数
+    let text: String
+    
+    ///角丸のレベルを格納する変数
     let radius:CGFloat = 10.0
+    
+    ///ボタンの幅を格納する変数
     let width = AppSetting.screenWidth / 1.7
+    
+    ///ボタンの高さを格納する変数
     let height = AppSetting.screenWidth / 5
-    let borderColor = Color(UIColor.white)
+    
+    ///文字色を格納する変数
+    let tint = Color(UIColor.white)
     
     var body: some View {
         ZStack{
             RoundedRectangle(cornerRadius: radius)
                 .frame(width: width, height: height)
-                .foregroundColor(borderColor)
+                .foregroundColor(tint)
             RoundedRectangle(cornerRadius: radius)
                 .frame(width: width - 7, height: height - 7)
             HStack(alignment: .lastTextBaseline){
-                Image(systemName: "square.and.arrow.up")
-                Text("シェアする")
+                icon
+                Text(LocalizedStringKey(text))
             }
             .font(.title2.weight(.bold))
-            .foregroundColor(borderColor)
-        }
-    }
-}
-
-struct MemoButton: View {
-    let radius:CGFloat = 10.0
-    let width = AppSetting.screenWidth / 1.7
-    let height = AppSetting.screenWidth / 5
-    let borderColor = Color(UIColor.white)
-    
-    var body: some View {
-        ZStack{
-            RoundedRectangle(cornerRadius: radius)
-                .frame(width: width, height: height)
-                .foregroundColor(borderColor)
-            RoundedRectangle(cornerRadius: radius)
-                .frame(width: width - 7, height: height - 7)
-            HStack(alignment: .lastTextBaseline){
-                Image(systemName: "rectangle.and.pencil.and.ellipsis")
-                Text("メモを追加")
-            }
-            .font(.title2.weight(.bold))
-            .foregroundColor(borderColor)
+            .foregroundColor(tint)
         }
     }
 }
 
 
-struct SpeechBubble: Shape {
-    private let radius = 10.0
-    private let tailSize = 20.0
-    
-    func path(in rect: CGRect) -> Path {
-        Path { path in
-            path.move(to: CGPoint(x: rect.minX + radius, y: rect.minY))
-            path.addLine(to: CGPoint(x: rect.minX + rect.width / 2, y: rect.minY))
-            path.addCurve(
-                to: CGPoint(x: rect.minX + rect.width / 2 + tailSize, y: rect.minY),
-                control1: CGPoint(x: rect.minX + rect.width / 2, y: rect.minY - tailSize),
-                control2: CGPoint(x: rect.minX + rect.width / 2 + tailSize / 2, y: rect.minY)
-            )
-            path.addArc(
-                center: CGPoint(x: rect.maxX - radius, y: rect.minY + radius),
-                radius: radius,
-                startAngle: Angle(degrees: -90),
-                endAngle: Angle(degrees: 0),
-                clockwise: false
-            )
-            path.addArc(
-                center: CGPoint(x: rect.maxX - radius, y: rect.maxY - radius),
-                radius: radius,
-                startAngle: Angle(degrees: 0),
-                endAngle: Angle(degrees: 90),
-                clockwise: false
-            )
-            path.addArc(
-                center: CGPoint(x: rect.minX + radius, y: rect.maxY - radius),
-                radius: radius,
-                startAngle: Angle(degrees: 90),
-                endAngle: Angle(degrees: 180),
-                clockwise: false
-            )
-            path.addArc(
-                center: CGPoint(x: rect.minX + radius, y: rect.minY + radius),
-                radius: radius,
-                startAngle: Angle(degrees: 180),
-                endAngle: Angle(degrees: 270),
-                clockwise: false
-            )
-        }
-    }
-}
 
-
-struct okButton: View {
-    let radius:CGFloat = 10.0
-    let width = AppSetting.screenWidth / 1.7
-    let height = AppSetting.screenWidth / 5
-    let borderColor = Color(UIColor.white)
-    
-    var body: some View {
-        ZStack{
-            RoundedRectangle(cornerRadius: radius)
-                .frame(width: width, height: height)
-                .foregroundColor(borderColor)
-            RoundedRectangle(cornerRadius: radius)
-                .frame(width: width - 7, height: height - 7)
-            HStack(alignment: .lastTextBaseline){
-                Text("決定")
-            }
-            .font(.title2.weight(.bold))
-            .foregroundColor(borderColor)
-        }
-    }
-}
 
 struct OriginalButton_Previews: PreviewProvider {
     static var previews: some View {
         Group{
             
             VStack{
+                LeftIconBigButton(icon: Image(systemName: "rectangle.and.pencil.and.ellipsis"), text: "メモを追加")
+                
                 CloseButton()
-                NextButton()
-                BackButton()
+                HStack{
+                    ArrowButton(isBackButton: true, labelText: "戻る")
+                    ArrowButton(isBackButton: false, labelText: "次へ")
+                }
+                SaveButton()
                 CompleteButton(num: 1)
-                ShareButton()
-                MemoButton()
-                okButton()
-                SpeechBubble()
             }
             .environment(\.locale, Locale(identifier:"en"))
             
             VStack{
-                NextButton()
-                BackButton()
+                CloseButton()
+                HStack{
+                    ArrowButton(isBackButton: true, labelText: "戻る")
+                    ArrowButton(isBackButton: false, labelText: "次へ")
+                }
+                SaveButton()
                 CompleteButton(num: 1)
-                ShareButton()
-                MemoButton()
-                //OriginalButton(labelString: "シェアする", labelImage: "square.and.arrow.up")
-                SpeechBubble()
             }
             .environment(\.locale, Locale(identifier:"ja"))
         }

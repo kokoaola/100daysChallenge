@@ -8,46 +8,43 @@
 import SwiftUI
 import UserNotifications
 
+
+///設定画面のビュー
 struct SettingView: View {
+    ///ViewModel用の変数
     @EnvironmentObject var notificationViewModel :NotificationViewModel
+    @EnvironmentObject var userSettingViewModel:UserSettingViewModel
+    @EnvironmentObject var coreDataViewModel:CoreDataViewModel
     
-    ///CoreData用の変数
-    @Environment(\.managedObjectContext) var moc
-    @FetchRequest(sortDescriptors: [NSSortDescriptor(key:"date", ascending: true)]) var days: FetchedResults<DailyData>
-    
-    @AppStorage("colorkeyTop") var storedColorTop: Color = .blue
-    @AppStorage("colorkeyBottom") var storedColorBottom: Color = .green
-    @AppStorage("isFirst") var isFirst = true
-    
-    @AppStorage("colorNumber") var colorNumber = 0
+    ///目標隠すかどうかのフラグ
     @AppStorage("hideInfomation") var hideInfomation = false
-    @State var selectedColor = 10
-    @State var isRiset = false
-    @State var isEdit = false
-    @State var isLong = false
     
-    @State var isButtonPressed = false
-    @State var myName = ""
+    ///カラー設定ピッカー用の変数
+    @State private var selectedColor = 0
+    
+    ///全データ削除の確認アラート表示用の変数
+    @State private var showResetAlert = false
+    
+    ///動作完了時にのトーストポップアップ用変数
+    @State private var showToast = false
+    @State private var toastText = ""
+    
+    ///通知確認用の変数
     let center = UNUserNotificationCenter.current()
     
-    ///長期目標再設定用
-    ///アラート表示
-    @State var isLongTermGoalEditedAlert = false
-    ///編集中の文章の格納
-    @State var currentLongTermGoal = ""
-    ///現在の目標
-    @AppStorage("longTermGoal") var longTermGoal: String = ""
-    
-    ///アラート表示
-    @State var isShortTermGoalEditedAlert = false
-    ///編集中の文章の格納
-    @State var currentShortTermGoal = ""
-    ///現在の目標
-    @AppStorage("shortTermGoal") var shortTermGoal: String = ""
-    
+    ///通知状態の格納用変数
     @State private var isNotificationEnabled = false
+    
+    ///通知をお願いするアラート表示用のフラグ（設定画面への遷移ボタン）
     @State private var showNotificationAlert = false
-    //scenePhaseと呼ばれる環境値を監視するための新しいプロパティを追加します。
+    
+    ///目標再設定アラート表示用変数
+    @State var showGoalEdittingAlert = false
+    
+    ///長期目標か短期目標かのフラグ
+    @State private var isLongTermGoal = false
+    
+    ///バックグラウンド移行と復帰の環境値を監視する
     @Environment(\.scenePhase) var scenePhase
     
     
@@ -55,10 +52,11 @@ struct SettingView: View {
         NavigationStack{
             
             ZStack{
-
+                
                 VStack(spacing: 50) {
                     List{
-//                        アプリ全体の色を変更するボタン
+                        
+                        //アプリ全体の色を変更するセル
                         Section(){
                             Picker(selection: $selectedColor) {
                                 Text("青").tag(0)
@@ -69,16 +67,16 @@ struct SettingView: View {
                                 Text("アプリの色を変更する")
                             }
                             
-                            //                            トップ画面の目標を非表示にするボタン
+                            // トップ画面の目標を非表示にするセル
                             Toggle("目標を隠す", isOn: $hideInfomation)
                                 .tint(.green)
                                 .accessibilityHint("トップ画面の目標を非表示にします")
                             
-                            //                            バックアップ
+                            // 通知設定用のセル
                             ZStack{
                                 Rectangle().foregroundColor(.clear)
-                                
                                     .contentShape(Rectangle())
+                                //タップ時に通知の許可を判定、許可されていれば画面遷移
                                     .onTapGesture {
                                         center.requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
                                             if let error = error {
@@ -97,61 +95,63 @@ struct SettingView: View {
                                     }
                                     .disabled(isNotificationEnabled)
                                 
-                                
-                                
                                 NavigationLink {
-                                    NotificationView().environmentObject(NotificationViewModel())
+                                    NotificationView(showToast: $showToast, toastText: $toastText)
                                 } label: {
-                                    
                                     Text("通知を設定する")
                                 }
-
+                                
                             }
-
+                            
                         }
                         
                         Section{
-                            
-//                            長期目標変更用のボタン
+                            //長期目標変更用のセル
                             Button("目標を変更する") {
+                                showToast = false
                                 withAnimation(.easeOut(duration: 0.1)) {
-                                    isLongTermGoalEditedAlert = true
+                                    isLongTermGoal = true
+                                    withAnimation {
+                                        showGoalEdittingAlert = true
+                                    }
                                 }
-                                currentLongTermGoal = longTermGoal
                             }
                             
-//                            短期目標変更用のボタン
+                            //短期目標変更用のセル
                             Button("100日取り組む内容を変更する") {
+                                showToast = false
                                 withAnimation(.easeOut(duration: 0.1)) {
-                                    isShortTermGoalEditedAlert = true
+                                    isLongTermGoal = false
+                                    withAnimation {
+                                        showGoalEdittingAlert = true
+                                    }
                                 }
-                                currentShortTermGoal = shortTermGoal
                             }
                         }
                         
                         Section{
-//                            バックアップ
+                            //バックアップデータ取得用のセル
                             NavigationLink {
                                 BackUpView()
                             } label: {
                                 Text("バックアップ")
                             }
                             
-                            
+                            //プライバシーポリシーページ遷移用のセル
                             NavigationLink {
                                 WebView()
                             } label: {
                                 Text("プライバシーポリシー")
                             }
                             
-                            
+                            //アプリ解説ページ遷移用のセル
                             NavigationLink {
                                 AboutThisApp()
                             } label: {
                                 Text("このアプリについて")
                             }
                             
-                            
+                            //お問い合わせページ遷移用のセル
                             NavigationLink {
                                 ContactWebView()
                             } label: {
@@ -159,6 +159,7 @@ struct SettingView: View {
                             }
                         }
                         
+                        //全データ消去用のセル
                         Section{
                             HStack{
                                 Spacer()
@@ -168,100 +169,72 @@ struct SettingView: View {
                             }
                             .contentShape(Rectangle())
                             .onTapGesture {
-                                isRiset = true
+                                showResetAlert = true
                             }
                         }
                     }
-                    .disabled(isEdit)
+                    //アラート表示中はリスト無効、背景透ける
+                    .disabled(showGoalEdittingAlert)
+                    .accessibilityHidden(showGoalEdittingAlert)
+                    .opacity(showGoalEdittingAlert ? 0.3 : 1.0)
+                    .animation(nil, value: showGoalEdittingAlert)
                     .foregroundColor(Color(UIColor.label))
-                    
                 }
                 
+                //ナビゲーションの設定
                 .navigationTitle("設定")
                 .navigationBarTitleDisplayMode(.inline)
                 .navigationViewStyle(.stack)
-//                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
                 .scrollContentBackground(.hidden)
-                .accessibilityHidden(isLongTermGoalEditedAlert || isShortTermGoalEditedAlert)
-                .opacity(isLongTermGoalEditedAlert || isShortTermGoalEditedAlert ? 0.3 : 1.0)
+                //背景グラデーション設定
+                .modifier(UserSettingGradient(appColorNum: userSettingViewModel.userSelectedColor))
                 
-                .userSettingGradient(colors: [storedColorTop, storedColorBottom])
-                
-                if isLongTermGoalEditedAlert{
-                    VStack{
-                        EditGoal(showAlert: $isLongTermGoalEditedAlert, isLong: true)
-                            .transition(.offset(CGSizeZero))
-                    }
-
-
-                }else if isShortTermGoalEditedAlert{
-                    VStack{
-                        EditGoal(showAlert: $isShortTermGoalEditedAlert, isLong: false)
-                    }
+                //目標編集セルタップ後に出現するテキストフィールド付きアラート
+                if showGoalEdittingAlert{
+                    EditGoal(showAlert: $showGoalEdittingAlert,showToast: $showToast,toastText: $toastText, isLong: isLongTermGoal)
+                        .transition(.slide)
                 }
+                
+                //完了時に表示されるトーストポップアップ
+                ToastView(show: $showToast, text: toastText)
             }
+            .environmentObject(coreDataViewModel)
+            .environmentObject(notificationViewModel)
+            .environmentObject(userSettingViewModel)
         }
         
-        
+        //ピッカーが選択される毎に背景色を変更
         .onChange(of: selectedColor) { newValue in
-            switch newValue{
-            case 0:
-                storedColorTop = .blue
-                storedColorBottom = .green
-                
-            case 1:
-                storedColorTop = .green
-                storedColorBottom = .yellow
-            case 2:
-                storedColorTop = .purple
-                storedColorBottom = .blue
-            case 3:
-                storedColorTop = .black
-                storedColorBottom = .black
-                
-            default:
-                storedColorTop = .blue
-                storedColorBottom = .green
-            }
-            colorNumber = selectedColor
+            userSettingViewModel.userSelectedColor = newValue
+            userSettingViewModel.saveUserSettingAppColor(colorNum: newValue)
         }
         
+        
+        //バックグラウンド復帰時に通知の状態を確認
+        //これしないと通知OFFでも通知設定画面に遷移できてしまうため
         .onChange(of: scenePhase) { newPhase in
             center.requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
-                if let error = error {
-                    return
-                    //error.localizedDescription
-                }
-                
                 if success {
-//                    print("All set!")
                     isNotificationEnabled = true
                 }else {
-//                    print("!")
                     isNotificationEnabled = false
                 }
             }
         }
         
-        .onAppear{
-            selectedColor = colorNumber
-            //            print("aa")
-        }
-        
-        ///削除ボタン押下時のアラート
-        .alert("リセットしますか？", isPresented: $isRiset){
+        //リセットボタン押下時のアラート
+        .alert("リセットしますか？", isPresented: $showResetAlert){
             Button("リセットする",role: .destructive){
-                isFirst = true
-                longTermGoal = ""
-                shortTermGoal = ""
-                delete()
                 notificationViewModel.resetNotification()
+                userSettingViewModel.resetUserSetting()
+                coreDataViewModel.deleteAllData()
             }
             Button("戻る",role: .cancel){}
         }message: {
             Text("この動作は取り消せません。")
         }
         
+        //通知セルタップ時に通知がOFFになっている時のアラート
         .alert("通知が許可されていません", isPresented: $showNotificationAlert){
             Button("通知画面を開く") {
                 if let url = URL(string: UIApplication.openSettingsURLString) {
@@ -273,18 +246,9 @@ struct SettingView: View {
             Text("設定画面から通知を許可してください")
         }
     }
-    
-    
-    
-    ///削除用の関数
-    func delete(){
-        for item in days{
-            moc.delete(item)
-            try? moc.save()
-        }
-        UserDefaults.standard.set(1, forKey: "todayIs")
-    }
 }
+
+
 
 
 struct SettingView_Previews: PreviewProvider {
@@ -292,9 +256,12 @@ struct SettingView_Previews: PreviewProvider {
         Group{
             SettingView()
                 .environment(\.locale, Locale(identifier:"en"))
-
+            
             SettingView()
                 .environment(\.locale, Locale(identifier:"ja"))
         }
+        .environmentObject(CoreDataViewModel())
+        .environmentObject(UserSettingViewModel())
+        .environmentObject(NotificationViewModel())
     }
 }

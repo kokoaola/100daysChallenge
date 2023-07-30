@@ -9,6 +9,7 @@ import SwiftUI
 import UIKit
 
 
+///引数で受け取った日付と番号を入れて画像を生成するメソッド
 func generateImageWithText(number: Int, day: Date) -> Image {
     
     //日数に応じて画像を指定
@@ -67,34 +68,29 @@ func generateImageWithText(number: Int, day: Date) -> Image {
     //複数行表示するための設定(最大行使える)
     label.numberOfLines = 0
     
-    
-    
-    
-    
-    ///一番大きい100daysの部分
+    //一番大きい100daysの部分
     let stringAttributes1: [NSAttributedString.Key : Any] = [
         .font: UIFont.systemFont(ofSize: image.size.width / 11, weight: UIFont.Weight.heavy, width: UIFont.Width(rawValue: 0)),.kern: 3,
     ]
-    ///本文
+    //本文
     let string1 = NSAttributedString(string: "100 days challenge\nDay \(number) Done!\n", attributes: stringAttributes1)
     
-    
-    ///日付の部分
+    //日付の部分
     let stringAttributes2: [NSAttributedString.Key : Any] = [
         .font: UIFont.systemFont(ofSize: image.size.width / 16,weight: UIFont.Weight.black,width: UIFont.Width(rawValue: 0.0)),.kern: 3,
     ]
-    ///本文
+    
+    //本文
     let string2 = NSAttributedString(string: "\(year.year!) / \(year.month!) / \(year.day!)", attributes: stringAttributes2)
     
-    
-    ///空白部分
+    //空白部分
     let empty: [NSAttributedString.Key : Any] = [
         .font: UIFont.systemFont(ofSize: image.size.width / 28, weight: UIFont.Weight.regular)
     ]
     let emptystring = NSAttributedString(string: "\n", attributes:empty)
     
     
-    ///クレジットの部分
+    //クレジットの部分
     let para = NSMutableParagraphStyle()
     para.alignment = .right
     para.tailIndent = -50
@@ -105,21 +101,17 @@ func generateImageWithText(number: Int, day: Date) -> Image {
         .baselineOffset: 0,
         .paragraphStyle: para,
     ]
-    
     var formattedString = imageName
     
-    ///何枚もある作家は番号を削除
+    //何枚もある作家は番号を削除
     if imageName.contains("Alejandro"){
         formattedString.removeLast()
     }
-    ///本文
+    //本文
     let string3 = NSAttributedString(string: " Photo by \(formattedString) ", attributes:stringAttributes3)
     
-    
-    
-    
+    //attributedに追加する
     let mutableAttributedString = NSMutableAttributedString()
-    
     mutableAttributedString.append(emptystring)
     mutableAttributedString.append(emptystring)
     mutableAttributedString.append(emptystring)
@@ -131,9 +123,7 @@ func generateImageWithText(number: Int, day: Date) -> Image {
     mutableAttributedString.append(emptystring)
     mutableAttributedString.append(emptystring)
     mutableAttributedString.append(string3)
-    
     label.attributedText = mutableAttributedString
-    
     
     //作ったラベルを重ねる
     UIGraphicsBeginImageContextWithOptions(label.bounds.size, false, 0)
@@ -142,80 +132,12 @@ func generateImageWithText(number: Int, day: Date) -> Image {
     let imageWithText = UIGraphicsGetImageFromCurrentImageContext()
     UIGraphicsEndImageContext()
     
-    //Imageを返したいときはこっち
+    //Imageを返すときはこっち
     return Image(uiImage: imageWithText!)
     
-    //UIImageを返したいときはこっち
+    //UIImageを返すときはこっち
     //return imageWithText ?? UIImage(named: "noImage")!
     
-    //Dataを返したいときはこっち
+    //Dataを返すときはこっち
     //return imageWithText?.jpegData(compressionQuality: 1)
 }
-
-
-
-
-//func generateImageWithText(imageName: String, number: Int, day: Date) -> Image {
-//    //画像をUIImageViewに変換に変換
-//    guard let image = UIImage(named: imageName) else{ return Image("noImage") }
-//    let imageView = UIImageView(image: image)
-//    imageView.backgroundColor = UIColor.clear
-//    imageView.frame = CGRect(x: 0, y: 0, width: image.size.width, height: image.size.height)
-//
-//    //画像に重ねたい文字を設定
-//    let year = Calendar(identifier: .gregorian).dateComponents([.year, .month, .day], from: day)
-//    let text = "100 days challenge\nDay \(number) Done!\n\n\(year.year!) / \(year.month!) / \(year.day!)"
-//
-//    //太さやサイズを指定してラベルを作る
-//    let label = UILabel(frame: CGRect(x: 0, y: 0, width: image.size.width, height: image.size.height))
-//    //label.adjustsFontSizeToFitWidth = true
-//    label.backgroundColor = UIColor.clear
-//    label.textAlignment = .center
-//    label.textColor = UIColor.white
-//    label.text = text
-//    //label.directionalLayoutMargins = 1.0
-//    //フォントサイズと書体変更している（サイズだけなら label.font.withSize(500)でOK）
-//    label.font = UIFont.systemFont(ofSize: image.size.width / 10, weight: UIFont.Weight(rawValue: 0.6), width: UIFont.Width(rawValue: 0.0))
-//    //label.font = UIFont(name: "Verdana-Bold", size: 100)
-//    //複数行表示するための設定(最大業使える)
-//    label.numberOfLines = 0
-//
-//
-//    //一部文字サイズを変更するための設定
-//    let text2 = NSMutableAttributedString(string: text)
-//    let count1 = "100 days challenge\nDay \(number) Done!\n".count
-//    let count2 = "\n\(year.year!) / \(year.month!) / \(year.day!)".count
-//
-//    let para = NSMutableParagraphStyle()
-//    para.alignment = .right
-//    para.tailIndent = -50
-//
-//    //para.defaultTabInterval = 10
-//
-//    //○文字目からスタートして、○文字分変更する
-//    text2.addAttributes([.font: UIFont.systemFont(ofSize: image.size.width / 25, weight: UIFont.Weight(rawValue: 0.6), width: UIFont.Width(rawValue: 0.0)),
-//                         .kern: 3,
-//                         .baselineOffset: 0,
-//                         .paragraphStyle: para,
-//    ], range: NSMakeRange(count1,count2))
-//    //text2.addAttributes.bas
-//    label.attributedText = text2
-//
-//    UIGraphicsBeginImageContextWithOptions(label.bounds.size, false, 0)
-//    imageView.layer.render(in: UIGraphicsGetCurrentContext()!)
-//    label.layer.render(in: UIGraphicsGetCurrentContext()!)
-//    let imageWithText = UIGraphicsGetImageFromCurrentImageContext()
-//    UIGraphicsEndImageContext()
-//
-//    //Imageを返したいときはこっち
-//    return Image(uiImage: imageWithText!)
-//
-//    //UIImageを返したいときはこっち
-//    //return imageWithText ?? UIImage(named: "noImage")!
-//
-//    //Dataを返したいときはこっち
-//    //return imageWithText?.jpegData(compressionQuality: 1)
-//}
-
-
-
