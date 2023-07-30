@@ -54,3 +54,4 @@ Pods/*
 #Carthageでインストールしたライブラリのデータ。
 Carthage/Build/
 
+Challenge100days.xcodeproj/project.xcworkspace/xcus

@@ -33,7 +33,7 @@ class CoreDataViewModel: ObservableObject{
     }
     
     ///当日のタスクが達成済みかを格納する変数2
-    var checkTodaysTask2: Bool
+    var isFinishTodaysTask: Bool
     
     
     init() {
@@ -50,14 +50,14 @@ class CoreDataViewModel: ObservableObject{
         
         
         guard let date = tasks.last?.date else {
-            self.checkTodaysTask2 = false
+            self.isFinishTodaysTask = false
             self.todaysNum = 1
             return
         }
         if Calendar.current.isDate(Date.now, equalTo: date, toGranularity: .day){
-            self.checkTodaysTask2 = true
+            self.isFinishTodaysTask = true
         }else{
-            self.checkTodaysTask2 = false
+            self.isFinishTodaysTask = false
         }
         self.todaysNum = tasks.count + 1
     }
@@ -112,7 +112,7 @@ class CoreDataViewModel: ObservableObject{
                 isFinish = false
             }
             objectWillChange.send()
-            self.checkTodaysTask2 = isFinish
+            self.isFinishTodaysTask = isFinish
         }
     }
     
@@ -162,7 +162,7 @@ class CoreDataViewModel: ObservableObject{
                 isFinish = false
             }
             objectWillChange.send()
-            self.checkTodaysTask2 = isFinish
+            self.isFinishTodaysTask = isFinish
         }
     }
     
@@ -204,5 +204,7 @@ class CoreDataViewModel: ObservableObject{
         
         objectWillChange.send()
         allData = getAllData()
+        objectWillChange.send()
+        self.isFinishTodaysTask = false
     }
 }

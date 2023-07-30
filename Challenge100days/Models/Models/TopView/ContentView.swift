@@ -18,7 +18,7 @@ struct ContentView: View {
     
     var body: some View {
 
-        if userSettingViewModel.isFirst{
+        if !userSettingViewModel.isFirst{
             //初回起動時はチュートリアルを表示
             TutorialTopView()
                 .environmentObject(userSettingViewModel)
@@ -46,6 +46,7 @@ struct ContentView: View {
                     }.tag("Three")
                 
             }
+            .tint(.primary)
             .environmentObject(coreDataViewModel)
             .environmentObject(notificationViewModel)
             .environmentObject(userSettingViewModel)
