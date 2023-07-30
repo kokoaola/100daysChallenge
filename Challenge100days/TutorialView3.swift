@@ -7,81 +7,53 @@
 
 import SwiftUI
 
+
+///チュートリアル３ページ目
 struct TutorialView3: View {
-    ///入力したテキストを格納するプロパティ
-    @State private var editText = ""
     
-    ///キーボードフォーカス用変数（Doneボタン表示のため）
-    @FocusState var isInputActive: Bool
+    ///ViewModel用の変数
+    @EnvironmentObject var userSettingViewModel:UserSettingViewModel
     
-    ///入力したテキストを格納するプロパティ
-    @State private var editText2 = ""
-    
-    ///キーボードフォーカス用変数（Doneボタン表示のため）
-    @FocusState var isInputActive2: Bool
+    ///表示中のページ番号を格納
     @Binding var page: Int
-    
-    @AppStorage("isFirst") var isFirst = true
     
     var body: some View {
         
         ZStack(alignment: .top){
             
-            VStack(alignment: .leading, spacing: 30){
+            VStack(alignment: .leading, spacing: 50){
                 Text("設定は以上です。").padding(.bottom)
-                
                 Text("これらの設定は、アプリの設定ページからも変更可能です。")
-                
                 Text("それでは、さっそく始めましょう。")
                 
                 Spacer()
+                
                 HStack{
-                    
+                    //戻るボタン
                     Button{
-                        
                         page = 2
-                        
                     } label: {
-                        BackButton()
-                            .foregroundColor(.orange)
-                    }
-                    Spacer()
-                    Button {
-                        
-                        isFirst = false
-                        
-                    } label: {
-                        StartButton()
-                            .foregroundColor(.green)
+                        ArrowButton(isBackButton: true, labelText: "戻る")
                     }
                     
+                    Spacer()
+                    
+                    //startボタン
+                    Button {
+                        userSettingViewModel.userSelectedTag = "One"
+                        userSettingViewModel.toggleTutorialStatus(changeTo: false)
+                    } label: {
+                        ArrowButton(isBackButton: false, labelText: "始める")
+                    }
                 }
                 .padding(.bottom, 30)
                 .frame(maxWidth: .infinity, alignment: .bottom)
                 
             }
             .padding()
-            .foregroundColor(Color(UIColor.label))
             
-            
-            
-            
-            
-            
-            ///キーボード閉じるボタンを配置
-            .toolbar {
-                ToolbarItemGroup(placement: .keyboard) {
-                    Spacer()
-                    Button("閉じる") {
-                        isInputActive = false
-                        isInputActive2 = false
-                        
-                    }
-                }
-            }
         }
     }
-    
 }
 
 
@@ -96,5 +68,6 @@ struct TutorialView3_Previews: PreviewProvider {
             TutorialView3(page: $sampleNum)
                 .environment(\.locale, Locale(identifier:"ja"))
         }
+        .environmentObject(UserSettingViewModel())
     }
 }

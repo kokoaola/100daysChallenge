@@ -7,7 +7,13 @@
 
 import SwiftUI
 
+
+///チュートリアル２ページ目
 struct TutorialView2: View {
+    
+    ///ViewModel用の変数
+    @EnvironmentObject var userSettingViewModel:UserSettingViewModel
+    
     ///入力したテキストを格納するプロパティ
     @State private var editText = ""
     @State private var editText2 = ""
@@ -15,18 +21,11 @@ struct TutorialView2: View {
     ///キーボードフォーカス用変数（Doneボタン表示のため）
     @FocusState var isInputActive: Bool
     
-    
     ///キーボードフォーカス用変数（Doneボタン表示のため）
     @FocusState var isInputActive2: Bool
     
+    ///表示中のページ番号を格納
     @Binding var page: Int
-    
-    @AppStorage("longTermGoal") var longTermGoal: String = ""
-    @AppStorage("shortTermGoal") var shortTermGoal: String = ""
-    
-    @AppStorage("isFirst") var isFirst = true
-
-    
     
     var body: some View {
         VStack(alignment: .leading, spacing: 20){
@@ -43,7 +42,6 @@ struct TutorialView2: View {
 
                             ///テキストエディター
                             TextEditor(text: $editText)
-                                //.foregroundColor(Color(UIColor.label))
                                 .scrollContentBackground(Visibility.hidden)
                                 .background(.ultraThinMaterial)
                                 .border(.white, width: 1)
@@ -87,25 +85,30 @@ struct TutorialView2: View {
                 
                 Spacer()
             
+            
+//                        戻るボタン
                 HStack{
                     Button {
                         page = 1
+                        userSettingViewModel.saveUserSettingGoal(isLong: true, goal: editText)
+                        userSettingViewModel.saveUserSettingGoal(isLong: false, goal: editText2)
                     } label: {
-                        BackButton()
-                            .foregroundColor(.orange)
+                        ArrowButton(isBackButton: true, labelText: "戻る")
                     }
                     
                     Spacer()
                     
+//                    進むボタン
                     Button {
-                        longTermGoal = editText
-                        shortTermGoal = editText2
                         page = 3
+                        userSettingViewModel.saveUserSettingGoal(isLong: true, goal: editText)
+                        userSettingViewModel.saveUserSettingGoal(isLong: false, goal: editText2)
                     } label: {
-                        NextButton()
-                            .foregroundColor(!editText.isEmpty && !editText2.isEmpty && editText.count <= AppSetting.maxLengthOfTerm && editText2.count <= AppSetting.maxLengthOfTerm ? .green : .gray)
+                        ArrowButton(isBackButton: false, labelText: "次へ")
+                            .opacity(!editText.isEmpty && !editText2.isEmpty && editText.count <= AppSetting.maxLengthOfTerm && editText2.count <= AppSetting.maxLengthOfTerm ? 1 : 0.4)
                     }
-                    ///次へボタンの無効判定
+                    
+//                    次へボタンの無効判定
                    .disabled(editText.isEmpty || editText2.isEmpty || editText.count > AppSetting.maxLengthOfTerm || editText2.count > AppSetting.maxLengthOfTerm)
                 }
                 .padding(.bottom, 30)
@@ -116,8 +119,8 @@ struct TutorialView2: View {
         .foregroundColor(Color(UIColor.label))
         
         .onAppear{
-            editText = longTermGoal
-            editText2 = shortTermGoal
+            editText = userSettingViewModel.longTermGoal
+            editText2 = userSettingViewModel.shortTermGoal
         }
 
             
@@ -148,5 +151,6 @@ struct TutorialView2_Previews: PreviewProvider {
             TutorialView2(page: $sampleNum)
                 .environment(\.locale, Locale(identifier:"ja"))
         }
+        .environmentObject(UserSettingViewModel())
     }
 }

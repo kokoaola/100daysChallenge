@@ -10,7 +10,9 @@ import SwiftUI
 import WebKit
 
 
+///ウェブ上のプライバシーポリシーを表示する
 struct WebView: UIViewRepresentable {
+    ///URL
     var urlString = "https://kokoaola.github.io/privacy.html"
     
     func makeUIView(context: Context) -> WKWebView{

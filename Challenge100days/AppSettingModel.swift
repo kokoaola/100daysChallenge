@@ -7,16 +7,13 @@
 
 import SwiftUI
 
-
-extension View{
-    public func userSettingGradient(colors:[Color]) -> some View{
-        self.background(.secondary).foregroundStyle(LinearGradient(
-            colors: [colors[0], colors[1]],
-            startPoint: .topLeading,
-            endPoint: .bottomTrailing
-        ))
-    }
+enum AppColor {
+    case blue
+    case orange
+    case purple
+    case monotone
 }
+
 
 ///アプリ全体の設定
 struct AppSetting{
@@ -26,8 +23,11 @@ struct AppSetting{
     ///使用端末の縦画面サイズ
     static let screenHeight = UIScreen.main.bounds.height
     
-    ///文字の色
-    static let labelColr = Color(UIColor.label)
+    ///目標の文字の上限
+    static let maxLengthOfTerm = 50
+    
+    ///メモの文字の上限
+    static let maxLengthOfMemo = 1000
     
     /// 全画像名を格納した配列
     static let photos =
@@ -62,9 +62,31 @@ struct AppSetting{
         "Codioful (Formerly Gradienta)"
     ]
     
-    ///目標の文字の上限
-    static let maxLengthOfTerm = 50
+    //Date型をString型に変換する
+    static func makeDate(day: Date)-> String{
+        let df = DateFormatter()
+        df.locale = Locale(identifier: "ja-Jp")
+        df.dateStyle = .short
+        return df.string(from: day)
+    }
     
-    ///メモの文字の上限
-    static let maxLengthOfMemo = 1000
+    //Date型をString型に変換する
+    static func makeAccessibilityDate(day: Date) -> String {
+        let df = DateFormatter()
+        df.locale = Locale(identifier: "ja_JP")
+        df.dateFormat = "yyyy年M月d日"
+        return df.string(from: day)
+    }
+    
+    static func colseKeyBoard(){
+        let keyWindow = UIApplication.shared.connectedScenes
+            .filter({$0.activationState == .foregroundActive})
+            .map({$0 as? UIWindowScene})
+            .compactMap({$0})
+            .first?.windows
+            .filter({$0.isKeyWindow}).first
+        keyWindow?.endEditing(true)
+    }
 }
+
+

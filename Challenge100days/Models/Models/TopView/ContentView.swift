@@ -46,6 +46,7 @@ struct ContentView: View {
                     }.tag("Three")
                 
             }
+            .tint(.primary)
             .environmentObject(coreDataViewModel)
             .environmentObject(notificationViewModel)
             .environmentObject(userSettingViewModel)

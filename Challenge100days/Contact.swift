@@ -9,19 +9,8 @@ import SwiftUI
 import WebKit
 
 
-struct Contact: View {
-    var body: some View {
-        ZStack{
-            ContactWebView()
-            
-        }
-    }
-}
-
+///コンタクト用のフォームをHTMLで直接表示する
 struct ContactWebView: UIViewRepresentable {
-    //var urlString: String
-    //"https://kokoaola.github.io" //表示するWEBページのURLを指定
-    
     let html = """
 <html>
 <head>
@@ -50,9 +39,9 @@ struct ContactWebView: UIViewRepresentable {
 struct Contact_Previews: PreviewProvider {
     static var previews: some View {
         Group{
-            Contact()
+            ContactWebView()
                 .environment(\.locale, Locale(identifier:"en"))
-            Contact()
+            ContactWebView()
                 .environment(\.locale, Locale(identifier:"ja"))
         }
     }
