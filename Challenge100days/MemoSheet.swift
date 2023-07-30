@@ -49,7 +49,7 @@ struct MemoSheet: View {
                     Label("\(AppSetting.maxLengthOfMemo)文字以内のみ設定可能です", systemImage: "exclamationmark.circle")
                         .font(.footnote)
                         .padding(5)
-                        .foregroundColor(editText.count > AppSetting.maxLengthOfMemo ? .clear : .red)
+                        .foregroundColor(editText.count > AppSetting.maxLengthOfMemo ? .red : .clear)
                         //テキストエディター
                         TextEditor(text: $editText)
                         .focused($isInputActive)

@@ -32,6 +32,7 @@ class CoreDataViewModel: ObservableObject{
         return false
     }
     
+    ///当日のタスクが達成済みかを格納する変数2
     var checkTodaysTask2: Bool
     
     
@@ -182,9 +183,26 @@ class CoreDataViewModel: ObservableObject{
                 print("Could not save. \(error), \(error.userInfo)")
             }
         }
-        
             objectWillChange.send()
             allData = getAllData()
-
+    }
+    
+    ///データベースのすべての記録を削除するメソッド
+    func deleteAllData(){
+        let context = persistenceController.container.viewContext
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "DailyData")
+        
+        // Create Batch Delete Request
+        let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: request)
+        
+        do {
+            try context.execute(batchDeleteRequest)
+        } catch {
+            // Error Handling
+            print("Error deleting data: \(error)")
+        }
+        
+        objectWillChange.send()
+        allData = getAllData()
     }
 }

@@ -227,6 +227,7 @@ struct SettingView: View {
             Button("リセットする",role: .destructive){
                 notificationViewModel.resetNotification()
                 userSettingViewModel.resetUserSetting()
+                coreDataViewModel.deleteAllData()
             }
             Button("戻る",role: .cancel){}
         }message: {
