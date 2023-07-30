@@ -18,7 +18,7 @@ struct ContentView: View {
     
     var body: some View {
 
-        if !userSettingViewModel.isFirst{
+        if userSettingViewModel.isFirst{
             //初回起動時はチュートリアルを表示
             TutorialTopView()
                 .environmentObject(userSettingViewModel)
