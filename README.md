@@ -6,6 +6,7 @@
 - Xcode：14.2
 - URL：[App Store](https://apps.apple.com/jp/app/100日チャレンジ/id6449479183) 
 - Architecture：MVVM
+- iOS:16.0以上
 
 ## 概要と使い方
 
