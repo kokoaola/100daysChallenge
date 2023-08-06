@@ -128,9 +128,14 @@ struct TutorialView2: View {
         .toolbar {
             ToolbarItemGroup(placement: .keyboard) {
                 Spacer()
-                Button("閉じる") {
+                Button(isInputActive && !isInputActive2 ? "次へ" : "閉じる") {
+                    if isInputActive && !isInputActive2{
+                        isInputActive2 = true
+                    }else{
                         isInputActive = false
                         isInputActive2 = false
+                    }
+
                 }
             }
         }
