@@ -26,7 +26,7 @@ struct ToastView: View {
     var body: some View {
         //フラグがtrueで表示
         if show {
-            Text(text)
+            Text(LocalizedStringKey(text))
                 .foregroundColor(.black)
                 .fontWeight(.semibold)
                 .padding(.horizontal, 60)
