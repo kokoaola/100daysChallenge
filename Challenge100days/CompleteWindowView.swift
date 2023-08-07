@@ -59,7 +59,7 @@ struct CompleteWindowView: View {
                 //コンプリート画像
                 generateImageWithText(number: dayNumber, day: coreDataViewModel.allData.last?.date ?? Date.now)
                     .resizable().scaledToFit()
-                    .accessibilityLabel("日付入りの画像")
+                    .accessibilityLabel("日付入りの綺麗な画像")
                 
                 
                 VStack{

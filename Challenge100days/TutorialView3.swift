@@ -22,9 +22,13 @@ struct TutorialView3: View {
         ZStack(alignment: .top){
             
             VStack(alignment: .leading, spacing: 50){
-                Text("設定は以上です。").padding(.bottom)
-                Text("これらの設定は、アプリの設定ページからも変更可能です。")
-                Text("それでは、さっそく始めましょう。")
+                VStack(alignment: .leading, spacing: 50){
+                    Text("設定は以上です。").padding(.bottom)
+                    Text("これらの設定は、アプリの設定ページからも変更可能です。")
+                    Text("それでは、さっそく始めましょう。")
+                }
+                .contentShape(Rectangle())
+                .accessibilityElement()
                 
                 Spacer()
                 

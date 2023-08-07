@@ -24,10 +24,14 @@ struct TutorialView1: View {
     var body: some View {
 
         VStack(alignment: .leading, spacing: 50){
-
-            Text("はじめまして。")
-            Text("このアプリは、あなたの目標達成までの道のりを100日間サポートするためのアプリです。")
-            Text("まずはアプリ全体の色を選んでください。")
+            
+            VStack(alignment: .leading, spacing: 50){
+                Text("はじめまして。")
+                Text("このアプリは、あなたの目標達成までの道のりを100日間サポートするためのアプリです。")
+                Text("まずはアプリ全体の色を選んでください。")
+            }
+            .contentShape(Rectangle())
+                .accessibilityElement()
             
             //背景色選択用のピッカー
             Picker(selection: $selectedColor) {
