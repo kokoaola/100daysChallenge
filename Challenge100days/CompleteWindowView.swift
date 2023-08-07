@@ -59,15 +59,19 @@ struct CompleteWindowView: View {
                 //コンプリート画像
                 generateImageWithText(number: dayNumber, day: coreDataViewModel.allData.last?.date ?? Date.now)
                     .resizable().scaledToFit()
-                    .accessibilityLabel("日付入りの画像")
+                    .accessibilityLabel("日付入りの綺麗な画像")
                 
                 
                 VStack{
                     //シェアボタン
-                    ShareLink(item: image ?? Image("noImage") , preview: SharePreview("画像", image: image ?? Image("noImage"))){
-                        LeftIconBigButton(icon: Image(systemName: "square.and.arrow.up"), text: "シェアする")
-                            .foregroundColor(.blue.opacity(0.9))
-                    }
+                    ShareLink(
+                        item: image ?? Image("noImage"),
+                        //MARK: -
+                        message: Text("Day\(dayNumber) of #100daysChallenge\nhttps://apps.apple.com/app/id6449479183"),
+                        preview: SharePreview("Day\(dayNumber) of 100daysChallenge", image: image ?? Image("noImage"))){
+                            LeftIconBigButton(icon: Image(systemName: "square.and.arrow.up"), text: "シェアする")
+                                .foregroundColor(.blue.opacity(0.9))
+                        }
                     
                     //メモ追加ボタン
                     Button {

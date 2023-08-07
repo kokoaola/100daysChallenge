@@ -52,7 +52,7 @@
 
 //  MemoSheet
 "画像" = "Image";
-"日付入りの画像" = "Image with date";
+"日付入りの綺麗な画像" = "Beautiful image with date";
 "メモの追加" = "Addition of a note";
 //文字列は%@. Int32は％d　https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/Strings/Articles/formatSpecifiers.html
 "%lld文字以内のみ設定可能です" = "Only up to %lld characters can be set";
