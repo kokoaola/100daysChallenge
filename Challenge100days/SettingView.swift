@@ -109,22 +109,18 @@ struct SettingView: View {
                             //長期目標変更用のセル
                             Button("目標を変更する") {
                                 showToast = false
-                                withAnimation(.easeOut(duration: 0.1)) {
-                                    isLongTermGoal = true
-                                    withAnimation {
-                                        showGoalEdittingAlert = true
-                                    }
+                                isLongTermGoal = true
+                                withAnimation {
+                                    showGoalEdittingAlert = true
                                 }
                             }
                             
                             //短期目標変更用のセル
                             Button("100日取り組む内容を変更する") {
                                 showToast = false
-                                withAnimation(.easeOut(duration: 0.1)) {
-                                    isLongTermGoal = false
-                                    withAnimation {
-                                        showGoalEdittingAlert = true
-                                    }
+                                isLongTermGoal = false
+                                withAnimation {
+                                    showGoalEdittingAlert = true
                                 }
                             }
                         }
@@ -192,7 +188,7 @@ struct SettingView: View {
                 //目標編集セルタップ後に出現するテキストフィールド付きアラート
                 if showGoalEdittingAlert{
                     EditGoal(showAlert: $showGoalEdittingAlert,showToast: $showToast,toastText: $toastText, isLong: isLongTermGoal)
-                        .transition(.slide)
+                        .transition(.opacity)
                 }
                 
                 //完了時に表示されるトーストポップアップ
@@ -208,6 +204,10 @@ struct SettingView: View {
             userSettingViewModel.userSelectedColor = newValue
             userSettingViewModel.saveUserSettingAppColor(colorNum: newValue)
         }
+        
+        
+        //アニメーションの設定
+        .animation(showGoalEdittingAlert ? .easeInOut(duration: 0.05) : nil, value: showGoalEdittingAlert)
         
         
         //バックグラウンド復帰時に通知の状態を確認

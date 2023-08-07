@@ -64,10 +64,14 @@ struct CompleteWindowView: View {
                 
                 VStack{
                     //シェアボタン
-                    ShareLink(item: image ?? Image("noImage") , preview: SharePreview("画像", image: image ?? Image("noImage"))){
-                        LeftIconBigButton(icon: Image(systemName: "square.and.arrow.up"), text: "シェアする")
-                            .foregroundColor(.blue.opacity(0.9))
-                    }
+                    ShareLink(
+                        item: image ?? Image("noImage"),
+                        //MARK: -
+                        message: Text("Day\(dayNumber) of #100daysChallenge\nhttps://apps.apple.com/app/id6449479183"),
+                        preview: SharePreview("Day\(dayNumber) of 100daysChallenge", image: image ?? Image("noImage"))){
+                            LeftIconBigButton(icon: Image(systemName: "square.and.arrow.up"), text: "シェアする")
+                                .foregroundColor(.blue.opacity(0.9))
+                        }
                     
                     //メモ追加ボタン
                     Button {
