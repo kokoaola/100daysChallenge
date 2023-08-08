@@ -35,6 +35,10 @@
 		3B93B16F299FA513006F3332 /* BackUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B93B16E299FA513006F3332 /* BackUpView.swift */; };
 		3BA4243D2A70D98900A6020D /* UserSettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA4243C2A70D98900A6020D /* UserSettingViewModel.swift */; };
 		3BC04D3729951CD300EB4CDF /* makeNewItemSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC04D3629951CD300EB4CDF /* makeNewItemSheet.swift */; };
+		3BC188B22A81F3EE00929C11 /* confetti.json in Resources */ = {isa = PBXBuildFile; fileRef = 3BC188B12A81F3EE00929C11 /* confetti.json */; };
+		3BC188B42A81F41C00929C11 /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC188B32A81F41C00929C11 /* LottieView.swift */; };
+		3BC188B72A81F53D00929C11 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 3BC188B62A81F53D00929C11 /* Lottie */; };
+		3BC188B92A81FB7100929C11 /* confetti2.json in Resources */ = {isa = PBXBuildFile; fileRef = 3BC188B82A81FB7100929C11 /* confetti2.json */; };
 		3BC602BF2986AC1400198F1B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC602BE2986AC1400198F1B /* ContentView.swift */; };
 		3BC602C42986AC1500198F1B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3BC602C32986AC1500198F1B /* Preview Assets.xcassets */; };
 		3BC602CD2986B31000198F1B /* OriginalButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC602CC2986B31000198F1B /* OriginalButton.swift */; };
@@ -75,6 +79,9 @@
 		3B93B16E299FA513006F3332 /* BackUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackUpView.swift; sourceTree = "<group>"; };
 		3BA4243C2A70D98900A6020D /* UserSettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingViewModel.swift; sourceTree = "<group>"; };
 		3BC04D3629951CD300EB4CDF /* makeNewItemSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = makeNewItemSheet.swift; sourceTree = "<group>"; };
+		3BC188B12A81F3EE00929C11 /* confetti.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = confetti.json; sourceTree = "<group>"; };
+		3BC188B32A81F41C00929C11 /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
+		3BC188B82A81FB7100929C11 /* confetti2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = confetti2.json; sourceTree = "<group>"; };
 		3BC602B92986AC1400198F1B /* Challenge100days.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Challenge100days.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3BC602BE2986AC1400198F1B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		3BC602C02986AC1500198F1B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -93,6 +100,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3BC188B72A81F53D00929C11 /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -135,6 +143,7 @@
 				3BC602D02986B52100198F1B /* ActionView.swift */,
 				3BC602CE2986B50B00198F1B /* CompleteWindowView.swift */,
 				3B75EB0C298BD0B1000FCDE9 /* MemoSheet.swift */,
+				3BC188B32A81F41C00929C11 /* LottieView.swift */,
 			);
 			name = ActionViews;
 			path = ..;
@@ -223,6 +232,8 @@
 				3B0027F22A76216800520699 /* challengedDay.xcdatamodeld */,
 				3B0028032A76248800520699 /* Challenge100daysApp.swift */,
 				3B0027F52A76217800520699 /* DataController.swift */,
+				3BC188B82A81FB7100929C11 /* confetti2.json */,
+				3BC188B12A81F3EE00929C11 /* confetti.json */,
 				3B0027E62A7615C000520699 /* Models */,
 				3B0027E72A7615F400520699 /* Views */,
 				3B4D4E182A6CCD0500AFB314 /* ViewModel */,
@@ -260,6 +271,7 @@
 			);
 			name = Challenge100days;
 			packageProductDependencies = (
+				3BC188B62A81F53D00929C11 /* Lottie */,
 			);
 			productName = Challenge100days;
 			productReference = 3BC602B92986AC1400198F1B /* Challenge100days.app */;
@@ -291,6 +303,7 @@
 			);
 			mainGroup = 3BC602B02986AC1400198F1B;
 			packageReferences = (
+				3BC188B52A81F53D00929C11 /* XCRemoteSwiftPackageReference "lottie-ios" */,
 			);
 			productRefGroup = 3BC602BA2986AC1400198F1B /* Products */;
 			projectDirPath = "";
@@ -306,7 +319,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3BC188B22A81F3EE00929C11 /* confetti.json in Resources */,
 				3B0D983A2A053D430001FD0A /* Assets.xcassets in Resources */,
+				3BC188B92A81FB7100929C11 /* confetti2.json in Resources */,
 				3B5C493C2A3718D000EA908B /* Localizable.strings in Resources */,
 				3BC602C42986AC1500198F1B /* Preview Assets.xcassets in Resources */,
 				3B5C49482A371E1800EA908B /* InfoPlist.strings in Resources */,
@@ -340,6 +355,7 @@
 				3B0027F82A76218E00520699 /* AppSettingModel.swift in Sources */,
 				3B0027E12A738FDD00520699 /* SpeechBubble.swift in Sources */,
 				3BC602D929891B0300198F1B /* ArchivementViewsTop.swift in Sources */,
+				3BC188B42A81F41C00929C11 /* LottieView.swift in Sources */,
 				3BC602BF2986AC1400198F1B /* ContentView.swift in Sources */,
 				3B0027F42A76216800520699 /* challengedDay.xcdatamodeld in Sources */,
 				3B0027FF2A7621A800520699 /* TutorialView1.swift in Sources */,
@@ -593,6 +609,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		3BC188B52A81F53D00929C11 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		3BC188B62A81F53D00929C11 /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3BC188B52A81F53D00929C11 /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		3B0027F22A76216800520699 /* challengedDay.xcdatamodeld */ = {
