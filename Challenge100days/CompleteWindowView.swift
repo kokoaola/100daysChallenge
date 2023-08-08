@@ -74,8 +74,8 @@ struct CompleteWindowView: View {
                             //シェアボタン
                             ShareLink(
                                 item: image ?? Image("noImage"),
-                                message: Text("Day\(dayNumber) of #100daysChallenge\nhttps://apps.apple.com/app/id6449479183"),
-                                preview: SharePreview("Day\(dayNumber) of 100daysChallenge", image: image ?? Image("noImage"))){
+                                message: Text("Day\(dayNumber) of #100DaysChallenge\nhttps://apps.apple.com/app/id6449479183"),
+                                preview: SharePreview("Day\(dayNumber) of 100DaysChallenge", image: image ?? Image("noImage"))){
                                     LeftIconBigButton(icon: Image(systemName: "square.and.arrow.up"), text: "シェアする")
                                         .foregroundColor(.blue.opacity(0.9))
                                 }

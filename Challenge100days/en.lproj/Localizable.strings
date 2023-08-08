@@ -44,7 +44,7 @@
 "%lld日目を完了する" = "Complete tasks on Day %lld";
 
 //CompleteView
-"%lld日目のチャレンジ達成！" = "Challenge completed on day%lld.";
+"%lld日目のチャレンジ達成！" = "Challenge has been completed.";
 "よく頑張ったね！" = "Good job!";
 "シェアする" = "Share";
 "メモを追加" = "Add a note";
@@ -104,7 +104,7 @@
 
 "②シェア用オリジナル画像の生成" = "② Creation of original images for sharing";
 
-"よく言われることですが、SNSで世界に公開しながら何かに取り組むと、挫折しづらくなるそうです。\n\nその手助けになればと思い、シェア用の画像の生成機能をつけました。宣伝っぽくなるのが少し嫌でアプリ名とかは入ってませんので、気軽に共有してください。\n\n写真は全てunsplashという素材サイトからお借りし、二次加工・再配布OKという利用規約の元で使用しております。(写真の撮影者様のクレジットのみ記載してあります。)\n\n\n初めてのリリースでまだ未熟な点の多いアプリですが、ご意見などありましたらお問い合わせフォームから気軽にご連絡ください。" = "As it is often said, it seems that working on something while making it public on social media makes it harder to give up.\n\nI added an image generation feature for sharing in the hope that it could help. The app name is not included because it seems a bit annoying to make it look like advertising, so please feel free to share.\n\nAll the photos are borrowed from a material site called unsplash, and are used under the terms of use that allow secondary processing and redistribution. (Only the credit of the photographer of the photo is listed.)\n\nIt is an app with many immature points in the first release, but please feel free to contact me from the inquiry form if you have any opinions or the like.";
+"SNSで世界に公開しながら何かに取り組むと、挫折しづらくなるそうです。\n\nその手助けになればと思い、シェア用の画像の生成機能をつけたので、気軽に共有してください。\n\n写真は全てunsplashという素材サイトからお借りし、二次加工・再配布OKという利用規約の元で使用しております。(写真の撮影者様のクレジットのみ記載してあります。)\n\n\n初めてのリリースでまだ未熟な点の多いアプリですが、ご意見などありましたらお問い合わせフォームから気軽にご連絡ください。" = "As it is often said, it seems that working on something while making it public on social media makes it harder to give up.\n\nI added an image generation feature for sharing in the hope that it could help. Please feel free to share.\n\nAll the photos are borrowed from a material site called unsplash, and are used under the terms of use that allow secondary processing and redistribution. (Only the credit of the photographer of the photo is listed.)\n\nIt is an app with many immature points in the first release, but please feel free to contact me from the inquiry form if you have any opinions or the like.";
 
 "このアプリにはデータを外部に保存する機能はありません。\nデータを消して最初から新しく始める際など、これまでの記録を残しておきたい場合は、このページからコピーしてデバイスへ保存をお願いいたします。" = "This app does not have the ability to save data externally. \nIf you wish to keep a record of what you have done so far, such as when you erase your data and start fresh from scratch, please copy the data from this page and save it to your device.";
 "コピーしました" = "Copied.";

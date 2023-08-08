@@ -90,7 +90,7 @@ struct ListAndCardView: View {
             }
 
 
-            .navigationTitle("100days Challenge")
+            .navigationTitle("100Days Challenge")
             .navigationBarTitleDisplayMode(.automatic)
 
             
