@@ -163,7 +163,11 @@ class CoreDataViewModel: ObservableObject{
             }
             objectWillChange.send()
             self.isFinishTodaysTask = isFinish
+            return
         }
+        isFinish = false
+        objectWillChange.send()
+        self.isFinishTodaysTask = isFinish
     }
     
     
