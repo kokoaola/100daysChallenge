@@ -33,34 +33,41 @@ struct CompleteWindowView: View {
     
     var body: some View {
         
-            ZStack{
-                //四角に画像とボタンを重ねてる
-                VStack(alignment: .leading, spacing: 20){
-                    
-                    //閉じるボタン
-                    Button(action: {
-                        closed = true
-                        showCompleteWindew = false
-                    }){
-                        CloseButton()
-                    }
-                    
-                    
+        ZStack{
+            //四角に画像とボタンを重ねてる
+            VStack(alignment: .leading, spacing: 0){
+                
+                //閉じるボタン
+                Button(action: {
+                    closed = true
+                    showCompleteWindew = false
+                }){
+                    CloseButton()
+                }
+                
+                if dayNumber <= 99{
                     VStack(alignment: .center, spacing: 30){
-                        //読み上げ用のVStack
-                        VStack{
-                            Text("\(dayNumber)日目のチャレンジ達成！")
-                            Text("よく頑張ったね！")
+                        
+                        VStack(spacing: 0){
+                            
+                            //読み上げ用のVStack
+                            VStack{
+                                Text("\(dayNumber)日目のチャレンジ達成！")
+                                Text("よく頑張ったね！")
+                            }
+                            .foregroundColor(.primary)
+                            .contentShape(Rectangle())
+                            .accessibilityElement(children: .combine)
+                            
+                            
+                            
+                            //コンプリート画像
+                            generateImageWithText(number: dayNumber, day: coreDataViewModel.allData.last?.date ?? Date.now)
+                                .resizable().scaledToFit()
+                                .accessibilityLabel("日付入りの綺麗な画像")
+                                .padding()
+                            
                         }
-                        .foregroundColor(.primary)
-                        .contentShape(Rectangle())
-                        .accessibilityElement(children: .combine)
-                        
-                        
-                        //コンプリート画像
-                        generateImageWithText(number: dayNumber, day: coreDataViewModel.allData.last?.date ?? Date.now)
-                            .resizable().scaledToFit()
-                            .accessibilityLabel("日付入りの綺麗な画像")
                         
                         
                         VStack{
@@ -80,29 +87,74 @@ struct CompleteWindowView: View {
                                 LeftIconBigButton(icon: Image(systemName: "rectangle.and.pencil.and.ellipsis"), text: "メモを追加")
                                     .foregroundColor(.green.opacity(0.9))
                             }
-                        }.padding(30)
+                        }.padding(.bottom, 30)
                         
-                            .onAppear{
-                                image = generateImageWithText(number: dayNumber, day: coreDataViewModel.allData.last?.date ?? Date.now)
-                            }
-                            .onDisappear{
-                                showCompleteWindew = false
-                            }
                     }
+                }else{
+                    
+                    
+                    
+                    VStack(alignment: .center, spacing: 0){
+                        
+                        LottieView(filename: "cong", loop: .loop)
+                            .frame(height: 50)
+                        
+                        //コンプリート画像
+                        generateImageWithText(number: dayNumber, day: coreDataViewModel.allData.last?.date ?? Date.now)
+                            .resizable().scaledToFit()
+                            .accessibilityLabel("日付入りの綺麗な画像")
+                            .padding()
+                            .padding(.bottom, -50)
+                        
+                        
+                        LottieView(filename: "award", loop: .playOnce)
+                            .frame(height: 200)
+                        
+                        
+                        VStack(spacing: 10){
+                            //シェアボタン
+                            ShareLink(
+                                item: image ?? Image("noImage"),
+                                message: Text("Day\(dayNumber) of #100daysChallenge\nhttps://apps.apple.com/app/id6449479183"),
+                                preview: SharePreview("Day\(dayNumber) of 100daysChallenge", image: image ?? Image("noImage"))){
+                                    LeftIconBigButton(icon: Image(systemName: "square.and.arrow.up"), text: "シェアする")
+                                        .foregroundColor(.blue.opacity(0.9))
+                                }
+                            
+                            //メモ追加ボタン
+                            Button {
+                                showMemo = true
+                            } label: {
+                                LeftIconBigButton(icon: Image(systemName: "rectangle.and.pencil.and.ellipsis"), text: "メモを追加")
+                                    .foregroundColor(.green.opacity(0.9))
+                            }
+                        }
+                        .padding(.bottom)
+                        
+                    }
+                    
+                    
                 }
-                .background(.thinMaterial)
-                .cornerRadius(15)
-                .padding()
                 
-                
-                LottieView(filename: "confetti", loop: .playOnce)
-                    .frame(width: AppSetting.screenWidth)
-                    .allowsHitTesting(false)
-                    .opacity(0.8)
             }
+            .background(.thinMaterial)
+            .cornerRadius(15)
+            .padding()
+            
+            
+            LottieView(filename: "confetti3", loop: .playOnce)
+                .frame(width: AppSetting.screenWidth)
+                .allowsHitTesting(false)
+                .opacity(0.8)
+        }
+        .onAppear{
+            image = generateImageWithText(number: dayNumber, day: coreDataViewModel.allData.last?.date ?? Date.now)
+        }
+        .onDisappear{
+            showCompleteWindew = false
+        }
         
-
-
+        
         
         //メモ追加ボタンが押下されたら、MemoSheetを表示
         .sheet(isPresented: $showMemo) {

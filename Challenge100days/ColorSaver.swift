@@ -37,6 +37,23 @@ struct UserSettingGradient: ViewModifier{
     }
 }
 
+//func userSettingBottomColors(colorNum: Int) -> Color{
+//        switch colorNum{
+//        case 0:
+//            return .primary
+//        case 1:
+//            return .primary
+//        case 2:
+//            return .primary
+//        case 3:
+//            return .primary
+//        default:
+//            return .primary
+//        }
+//    }
+
+
+
 /*
  使う時：
  
