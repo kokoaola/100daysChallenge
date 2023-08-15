@@ -28,7 +28,7 @@ struct TutorialView2: View {
     @Binding var page: Int
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 20){
+        VStack(alignment: .leading){
                     Text("次に、目標を設定してください。")
                     
             ///長期目標
@@ -37,7 +37,7 @@ struct TutorialView2: View {
 
                         ZStack(alignment: .topLeading){
                             if editText.isEmpty{
-                                Text("例）画力アップ\n　　TOEIC800点").padding(8)
+                                Text("例）画力アップ\n　　TOEIC800点").padding(5)
                             }
 
                             ///テキストエディター
@@ -45,7 +45,7 @@ struct TutorialView2: View {
                                 .scrollContentBackground(Visibility.hidden)
                                 .background(.ultraThinMaterial)
                                 .border(.white, width: 1)
-                                .frame(height: 80)
+                                .frame(height: AppSetting.screenHeight / 12)
                                 .focused($isInputActive)
                                 .opacity(editText.isEmpty ? 0.5 : 1)
                         }
@@ -59,24 +59,22 @@ struct TutorialView2: View {
             ///短期目標
             VStack(alignment: .leading){
                         Text("②その実現のために１００日間取り組むことはなんですか？")
-                            .frame(minHeight: 60)
+                            
                            // .fixedSize(horizontal: false, vertical: true)
                         ZStack(alignment: .topLeading){
                             if editText2.isEmpty{
-                                Text("例）１日１枚絵を描く\n　　英語の勉強")
-                                    .padding(8)
+                                Text("例）１日１枚絵を描く\n　　英語の勉強").padding(5)
                                     .foregroundColor(.primary)
                             }
                             
                             ///テキストエディター
                             TextEditor(text: $editText2)
-                                .foregroundColor(Color(UIColor.label))
                                 .scrollContentBackground(Visibility.hidden)
                                 .background(.ultraThinMaterial)
                                 .border(.white, width: 1)
-                                .frame(height: 80)
-                                .focused($isInputActive2)
-                                .opacity(editText2.isEmpty ? 0.5 : 1)
+                                .frame(height: AppSetting.screenHeight / 12)
+                                .focused($isInputActive)
+                                .opacity(editText.isEmpty ? 0.5 : 1)
                         }
                         Text("\(AppSetting.maxLengthOfTerm)文字以内のみ設定可能です")
                             .font(.caption)
@@ -114,7 +112,7 @@ struct TutorialView2: View {
                 .padding(.bottom, 30)
                 }
 
-        .frame(minHeight: AppSetting.screenHeight/1.6)
+//        .frame(minHeight: AppSetting.screenHeight/1.6)
         .padding()
         .foregroundColor(Color(UIColor.label))
         
