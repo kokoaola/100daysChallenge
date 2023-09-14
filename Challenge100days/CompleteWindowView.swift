@@ -77,6 +77,7 @@ struct CompleteWindowView: View {
                     VStack(alignment: .center, spacing: 0){
                         //Congratulationsのアニメーション
                         LottieView(filename: "cong", loop: .loop)
+                            .frame(height: AppSetting.screenHeight * 0.1)
                         
                         //コンプリート画像
                         generateImageWithText(number: dayNumber, day: coreDataViewModel.allData.last?.date ?? Date.now)
@@ -87,28 +88,52 @@ struct CompleteWindowView: View {
                         
                         
                         LottieView(filename: "award", loop: .playOnce)
-                            .frame(height: AppSetting.screenHeight * 0.2)
                             .padding(.top, -AppSetting.screenHeight * 0.03)
                     }
 
 
                 }
-                VStack{
-                    //シェアボタン
-                    ShareLink(
-                        item: image ?? Image("noImage"),
-                        message: Text("Day\(dayNumber) of #100DaysChallenge\nhttps://apps.apple.com/app/id6449479183"),
-                        preview: SharePreview("Day\(dayNumber) of 100DaysChallenge", image: image ?? Image("noImage"))){
-                            LeftIconBigButton(icon: Image(systemName: "square.and.arrow.up"), text: "シェアする")
-                                .foregroundColor(.blue.opacity(0.9))
+                
+                //iPadの時はボタンを横並び
+                if UIDevice.current.userInterfaceIdiom == .pad{
+                    Spacer()
+                    HStack(spacing:24){
+                        //シェアボタン
+                        ShareLink(
+                            item: image ?? Image("noImage"),
+                            message: Text("Day\(dayNumber) of #100DaysChallenge\nhttps://apps.apple.com/app/id6449479183"),
+                            preview: SharePreview("Day\(dayNumber) of 100DaysChallenge", image: image ?? Image("noImage"))){
+                                LeftIconBigButton(icon: Image(systemName: "square.and.arrow.up"), text: "シェアする")
+                                    .foregroundColor(.blue.opacity(0.9))
+                            }
+                        
+                        //メモ追加ボタン
+                        Button {
+                            showMemo = true
+                        } label: {
+                            LeftIconBigButton(icon: Image(systemName: "rectangle.and.pencil.and.ellipsis"), text: "メモを追加")
+                                .foregroundColor(.green.opacity(0.9))
                         }
+                    }
+                }else{
                     
-                    //メモ追加ボタン
-                    Button {
-                        showMemo = true
-                    } label: {
-                        LeftIconBigButton(icon: Image(systemName: "rectangle.and.pencil.and.ellipsis"), text: "メモを追加")
-                            .foregroundColor(.green.opacity(0.9))
+                    VStack{
+                        //シェアボタン
+                        ShareLink(
+                            item: image ?? Image("noImage"),
+                            message: Text("Day\(dayNumber) of #100DaysChallenge\nhttps://apps.apple.com/app/id6449479183"),
+                            preview: SharePreview("Day\(dayNumber) of 100DaysChallenge", image: image ?? Image("noImage"))){
+                                LeftIconBigButton(icon: Image(systemName: "square.and.arrow.up"), text: "シェアする")
+                                    .foregroundColor(.blue.opacity(0.9))
+                            }
+                        
+                        //メモ追加ボタン
+                        Button {
+                            showMemo = true
+                        } label: {
+                            LeftIconBigButton(icon: Image(systemName: "rectangle.and.pencil.and.ellipsis"), text: "メモを追加")
+                                .foregroundColor(.green.opacity(0.9))
+                        }
                     }
                 }
                 

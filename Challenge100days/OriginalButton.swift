@@ -140,7 +140,7 @@ struct LeftIconBigButton: View{
     let radius:CGFloat = 10.0
     
     ///ボタンの幅を格納する変数
-    let width = AppSetting.screenWidth / 1.7
+    let width = UIDevice.current.userInterfaceIdiom == .pad ? AppSetting.screenWidth / 3 : AppSetting.screenWidth / 1.7
     
     ///ボタンの高さを格納する変数
     let height = AppSetting.screenWidth / 5
