@@ -35,7 +35,7 @@ struct CompleteWindowView: View {
         
         ZStack{
             //四角に画像とボタンを重ねてる
-            VStack(alignment: .leading, spacing: 0){
+            VStack(alignment: .leading, spacing: 30){
                 
                 //閉じるボタン
                 Button(action: {
@@ -45,7 +45,7 @@ struct CompleteWindowView: View {
                     CloseButton()
                 }
                 
-                if dayNumber <= 99{
+                if dayNumber == 99{
                     VStack(alignment: .center, spacing: 30){
                         
                         VStack(spacing: 0){
@@ -93,23 +93,25 @@ struct CompleteWindowView: View {
                 }else{
                     
                     
-                    
+                    //100日目の画像
                     VStack(alignment: .center, spacing: 0){
                         
                         LottieView(filename: "cong", loop: .loop)
-                            .frame(height: 50)
+                            .frame(height:50)
+                            .padding(.top,-30)
                         
                         //コンプリート画像
                         generateImageWithText(number: dayNumber, day: coreDataViewModel.allData.last?.date ?? Date.now)
                             .resizable().scaledToFit()
                             .accessibilityLabel("日付入りの綺麗な画像")
-                            .padding()
-                            .padding(.bottom, -50)
+                            .padding(.horizontal)
+//                            .padding(.bottom, -50)
                         
                         
                         LottieView(filename: "award", loop: .playOnce)
-                            .frame(height: 200)
-                        
+                            .frame(height: 230)
+//                            .padding(.bottom, -10)
+                            .padding(.top, -50)
                         
                         VStack(spacing: 10){
                             //シェアボタン
