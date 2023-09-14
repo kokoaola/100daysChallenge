@@ -49,10 +49,8 @@ struct CompleteWindowView: View {
                 }
                 
                 
-                if dayNumber >= 99{
+                if dayNumber <= 99{
                     VStack(alignment: .center, spacing: 30){
-                        
-                        VStack(spacing: 0){
                             
                             //読み上げ用のVStack
                             VStack{
@@ -70,9 +68,8 @@ struct CompleteWindowView: View {
                                 .resizable().scaledToFit()
                                 .accessibilityLabel("日付入りの綺麗な画像")
                                 .padding()
-                            
-                        }
-                    }
+                    }.padding(.vertical,30)
+
                 }else{
                     
                     
