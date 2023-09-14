@@ -61,10 +61,13 @@ struct ActionView: View {
                         }.font(.callout.weight(.medium))
                             .padding()
                             .frame(width: AppSetting.screenWidth * 0.9)
+                            
                             .background(.ultraThinMaterial)
+                            .cornerRadius(15)
                             .padding(.top,32)
                             .padding(.bottom, 42)
                             .foregroundColor(.primary)
+
                     }else{
                         Spacer()
                     }
@@ -147,6 +150,7 @@ struct ActionView: View {
                         }
                 }
             }
+
             
             //アプリを開いた日のタスクが未達成の場合、コンプリートウインドウを非表示、表示する番号は総データ数＋1、吹き出し文言はボタン押下前のものにする
             .onAppear{
