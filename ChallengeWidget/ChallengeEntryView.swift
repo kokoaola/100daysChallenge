@@ -8,41 +8,53 @@
 import SwiftUI
 import WidgetKit
 
-struct ChallengeEntryView: View {
+struct ChallengeEntryView1: View {
     let entry: ChallengeEntry
+    @Environment(\.widgetFamily) var widgetFamily
     
     var body: some View{
-        VStack(alignment: .leading,spacing: 0) {
-            HStack{
-                Image(systemName: "list.bullet.circle.fill")
-                    .foregroundColor(.orange)
+        switch widgetFamily {
+        case .systemSmall:
+            Gauge(value: Double(entry.items.count), in: 0...100){
+                Text("Days")
+            } currentValueLabel: {
                 Text("\(entry.items.count)")
-                    .font(.title2)
+            } minimumValueLabel: {
+                Text("0")
+            } maximumValueLabel: {
+                Text("100")
             }
+            .gaugeStyle(.accessoryCircular)
+            .scaleEffect(1.8)
             
-            Rectangle()
-                .foregroundStyle(.orange.gradient.opacity(0.4))
-                .frame(height: 1)
-            
-            VStack(alignment: .leading) {
-                ForEach(entry.items){item in
-                    HStack{
-                        Text("\(entry.items.count)")
-                            .lineLimit(1)
-                    }
-                    .font(.subheadline)
-                }
+        case .systemMedium:
+            Gauge(value: Double(entry.items.count), in: 0...100){
+                Text("\(entry.items.count)")
+                    .font(.largeTitle.bold())
+                    .scaleEffect(1.5)
+                    .padding(.vertical, 5)
+            } currentValueLabel: {
+                EmptyView()
+            } minimumValueLabel: {
+                Text("0")
+            } maximumValueLabel: {
+                Text("100")
             }
-            .padding(.top,5)
-            Spacer(minLength: 0)
+            .tint(LinearGradient(gradient: Gradient(colors: [Color.green, Color.yellow, Color.orange, Color.red, Color.purple]), startPoint: .leading, endPoint: .trailing))
+            .gaugeStyle(.linearCapacity)
+            .padding([.horizontal, .bottom])
+        
+            
+            
+        default:
+            Text("We should never reach here.")
         }
-        .padding()
     }
 }
 
-struct ChallengeEntryView_Previews: PreviewProvider {
+struct ChallengeEntryView1_Previews: PreviewProvider {
     static var previews: some View {
-        ChallengeEntryView(entry: ChallengeEntry())
-            .previewContext(WidgetPreviewContext(family: .systemSmall))
+        ChallengeEntryView1(entry: ChallengeEntry())
+            .previewContext(WidgetPreviewContext(family: .systemMedium))
     }
 }

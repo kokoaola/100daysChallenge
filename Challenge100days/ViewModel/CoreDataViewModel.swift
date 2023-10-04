@@ -104,6 +104,9 @@ class CoreDataViewModel: ObservableObject{
         objectWillChange.send()
         allData = getAllData()
         
+        //ウィジェットを更新
+        ChallengeConstants.reloadPedometerTimelines()
+        
         //本日のタスク達成済みか確認
 //        if let lastData = allData.last?.date{
 //            if Calendar.current.isDate(Date.now, equalTo: lastData, toGranularity: .day){
@@ -166,6 +169,9 @@ class CoreDataViewModel: ObservableObject{
         //データが存在しないとき、データの最後尾の日付が本日ではないとき
         //今日のタスク達成済みフラグを未達成にする
         objectWillChange.send()
+
+        //ウィジェットを更新
+        ChallengeConstants.reloadPedometerTimelines()
     }
     
     
@@ -206,7 +212,9 @@ class CoreDataViewModel: ObservableObject{
         
         objectWillChange.send()
         allData = getAllData()
-        objectWillChange.send()
+
+        //ウィジェットを更新
+        ChallengeConstants.reloadPedometerTimelines()
 //        self.isFinishTodaysTask = false
     }
 }

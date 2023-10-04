@@ -33,6 +33,7 @@
 		3B3C914F2ACD74B40058BDDD /* ChallengeTimelineProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3C914E2ACD74B40058BDDD /* ChallengeTimelineProvider.swift */; };
 		3B3C91512ACD79C90058BDDD /* ChallengeWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3C91502ACD79C90058BDDD /* ChallengeWidget.swift */; };
 		3B3C91522ACD7AB50058BDDD /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0027F52A76217800520699 /* DataController.swift */; };
+		3B3C91542ACDB6FF0058BDDD /* ChallengeEntryView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3C91532ACDB6FE0058BDDD /* ChallengeEntryView2.swift */; };
 		3B3CFFFB298E236300102EEE /* generateImageWithText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3CFFFA298E236300102EEE /* generateImageWithText.swift */; };
 		3B44CD89299BCE97001469FA /* ColorSaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B44CD88299BCE96001469FA /* ColorSaver.swift */; };
 		3B4D4E102A6435FF00AFB314 /* NotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4D4E0F2A6435FF00AFB314 /* NotificationView.swift */; };
@@ -113,6 +114,7 @@
 		3B3C914C2ACD74690058BDDD /* ChallengeEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeEntryView.swift; sourceTree = "<group>"; };
 		3B3C914E2ACD74B40058BDDD /* ChallengeTimelineProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeTimelineProvider.swift; sourceTree = "<group>"; };
 		3B3C91502ACD79C90058BDDD /* ChallengeWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeWidget.swift; sourceTree = "<group>"; };
+		3B3C91532ACDB6FE0058BDDD /* ChallengeEntryView2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeEntryView2.swift; sourceTree = "<group>"; };
 		3B3CFFFA298E236300102EEE /* generateImageWithText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = generateImageWithText.swift; sourceTree = "<group>"; };
 		3B44CD88299BCE96001469FA /* ColorSaver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSaver.swift; sourceTree = "<group>"; };
 		3B4D4E0F2A6435FF00AFB314 /* NotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationView.swift; sourceTree = "<group>"; };
@@ -268,6 +270,7 @@
 			children = (
 				3B3C91402ACD6DCC0058BDDD /* ChallengeEntry.swift */,
 				3B3C914C2ACD74690058BDDD /* ChallengeEntryView.swift */,
+				3B3C91532ACDB6FE0058BDDD /* ChallengeEntryView2.swift */,
 				3B3C914E2ACD74B40058BDDD /* ChallengeTimelineProvider.swift */,
 				3B3C91502ACD79C90058BDDD /* ChallengeWidget.swift */,
 			);
@@ -472,6 +475,7 @@
 				3B3C914D2ACD74690058BDDD /* ChallengeEntryView.swift in Sources */,
 				3B3C914F2ACD74B40058BDDD /* ChallengeTimelineProvider.swift in Sources */,
 				3B3C914B2ACD734C0058BDDD /* challengedDay.xcdatamodeld in Sources */,
+				3B3C91542ACDB6FF0058BDDD /* ChallengeEntryView2.swift in Sources */,
 				3B3C91522ACD7AB50058BDDD /* DataController.swift in Sources */,
 				3B3C91412ACD6DCC0058BDDD /* ChallengeEntry.swift in Sources */,
 				3B3C91512ACD79C90058BDDD /* ChallengeWidget.swift in Sources */,
