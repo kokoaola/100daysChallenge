@@ -116,8 +116,6 @@ struct ActionView: View {
                             }
                         }
 
-
-
                     }, label: {
                         //達成済みの場合ラベルは薄く表示
                         CompleteButton(num:dayNumber ?? 1)
