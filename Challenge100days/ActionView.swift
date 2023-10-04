@@ -32,6 +32,7 @@ struct ActionView: View {
             ZStack{
                 
                 VStack(spacing: 20){
+                    
                     //目標非表示設定がOFFになってれば目標を表示
                     if hideInfomation == false{
                         VStack(alignment: .center, spacing: 10){

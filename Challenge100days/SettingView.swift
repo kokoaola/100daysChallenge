@@ -222,6 +222,10 @@ struct SettingView: View {
             }
         }
         
+        .onAppear{
+            selectedColor = userSettingViewModel.userSelectedColor
+        }
+        
         //リセットボタン押下時のアラート
         .alert("リセットしますか？", isPresented: $showResetAlert){
             Button("リセットする",role: .destructive){

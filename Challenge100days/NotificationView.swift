@@ -44,6 +44,7 @@ struct NotificationView: View {
                         }
                     }
                 }
+                .scrollDisabled(true)
                 .scrollContentBackground(.hidden)
                 .environment(\.editMode, .constant(.active))
                 .tint(.green)
@@ -64,6 +65,7 @@ struct NotificationView: View {
                         .padding(.bottom)
                 }
             }
+
         }
     }
     

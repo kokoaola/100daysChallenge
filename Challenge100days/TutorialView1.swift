@@ -23,9 +23,9 @@ struct TutorialView1: View {
     
     var body: some View {
 
-        VStack(alignment: .leading, spacing: 50){
+        VStack(alignment: .leading, spacing: 30){
             
-            VStack(alignment: .leading, spacing: 50){
+            VStack(alignment: .leading, spacing: 20){
                 Text("はじめまして。")
                 Text("このアプリは、あなたの目標達成までの道のりを100日間サポートするためのアプリです。")
                 Text("まずはアプリ全体の色を選んでください。")

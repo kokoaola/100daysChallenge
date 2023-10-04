@@ -73,7 +73,7 @@ func generateImageWithText(number: Int, day: Date) -> Image {
         .font: UIFont.systemFont(ofSize: image.size.width / 11, weight: UIFont.Weight.heavy, width: UIFont.Width(rawValue: 0)),.kern: 3,
     ]
     //本文
-    let string1 = NSAttributedString(string: "100 days challenge\nDay \(number) Done!\n", attributes: stringAttributes1)
+    let string1 = NSAttributedString(string: "100Days Challenge\nDay \(number) Done!\n", attributes: stringAttributes1)
     
     //日付の部分
     let stringAttributes2: [NSAttributedString.Key : Any] = [
