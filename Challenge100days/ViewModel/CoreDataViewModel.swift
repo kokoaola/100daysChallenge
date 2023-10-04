@@ -25,15 +25,13 @@ class CoreDataViewModel: ObservableObject{
         if let lastData = allData.last?.date{
             if Calendar.current.isDate(Date.now, equalTo: lastData, toGranularity: .day){
                 return true
-            }else{
-                return false
             }
         }
         return false
     }
     
     ///当日のタスクが達成済みかを格納する変数2
-    var isFinishTodaysTask: Bool
+//    var isFinishTodaysTask: Bool
     
     
     init() {
@@ -49,16 +47,16 @@ class CoreDataViewModel: ObservableObject{
         }
         
         
-        guard let date = tasks.last?.date else {
-            self.isFinishTodaysTask = false
-            self.todaysNum = 1
-            return
-        }
-        if Calendar.current.isDate(Date.now, equalTo: date, toGranularity: .day){
-            self.isFinishTodaysTask = true
-        }else{
-            self.isFinishTodaysTask = false
-        }
+//        guard let date = tasks.last?.date else {
+//            self.isFinishTodaysTask = false
+//            self.todaysNum = 1
+//            return
+//        }
+//        if Calendar.current.isDate(Date.now, equalTo: date, toGranularity: .day){
+//            self.isFinishTodaysTask = true
+//        }else{
+//            self.isFinishTodaysTask = false
+//        }
         self.todaysNum = tasks.count + 1
     }
     
@@ -104,16 +102,15 @@ class CoreDataViewModel: ObservableObject{
         allData = getAllData()
         
         //本日のタスク達成済みか確認
-        var isFinish: Bool
-        if let lastData = allData.last?.date{
-            if Calendar.current.isDate(Date.now, equalTo: lastData, toGranularity: .day){
-                isFinish = true
-            }else{
-                isFinish = false
-            }
-            objectWillChange.send()
-            self.isFinishTodaysTask = isFinish
-        }
+//        if let lastData = allData.last?.date{
+//            if Calendar.current.isDate(Date.now, equalTo: lastData, toGranularity: .day){
+//                isFinish = true
+//            }else{
+//                isFinish = false
+//            }
+//            objectWillChange.send()
+////            self.isFinishTodaysTask = isFinish
+//        }
     }
     
     
@@ -154,20 +151,18 @@ class CoreDataViewModel: ObservableObject{
         allData = getAllData()
         
         //本日のタスク達成済みか確認
-        var isFinish: Bool
+        //データの最後尾の日付が存在しているか
         if let lastData = allData.last?.date{
+            //データの最後尾の日付が本日の場合
             if Calendar.current.isDate(Date.now, equalTo: lastData, toGranularity: .day){
-                isFinish = true
-            }else{
-                isFinish = false
+                //今日のタスク達成済みフラグを達成済みにする
+                objectWillChange.send()
+                return
             }
-            objectWillChange.send()
-            self.isFinishTodaysTask = isFinish
-            return
         }
-        isFinish = false
+        //データが存在しないとき、データの最後尾の日付が本日ではないとき
+        //今日のタスク達成済みフラグを未達成にする
         objectWillChange.send()
-        self.isFinishTodaysTask = isFinish
     }
     
     
@@ -209,6 +204,6 @@ class CoreDataViewModel: ObservableObject{
         objectWillChange.send()
         allData = getAllData()
         objectWillChange.send()
-        self.isFinishTodaysTask = false
+//        self.isFinishTodaysTask = false
     }
 }

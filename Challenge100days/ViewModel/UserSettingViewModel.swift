@@ -18,6 +18,8 @@ class UserSettingViewModel: ObservableObject{
     @Published var userSelectedColor: Int
     ///初回起動確認用
     @Published var isFirst: Bool
+    ///アニメーション表示確認用
+    @Published var showAnimation: Bool = true
     
     ///ユーザーデフォルト用の変数
     private let defaults = UserDefaults.standard
