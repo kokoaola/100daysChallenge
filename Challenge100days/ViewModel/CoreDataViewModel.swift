@@ -20,6 +20,8 @@ class CoreDataViewModel: ObservableObject{
     ///データコントローラー格納変数
     let persistenceController = DataController()
     
+//    let storeURL = GroceryConstants.appGroupContainerURL.appendingPathComponent("Challenge100Day.sqlite")
+    
     ///当日のタスクが達成済みかを格納する変数
     var checkTodaysTask: Bool{
         if let lastData = allData.last?.date{
