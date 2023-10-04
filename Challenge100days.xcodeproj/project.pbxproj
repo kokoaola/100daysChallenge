@@ -22,12 +22,17 @@
 		3B3C912D2ACD6C7B0058BDDD /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B3C91152ACD6C350058BDDD /* WidgetKit.framework */; };
 		3B3C912E2ACD6C7B0058BDDD /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B3C91172ACD6C350058BDDD /* SwiftUI.framework */; };
 		3B3C91312ACD6C7B0058BDDD /* ChallengeWidgetExtensionBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3C91302ACD6C7B0058BDDD /* ChallengeWidgetExtensionBundle.swift */; };
-		3B3C91332ACD6C7B0058BDDD /* ChallengeWidgetExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3C91322ACD6C7B0058BDDD /* ChallengeWidgetExtension.swift */; };
 		3B3C91352ACD6C7C0058BDDD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3B3C91342ACD6C7C0058BDDD /* Assets.xcassets */; };
 		3B3C91392ACD6C7C0058BDDD /* ChallengeWidgetExtensionExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 3B3C912C2ACD6C7B0058BDDD /* ChallengeWidgetExtensionExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		3B3C91412ACD6DCC0058BDDD /* ChallengeEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3C91402ACD6DCC0058BDDD /* ChallengeEntry.swift */; };
 		3B3C91462ACD6F5E0058BDDD /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3C91452ACD6F5E0058BDDD /* Constants.swift */; };
 		3B3C91472ACD6F5E0058BDDD /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3C91452ACD6F5E0058BDDD /* Constants.swift */; };
+		3B3C91482ACD71850058BDDD /* ChallengeEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3C91402ACD6DCC0058BDDD /* ChallengeEntry.swift */; };
+		3B3C914B2ACD734C0058BDDD /* challengedDay.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3B0027F22A76216800520699 /* challengedDay.xcdatamodeld */; };
+		3B3C914D2ACD74690058BDDD /* ChallengeEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3C914C2ACD74690058BDDD /* ChallengeEntryView.swift */; };
+		3B3C914F2ACD74B40058BDDD /* ChallengeTimelineProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3C914E2ACD74B40058BDDD /* ChallengeTimelineProvider.swift */; };
+		3B3C91512ACD79C90058BDDD /* ChallengeWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3C91502ACD79C90058BDDD /* ChallengeWidget.swift */; };
+		3B3C91522ACD7AB50058BDDD /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0027F52A76217800520699 /* DataController.swift */; };
 		3B3CFFFB298E236300102EEE /* generateImageWithText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3CFFFA298E236300102EEE /* generateImageWithText.swift */; };
 		3B44CD89299BCE97001469FA /* ColorSaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B44CD88299BCE96001469FA /* ColorSaver.swift */; };
 		3B4D4E102A6435FF00AFB314 /* NotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4D4E0F2A6435FF00AFB314 /* NotificationView.swift */; };
@@ -99,13 +104,15 @@
 		3B3C91172ACD6C350058BDDD /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		3B3C912C2ACD6C7B0058BDDD /* ChallengeWidgetExtensionExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ChallengeWidgetExtensionExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B3C91302ACD6C7B0058BDDD /* ChallengeWidgetExtensionBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeWidgetExtensionBundle.swift; sourceTree = "<group>"; };
-		3B3C91322ACD6C7B0058BDDD /* ChallengeWidgetExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeWidgetExtension.swift; sourceTree = "<group>"; };
 		3B3C91342ACD6C7C0058BDDD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3B3C91362ACD6C7C0058BDDD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3B3C913D2ACD6CA70058BDDD /* Challenge100days.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Challenge100days.entitlements; sourceTree = "<group>"; };
 		3B3C913E2ACD6CE20058BDDD /* ChallengeWidgetExtensionExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ChallengeWidgetExtensionExtension.entitlements; sourceTree = "<group>"; };
 		3B3C91402ACD6DCC0058BDDD /* ChallengeEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeEntry.swift; sourceTree = "<group>"; };
 		3B3C91452ACD6F5E0058BDDD /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		3B3C914C2ACD74690058BDDD /* ChallengeEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeEntryView.swift; sourceTree = "<group>"; };
+		3B3C914E2ACD74B40058BDDD /* ChallengeTimelineProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeTimelineProvider.swift; sourceTree = "<group>"; };
+		3B3C91502ACD79C90058BDDD /* ChallengeWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeWidget.swift; sourceTree = "<group>"; };
 		3B3CFFFA298E236300102EEE /* generateImageWithText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = generateImageWithText.swift; sourceTree = "<group>"; };
 		3B44CD88299BCE96001469FA /* ColorSaver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSaver.swift; sourceTree = "<group>"; };
 		3B4D4E0F2A6435FF00AFB314 /* NotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationView.swift; sourceTree = "<group>"; };
@@ -250,19 +257,21 @@
 			isa = PBXGroup;
 			children = (
 				3B3C91302ACD6C7B0058BDDD /* ChallengeWidgetExtensionBundle.swift */,
-				3B3C91322ACD6C7B0058BDDD /* ChallengeWidgetExtension.swift */,
 				3B3C91342ACD6C7C0058BDDD /* Assets.xcassets */,
 				3B3C91362ACD6C7C0058BDDD /* Info.plist */,
 			);
 			path = ChallengeWidgetExtension;
 			sourceTree = "<group>";
 		};
-		3B3C913F2ACD6D9D0058BDDD /* Widget */ = {
+		3B3C913F2ACD6D9D0058BDDD /* ChallengeWidget */ = {
 			isa = PBXGroup;
 			children = (
 				3B3C91402ACD6DCC0058BDDD /* ChallengeEntry.swift */,
+				3B3C914C2ACD74690058BDDD /* ChallengeEntryView.swift */,
+				3B3C914E2ACD74B40058BDDD /* ChallengeTimelineProvider.swift */,
+				3B3C91502ACD79C90058BDDD /* ChallengeWidget.swift */,
 			);
-			path = Widget;
+			path = ChallengeWidget;
 			sourceTree = "<group>";
 		};
 		3B93B169299CCE3B006F3332 /* Setting */ = {
@@ -298,6 +307,7 @@
 			children = (
 				3B3C913E2ACD6CE20058BDDD /* ChallengeWidgetExtensionExtension.entitlements */,
 				3BC602BB2986AC1400198F1B /* Challenge100days */,
+				3B3C913F2ACD6D9D0058BDDD /* ChallengeWidget */,
 				3B3C912F2ACD6C7B0058BDDD /* ChallengeWidgetExtension */,
 				3B3C91142ACD6C350058BDDD /* Frameworks */,
 				3BC602BA2986AC1400198F1B /* Products */,
@@ -327,7 +337,6 @@
 				3B0027E62A7615C000520699 /* Models */,
 				3B0027E72A7615F400520699 /* Views */,
 				3B3C910E2ACD43830058BDDD /* ViewModel */,
-				3B3C913F2ACD6D9D0058BDDD /* Widget */,
 				3BC602C02986AC1500198F1B /* Assets.xcassets */,
 				3BC602DA298B5C4E00198F1B /* SF-Compact.dmg */,
 				3B5C493E2A3718D000EA908B /* Localizable.strings */,
@@ -460,8 +469,12 @@
 			files = (
 				3B3C91472ACD6F5E0058BDDD /* Constants.swift in Sources */,
 				3B3C91312ACD6C7B0058BDDD /* ChallengeWidgetExtensionBundle.swift in Sources */,
-				3B3C91332ACD6C7B0058BDDD /* ChallengeWidgetExtension.swift in Sources */,
+				3B3C914D2ACD74690058BDDD /* ChallengeEntryView.swift in Sources */,
+				3B3C914F2ACD74B40058BDDD /* ChallengeTimelineProvider.swift in Sources */,
+				3B3C914B2ACD734C0058BDDD /* challengedDay.xcdatamodeld in Sources */,
+				3B3C91522ACD7AB50058BDDD /* DataController.swift in Sources */,
 				3B3C91412ACD6DCC0058BDDD /* ChallengeEntry.swift in Sources */,
+				3B3C91512ACD79C90058BDDD /* ChallengeWidget.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -500,6 +513,7 @@
 				3B93B16F299FA513006F3332 /* BackUpView.swift in Sources */,
 				3B3C91462ACD6F5E0058BDDD /* Constants.swift in Sources */,
 				3B4D4E1A2A6CCD3600AFB314 /* CoreDataViewModel.swift in Sources */,
+				3B3C91482ACD71850058BDDD /* ChallengeEntry.swift in Sources */,
 				3B4D4E102A6435FF00AFB314 /* NotificationView.swift in Sources */,
 				3BA4243D2A70D98900A6020D /* UserSettingViewModel.swift in Sources */,
 				3B75EB0F298D5C35000FCDE9 /* DetailView.swift in Sources */,

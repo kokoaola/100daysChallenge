@@ -18,7 +18,7 @@ struct ChallengeWidget: Widget{
             ChallengeEntryView(entry: entry)
         }
         .supportedFamilies([.systemSmall,.systemMedium,.systemLarge])
-        .configurationDisplayName("Grocery Widget")
-        .description("Gold old grodery app widget.")
+        .configurationDisplayName("100日チャレンジ")
+        .description("現在何日まで達成中かを表示するウィジェット")
     }
 }
