@@ -35,20 +35,22 @@ struct CompleteWindowView: View {
         
         ZStack{
             //四角に画像とボタンを重ねてる
-            VStack(alignment: .leading, spacing: 0){
+            VStack(alignment: .center, spacing: 10){
                 
                 //閉じるボタン
-                Button(action: {
-                    closed = true
-                    showCompleteWindew = false
-                }){
-                    CloseButton()
+                HStack{
+                    Button(action: {
+                        closed = true
+                        showCompleteWindew = false
+                    }){
+                        CloseButton()
+                    }
+                    Spacer()
                 }
+                
                 
                 if dayNumber <= 99{
                     VStack(alignment: .center, spacing: 30){
-                        
-                        VStack(spacing: 0){
                             
                             //読み上げ用のVStack
                             VStack{
@@ -66,76 +68,76 @@ struct CompleteWindowView: View {
                                 .resizable().scaledToFit()
                                 .accessibilityLabel("日付入りの綺麗な画像")
                                 .padding()
-                            
-                        }
-                        
-                        
-                        VStack{
-                            //シェアボタン
-                            ShareLink(
-                                item: image ?? Image("noImage"),
-                                message: Text("Day\(dayNumber) of #100DaysChallenge\nhttps://apps.apple.com/app/id6449479183"),
-                                preview: SharePreview("Day\(dayNumber) of 100DaysChallenge", image: image ?? Image("noImage"))){
-                                    LeftIconBigButton(icon: Image(systemName: "square.and.arrow.up"), text: "シェアする")
-                                        .foregroundColor(.blue.opacity(0.9))
-                                }
-                            
-                            //メモ追加ボタン
-                            Button {
-                                showMemo = true
-                            } label: {
-                                LeftIconBigButton(icon: Image(systemName: "rectangle.and.pencil.and.ellipsis"), text: "メモを追加")
-                                    .foregroundColor(.green.opacity(0.9))
-                            }
-                        }.padding(.bottom, 30)
-                        
-                    }
+                    }.padding(.vertical,30)
+
                 }else{
                     
                     
-                    
+                    //100日目の画像
                     VStack(alignment: .center, spacing: 0){
-                        
+                        //Congratulationsのアニメーション
                         LottieView(filename: "cong", loop: .loop)
-                            .frame(height: 50)
+                            .frame(height: AppSetting.screenHeight * 0.1)
                         
                         //コンプリート画像
                         generateImageWithText(number: dayNumber, day: coreDataViewModel.allData.last?.date ?? Date.now)
                             .resizable().scaledToFit()
                             .accessibilityLabel("日付入りの綺麗な画像")
-                            .padding()
-                            .padding(.bottom, -50)
+                            .padding(.horizontal)
+                            .frame(height: AppSetting.screenHeight * 0.3)
                         
                         
                         LottieView(filename: "award", loop: .playOnce)
-                            .frame(height: 200)
-                        
-                        
-                        VStack(spacing: 10){
-                            //シェアボタン
-                            ShareLink(
-                                item: image ?? Image("noImage"),
-                                message: Text("Day\(dayNumber) of #100daysChallenge\nhttps://apps.apple.com/app/id6449479183"),
-                                preview: SharePreview("Day\(dayNumber) of 100daysChallenge", image: image ?? Image("noImage"))){
-                                    LeftIconBigButton(icon: Image(systemName: "square.and.arrow.up"), text: "シェアする")
-                                        .foregroundColor(.blue.opacity(0.9))
-                                }
-                            
-                            //メモ追加ボタン
-                            Button {
-                                showMemo = true
-                            } label: {
-                                LeftIconBigButton(icon: Image(systemName: "rectangle.and.pencil.and.ellipsis"), text: "メモを追加")
-                                    .foregroundColor(.green.opacity(0.9))
-                            }
-                        }
-                        .padding(.bottom)
-                        
+                            .padding(.top, -AppSetting.screenHeight * 0.03)
                     }
-                    
-                    
+
+
                 }
                 
+                //iPadの時はボタンを横並び
+                if UIDevice.current.userInterfaceIdiom == .pad{
+                    Spacer()
+                    HStack(spacing:24){
+                        //シェアボタン
+                        ShareLink(
+                            item: image ?? Image("noImage"),
+                            message: Text("Day\(dayNumber) of #100DaysChallenge\nhttps://apps.apple.com/app/id6449479183"),
+                            preview: SharePreview("Day\(dayNumber) of 100DaysChallenge", image: image ?? Image("noImage"))){
+                                LeftIconBigButton(icon: Image(systemName: "square.and.arrow.up"), text: "シェアする")
+                                    .foregroundColor(.blue.opacity(0.9))
+                            }
+                        
+                        //メモ追加ボタン
+                        Button {
+                            showMemo = true
+                        } label: {
+                            LeftIconBigButton(icon: Image(systemName: "rectangle.and.pencil.and.ellipsis"), text: "メモを追加")
+                                .foregroundColor(.green.opacity(0.9))
+                        }
+                    }
+                }else{
+                    
+                    VStack{
+                        //シェアボタン
+                        ShareLink(
+                            item: image ?? Image("noImage"),
+                            message: Text("Day\(dayNumber) of #100DaysChallenge\nhttps://apps.apple.com/app/id6449479183"),
+                            preview: SharePreview("Day\(dayNumber) of 100DaysChallenge", image: image ?? Image("noImage"))){
+                                LeftIconBigButton(icon: Image(systemName: "square.and.arrow.up"), text: "シェアする")
+                                    .foregroundColor(.blue.opacity(0.9))
+                            }
+                        
+                        //メモ追加ボタン
+                        Button {
+                            showMemo = true
+                        } label: {
+                            LeftIconBigButton(icon: Image(systemName: "rectangle.and.pencil.and.ellipsis"), text: "メモを追加")
+                                .foregroundColor(.green.opacity(0.9))
+                        }
+                    }
+                }
+                
+                Spacer()
             }
             .background(.thinMaterial)
             .cornerRadius(15)

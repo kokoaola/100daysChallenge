@@ -40,7 +40,7 @@ struct ActionView: View {
                                 //長期目標の表示
                                 Text("目指している姿  :  ")
                                     .fontWeight(.bold)
-                                    .frame(width: AppSetting.screenWidth * 0.9, alignment: .leading)
+                                    .frame(width: AppSetting.screenWidth * 0.8, alignment: .leading)
                                 
                                 Text("\(userSettingViewModel.longTermGoal)")
                             }
@@ -52,16 +52,22 @@ struct ActionView: View {
                             VStack{
                                 Text("100日取り組むこと : ")
                                     .fontWeight(.bold)
-                                    .frame(width: AppSetting.screenWidth * 0.9, alignment: .leading)
+                                    .frame(width: AppSetting.screenWidth * 0.8, alignment: .leading)
                                 Text("\(userSettingViewModel.shortTermGoal)")
                             }
                             .contentShape(Rectangle())
                             .accessibilityElement()
                             .accessibilityLabel("100日取り組むこと、\(userSettingViewModel.shortTermGoal)")
                         }.font(.callout.weight(.medium))
-                            .frame(width: AppSetting.screenWidth * 0.8)
-                            .padding(.top, 90)
+                            .padding()
+                            .frame(width: AppSetting.screenWidth * 0.9)
+                            
+                            .background(.ultraThinMaterial)
+                            .cornerRadius(15)
+                            .padding(.top,32)
+                            .padding(.bottom, 42)
                             .foregroundColor(.primary)
+
                     }else{
                         Spacer()
                     }
@@ -126,10 +132,11 @@ struct ActionView: View {
                 
                 //ボタン押下後は完了のビューを重ねて表示
                 if showCompleteWindew {
-                    CompleteWindowView(showCompleteWindew: $showCompleteWindew, closed: $showAfterFinishString, dayNumber: dayNumber ?? 1)
+                    CompleteWindowView(showCompleteWindew: $showCompleteWindew, closed: $showAfterFinishString, dayNumber: dayNumber ?? 1)                    
                         .padding(.horizontal)
                         .transition(.scale)
                         .environmentObject(coreDataViewModel)
+
                     
                         //子ビューのキーボード閉じるボタンの実装
                         .toolbar {
@@ -143,6 +150,7 @@ struct ActionView: View {
                         }
                 }
             }
+
             
             //アプリを開いた日のタスクが未達成の場合、コンプリートウインドウを非表示、表示する番号は総データ数＋1、吹き出し文言はボタン押下前のものにする
             .onAppear{
