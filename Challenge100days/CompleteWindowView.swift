@@ -30,6 +30,7 @@ struct CompleteWindowView: View {
     ///今日が何日目か計算する変数
     let dayNumber: Int
     
+    var showAnimation = true
     
     var body: some View {
         
@@ -49,6 +50,7 @@ struct CompleteWindowView: View {
                 }
                 
                 
+                //100日達成する前に表示する画像
                 if dayNumber <= 99{
                     VStack(alignment: .center, spacing: 30){
                             
@@ -73,7 +75,7 @@ struct CompleteWindowView: View {
                 }else{
                     
                     
-                    //100日目の画像
+                    //100日目達成以降の画像
                     VStack(alignment: .center, spacing: 0){
                         //Congratulationsのアニメーション
                         LottieView(filename: "cong", loop: .loop)
@@ -140,14 +142,16 @@ struct CompleteWindowView: View {
                 Spacer()
             }
             .background(.thinMaterial)
-            .cornerRadius(15)
-            .padding()
+//            .cornerRadius(15)
+//            .padding()
             
             
-            LottieView(filename: "confetti3", loop: .playOnce)
-                .frame(width: AppSetting.screenWidth)
-                .allowsHitTesting(false)
-                .opacity(0.8)
+           if userSettingViewModel.showAnimation{
+                LottieView(filename: "confetti3", loop: .playOnce)
+                    .frame(width: AppSetting.screenWidth)
+                    .allowsHitTesting(false)
+                    .opacity(0.8)
+            }
         }
         .onAppear{
             image = generateImageWithText(number: dayNumber, day: coreDataViewModel.allData.last?.date ?? Date.now)

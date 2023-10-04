@@ -30,6 +30,7 @@ class NotificationViewModel: ObservableObject{
     ///ユーザーデフォルト用キー：通知ON-OFF用
     private let isNotificationOnKey = "isNotificationOn"
     
+    
     init(){
         //アプリ起動時はユーザーデフォルトからデータを取得
         self.userSettingNotificationTime = defaults.object(forKey: userSettingNotificationTimeKey) as? Date ?? Date()

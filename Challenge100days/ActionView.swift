@@ -86,6 +86,7 @@ struct ActionView: View {
                                     HStack{
                                         Button {
                                             showCompleteWindew = true
+                                            userSettingViewModel.showAnimation = false
                                         } label: {
                                             Text("ウインドウを再表示する")
                                                 .font(.callout)
@@ -105,6 +106,7 @@ struct ActionView: View {
                     Button(action: {
                         withAnimation{
                             showCompleteWindew = true
+                            userSettingViewModel.showAnimation = true
                         }
                         //データを保存
                         coreDataViewModel.saveData(date: Date(), memo: "")
@@ -115,7 +117,7 @@ struct ActionView: View {
                                 await notificationViewModel.setNotification(item: coreDataViewModel.allData.last)
                             }
                         }
-
+                        print(coreDataViewModel.isFinishTodaysTask)
 
                     }, label: {
                         //達成済みの場合ラベルは薄く表示
