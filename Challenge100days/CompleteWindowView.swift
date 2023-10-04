@@ -142,9 +142,9 @@ struct CompleteWindowView: View {
                 Spacer()
             }
             .background(.thinMaterial)
-//            .cornerRadius(15)
-//            .padding()
-            
+            .frame(width: AppSetting.screenWidth - 30)
+            .cornerRadius(15)
+            .padding()
             
            if userSettingViewModel.showAnimation{
                 LottieView(filename: "confetti3", loop: .playOnce)
