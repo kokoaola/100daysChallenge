@@ -102,7 +102,6 @@ class CoreDataViewModel: ObservableObject{
         allData = getAllData()
         
         //本日のタスク達成済みか確認
-        var isFinish: Bool
         if let lastData = allData.last?.date{
             if Calendar.current.isDate(Date.now, equalTo: lastData, toGranularity: .day){
                 isFinish = true
@@ -158,14 +157,12 @@ class CoreDataViewModel: ObservableObject{
             if Calendar.current.isDate(Date.now, equalTo: lastData, toGranularity: .day){
                 //今日のタスク達成済みフラグを達成済みにする
                 objectWillChange.send()
-//                self.isFinishTodaysTask = true
                 return
             }
         }
         //データが存在しないとき、データの最後尾の日付が本日ではないとき
         //今日のタスク達成済みフラグを未達成にする
         objectWillChange.send()
-//        self.isFinishTodaysTask = false
     }
     
     
