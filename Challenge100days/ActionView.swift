@@ -154,7 +154,7 @@ struct ActionView: View {
             
             //アプリを開いた日のタスクが未達成の場合、コンプリートウインドウを非表示、表示する番号は総データ数＋1、吹き出し文言はボタン押下前のものにする
             .onAppear{
-                if !coreDataViewModel.isFinishTodaysTask{
+                if !coreDataViewModel.checkTodaysTask{
                     showCompleteWindew = false
                     dayNumber = Int(coreDataViewModel.allData.last?.num ?? 0) + 1
                     showAfterFinishString = false
