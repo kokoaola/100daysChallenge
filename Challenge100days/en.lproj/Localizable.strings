@@ -58,7 +58,7 @@
 "%lld文字以内のみ設定可能です" = "Only up to %lld characters can be set";
 "保存する" = "Save";
 "メモを保存する" = "Save a note";
-
+"#Day%lld #100DaysChallenge #100日チャレンジ\n" = "#Day%lld of my #100DaysChallenge\n";
 
 //リストとカードのビュー
 "開始日 : " = "Start date : ";
