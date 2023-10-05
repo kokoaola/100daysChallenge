@@ -37,7 +37,9 @@ struct TutorialView2: View {
                 Text("①あなたが将来なりたい姿はなんですか？")
 
                 ZStack(alignment: .topLeading){
-                    if editText.isEmpty{
+                    if !editText.isEmpty{
+                        EmptyView()
+                    }else{
                         Text("例）画力アップ\n　　TOEIC800点").padding(5)
                     }
                     
@@ -61,15 +63,15 @@ struct TutorialView2: View {
             VStack(alignment: .leading){
                 Text("②その実現のために１００日間取り組むことはなんですか？")
                     .lineLimit(2)
-                                    .fixedSize()
+                    .fixedSize(horizontal: false, vertical: true)
                 
                 
-                // .fixedSize(horizontal: false, vertical: true)
                 ZStack(alignment: .topLeading){
-                    if editText2.isEmpty{
+                    if !editText2.isEmpty{
+                        EmptyView()
+                    }else{
                         Text("例）１日１枚絵を描く\n　　英語の勉強").padding(5)
-                            .foregroundColor(.primary)
-                    }
+                   }
                     
                     ///テキストエディター
                     TextEditor(text: $editText2)
@@ -78,7 +80,10 @@ struct TutorialView2: View {
                         .border(.white, width: 1)
                         .frame(height: AppSetting.screenHeight / 12)
                         .focused($secondTextEditorFocus)
-                        .opacity(editText.isEmpty ? 0.5 : 1)
+                        .opacity(editText2.isEmpty ? 0.5 : 1)
+                    
+                    
+                    
                 }
                 Text("\(AppSetting.maxLengthOfTerm)文字以内のみ設定可能です")
                     .font(.caption)
@@ -133,7 +138,6 @@ struct TutorialView2: View {
                 //1つめのテキストフィールド入力中
                 if firstTextEditorFocus && !secondTextEditorFocus{
                     Button("次へ"){
-                        firstTextEditorFocus = false
                         secondTextEditorFocus = true
                     }
                 }else{
