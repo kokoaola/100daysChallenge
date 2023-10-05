@@ -18,7 +18,10 @@ class CoreDataViewModel: ObservableObject{
     @Published var todaysNum : Int
     
     ///データコントローラー格納変数
-    let persistenceController = DataController()
+//    let persistenceController = DataController()
+    let persistenceController = DataController.persistentContainer
+    
+//    let storeURL = GroceryConstants.appGroupContainerURL.appendingPathComponent("Challenge100Day.sqlite")
     
     ///当日のタスクが達成済みかを格納する変数
     var checkTodaysTask: Bool{
@@ -35,7 +38,7 @@ class CoreDataViewModel: ObservableObject{
     
     
     init() {
-        let context = persistenceController.container.viewContext
+        let context = persistenceController.viewContext
         let request = NSFetchRequest<DailyData>(entityName: "DailyData")
         request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: true)]
         var tasks: [DailyData] = []
@@ -63,7 +66,7 @@ class CoreDataViewModel: ObservableObject{
     
     ///すべてのデータを再取得するメソッド
     func getAllData() -> [DailyData]{
-        let context = persistenceController.container.viewContext
+        let context = persistenceController.viewContext
         let request = NSFetchRequest<DailyData>(entityName: "DailyData")
         request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: true)]
         do{
@@ -85,7 +88,7 @@ class CoreDataViewModel: ObservableObject{
         }
         
         //データのインスタンス生成
-        let context = persistenceController.container.viewContext
+        let context = persistenceController.viewContext
         let entity = NSEntityDescription.insertNewObject(forEntityName: "DailyData", into: context) as! DailyData
         entity.id = UUID()
         entity.date = date
@@ -100,6 +103,9 @@ class CoreDataViewModel: ObservableObject{
         
         objectWillChange.send()
         allData = getAllData()
+        
+        //ウィジェットを更新
+        ChallengeConstants.reloadTimelines()
         
         //本日のタスク達成済みか確認
 //        if let lastData = allData.last?.date{
@@ -116,7 +122,7 @@ class CoreDataViewModel: ObservableObject{
     
     ///引数で受け取った日のメモを更新するメソッド、データがnilなら最新のメモを更新
     func updateDataMemo(newMemo: String, data: DailyData?) async{
-        let context = persistenceController.container.viewContext
+        let context = persistenceController.viewContext
         
         if let data = data{
             data.memo = newMemo
@@ -139,7 +145,7 @@ class CoreDataViewModel: ObservableObject{
     
     ///引数で受け取ったデータを削除するメソッド
     func deleteData(data: DailyData) async{
-        let context = persistenceController.container.viewContext
+        let context = persistenceController.viewContext
         context.delete(data)
         do {
             try context.save()
@@ -163,12 +169,15 @@ class CoreDataViewModel: ObservableObject{
         //データが存在しないとき、データの最後尾の日付が本日ではないとき
         //今日のタスク達成済みフラグを未達成にする
         objectWillChange.send()
+
+        //ウィジェットを更新
+        ChallengeConstants.reloadTimelines()
     }
     
     
     ///データの番号を振り直すメソッド
     func assignNumbers() async{
-        let context = persistenceController.container.viewContext
+        let context = persistenceController.viewContext
         
         await MainActor.run{
             for (index, data) in self.allData.enumerated() {
@@ -188,7 +197,7 @@ class CoreDataViewModel: ObservableObject{
     
     ///データベースのすべての記録を削除するメソッド
     func deleteAllData(){
-        let context = persistenceController.container.viewContext
+        let context = persistenceController.viewContext
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "DailyData")
         
         // Create Batch Delete Request
@@ -203,7 +212,9 @@ class CoreDataViewModel: ObservableObject{
         
         objectWillChange.send()
         allData = getAllData()
-        objectWillChange.send()
+
+        //ウィジェットを更新
+        ChallengeConstants.reloadTimelines()
 //        self.isFinishTodaysTask = false
     }
 }
