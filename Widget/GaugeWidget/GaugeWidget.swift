@@ -1,21 +1,19 @@
 //
-//  ChallengeWidget.swift
+//  GaugeWidget.swift
 //  ChallengeWidgetExtensionExtension
 //
 //  Created by koala panda on 2023/10/04.
 //
 
 import Foundation
-
-
 import WidgetKit
 import SwiftUI
 
-struct ChallengeWidget: Widget{
+struct GaugeWidget: Widget{
     var body: some WidgetConfiguration{
         
-        StaticConfiguration(kind: ChallengeConstants.widgetKind, provider: ChallengeTimelineProvider()) { entry in
-            ChallengeEntryView1(entry: entry)
+        StaticConfiguration(kind: ChallengeConstants.gaugeWidgetKind, provider: GaugeWidgetEntryTimelineProvider()) { entry in
+            GaugeWidgetEntryView(entry: entry)
         }
         .supportedFamilies([.systemSmall,.systemMedium])
         .configurationDisplayName("100日チャレンジ")

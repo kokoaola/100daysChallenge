@@ -1,5 +1,5 @@
 //
-//  ChallengeTimelineProvider.swift
+//  GaugeWidgetEntryTimelineProvider.swift
 //  ChallengeWidgetExtensionExtension
 //
 //  Created by koala panda on 2023/10/04.
@@ -10,23 +10,23 @@ import SwiftUI
 import CoreData
 
 // TimelineProviderプロトコルを採用する構造体GroceryTimelineProviderを定義
-struct ChallengeTimelineProvider:TimelineProvider{
+struct GaugeWidgetEntryTimelineProvider:TimelineProvider{
     // Entry型としてGroceryEntryを使用
-    typealias Entry = ChallengeEntry
+    typealias Entry = GaugeWidgetEntry
     
     
     // placeholderメソッドでデフォルトのGroceryEntryを返す、Widgetのプレビュー表示に使われる
-    func placeholder(in context: Context) -> ChallengeEntry {
-        ChallengeEntry()
+    func placeholder(in context: Context) -> GaugeWidgetEntry {
+        GaugeWidgetEntry(items: 32)
     }
     
     // getSnapshotメソッドでデフォルトのGroceryEntryを返す、Widgetの静的なビューの表示に使われる
-    func getSnapshot(in context: Context, completion: @escaping (ChallengeEntry) -> Void) {
-        completion(ChallengeEntry())
+    func getSnapshot(in context: Context, completion: @escaping (GaugeWidgetEntry) -> Void) {
+        completion(GaugeWidgetEntry(items: 32))
     }
     
     // getTimelineメソッドで指定されたWidgetファミリーサイズに基づいてフェッチするアイテムの数を決定し、タイムラインを取得
-    func getTimeline(in context: Context, completion: @escaping (Timeline<ChallengeEntry>) -> Void) {
+    func getTimeline(in context: Context, completion: @escaping (Timeline<GaugeWidgetEntry>) -> Void) {
         // Itemのフェッチリクエストを作成
 //        let request = DailyData.fetchRequest()
 
@@ -35,20 +35,11 @@ struct ChallengeTimelineProvider:TimelineProvider{
         request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: true)]
         do{
             let items = try context.fetch(request)
-            completion(Timeline(entries: [ChallengeEntry(items: items)], policy: .never))
+            let itemCount = items.count
+            completion(Timeline(entries: [GaugeWidgetEntry(items: itemCount)], policy: .never))
         }catch{
             fatalError()
         }
-        
-//        do{
-//            // フェッチリクエストを使用してアイテムをフェッチ
-//            let items = try DataController.shared.managedObjectContext.fetch(request)
-//            // フェッチしたアイテムを使用してGroceryEntryを作成し、それを含むタイムラインを作成。ポリシーは.neverで、手動でのみ更新
-//            completion(Timeline(entries: [GroceryEntry(items: items)], policy: .never))
-//        }catch{
-//            // エラーが発生した場合はエラー内容を出力
-//            print(error.localizedDescription)
-//        }
     }
 }
 
