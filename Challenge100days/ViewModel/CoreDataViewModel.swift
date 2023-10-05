@@ -105,7 +105,7 @@ class CoreDataViewModel: ObservableObject{
         allData = getAllData()
         
         //ウィジェットを更新
-        ChallengeConstants.reloadPedometerTimelines()
+        ChallengeConstants.reloadTimelines()
         
         //本日のタスク達成済みか確認
 //        if let lastData = allData.last?.date{
@@ -171,7 +171,7 @@ class CoreDataViewModel: ObservableObject{
         objectWillChange.send()
 
         //ウィジェットを更新
-        ChallengeConstants.reloadPedometerTimelines()
+        ChallengeConstants.reloadTimelines()
     }
     
     
@@ -214,7 +214,7 @@ class CoreDataViewModel: ObservableObject{
         allData = getAllData()
 
         //ウィジェットを更新
-        ChallengeConstants.reloadPedometerTimelines()
+        ChallengeConstants.reloadTimelines()
 //        self.isFinishTodaysTask = false
     }
 }

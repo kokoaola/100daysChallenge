@@ -11,6 +11,7 @@ import SwiftUI
 @main
 struct ChallengeWidgetExtensionBundle: WidgetBundle {
     var body: some Widget {
-        ChallengeWidget()
+        NumberWidget()
+        GaugeWidget()
     }
 }
