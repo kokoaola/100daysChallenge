@@ -78,7 +78,7 @@ class NotificationViewModel: ObservableObject{
     
     ///通知を送る曜日を取得するメソッド
     func getUserSelectedDays() ->  Set<Int>{
-        let array = defaults.object(forKey:"notificationDay") as? [Int] ?? [1, 2, 3, 4, 5, 6, 7]
+        let array = defaults.object(forKey:"notificationDay") as? [Int] ?? []
         return Set(array)
     }
     
@@ -86,7 +86,7 @@ class NotificationViewModel: ObservableObject{
     func resetNotification(){
         notificationCenter.removeAllPendingNotificationRequests()
         switchUserNotification(isOn: false)
-        self.userSettingNotificationDay = [1, 2, 3, 4, 5, 6, 7]
+        self.userSettingNotificationDay = []
         saveUserSelectedDays()
     }
     
