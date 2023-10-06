@@ -34,7 +34,7 @@ class NotificationViewModel: ObservableObject{
     init(){
         //アプリ起動時はユーザーデフォルトからデータを取得
         self.userSettingNotificationTime = defaults.object(forKey: userSettingNotificationTimeKey) as? Date ?? Date()
-        let array = defaults.object(forKey: userSettingNotificationDayKey) as? [Int] ?? [1, 2, 3, 4, 5, 6, 7]
+        let array = defaults.object(forKey: userSettingNotificationDayKey) as? [Int] ?? []
         self.userSettingNotificationDay = Set(array)
         self.isNotificationOn = defaults.bool(forKey: isNotificationOnKey)
     }

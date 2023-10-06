@@ -16,6 +16,8 @@
 		3B0027FF2A7621A800520699 /* TutorialView1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0027FB2A7621A800520699 /* TutorialView1.swift */; };
 		3B0028002A7621A800520699 /* TutorialViewTop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0027FC2A7621A800520699 /* TutorialViewTop.swift */; };
 		3B0028042A76248800520699 /* Challenge100daysApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0028032A76248800520699 /* Challenge100daysApp.swift */; };
+		3B09E5722ACFB505006213F0 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3B5C493E2A3718D000EA908B /* Localizable.strings */; };
+		3B09E5732ACFB509006213F0 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3B5C494A2A371E1800EA908B /* InfoPlist.strings */; };
 		3B0D983A2A053D430001FD0A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3BC602C02986AC1500198F1B /* Assets.xcassets */; };
 		3B0D983C2A068DD20001FD0A /* PrivacyPolicyWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0D983B2A068DD20001FD0A /* PrivacyPolicyWebView.swift */; };
 		3B246ABA2A0698ED00CB7EED /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B246AB92A0698ED00CB7EED /* Contact.swift */; };
@@ -471,6 +473,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				3B3C91352ACD6C7C0058BDDD /* Assets.xcassets in Resources */,
+				3B09E5732ACFB509006213F0 /* InfoPlist.strings in Resources */,
+				3B09E5722ACFB505006213F0 /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
