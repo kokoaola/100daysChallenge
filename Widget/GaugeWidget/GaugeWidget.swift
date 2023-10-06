@@ -16,7 +16,7 @@ struct GaugeWidget: Widget{
             GaugeWidgetEntryView(entry: entry)
         }
         .supportedFamilies([.systemSmall,.systemMedium])
-        .configurationDisplayName("100日チャレンジ")
+        .configurationDisplayName(LocalizedStringKey("100日チャレンジ"))
         .description("現在何日まで達成中かを表示するウィジェット")
     }
 }

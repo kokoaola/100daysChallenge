@@ -16,8 +16,10 @@
 		3B0027FF2A7621A800520699 /* TutorialView1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0027FB2A7621A800520699 /* TutorialView1.swift */; };
 		3B0028002A7621A800520699 /* TutorialViewTop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0027FC2A7621A800520699 /* TutorialViewTop.swift */; };
 		3B0028042A76248800520699 /* Challenge100daysApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0028032A76248800520699 /* Challenge100daysApp.swift */; };
+		3B09E5722ACFB505006213F0 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3B5C493E2A3718D000EA908B /* Localizable.strings */; };
+		3B09E5732ACFB509006213F0 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3B5C494A2A371E1800EA908B /* InfoPlist.strings */; };
 		3B0D983A2A053D430001FD0A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3BC602C02986AC1500198F1B /* Assets.xcassets */; };
-		3B0D983C2A068DD20001FD0A /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0D983B2A068DD20001FD0A /* WebView.swift */; };
+		3B0D983C2A068DD20001FD0A /* PrivacyPolicyWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0D983B2A068DD20001FD0A /* PrivacyPolicyWebView.swift */; };
 		3B246ABA2A0698ED00CB7EED /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B246AB92A0698ED00CB7EED /* Contact.swift */; };
 		3B3C912D2ACD6C7B0058BDDD /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B3C91152ACD6C350058BDDD /* WidgetKit.framework */; };
 		3B3C912E2ACD6C7B0058BDDD /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B3C91172ACD6C350058BDDD /* SwiftUI.framework */; };
@@ -102,7 +104,7 @@
 		3B0027FB2A7621A800520699 /* TutorialView1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TutorialView1.swift; path = Challenge100days/Models/Models/Tutorial/TutorialView1.swift; sourceTree = SOURCE_ROOT; };
 		3B0027FC2A7621A800520699 /* TutorialViewTop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TutorialViewTop.swift; path = Challenge100days/Models/Models/Tutorial/TutorialViewTop.swift; sourceTree = SOURCE_ROOT; };
 		3B0028032A76248800520699 /* Challenge100daysApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Challenge100daysApp.swift; sourceTree = "<group>"; };
-		3B0D983B2A068DD20001FD0A /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
+		3B0D983B2A068DD20001FD0A /* PrivacyPolicyWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyPolicyWebView.swift; sourceTree = "<group>"; };
 		3B246AB92A0698ED00CB7EED /* Contact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
 		3B3C91152ACD6C350058BDDD /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		3B3C91172ACD6C350058BDDD /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
@@ -306,7 +308,7 @@
 			isa = PBXGroup;
 			children = (
 				3B93B167299CCDED006F3332 /* SettingView.swift */,
-				3B0D983B2A068DD20001FD0A /* WebView.swift */,
+				3B0D983B2A068DD20001FD0A /* PrivacyPolicyWebView.swift */,
 				3B246AB92A0698ED00CB7EED /* Contact.swift */,
 				3B93B16C299F2D6A006F3332 /* EditGoal.swift */,
 				3B93B16A299D1307006F3332 /* AboutThisApp.swift */,
@@ -471,6 +473,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				3B3C91352ACD6C7C0058BDDD /* Assets.xcassets in Resources */,
+				3B09E5732ACFB509006213F0 /* InfoPlist.strings in Resources */,
+				3B09E5722ACFB505006213F0 /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -539,7 +543,7 @@
 				3B0027F42A76216800520699 /* challengedDay.xcdatamodeld in Sources */,
 				3B0027FF2A7621A800520699 /* TutorialView1.swift in Sources */,
 				3B0028042A76248800520699 /* Challenge100daysApp.swift in Sources */,
-				3B0D983C2A068DD20001FD0A /* WebView.swift in Sources */,
+				3B0D983C2A068DD20001FD0A /* PrivacyPolicyWebView.swift in Sources */,
 				3B75EB0D298BD0B1000FCDE9 /* MemoSheet.swift in Sources */,
 				3BC602CF2986B50B00198F1B /* CompleteWindowView.swift in Sources */,
 				3B93B16F299FA513006F3332 /* BackUpView.swift in Sources */,
@@ -766,7 +770,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Challenge100days/Challenge100days.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.32;
+				CURRENT_PROJECT_VERSION = 1.42;
 				DEVELOPMENT_ASSET_PATHS = "\"Challenge100days/Preview Content\"";
 				DEVELOPMENT_TEAM = 6CBTWMSXBM;
 				ENABLE_PREVIEWS = YES;
@@ -785,7 +789,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.32;
+				MARKETING_VERSION = 1.42;
 				PRODUCT_BUNDLE_IDENTIFIER = amatnug.amatnug.Challenge100days;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -805,7 +809,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Challenge100days/Challenge100days.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.32;
+				CURRENT_PROJECT_VERSION = 1.42;
 				DEVELOPMENT_ASSET_PATHS = "\"Challenge100days/Preview Content\"";
 				DEVELOPMENT_TEAM = 6CBTWMSXBM;
 				ENABLE_PREVIEWS = YES;
@@ -824,7 +828,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.32;
+				MARKETING_VERSION = 1.42;
 				PRODUCT_BUNDLE_IDENTIFIER = amatnug.amatnug.Challenge100days;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
