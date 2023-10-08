@@ -135,7 +135,7 @@ struct SettingView: View {
                             
                             //プライバシーポリシーページ遷移用のセル
                             NavigationLink {
-                                WebView()
+                                PrivacyPolicyWebView()
                             } label: {
                                 Text("プライバシーポリシー")
                             }

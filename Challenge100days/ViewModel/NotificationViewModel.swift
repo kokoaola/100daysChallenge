@@ -30,10 +30,11 @@ class NotificationViewModel: ObservableObject{
     ///ユーザーデフォルト用キー：通知ON-OFF用
     private let isNotificationOnKey = "isNotificationOn"
     
+    
     init(){
         //アプリ起動時はユーザーデフォルトからデータを取得
         self.userSettingNotificationTime = defaults.object(forKey: userSettingNotificationTimeKey) as? Date ?? Date()
-        let array = defaults.object(forKey: userSettingNotificationDayKey) as? [Int] ?? [1, 2, 3, 4, 5, 6, 7]
+        let array = defaults.object(forKey: userSettingNotificationDayKey) as? [Int] ?? []
         self.userSettingNotificationDay = Set(array)
         self.isNotificationOn = defaults.bool(forKey: isNotificationOnKey)
     }
@@ -77,7 +78,7 @@ class NotificationViewModel: ObservableObject{
     
     ///通知を送る曜日を取得するメソッド
     func getUserSelectedDays() ->  Set<Int>{
-        let array = defaults.object(forKey:"notificationDay") as? [Int] ?? [1, 2, 3, 4, 5, 6, 7]
+        let array = defaults.object(forKey:"notificationDay") as? [Int] ?? []
         return Set(array)
     }
     
@@ -85,7 +86,7 @@ class NotificationViewModel: ObservableObject{
     func resetNotification(){
         notificationCenter.removeAllPendingNotificationRequests()
         switchUserNotification(isOn: false)
-        self.userSettingNotificationDay = [1, 2, 3, 4, 5, 6, 7]
+        self.userSettingNotificationDay = []
         saveUserSelectedDays()
     }
     

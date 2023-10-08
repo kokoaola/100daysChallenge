@@ -30,6 +30,7 @@ struct CompleteWindowView: View {
     ///今日が何日目か計算する変数
     let dayNumber: Int
     
+    var showAnimation = true
     
     var body: some View {
         
@@ -49,31 +50,32 @@ struct CompleteWindowView: View {
                 }
                 
                 
+                //100日達成する前に表示する画像
                 if dayNumber <= 99{
                     VStack(alignment: .center, spacing: 30){
-                            
-                            //読み上げ用のVStack
-                            VStack{
-                                Text("\(dayNumber)日目のチャレンジ達成！")
-                                Text("よく頑張ったね！")
-                            }
-                            .foregroundColor(.primary)
-                            .contentShape(Rectangle())
-                            .accessibilityElement(children: .combine)
-                            
-                            
-                            
-                            //コンプリート画像
-                            generateImageWithText(number: dayNumber, day: coreDataViewModel.allData.last?.date ?? Date.now)
-                                .resizable().scaledToFit()
-                                .accessibilityLabel("日付入りの綺麗な画像")
-                                .padding()
+                        
+                        //読み上げ用のVStack
+                        VStack{
+                            Text("\(dayNumber)日目のチャレンジ達成！")
+                            Text("よく頑張ったね！")
+                        }
+                        .foregroundColor(.primary)
+                        .contentShape(Rectangle())
+                        .accessibilityElement(children: .combine)
+                        
+                        
+                        
+                        //コンプリート画像
+                        generateImageWithText(number: dayNumber, day: coreDataViewModel.allData.last?.date ?? Date.now)
+                            .resizable().scaledToFit()
+                            .accessibilityLabel("日付入りの綺麗な画像")
+                            .padding()
                     }.padding(.vertical,30)
-
+                    
                 }else{
                     
                     
-                    //100日目の画像
+                    //100日目達成以降の画像
                     VStack(alignment: .center, spacing: 0){
                         //Congratulationsのアニメーション
                         LottieView(filename: "cong", loop: .loop)
@@ -90,8 +92,8 @@ struct CompleteWindowView: View {
                         LottieView(filename: "award", loop: .playOnce)
                             .padding(.top, -AppSetting.screenHeight * 0.03)
                     }
-
-
+                    
+                    
                 }
                 
                 //iPadの時はボタンを横並び
@@ -101,7 +103,7 @@ struct CompleteWindowView: View {
                         //シェアボタン
                         ShareLink(
                             item: image ?? Image("noImage"),
-                            message: Text("Day\(dayNumber) of #100DaysChallenge\nhttps://apps.apple.com/app/id6449479183"),
+                            message: Text("#Day\(dayNumber) #100DaysChallenge #100日チャレンジ\n"),
                             preview: SharePreview("Day\(dayNumber) of 100DaysChallenge", image: image ?? Image("noImage"))){
                                 LeftIconBigButton(icon: Image(systemName: "square.and.arrow.up"), text: "シェアする")
                                     .foregroundColor(.blue.opacity(0.9))
@@ -121,7 +123,8 @@ struct CompleteWindowView: View {
                         //シェアボタン
                         ShareLink(
                             item: image ?? Image("noImage"),
-                            message: Text("Day\(dayNumber) of #100DaysChallenge\nhttps://apps.apple.com/app/id6449479183"),
+                            message: Text("#Day\(dayNumber) #100DaysChallenge #100日チャレンジ\n"),
+                            //message: Text("Day\(dayNumber) of #100DaysChallenge\nhttps://apps.apple.com/app/id6449479183"),
                             preview: SharePreview("Day\(dayNumber) of 100DaysChallenge", image: image ?? Image("noImage"))){
                                 LeftIconBigButton(icon: Image(systemName: "square.and.arrow.up"), text: "シェアする")
                                     .foregroundColor(.blue.opacity(0.9))
@@ -140,14 +143,16 @@ struct CompleteWindowView: View {
                 Spacer()
             }
             .background(.thinMaterial)
+            .frame(width: AppSetting.screenWidth - 30)
             .cornerRadius(15)
             .padding()
             
-            
-            LottieView(filename: "confetti3", loop: .playOnce)
-                .frame(width: AppSetting.screenWidth)
-                .allowsHitTesting(false)
-                .opacity(0.8)
+           if userSettingViewModel.showAnimation{
+                LottieView(filename: "confetti3", loop: .playOnce)
+                    .frame(width: AppSetting.screenWidth)
+                    .allowsHitTesting(false)
+                    .opacity(0.8)
+            }
         }
         .onAppear{
             image = generateImageWithText(number: dayNumber, day: coreDataViewModel.allData.last?.date ?? Date.now)
@@ -179,3 +184,4 @@ struct CompleteWindowView: View {
 //        }.environmentObject(CoreDataViewModel())
 //    }
 //}
+

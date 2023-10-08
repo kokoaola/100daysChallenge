@@ -1,5 +1,5 @@
 //
-//  Privacy.swift
+//  PrivacyPolicyWebView.swift
 //  Challenge100days
 //
 //  Created by koala panda on 2023/05/06.
@@ -11,9 +11,9 @@ import WebKit
 
 
 ///ウェブ上のプライバシーポリシーを表示する
-struct WebView: UIViewRepresentable {
+struct PrivacyPolicyWebView: UIViewRepresentable {
     ///URL
-    var urlString = "https://kokoaola.github.io/privacy.html"
+    var urlString = "https://kokoaola.github.io/privacyPolicy/privacy100days.html"
     
     func makeUIView(context: Context) -> WKWebView{
         return WKWebView()
@@ -30,9 +30,9 @@ struct WebView: UIViewRepresentable {
 struct WebView_Previews: PreviewProvider {
     static var previews: some View {
         Group{
-            WebView()
+            PrivacyPolicyWebView()
                 .environment(\.locale, Locale(identifier:"en"))
-            WebView()
+            PrivacyPolicyWebView()
                 .environment(\.locale, Locale(identifier:"ja"))
         }
     }

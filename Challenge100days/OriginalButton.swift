@@ -11,8 +11,9 @@ import SwiftUI
 ///シート等の閉じるボタンのビュー
 struct CloseButton: View{
     var body: some View {
-        Image(systemName: "xmark")
-            .font(.title3).foregroundColor(.primary)
+        Text("閉じる")
+//        Image(systemName: "xmark")
+            .foregroundColor(.blue)
             .padding()
     }
 }

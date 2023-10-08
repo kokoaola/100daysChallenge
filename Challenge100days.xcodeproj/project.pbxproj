@@ -16,9 +16,25 @@
 		3B0027FF2A7621A800520699 /* TutorialView1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0027FB2A7621A800520699 /* TutorialView1.swift */; };
 		3B0028002A7621A800520699 /* TutorialViewTop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0027FC2A7621A800520699 /* TutorialViewTop.swift */; };
 		3B0028042A76248800520699 /* Challenge100daysApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0028032A76248800520699 /* Challenge100daysApp.swift */; };
+		3B09E5722ACFB505006213F0 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3B5C493E2A3718D000EA908B /* Localizable.strings */; };
+		3B09E5732ACFB509006213F0 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3B5C494A2A371E1800EA908B /* InfoPlist.strings */; };
 		3B0D983A2A053D430001FD0A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3BC602C02986AC1500198F1B /* Assets.xcassets */; };
-		3B0D983C2A068DD20001FD0A /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0D983B2A068DD20001FD0A /* WebView.swift */; };
+		3B0D983C2A068DD20001FD0A /* PrivacyPolicyWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0D983B2A068DD20001FD0A /* PrivacyPolicyWebView.swift */; };
 		3B246ABA2A0698ED00CB7EED /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B246AB92A0698ED00CB7EED /* Contact.swift */; };
+		3B3C912D2ACD6C7B0058BDDD /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B3C91152ACD6C350058BDDD /* WidgetKit.framework */; };
+		3B3C912E2ACD6C7B0058BDDD /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B3C91172ACD6C350058BDDD /* SwiftUI.framework */; };
+		3B3C91312ACD6C7B0058BDDD /* ChallengeWidgetExtensionBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3C91302ACD6C7B0058BDDD /* ChallengeWidgetExtensionBundle.swift */; };
+		3B3C91352ACD6C7C0058BDDD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3B3C91342ACD6C7C0058BDDD /* Assets.xcassets */; };
+		3B3C91392ACD6C7C0058BDDD /* ChallengeWidgetExtensionExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 3B3C912C2ACD6C7B0058BDDD /* ChallengeWidgetExtensionExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		3B3C91412ACD6DCC0058BDDD /* GaugeWidgetEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3C91402ACD6DCC0058BDDD /* GaugeWidgetEntry.swift */; };
+		3B3C91462ACD6F5E0058BDDD /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3C91452ACD6F5E0058BDDD /* Constants.swift */; };
+		3B3C91472ACD6F5E0058BDDD /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3C91452ACD6F5E0058BDDD /* Constants.swift */; };
+		3B3C91482ACD71850058BDDD /* GaugeWidgetEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3C91402ACD6DCC0058BDDD /* GaugeWidgetEntry.swift */; };
+		3B3C914B2ACD734C0058BDDD /* challengedDay.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3B0027F22A76216800520699 /* challengedDay.xcdatamodeld */; };
+		3B3C914D2ACD74690058BDDD /* GaugeWidgetEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3C914C2ACD74690058BDDD /* GaugeWidgetEntryView.swift */; };
+		3B3C914F2ACD74B40058BDDD /* GaugeWidgetTimelineProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3C914E2ACD74B40058BDDD /* GaugeWidgetTimelineProvider.swift */; };
+		3B3C91512ACD79C90058BDDD /* GaugeWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3C91502ACD79C90058BDDD /* GaugeWidget.swift */; };
+		3B3C91522ACD7AB50058BDDD /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0027F52A76217800520699 /* DataController.swift */; };
 		3B3CFFFB298E236300102EEE /* generateImageWithText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3CFFFA298E236300102EEE /* generateImageWithText.swift */; };
 		3B44CD89299BCE97001469FA /* ColorSaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B44CD88299BCE96001469FA /* ColorSaver.swift */; };
 		3B4D4E102A6435FF00AFB314 /* NotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4D4E0F2A6435FF00AFB314 /* NotificationView.swift */; };
@@ -29,6 +45,10 @@
 		3B5EF9272A71641B00709006 /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5EF9262A71641B00709006 /* ToastView.swift */; };
 		3B75EB0D298BD0B1000FCDE9 /* MemoSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B75EB0C298BD0B1000FCDE9 /* MemoSheet.swift */; };
 		3B75EB0F298D5C35000FCDE9 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B75EB0E298D5C35000FCDE9 /* DetailView.swift */; };
+		3B91C4092ACEB6B900B2D626 /* NumberWidgetEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B91C4082ACEB6B900B2D626 /* NumberWidgetEntry.swift */; };
+		3B91C40B2ACEB6E200B2D626 /* NumberWidgetEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B91C40A2ACEB6E200B2D626 /* NumberWidgetEntryView.swift */; };
+		3B91C40D2ACEB88A00B2D626 /* NumberWidgetTimelineProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B91C40C2ACEB88A00B2D626 /* NumberWidgetTimelineProvider.swift */; };
+		3B91C40F2ACEBA6700B2D626 /* NumberWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B91C40E2ACEBA6700B2D626 /* NumberWidget.swift */; };
 		3B93B168299CCDED006F3332 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B93B167299CCDED006F3332 /* SettingView.swift */; };
 		3B93B16B299D1307006F3332 /* AboutThisApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B93B16A299D1307006F3332 /* AboutThisApp.swift */; };
 		3B93B16D299F2D6A006F3332 /* EditGoal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B93B16C299F2D6A006F3332 /* EditGoal.swift */; };
@@ -50,18 +70,55 @@
 		3BC602D929891B0300198F1B /* ArchivementViewsTop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC602D829891B0300198F1B /* ArchivementViewsTop.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		3B3C91372ACD6C7C0058BDDD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3BC602B12986AC1400198F1B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3B3C912B2ACD6C7B0058BDDD;
+			remoteInfo = ChallengeWidgetExtensionExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		3B3C91242ACD6C360058BDDD /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				3B3C91392ACD6C7C0058BDDD /* ChallengeWidgetExtensionExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		3B0027E02A738FDD00520699 /* SpeechBubble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechBubble.swift; sourceTree = "<group>"; };
 		3B0027F32A76216800520699 /* challengedDay.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = challengedDay.xcdatamodel; sourceTree = "<group>"; };
 		3B0027F52A76217800520699 /* DataController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		3B0027F72A76218E00520699 /* AppSettingModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppSettingModel.swift; path = Challenge100days/AppSettingModel.swift; sourceTree = SOURCE_ROOT; };
-		3B0027F92A7621A800520699 /* TutorialView2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TutorialView2.swift; path = Challenge100days/TutorialView2.swift; sourceTree = SOURCE_ROOT; };
-		3B0027FA2A7621A800520699 /* TutorialView3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TutorialView3.swift; path = Challenge100days/TutorialView3.swift; sourceTree = SOURCE_ROOT; };
-		3B0027FB2A7621A800520699 /* TutorialView1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TutorialView1.swift; path = Challenge100days/TutorialView1.swift; sourceTree = SOURCE_ROOT; };
-		3B0027FC2A7621A800520699 /* TutorialViewTop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TutorialViewTop.swift; path = Challenge100days/TutorialViewTop.swift; sourceTree = SOURCE_ROOT; };
+		3B0027F92A7621A800520699 /* TutorialView2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TutorialView2.swift; path = Challenge100days/Models/Models/Tutorial/TutorialView2.swift; sourceTree = SOURCE_ROOT; };
+		3B0027FA2A7621A800520699 /* TutorialView3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TutorialView3.swift; path = Challenge100days/Models/Models/Tutorial/TutorialView3.swift; sourceTree = SOURCE_ROOT; };
+		3B0027FB2A7621A800520699 /* TutorialView1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TutorialView1.swift; path = Challenge100days/Models/Models/Tutorial/TutorialView1.swift; sourceTree = SOURCE_ROOT; };
+		3B0027FC2A7621A800520699 /* TutorialViewTop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TutorialViewTop.swift; path = Challenge100days/Models/Models/Tutorial/TutorialViewTop.swift; sourceTree = SOURCE_ROOT; };
 		3B0028032A76248800520699 /* Challenge100daysApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Challenge100daysApp.swift; sourceTree = "<group>"; };
-		3B0D983B2A068DD20001FD0A /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
+		3B0D983B2A068DD20001FD0A /* PrivacyPolicyWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyPolicyWebView.swift; sourceTree = "<group>"; };
 		3B246AB92A0698ED00CB7EED /* Contact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
+		3B3C91152ACD6C350058BDDD /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		3B3C91172ACD6C350058BDDD /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		3B3C912C2ACD6C7B0058BDDD /* ChallengeWidgetExtensionExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ChallengeWidgetExtensionExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		3B3C91302ACD6C7B0058BDDD /* ChallengeWidgetExtensionBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeWidgetExtensionBundle.swift; sourceTree = "<group>"; };
+		3B3C91342ACD6C7C0058BDDD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		3B3C91362ACD6C7C0058BDDD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3B3C913D2ACD6CA70058BDDD /* Challenge100days.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Challenge100days.entitlements; sourceTree = "<group>"; };
+		3B3C913E2ACD6CE20058BDDD /* ChallengeWidgetExtensionExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ChallengeWidgetExtensionExtension.entitlements; sourceTree = "<group>"; };
+		3B3C91402ACD6DCC0058BDDD /* GaugeWidgetEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GaugeWidgetEntry.swift; sourceTree = "<group>"; };
+		3B3C91452ACD6F5E0058BDDD /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		3B3C914C2ACD74690058BDDD /* GaugeWidgetEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GaugeWidgetEntryView.swift; sourceTree = "<group>"; };
+		3B3C914E2ACD74B40058BDDD /* GaugeWidgetTimelineProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GaugeWidgetTimelineProvider.swift; sourceTree = "<group>"; };
+		3B3C91502ACD79C90058BDDD /* GaugeWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GaugeWidget.swift; sourceTree = "<group>"; };
 		3B3CFFFA298E236300102EEE /* generateImageWithText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = generateImageWithText.swift; sourceTree = "<group>"; };
 		3B44CD88299BCE96001469FA /* ColorSaver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSaver.swift; sourceTree = "<group>"; };
 		3B4D4E0F2A6435FF00AFB314 /* NotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationView.swift; sourceTree = "<group>"; };
@@ -74,6 +131,10 @@
 		3B5EF9262A71641B00709006 /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
 		3B75EB0C298BD0B1000FCDE9 /* MemoSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MemoSheet.swift; path = ../MemoSheet.swift; sourceTree = "<group>"; };
 		3B75EB0E298D5C35000FCDE9 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
+		3B91C4082ACEB6B900B2D626 /* NumberWidgetEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberWidgetEntry.swift; sourceTree = "<group>"; };
+		3B91C40A2ACEB6E200B2D626 /* NumberWidgetEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberWidgetEntryView.swift; sourceTree = "<group>"; };
+		3B91C40C2ACEB88A00B2D626 /* NumberWidgetTimelineProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberWidgetTimelineProvider.swift; sourceTree = "<group>"; };
+		3B91C40E2ACEBA6700B2D626 /* NumberWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberWidget.swift; sourceTree = "<group>"; };
 		3B93B167299CCDED006F3332 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		3B93B16A299D1307006F3332 /* AboutThisApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutThisApp.swift; sourceTree = "<group>"; };
 		3B93B16C299F2D6A006F3332 /* EditGoal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditGoal.swift; sourceTree = "<group>"; };
@@ -98,6 +159,15 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		3B3C91292ACD6C7B0058BDDD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3B3C912E2ACD6C7B0058BDDD /* SwiftUI.framework in Frameworks */,
+				3B3C912D2ACD6C7B0058BDDD /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		3BC602B62986AC1400198F1B /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -121,7 +191,7 @@
 			isa = PBXGroup;
 			children = (
 				3B0027E92A76164100520699 /* TopView */,
-				3B0027ED2A76172F00520699 /* TutorialView */,
+				3B3C910D2ACD434F0058BDDD /* Tutorial */,
 				3B0027EA2A76166300520699 /* ActionViews */,
 				3B0027EC2A7616F200520699 /* ArchivementViews */,
 				3B93B169299CCE3B006F3332 /* Setting */,
@@ -163,7 +233,7 @@
 			path = ArchivementViews;
 			sourceTree = "<group>";
 		};
-		3B0027ED2A76172F00520699 /* TutorialView */ = {
+		3B3C910D2ACD434F0058BDDD /* Tutorial */ = {
 			isa = PBXGroup;
 			children = (
 				3B0027FC2A7621A800520699 /* TutorialViewTop.swift */,
@@ -171,24 +241,74 @@
 				3B0027F92A7621A800520699 /* TutorialView2.swift */,
 				3B0027FA2A7621A800520699 /* TutorialView3.swift */,
 			);
-			name = TutorialView;
+			path = Tutorial;
 			sourceTree = "<group>";
 		};
-		3B4D4E182A6CCD0500AFB314 /* ViewModel */ = {
+		3B3C910E2ACD43830058BDDD /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
 				3BA4243C2A70D98900A6020D /* UserSettingViewModel.swift */,
 				3B4D4E132A695D7E00AFB314 /* NotificationViewModel.swift */,
 				3B4D4E192A6CCD3600AFB314 /* CoreDataViewModel.swift */,
 			);
-			name = ViewModel;
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		3B3C91142ACD6C350058BDDD /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3B3C91152ACD6C350058BDDD /* WidgetKit.framework */,
+				3B3C91172ACD6C350058BDDD /* SwiftUI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		3B3C912F2ACD6C7B0058BDDD /* ChallengeWidgetExtension */ = {
+			isa = PBXGroup;
+			children = (
+				3B3C91302ACD6C7B0058BDDD /* ChallengeWidgetExtensionBundle.swift */,
+				3B3C91342ACD6C7C0058BDDD /* Assets.xcassets */,
+				3B3C91362ACD6C7C0058BDDD /* Info.plist */,
+			);
+			path = ChallengeWidgetExtension;
+			sourceTree = "<group>";
+		};
+		3B3C913F2ACD6D9D0058BDDD /* GaugeWidget */ = {
+			isa = PBXGroup;
+			children = (
+				3B3C91402ACD6DCC0058BDDD /* GaugeWidgetEntry.swift */,
+				3B3C914C2ACD74690058BDDD /* GaugeWidgetEntryView.swift */,
+				3B3C914E2ACD74B40058BDDD /* GaugeWidgetTimelineProvider.swift */,
+				3B3C91502ACD79C90058BDDD /* GaugeWidget.swift */,
+			);
+			path = GaugeWidget;
+			sourceTree = "<group>";
+		};
+		3B3C91552ACDC15B0058BDDD /* Widget */ = {
+			isa = PBXGroup;
+			children = (
+				3B91C4032ACEB65C00B2D626 /* NumberWidget */,
+				3B3C913F2ACD6D9D0058BDDD /* GaugeWidget */,
+			);
+			path = Widget;
+			sourceTree = "<group>";
+		};
+		3B91C4032ACEB65C00B2D626 /* NumberWidget */ = {
+			isa = PBXGroup;
+			children = (
+				3B91C4082ACEB6B900B2D626 /* NumberWidgetEntry.swift */,
+				3B91C40A2ACEB6E200B2D626 /* NumberWidgetEntryView.swift */,
+				3B91C40C2ACEB88A00B2D626 /* NumberWidgetTimelineProvider.swift */,
+				3B91C40E2ACEBA6700B2D626 /* NumberWidget.swift */,
+			);
+			path = NumberWidget;
 			sourceTree = "<group>";
 		};
 		3B93B169299CCE3B006F3332 /* Setting */ = {
 			isa = PBXGroup;
 			children = (
 				3B93B167299CCDED006F3332 /* SettingView.swift */,
-				3B0D983B2A068DD20001FD0A /* WebView.swift */,
+				3B0D983B2A068DD20001FD0A /* PrivacyPolicyWebView.swift */,
 				3B246AB92A0698ED00CB7EED /* Contact.swift */,
 				3B93B16C299F2D6A006F3332 /* EditGoal.swift */,
 				3B93B16A299D1307006F3332 /* AboutThisApp.swift */,
@@ -215,7 +335,11 @@
 		3BC602B02986AC1400198F1B = {
 			isa = PBXGroup;
 			children = (
+				3B3C913E2ACD6CE20058BDDD /* ChallengeWidgetExtensionExtension.entitlements */,
 				3BC602BB2986AC1400198F1B /* Challenge100days */,
+				3B3C912F2ACD6C7B0058BDDD /* ChallengeWidgetExtension */,
+				3B3C91552ACDC15B0058BDDD /* Widget */,
+				3B3C91142ACD6C350058BDDD /* Frameworks */,
 				3BC602BA2986AC1400198F1B /* Products */,
 			);
 			sourceTree = "<group>";
@@ -224,6 +348,7 @@
 			isa = PBXGroup;
 			children = (
 				3BC602B92986AC1400198F1B /* Challenge100days.app */,
+				3B3C912C2ACD6C7B0058BDDD /* ChallengeWidgetExtensionExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -231,15 +356,17 @@
 		3BC602BB2986AC1400198F1B /* Challenge100days */ = {
 			isa = PBXGroup;
 			children = (
+				3B3C913D2ACD6CA70058BDDD /* Challenge100days.entitlements */,
 				3B0027F22A76216800520699 /* challengedDay.xcdatamodeld */,
 				3B0028032A76248800520699 /* Challenge100daysApp.swift */,
 				3B0027F52A76217800520699 /* DataController.swift */,
+				3B3C91452ACD6F5E0058BDDD /* Constants.swift */,
 				3BC188C22A8219EF00929C11 /* award.json */,
 				3BC188BE2A8212DA00929C11 /* confetti3.json */,
 				3BC188C02A8215FB00929C11 /* cong.json */,
 				3B0027E62A7615C000520699 /* Models */,
 				3B0027E72A7615F400520699 /* Views */,
-				3B4D4E182A6CCD0500AFB314 /* ViewModel */,
+				3B3C910E2ACD43830058BDDD /* ViewModel */,
 				3BC602C02986AC1500198F1B /* Assets.xcassets */,
 				3BC602DA298B5C4E00198F1B /* SF-Compact.dmg */,
 				3B5C493E2A3718D000EA908B /* Localizable.strings */,
@@ -260,6 +387,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		3B3C912B2ACD6C7B0058BDDD /* ChallengeWidgetExtensionExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3B3C913A2ACD6C7C0058BDDD /* Build configuration list for PBXNativeTarget "ChallengeWidgetExtensionExtension" */;
+			buildPhases = (
+				3B3C91282ACD6C7B0058BDDD /* Sources */,
+				3B3C91292ACD6C7B0058BDDD /* Frameworks */,
+				3B3C912A2ACD6C7B0058BDDD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ChallengeWidgetExtensionExtension;
+			productName = ChallengeWidgetExtensionExtension;
+			productReference = 3B3C912C2ACD6C7B0058BDDD /* ChallengeWidgetExtensionExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		3BC602B82986AC1400198F1B /* Challenge100days */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3BC602C72986AC1500198F1B /* Build configuration list for PBXNativeTarget "Challenge100days" */;
@@ -267,10 +411,12 @@
 				3BC602B52986AC1400198F1B /* Sources */,
 				3BC602B62986AC1400198F1B /* Frameworks */,
 				3BC602B72986AC1400198F1B /* Resources */,
+				3B3C91242ACD6C360058BDDD /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				3B3C91382ACD6C7C0058BDDD /* PBXTargetDependency */,
 			);
 			name = Challenge100days;
 			packageProductDependencies = (
@@ -287,9 +433,12 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1420;
+				LastSwiftUpdateCheck = 1430;
 				LastUpgradeCheck = 1420;
 				TargetAttributes = {
+					3B3C912B2ACD6C7B0058BDDD = {
+						CreatedOnToolsVersion = 14.3;
+					};
 					3BC602B82986AC1400198F1B = {
 						CreatedOnToolsVersion = 14.2;
 					};
@@ -313,11 +462,22 @@
 			projectRoot = "";
 			targets = (
 				3BC602B82986AC1400198F1B /* Challenge100days */,
+				3B3C912B2ACD6C7B0058BDDD /* ChallengeWidgetExtensionExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		3B3C912A2ACD6C7B0058BDDD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3B3C91352ACD6C7C0058BDDD /* Assets.xcassets in Resources */,
+				3B09E5732ACFB509006213F0 /* InfoPlist.strings in Resources */,
+				3B09E5722ACFB505006213F0 /* Localizable.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		3BC602B72986AC1400198F1B /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -335,6 +495,25 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		3B3C91282ACD6C7B0058BDDD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3B3C91472ACD6F5E0058BDDD /* Constants.swift in Sources */,
+				3B3C91312ACD6C7B0058BDDD /* ChallengeWidgetExtensionBundle.swift in Sources */,
+				3B91C40B2ACEB6E200B2D626 /* NumberWidgetEntryView.swift in Sources */,
+				3B91C4092ACEB6B900B2D626 /* NumberWidgetEntry.swift in Sources */,
+				3B91C40D2ACEB88A00B2D626 /* NumberWidgetTimelineProvider.swift in Sources */,
+				3B3C914D2ACD74690058BDDD /* GaugeWidgetEntryView.swift in Sources */,
+				3B91C40F2ACEBA6700B2D626 /* NumberWidget.swift in Sources */,
+				3B3C914F2ACD74B40058BDDD /* GaugeWidgetTimelineProvider.swift in Sources */,
+				3B3C914B2ACD734C0058BDDD /* challengedDay.xcdatamodeld in Sources */,
+				3B3C91522ACD7AB50058BDDD /* DataController.swift in Sources */,
+				3B3C91412ACD6DCC0058BDDD /* GaugeWidgetEntry.swift in Sources */,
+				3B3C91512ACD79C90058BDDD /* GaugeWidget.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		3BC602B52986AC1400198F1B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -364,11 +543,13 @@
 				3B0027F42A76216800520699 /* challengedDay.xcdatamodeld in Sources */,
 				3B0027FF2A7621A800520699 /* TutorialView1.swift in Sources */,
 				3B0028042A76248800520699 /* Challenge100daysApp.swift in Sources */,
-				3B0D983C2A068DD20001FD0A /* WebView.swift in Sources */,
+				3B0D983C2A068DD20001FD0A /* PrivacyPolicyWebView.swift in Sources */,
 				3B75EB0D298BD0B1000FCDE9 /* MemoSheet.swift in Sources */,
 				3BC602CF2986B50B00198F1B /* CompleteWindowView.swift in Sources */,
 				3B93B16F299FA513006F3332 /* BackUpView.swift in Sources */,
+				3B3C91462ACD6F5E0058BDDD /* Constants.swift in Sources */,
 				3B4D4E1A2A6CCD3600AFB314 /* CoreDataViewModel.swift in Sources */,
+				3B3C91482ACD71850058BDDD /* GaugeWidgetEntry.swift in Sources */,
 				3B4D4E102A6435FF00AFB314 /* NotificationView.swift in Sources */,
 				3BA4243D2A70D98900A6020D /* UserSettingViewModel.swift in Sources */,
 				3B75EB0F298D5C35000FCDE9 /* DetailView.swift in Sources */,
@@ -376,6 +557,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		3B3C91382ACD6C7C0058BDDD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3B3C912B2ACD6C7B0058BDDD /* ChallengeWidgetExtensionExtension */;
+			targetProxy = 3B3C91372ACD6C7C0058BDDD /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		3B5C493E2A3718D000EA908B /* Localizable.strings */ = {
@@ -399,6 +588,64 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		3B3C913B2ACD6C7C0058BDDD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = ChallengeWidgetExtensionExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 6CBTWMSXBM;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ChallengeWidgetExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = ChallengeWidgetExtension;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = amatnug.amatnug.Challenge100days.ChallengeWidgetExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		3B3C913C2ACD6C7C0058BDDD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = ChallengeWidgetExtensionExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 6CBTWMSXBM;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ChallengeWidgetExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = ChallengeWidgetExtension;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = amatnug.amatnug.Challenge100days.ChallengeWidgetExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		3BC602C52986AC1500198F1B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -521,8 +768,9 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Challenge100days/Challenge100days.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.32;
+				CURRENT_PROJECT_VERSION = 1.42;
 				DEVELOPMENT_ASSET_PATHS = "\"Challenge100days/Preview Content\"";
 				DEVELOPMENT_TEAM = 6CBTWMSXBM;
 				ENABLE_PREVIEWS = YES;
@@ -541,7 +789,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.32;
+				MARKETING_VERSION = 1.42;
 				PRODUCT_BUNDLE_IDENTIFIER = amatnug.amatnug.Challenge100days;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -559,8 +807,9 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Challenge100days/Challenge100days.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.32;
+				CURRENT_PROJECT_VERSION = 1.42;
 				DEVELOPMENT_ASSET_PATHS = "\"Challenge100days/Preview Content\"";
 				DEVELOPMENT_TEAM = 6CBTWMSXBM;
 				ENABLE_PREVIEWS = YES;
@@ -579,7 +828,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.32;
+				MARKETING_VERSION = 1.42;
 				PRODUCT_BUNDLE_IDENTIFIER = amatnug.amatnug.Challenge100days;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -594,6 +843,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		3B3C913A2ACD6C7C0058BDDD /* Build configuration list for PBXNativeTarget "ChallengeWidgetExtensionExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3B3C913B2ACD6C7C0058BDDD /* Debug */,
+				3B3C913C2ACD6C7C0058BDDD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		3BC602B42986AC1400198F1B /* Build configuration list for PBXProject "Challenge100days" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

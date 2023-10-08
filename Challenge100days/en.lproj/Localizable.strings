@@ -58,7 +58,7 @@
 "%lld文字以内のみ設定可能です" = "Only up to %lld characters can be set";
 "保存する" = "Save";
 "メモを保存する" = "Save a note";
-
+"#Day%lld #100DaysChallenge #100日チャレンジ\n" = "#Day%lld of my #100DaysChallenge\n";
 
 //リストとカードのビュー
 "開始日 : " = "Start date : ";
@@ -82,17 +82,17 @@
 "アプリの色を変更する" = "Change app color";
 "目標を隠す" = "Hide goal";
 "トップ画面の目標を非表示にします" = "Hide the target on the top screen.";
-"目標を変更する" = "Change goal";
-"100日取り組む内容を変更する" = "Change 100-day challenge content";
+"目標を変更する" = "Modify goal";
+"100日取り組む内容を変更する" = "Modify Challenge content";
 "バックアップ" = "Backup";
 "コピーしました" = "Copied";
 "コピー" = "Copy";
 "プライバシーポリシー" = "Privacy Policy";
 "このアプリについて" = "About this app";
 "お問い合わせ" = "Contact Us";
-"リセット" = "Reset";
+"リセット" = "Clear all data";
 "設定" = "Settings";
-"リセットしますか？" = "Do you want to reset?";
+"リセットしますか？" = "Delete All Data?";
 "リセットする" = "Reset";
 "キャンセル" = "Cancel";
 "変更する" = "Change";
@@ -122,3 +122,8 @@
 "100日チャレンジ継続中！" = "Continuing the 100-day Challenge!";
 "本日のタスクが未達成です。挑戦を続けて、新たな習慣を築きましょう。" = "Today's task remains incomplete. Continue your challenge and build a new habit.";
 "通知を設定しました。" = "Notifications Set!";
+
+
+//ウィジェット
+"100日チャレンジ" = "100days Chall";
+"現在何日まで達成中かを表示するウィジェット" = "A widget to show your progress.";
