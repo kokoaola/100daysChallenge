@@ -31,7 +31,7 @@ struct TutorialView1: View {
                 Text("まずはアプリ全体の色を選んでください。")
             }
             .contentShape(Rectangle())
-                .accessibilityElement()
+            .accessibilityElement(children: .combine)
             
             //背景色選択用のピッカー
             Picker(selection: $selectedColor) {
