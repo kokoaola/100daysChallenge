@@ -190,6 +190,7 @@
 		3B0027E72A7615F400520699 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				3B97D2A12AD2943400E749AB /* Lottie */,
 				3B0027E92A76164100520699 /* TopView */,
 				3B3C910D2ACD434F0058BDDD /* Tutorial */,
 				3B0027EA2A76166300520699 /* ActionViews */,
@@ -215,7 +216,6 @@
 				3BC602D02986B52100198F1B /* ActionView.swift */,
 				3BC602CE2986B50B00198F1B /* CompleteWindowView.swift */,
 				3B75EB0C298BD0B1000FCDE9 /* MemoSheet.swift */,
-				3BC188B32A81F41C00929C11 /* LottieView.swift */,
 			);
 			name = ActionViews;
 			path = ..;
@@ -332,6 +332,17 @@
 			path = ../..;
 			sourceTree = "<group>";
 		};
+		3B97D2A12AD2943400E749AB /* Lottie */ = {
+			isa = PBXGroup;
+			children = (
+				3BC188B32A81F41C00929C11 /* LottieView.swift */,
+				3BC188C22A8219EF00929C11 /* award.json */,
+				3BC188BE2A8212DA00929C11 /* confetti3.json */,
+				3BC188C02A8215FB00929C11 /* cong.json */,
+			);
+			path = Lottie;
+			sourceTree = "<group>";
+		};
 		3BC602B02986AC1400198F1B = {
 			isa = PBXGroup;
 			children = (
@@ -361,14 +372,11 @@
 				3B0028032A76248800520699 /* Challenge100daysApp.swift */,
 				3B0027F52A76217800520699 /* DataController.swift */,
 				3B3C91452ACD6F5E0058BDDD /* Constants.swift */,
-				3BC188C22A8219EF00929C11 /* award.json */,
-				3BC188BE2A8212DA00929C11 /* confetti3.json */,
-				3BC188C02A8215FB00929C11 /* cong.json */,
+				3BC602C02986AC1500198F1B /* Assets.xcassets */,
+				3BC602DA298B5C4E00198F1B /* SF-Compact.dmg */,
 				3B0027E62A7615C000520699 /* Models */,
 				3B0027E72A7615F400520699 /* Views */,
 				3B3C910E2ACD43830058BDDD /* ViewModel */,
-				3BC602C02986AC1500198F1B /* Assets.xcassets */,
-				3BC602DA298B5C4E00198F1B /* SF-Compact.dmg */,
 				3B5C493E2A3718D000EA908B /* Localizable.strings */,
 				3B5C494A2A371E1800EA908B /* InfoPlist.strings */,
 				3BC602C22986AC1500198F1B /* Preview Content */,
