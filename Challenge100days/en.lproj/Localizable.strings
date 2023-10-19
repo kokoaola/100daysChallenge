@@ -10,7 +10,7 @@
 "これまでの記録" = "History";
 
 ///チュートリアル
-
+"3ページ中、%lldページ目" = "Page %lld of three";
 "はじめまして。" = "Welcome.";
 "このアプリは、あなたの目標達成までの道のりを100日間サポートするためのアプリです。" = "This app is designed to support your journey towards achieving your goals over the course of 100 days. ";
 "まずはアプリ全体の色を選んでください。" = "To start, please choose a color for the overall theme of the app.";
