@@ -18,10 +18,7 @@ class CoreDataViewModel: ObservableObject{
     @Published var todaysNum : Int
     
     ///データコントローラー格納変数
-//    let persistenceController = DataController()
     let persistenceController = DataController.persistentContainer
-    
-//    let storeURL = GroceryConstants.appGroupContainerURL.appendingPathComponent("Challenge100Day.sqlite")
     
     ///当日のタスクが達成済みかを格納する変数
     var checkTodaysTask: Bool{
@@ -34,9 +31,6 @@ class CoreDataViewModel: ObservableObject{
     }
     
     ///当日のタスクが達成済みかを格納する変数2
-//    var isFinishTodaysTask: Bool
-    
-    
     init() {
         let context = persistenceController.viewContext
         let request = NSFetchRequest<DailyData>(entityName: "DailyData")
@@ -48,18 +42,6 @@ class CoreDataViewModel: ObservableObject{
         }catch{
             fatalError()
         }
-        
-        
-//        guard let date = tasks.last?.date else {
-//            self.isFinishTodaysTask = false
-//            self.todaysNum = 1
-//            return
-//        }
-//        if Calendar.current.isDate(Date.now, equalTo: date, toGranularity: .day){
-//            self.isFinishTodaysTask = true
-//        }else{
-//            self.isFinishTodaysTask = false
-//        }
         self.todaysNum = tasks.count + 1
     }
     
@@ -106,17 +88,6 @@ class CoreDataViewModel: ObservableObject{
         
         //ウィジェットを更新
         ChallengeConstants.reloadTimelines()
-        
-        //本日のタスク達成済みか確認
-//        if let lastData = allData.last?.date{
-//            if Calendar.current.isDate(Date.now, equalTo: lastData, toGranularity: .day){
-//                isFinish = true
-//            }else{
-//                isFinish = false
-//            }
-//            objectWillChange.send()
-////            self.isFinishTodaysTask = isFinish
-//        }
     }
     
     
@@ -215,6 +186,5 @@ class CoreDataViewModel: ObservableObject{
 
         //ウィジェットを更新
         ChallengeConstants.reloadTimelines()
-//        self.isFinishTodaysTask = false
     }
 }
