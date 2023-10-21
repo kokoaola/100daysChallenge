@@ -28,7 +28,7 @@ struct TutorialView3: View {
                     Text("それでは、さっそく始めましょう。")
                 }
                 .contentShape(Rectangle())
-                .accessibilityElement()
+                .accessibilityElement(children: .combine)
                 
                 Spacer()
                 

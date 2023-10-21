@@ -28,6 +28,7 @@ struct TutorialTopView: View {
                     .padding(.top)
                     .font(.title.weight(.bold))
                     .foregroundColor(.primary)
+                    .accessibilityLabel("3ページ中、\(page)ページ目")
                 
                 //ページに応じたチュートリアルを表示
                 switch page{
