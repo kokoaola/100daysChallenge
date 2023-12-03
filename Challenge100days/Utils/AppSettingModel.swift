@@ -37,20 +37,20 @@ struct AppSetting{
         //グラフィック,
         "Alejandro Ortiz",
         
-        //オーロラj
-        "Yang Xi",
-        
-        //グラフィック,
-        "Alejandro Ortiz2",
+        //グラデーション赤
+        "Codioful (Formerly Gradienta)",
         
         //宇宙星たくさん,
         "Paul Volkmer",
         
-        //グラフィック,
-        "Alejandro Ortiz3",
+        //グラフィック紫
+        "Alejandro Ortiz2",
         
-        //お花,
-        "Daria Nepriakhina",
+        //オーロラj
+        "Yang Xi",
+        
+        //木目
+        "Mockup Photos",
         
         //グラフィック,
         "Alejandro Ortiz4",
@@ -58,8 +58,13 @@ struct AppSetting{
         //宇宙ぐるぐる,
         "Pawel Czerwinski",
         
-        //グラデーション,
-        "Codioful (Formerly Gradienta)"
+        //グラフィック,
+        "Alejandro Ortiz3",
+        
+        //グラデーション青緑
+        "Codioful (Formerly Gradienta)2"
+        
+        
     ]
     
     //Date型をString型に変換する
