@@ -35,7 +35,7 @@ func generateImageWithText(number: Int, day: Date) -> Image {
     case (81...89):
         imageIndex = 9
     case (91...99):
-        imageIndex = 10
+        imageIndex = 0
     default:
         imageIndex = 0
     }
