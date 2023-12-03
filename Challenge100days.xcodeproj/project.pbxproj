@@ -271,14 +271,14 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		3B3C910E2ACD43830058BDDD /* ViewModel */ = {
+		3B3C910E2ACD43830058BDDD /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
 				3BA4243C2A70D98900A6020D /* UserSettingViewModel.swift */,
 				3B4D4E132A695D7E00AFB314 /* NotificationViewModel.swift */,
 				3B4D4E192A6CCD3600AFB314 /* CoreDataViewModel.swift */,
 			);
-			path = ViewModel;
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 		3B3C91142ACD6C350058BDDD /* Frameworks */ = {
@@ -363,7 +363,7 @@
 				3B2245532B1C518800B64B7A /* Utils */,
 				3B2245402B1C4F8200B64B7A /* Screens */,
 				3B2245372B1C4EA800B64B7A /* Views */,
-				3B3C910E2ACD43830058BDDD /* ViewModel */,
+				3B3C910E2ACD43830058BDDD /* ViewModels */,
 				3B22455C2B1C53FF00B64B7A /* Resources */,
 				3BC602C22986AC1500198F1B /* Preview Content */,
 			);
