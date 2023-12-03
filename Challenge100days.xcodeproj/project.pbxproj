@@ -140,6 +140,7 @@
 		3B93B16C299F2D6A006F3332 /* EditGoal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditGoal.swift; sourceTree = "<group>"; };
 		3B93B16E299FA513006F3332 /* BackUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackUpView.swift; sourceTree = "<group>"; };
 		3BA4243C2A70D98900A6020D /* UserSettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingViewModel.swift; sourceTree = "<group>"; };
+		3BB7BCD52B1C5DC200E12E80 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3BC04D3629951CD300EB4CDF /* MakeNewItemScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeNewItemScreen.swift; sourceTree = "<group>"; };
 		3BC188B32A81F41C00929C11 /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
 		3BC188BE2A8212DA00929C11 /* confetti3.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = confetti3.json; sourceTree = "<group>"; };
@@ -358,6 +359,7 @@
 				3B3C913D2ACD6CA70058BDDD /* Challenge100days.entitlements */,
 				3B0028032A76248800520699 /* Challenge100daysApp.swift */,
 				3BC602C02986AC1500198F1B /* Assets.xcassets */,
+				3BB7BCD52B1C5DC200E12E80 /* Info.plist */,
 				3B22455B2B1C53DA00B64B7A /* Controllers */,
 				3B22455A2B1C53BB00B64B7A /* Models */,
 				3B2245532B1C518800B64B7A /* Utils */,
@@ -589,7 +591,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = ChallengeWidgetExtensionExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.43;
+				CURRENT_PROJECT_VERSION = 1.44.0;
 				DEVELOPMENT_TEAM = 6CBTWMSXBM;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ChallengeWidgetExtension/Info.plist;
@@ -601,7 +603,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.43;
+				MARKETING_VERSION = 1.44.0;
 				PRODUCT_BUNDLE_IDENTIFIER = amatnug.amatnug.Challenge100days.ChallengeWidgetExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -618,7 +620,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = ChallengeWidgetExtensionExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.43;
+				CURRENT_PROJECT_VERSION = 1.44.0;
 				DEVELOPMENT_TEAM = 6CBTWMSXBM;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ChallengeWidgetExtension/Info.plist;
@@ -630,7 +632,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.43;
+				MARKETING_VERSION = 1.44.0;
 				PRODUCT_BUNDLE_IDENTIFIER = amatnug.amatnug.Challenge100days.ChallengeWidgetExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -764,7 +766,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Challenge100days/Challenge100days.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.43;
+				CURRENT_PROJECT_VERSION = 1.44.0;
 				DEVELOPMENT_ASSET_PATHS = "\"Challenge100days/Preview Content\"";
 				DEVELOPMENT_TEAM = 6CBTWMSXBM;
 				ENABLE_PREVIEWS = YES;
@@ -783,7 +785,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.43;
+				MARKETING_VERSION = 1.44.0;
 				PRODUCT_BUNDLE_IDENTIFIER = amatnug.amatnug.Challenge100days;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -803,7 +805,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Challenge100days/Challenge100days.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.43;
+				CURRENT_PROJECT_VERSION = 1.44.0;
 				DEVELOPMENT_ASSET_PATHS = "\"Challenge100days/Preview Content\"";
 				DEVELOPMENT_TEAM = 6CBTWMSXBM;
 				ENABLE_PREVIEWS = YES;
@@ -822,7 +824,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.43;
+				MARKETING_VERSION = 1.44.0;
 				PRODUCT_BUNDLE_IDENTIFIER = amatnug.amatnug.Challenge100days;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
