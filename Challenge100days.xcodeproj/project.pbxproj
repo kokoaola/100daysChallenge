@@ -9,8 +9,9 @@
 /* Begin PBXBuildFile section */
 		3B0027E12A738FDD00520699 /* SpeechBubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0027E02A738FDD00520699 /* SpeechBubble.swift */; };
 		3B0027F42A76216800520699 /* challengedDay.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3B0027F22A76216800520699 /* challengedDay.xcdatamodeld */; };
-		3B0027F82A76218E00520699 /* AppSettingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0027F72A76218E00520699 /* AppSettingModel.swift */; };
+		3B0027F82A76218E00520699 /* AppSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0027F72A76218E00520699 /* AppSetting.swift */; };
 		3B0028042A76248800520699 /* Challenge100daysApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0028032A76248800520699 /* Challenge100daysApp.swift */; };
+		3B0D04542B3974AF001FA2F4 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 3B0D04532B3974AF001FA2F4 /* Lottie */; };
 		3B0D983A2A053D430001FD0A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3BC602C02986AC1500198F1B /* Assets.xcassets */; };
 		3B0D983C2A068DD20001FD0A /* PrivacyPolicyWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0D983B2A068DD20001FD0A /* PrivacyPolicyWebView.swift */; };
 		3B22452F2B1C429400B64B7A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3B2245292B1C429400B64B7A /* Localizable.strings */; };
@@ -43,7 +44,7 @@
 		3B4D4E142A695D7E00AFB314 /* NotificationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4D4E132A695D7E00AFB314 /* NotificationViewModel.swift */; };
 		3B4D4E1A2A6CCD3600AFB314 /* CoreDataViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4D4E192A6CCD3600AFB314 /* CoreDataViewModel.swift */; };
 		3B5EF9272A71641B00709006 /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5EF9262A71641B00709006 /* ToastView.swift */; };
-		3B75EB0D298BD0B1000FCDE9 /* AddingMemoScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B75EB0C298BD0B1000FCDE9 /* AddingMemoScreen.swift */; };
+		3B75EB0D298BD0B1000FCDE9 /* AddingMemoSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B75EB0C298BD0B1000FCDE9 /* AddingMemoSheet.swift */; };
 		3B75EB0F298D5C35000FCDE9 /* RecordDetailScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B75EB0E298D5C35000FCDE9 /* RecordDetailScreen.swift */; };
 		3B91C4092ACEB6B900B2D626 /* NumberWidgetEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B91C4082ACEB6B900B2D626 /* NumberWidgetEntry.swift */; };
 		3B91C40B2ACEB6E200B2D626 /* NumberWidgetEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B91C40A2ACEB6E200B2D626 /* NumberWidgetEntryView.swift */; };
@@ -54,16 +55,15 @@
 		3B93B16D299F2D6A006F3332 /* EditGoal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B93B16C299F2D6A006F3332 /* EditGoal.swift */; };
 		3B93B16F299FA513006F3332 /* BackUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B93B16E299FA513006F3332 /* BackUpView.swift */; };
 		3BA4243D2A70D98900A6020D /* UserSettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA4243C2A70D98900A6020D /* UserSettingViewModel.swift */; };
-		3BC04D3729951CD300EB4CDF /* MakeNewItemScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC04D3629951CD300EB4CDF /* MakeNewItemScreen.swift */; };
+		3BC04D3729951CD300EB4CDF /* MakeNewItemSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC04D3629951CD300EB4CDF /* MakeNewItemSheet.swift */; };
 		3BC188B42A81F41C00929C11 /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC188B32A81F41C00929C11 /* LottieView.swift */; };
-		3BC188B72A81F53D00929C11 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 3BC188B62A81F53D00929C11 /* Lottie */; };
 		3BC188BF2A8212DA00929C11 /* confetti3.json in Resources */ = {isa = PBXBuildFile; fileRef = 3BC188BE2A8212DA00929C11 /* confetti3.json */; };
 		3BC188C12A8215FB00929C11 /* cong.json in Resources */ = {isa = PBXBuildFile; fileRef = 3BC188C02A8215FB00929C11 /* cong.json */; };
 		3BC188C32A8219F000929C11 /* award.json in Resources */ = {isa = PBXBuildFile; fileRef = 3BC188C22A8219EF00929C11 /* award.json */; };
 		3BC602BF2986AC1400198F1B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC602BE2986AC1400198F1B /* ContentView.swift */; };
 		3BC602C42986AC1500198F1B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3BC602C32986AC1500198F1B /* Preview Assets.xcassets */; };
 		3BC602CD2986B31000198F1B /* Buttons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC602CC2986B31000198F1B /* Buttons.swift */; };
-		3BC602CF2986B50B00198F1B /* AfterPressButtonScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC602CE2986B50B00198F1B /* AfterPressButtonScreen.swift */; };
+		3BC602CF2986B50B00198F1B /* AfterPressButtonSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC602CE2986B50B00198F1B /* AfterPressButtonSheet.swift */; };
 		3BC602D12986B52100198F1B /* BigButtonScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC602D02986B52100198F1B /* BigButtonScreen.swift */; };
 		3BC602D329880A5900198F1B /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC602D229880A5900198F1B /* CardView.swift */; };
 		3BC602D52988BE6300198F1B /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC602D42988BE6300198F1B /* ListView.swift */; };
@@ -97,7 +97,7 @@
 /* Begin PBXFileReference section */
 		3B0027E02A738FDD00520699 /* SpeechBubble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechBubble.swift; sourceTree = "<group>"; };
 		3B0027F32A76216800520699 /* challengedDay.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = challengedDay.xcdatamodel; sourceTree = "<group>"; };
-		3B0027F72A76218E00520699 /* AppSettingModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppSettingModel.swift; path = Challenge100days/Utils/AppSettingModel.swift; sourceTree = SOURCE_ROOT; };
+		3B0027F72A76218E00520699 /* AppSetting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppSetting.swift; path = Challenge100days/Utils/AppSetting.swift; sourceTree = SOURCE_ROOT; };
 		3B0028032A76248800520699 /* Challenge100daysApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Challenge100daysApp.swift; sourceTree = "<group>"; };
 		3B0D983B2A068DD20001FD0A /* PrivacyPolicyWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyPolicyWebView.swift; sourceTree = "<group>"; };
 		3B22452A2B1C429400B64B7A /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -129,7 +129,7 @@
 		3B4D4E132A695D7E00AFB314 /* NotificationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewModel.swift; sourceTree = "<group>"; };
 		3B4D4E192A6CCD3600AFB314 /* CoreDataViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataViewModel.swift; sourceTree = "<group>"; };
 		3B5EF9262A71641B00709006 /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
-		3B75EB0C298BD0B1000FCDE9 /* AddingMemoScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddingMemoScreen.swift; sourceTree = "<group>"; };
+		3B75EB0C298BD0B1000FCDE9 /* AddingMemoSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddingMemoSheet.swift; sourceTree = "<group>"; };
 		3B75EB0E298D5C35000FCDE9 /* RecordDetailScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordDetailScreen.swift; sourceTree = "<group>"; };
 		3B91C4082ACEB6B900B2D626 /* NumberWidgetEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberWidgetEntry.swift; sourceTree = "<group>"; };
 		3B91C40A2ACEB6E200B2D626 /* NumberWidgetEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberWidgetEntryView.swift; sourceTree = "<group>"; };
@@ -141,7 +141,7 @@
 		3B93B16E299FA513006F3332 /* BackUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackUpView.swift; sourceTree = "<group>"; };
 		3BA4243C2A70D98900A6020D /* UserSettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingViewModel.swift; sourceTree = "<group>"; };
 		3BB7BCD52B1C5DC200E12E80 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		3BC04D3629951CD300EB4CDF /* MakeNewItemScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeNewItemScreen.swift; sourceTree = "<group>"; };
+		3BC04D3629951CD300EB4CDF /* MakeNewItemSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeNewItemSheet.swift; sourceTree = "<group>"; };
 		3BC188B32A81F41C00929C11 /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
 		3BC188BE2A8212DA00929C11 /* confetti3.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = confetti3.json; sourceTree = "<group>"; };
 		3BC188C02A8215FB00929C11 /* cong.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = cong.json; sourceTree = "<group>"; };
@@ -151,7 +151,7 @@
 		3BC602C02986AC1500198F1B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3BC602C32986AC1500198F1B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		3BC602CC2986B31000198F1B /* Buttons.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Buttons.swift; sourceTree = "<group>"; };
-		3BC602CE2986B50B00198F1B /* AfterPressButtonScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AfterPressButtonScreen.swift; sourceTree = "<group>"; };
+		3BC602CE2986B50B00198F1B /* AfterPressButtonSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AfterPressButtonSheet.swift; sourceTree = "<group>"; };
 		3BC602D02986B52100198F1B /* BigButtonScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigButtonScreen.swift; sourceTree = "<group>"; };
 		3BC602D229880A5900198F1B /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		3BC602D42988BE6300198F1B /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
@@ -172,7 +172,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3BC188B72A81F53D00929C11 /* Lottie in Frameworks */,
+				3B0D04542B3974AF001FA2F4 /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -190,23 +190,23 @@
 				3BC602D42988BE6300198F1B /* ListView.swift */,
 				3B44CD88299BCE96001469FA /* ColorSaver.swift */,
 				3B0027E02A738FDD00520699 /* SpeechBubble.swift */,
-				3B22453B2B1C4EF800B64B7A /* Tutorials */,
-				3B22453E2B1C4F3C00B64B7A /* Settings */,
+				3B22453B2B1C4EF800B64B7A /* ViewsForTutorials */,
+				3B22453E2B1C4F3C00B64B7A /* ViewsForSettings */,
 			);
 			path = Views;
 			sourceTree = "<group>";
 		};
-		3B22453B2B1C4EF800B64B7A /* Tutorials */ = {
+		3B22453B2B1C4EF800B64B7A /* ViewsForTutorials */ = {
 			isa = PBXGroup;
 			children = (
 				3B2245412B1C504000B64B7A /* TutorialView1.swift */,
 				3B2245432B1C504000B64B7A /* TutorialView2.swift */,
 				3B2245442B1C504000B64B7A /* TutorialView3.swift */,
 			);
-			path = Tutorials;
+			path = ViewsForTutorials;
 			sourceTree = "<group>";
 		};
-		3B22453E2B1C4F3C00B64B7A /* Settings */ = {
+		3B22453E2B1C4F3C00B64B7A /* ViewsForSettings */ = {
 			isa = PBXGroup;
 			children = (
 				3B0D983B2A068DD20001FD0A /* PrivacyPolicyWebView.swift */,
@@ -216,19 +216,16 @@
 				3B4D4E0F2A6435FF00AFB314 /* NotificationView.swift */,
 				3B93B16E299FA513006F3332 /* BackUpView.swift */,
 			);
-			path = Settings;
+			path = ViewsForSettings;
 			sourceTree = "<group>";
 		};
 		3B2245402B1C4F8200B64B7A /* Screens */ = {
 			isa = PBXGroup;
 			children = (
-				3BC04D3629951CD300EB4CDF /* MakeNewItemScreen.swift */,
 				3BC602BE2986AC1400198F1B /* ContentView.swift */,
 				3B75EB0E298D5C35000FCDE9 /* RecordDetailScreen.swift */,
 				3B93B167299CCDED006F3332 /* SettingScreen.swift */,
 				3BC602D829891B0300198F1B /* ListAndCardScreen.swift */,
-				3B75EB0C298BD0B1000FCDE9 /* AddingMemoScreen.swift */,
-				3BC602CE2986B50B00198F1B /* AfterPressButtonScreen.swift */,
 				3BC602D02986B52100198F1B /* BigButtonScreen.swift */,
 				3B2245422B1C504000B64B7A /* TutorialsScreen.swift */,
 			);
@@ -239,7 +236,7 @@
 			isa = PBXGroup;
 			children = (
 				3B3C91452ACD6F5E0058BDDD /* Constants.swift */,
-				3B0027F72A76218E00520699 /* AppSettingModel.swift */,
+				3B0027F72A76218E00520699 /* AppSetting.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -332,6 +329,16 @@
 			path = NumberWidget;
 			sourceTree = "<group>";
 		};
+		3BB7BD022B1DD53700E12E80 /* Sheet */ = {
+			isa = PBXGroup;
+			children = (
+				3BC04D3629951CD300EB4CDF /* MakeNewItemSheet.swift */,
+				3B75EB0C298BD0B1000FCDE9 /* AddingMemoSheet.swift */,
+				3BC602CE2986B50B00198F1B /* AfterPressButtonSheet.swift */,
+			);
+			path = Sheet;
+			sourceTree = "<group>";
+		};
 		3BC602B02986AC1400198F1B = {
 			isa = PBXGroup;
 			children = (
@@ -364,6 +371,7 @@
 				3B22455A2B1C53BB00B64B7A /* Models */,
 				3B2245532B1C518800B64B7A /* Utils */,
 				3B2245402B1C4F8200B64B7A /* Screens */,
+				3BB7BD022B1DD53700E12E80 /* Sheet */,
 				3B2245372B1C4EA800B64B7A /* Views */,
 				3B3C910E2ACD43830058BDDD /* ViewModels */,
 				3B22455C2B1C53FF00B64B7A /* Resources */,
@@ -416,7 +424,7 @@
 			);
 			name = Challenge100days;
 			packageProductDependencies = (
-				3BC188B62A81F53D00929C11 /* Lottie */,
+				3B0D04532B3974AF001FA2F4 /* Lottie */,
 			);
 			productName = Challenge100days;
 			productReference = 3BC602B92986AC1400198F1B /* Challenge100days.app */;
@@ -451,7 +459,7 @@
 			);
 			mainGroup = 3BC602B02986AC1400198F1B;
 			packageReferences = (
-				3BC188B52A81F53D00929C11 /* XCRemoteSwiftPackageReference "lottie-ios" */,
+				3B0D04522B3974AF001FA2F4 /* XCRemoteSwiftPackageReference "lottie-ios" */,
 			);
 			productRefGroup = 3BC602BA2986AC1400198F1B /* Products */;
 			projectDirPath = "";
@@ -518,7 +526,7 @@
 				3B246ABA2A0698ED00CB7EED /* Contact.swift in Sources */,
 				3BC602D52988BE6300198F1B /* ListView.swift in Sources */,
 				3B2245462B1C504000B64B7A /* TutorialsScreen.swift in Sources */,
-				3BC04D3729951CD300EB4CDF /* MakeNewItemScreen.swift in Sources */,
+				3BC04D3729951CD300EB4CDF /* MakeNewItemSheet.swift in Sources */,
 				3B93B168299CCDED006F3332 /* SettingScreen.swift in Sources */,
 				3B44CD89299BCE97001469FA /* ColorSaver.swift in Sources */,
 				3B2245452B1C504000B64B7A /* TutorialView1.swift in Sources */,
@@ -531,7 +539,7 @@
 				3B93B16B299D1307006F3332 /* AboutThisApp.swift in Sources */,
 				3B3CFFFB298E236300102EEE /* GenerateImageWithDate.swift in Sources */,
 				3B5EF9272A71641B00709006 /* ToastView.swift in Sources */,
-				3B0027F82A76218E00520699 /* AppSettingModel.swift in Sources */,
+				3B0027F82A76218E00520699 /* AppSetting.swift in Sources */,
 				3B0027E12A738FDD00520699 /* SpeechBubble.swift in Sources */,
 				3B2245482B1C504000B64B7A /* TutorialView3.swift in Sources */,
 				3BC602D929891B0300198F1B /* ListAndCardScreen.swift in Sources */,
@@ -540,8 +548,8 @@
 				3B0027F42A76216800520699 /* challengedDay.xcdatamodeld in Sources */,
 				3B0028042A76248800520699 /* Challenge100daysApp.swift in Sources */,
 				3B0D983C2A068DD20001FD0A /* PrivacyPolicyWebView.swift in Sources */,
-				3B75EB0D298BD0B1000FCDE9 /* AddingMemoScreen.swift in Sources */,
-				3BC602CF2986B50B00198F1B /* AfterPressButtonScreen.swift in Sources */,
+				3B75EB0D298BD0B1000FCDE9 /* AddingMemoSheet.swift in Sources */,
+				3BC602CF2986B50B00198F1B /* AfterPressButtonSheet.swift in Sources */,
 				3B93B16F299FA513006F3332 /* BackUpView.swift in Sources */,
 				3B3C91462ACD6F5E0058BDDD /* Constants.swift in Sources */,
 				3B4D4E1A2A6CCD3600AFB314 /* CoreDataViewModel.swift in Sources */,
@@ -869,7 +877,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		3BC188B52A81F53D00929C11 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+		3B0D04522B3974AF001FA2F4 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/airbnb/lottie-ios";
 			requirement = {
@@ -880,9 +888,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		3BC188B62A81F53D00929C11 /* Lottie */ = {
+		3B0D04532B3974AF001FA2F4 /* Lottie */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 3BC188B52A81F53D00929C11 /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			package = 3B0D04522B3974AF001FA2F4 /* XCRemoteSwiftPackageReference "lottie-ios" */;
 			productName = Lottie;
 		};
 /* End XCSwiftPackageProductDependency section */
