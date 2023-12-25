@@ -12,6 +12,7 @@ struct Challenge100daysApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environment(\.managedObjectContext, PersistenceController.persistentContainer.viewContext)
         }
     }
 }

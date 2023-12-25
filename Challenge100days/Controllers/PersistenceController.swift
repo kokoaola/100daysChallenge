@@ -10,25 +10,27 @@ import CoreData
 
 
 
-class DataController: ObservableObject {
+struct PersistenceController{
     
     
     // CoreDataManagerのシングルトンインスタンス
-    static let shared = DataController()
+    static let shared = PersistenceController()
+    
     
     // 外部からの初期化を防ぐためのprivateイニシャライザ
-    private init() {}
+    private init() {
+        viewContext = PersistenceController.persistentContainer.viewContext
+    }
     
-    // プライベートな永続コンテナを作成。アプリ内で一つのデータベースを保持する
+    ///DataControllerを直接インスタンス化することなく、シングルトンパターンを用いてアプリ全体で同じviewContextを使用する
+    var viewContext: NSManagedObjectContext
+    
+    // プライベートな永続コンテナを作成しアプリ内で一つのデータベースを保持する
     static let persistentContainer: NSPersistentContainer = {
         let fileManager = FileManager.default
         
-        
-        
         let oldDirectory = fileManager.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
         let appGroupURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.challenge100days")!
-        
-        
         
         //これまでのデータが存在している場合は、旧フォルダから新しいAppGroupのフォルダに移動させる
         // データベースと関連するすべてのファイルを新しい場所に移動
@@ -57,4 +59,18 @@ class DataController: ObservableObject {
         }
         return container
     }()
+    
+    
+    ///保存用関数
+    ///アプリ全体でのデータ管理を中央化、カプセル化して他の部分からデータベース操作を容易に行えるようにするため、PersistenceControllerにsave関数を記述する
+    ///コードの再利用性とメンテナンス性が向上する
+    func save() {
+        do {
+            try viewContext.save()
+        } catch {
+            print("Error saving to CD: ", error.localizedDescription)
+        }
+    }
 }
+
+

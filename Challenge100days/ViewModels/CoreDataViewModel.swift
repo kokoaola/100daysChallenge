@@ -18,7 +18,8 @@ class CoreDataViewModel: ObservableObject{
     @Published var todaysNum : Int
     
     ///データコントローラー格納変数
-    let persistenceController = DataController.persistentContainer
+//    let persistenceController = DataController.persistentContainer
+    let context = PersistenceController.persistentContainer.viewContext
     
     ///当日のタスクが達成済みかを格納する変数
     var checkTodaysTask: Bool{
@@ -33,7 +34,7 @@ class CoreDataViewModel: ObservableObject{
     
     ///当日のタスクが達成済みかを格納する変数2
     init() {
-        let context = persistenceController.viewContext
+//        let context = persistenceController.viewContext
         let request = NSFetchRequest<DailyData>(entityName: ChallengeConstants.entityName)
         request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: true)]
         var tasks: [DailyData] = []
@@ -49,7 +50,7 @@ class CoreDataViewModel: ObservableObject{
     
     ///すべてのデータを再取得するメソッド
     func getAllData() -> [DailyData]{
-        let context = persistenceController.viewContext
+//        let context = persistenceController.viewContext
         let request = NSFetchRequest<DailyData>(entityName: ChallengeConstants.entityName)
         request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: true)]
         do{
@@ -71,7 +72,7 @@ class CoreDataViewModel: ObservableObject{
         }
         
         //データのインスタンス生成
-        let context = persistenceController.viewContext
+//        let context = persistenceController.viewContext
         let entity = NSEntityDescription.insertNewObject(forEntityName: ChallengeConstants.entityName, into: context) as! DailyData
         entity.id = UUID()
         entity.date = date
@@ -94,7 +95,7 @@ class CoreDataViewModel: ObservableObject{
     
     ///引数で受け取った日のメモを更新するメソッド、データがnilなら最新のメモを更新
     func updateDataMemo(newMemo: String, data: DailyData?) async{
-        let context = persistenceController.viewContext
+//        let context = persistenceController.viewContext
         
         if let data = data{
             data.memo = newMemo
@@ -117,7 +118,7 @@ class CoreDataViewModel: ObservableObject{
     
     ///引数で受け取ったデータを削除するメソッド
     func deleteData(data: DailyData) async{
-        let context = persistenceController.viewContext
+//        let context = persistenceController.viewContext
         context.delete(data)
         do {
             try context.save()
@@ -149,7 +150,7 @@ class CoreDataViewModel: ObservableObject{
     
     ///データの番号を振り直すメソッド
     func assignNumbers() async{
-        let context = persistenceController.viewContext
+//        let context = persistenceController.viewContext
         
         await MainActor.run{
             for (index, data) in self.allData.enumerated() {
@@ -169,7 +170,7 @@ class CoreDataViewModel: ObservableObject{
     
     ///データベースのすべての記録を削除するメソッド
     func deleteAllData(){
-        let context = persistenceController.viewContext
+//        let context = persistenceController.viewContext
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: ChallengeConstants.entityName)
         
         // Create Batch Delete Request

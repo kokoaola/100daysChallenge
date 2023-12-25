@@ -30,7 +30,7 @@ struct NumberWidgetTimelineProvider:TimelineProvider{
         // Itemのフェッチリクエストを作成
         //        let request = DailyData.fetchRequest()
         
-        let context = DataController.persistentContainer.viewContext
+        let context = PersistenceController.persistentContainer.viewContext
         let request = NSFetchRequest<DailyData>(entityName: "DailyData")
         request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: true)]
         do{
