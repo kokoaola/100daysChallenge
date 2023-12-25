@@ -36,10 +36,10 @@ struct ToastView: View {
                 .opacity(opa <= 0.3 ? 1 : 1.0 - opa)
             //0.1秒は普通に表示、その後徐々に消失0.5秒経過で完全消失
                 .onAppear {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                         self.timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { _ in
                             opa += 0.1
-                            if opa >= 0.5{
+                            if opa >= 0.8{
                                 show = false
                                 self.timer?.invalidate()
                                 opa = 0.0

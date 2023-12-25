@@ -25,4 +25,7 @@ struct ChallengeConstants{
         WidgetCenter.shared.reloadTimelines(ofKind: Self.gaugeWidgetKind)
         WidgetCenter.shared.reloadTimelines(ofKind: Self.numberWidgetKind)
     }
+    
+    //CoreDataのentityName
+    static let entityName = "DailyData"
 }

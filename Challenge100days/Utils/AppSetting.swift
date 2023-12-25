@@ -31,35 +31,40 @@ struct AppSetting{
     
     /// 全画像名を格納した配列
     static let photos =
-    [     //紙吹雪
+    [     //紙吹雪,
         "Jason Leung",
         
-        //グラフィック
+        //グラフィック,
         "Alejandro Ortiz",
         
-        //オーロラ
-        "Yang Xi",
+        //グラデーション赤
+        "Codioful (Formerly Gradienta)",
         
-        //グラフィック
-        "Alejandro Ortiz2",
-        
-        //宇宙星たくさん
+        //宇宙星たくさん,
         "Paul Volkmer",
         
-        //グラフィック
-        "Alejandro Ortiz3",
+        //グラフィック紫
+        "Alejandro Ortiz2",
         
-        //お花
-        "Daria Nepriakhina",
+        //オーロラj
+        "Yang Xi",
         
-        //グラフィック
+        //木目
+        "Mockup Photos",
+        
+        //グラフィック,
         "Alejandro Ortiz4",
         
-        //宇宙ぐるぐる
+        //宇宙ぐるぐる,
         "Pawel Czerwinski",
         
-        //グラデーション
-        "Codioful (Formerly Gradienta)"
+        //グラフィック,
+        "Alejandro Ortiz3",
+        
+        //グラデーション青緑
+        "Codioful (Formerly Gradienta)2"
+        
+        
     ]
     
     //Date型をString型に変換する

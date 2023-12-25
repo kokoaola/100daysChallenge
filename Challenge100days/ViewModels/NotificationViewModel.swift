@@ -13,10 +13,13 @@ import SwiftUI
 class NotificationViewModel: ObservableObject{
     ///通知を設定する時間を格納する変数
     @Published var userSettingNotificationTime: Date
+    
     ///通知を設定する曜日を格納する変数
     @Published var userSettingNotificationDay: Set<Int>
+    
     ///ユーザーによる通知設定がされているかを格納する変数
     var isNotificationOn: Bool
+    
     ///通知用変数
     let content = UNMutableNotificationContent()
     let notificationCenter = UNUserNotificationCenter.current()
@@ -139,15 +142,26 @@ class NotificationViewModel: ObservableObject{
             notificationRequests.append(request)
         }
         
+        // ローカル通知をスケジュール
         for notificationRequest in notificationRequests {
-            // ローカル通知をスケジュール
-            notificationCenter.add(notificationRequest) { (error) in
-                if let error = error {
-                    print("Error \(error.localizedDescription)")
-                    return
+            Task {
+                do {
+                    try await notificationCenter.add(notificationRequest)
+                } catch {
+                    fatalError()
                 }
             }
         }
+        
+//        for notificationRequest in notificationRequests {
+//            // ローカル通知をスケジュール
+//            notificationCenter.add(notificationRequest) { (error) in
+//                if let error = error {
+//                    print("Error \(error.localizedDescription)")
+//                    return
+//                }
+//            }
+//        }
     }
 }
 

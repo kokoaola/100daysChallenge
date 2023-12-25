@@ -18,23 +18,23 @@ func generateImageWithText(number: Int, day: Date) -> Image {
     switch number{
     case (0...9):
         imageIndex = 1
-    case (11...19):
+    case (10...19):
         imageIndex = 2
-    case (21...29):
+    case (20...29):
         imageIndex = 3
-    case (31...39):
+    case (30...39):
         imageIndex = 4
-    case (41...49):
+    case (40...49):
         imageIndex = 5
-    case (51...59):
+    case (50...59):
         imageIndex = 6
-    case (61...69):
+    case (60...69):
         imageIndex = 7
-    case (71...79):
+    case (70...79):
         imageIndex = 8
-    case (81...89):
+    case (80...89):
         imageIndex = 9
-    case (91...99):
+    case (90...99):
         imageIndex = 10
     default:
         imageIndex = 0
@@ -103,10 +103,11 @@ func generateImageWithText(number: Int, day: Date) -> Image {
     ]
     var formattedString = imageName
     
-    //何枚もある作家は番号を削除
-    if imageName.contains("Alejandro"){
+    //何枚もある作家は最後の番号を削除
+    if let lastCharacter = imageName.last, lastCharacter.isNumber {
         formattedString.removeLast()
     }
+
     //本文
     let string3 = NSAttributedString(string: " Photo by \(formattedString) ", attributes:stringAttributes3)
     

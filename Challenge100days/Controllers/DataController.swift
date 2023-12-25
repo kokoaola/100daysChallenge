@@ -1,27 +1,28 @@
 //
 //  DataController.swift
-//  Bookworm
+//  Challenge100days
 //
-//  Created by Paul Hudson on 23/11/2021.
+//  Created by koala panda on 2023/12/03.
 //
-
 
 import Foundation
 import CoreData
 
+
+
 class DataController: ObservableObject {
-
-
+    
+    
     // CoreDataManagerのシングルトンインスタンス
     static let shared = DataController()
-
+    
     // 外部からの初期化を防ぐためのprivateイニシャライザ
     private init() {}
-
+    
     // プライベートな永続コンテナを作成。アプリ内で一つのデータベースを保持する
     static let persistentContainer: NSPersistentContainer = {
         let fileManager = FileManager.default
-    
+        
         
         
         let oldDirectory = fileManager.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
