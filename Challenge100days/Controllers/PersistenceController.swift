@@ -11,19 +11,17 @@ import CoreData
 
 
 struct PersistenceController{
-    
-    
     // CoreDataManagerのシングルトンインスタンス
     static let shared = PersistenceController()
     
     
     // 外部からの初期化を防ぐためのprivateイニシャライザ
     private init() {
-        viewContext = PersistenceController.persistentContainer.viewContext
+        moc = PersistenceController.persistentContainer.viewContext
     }
     
     ///DataControllerを直接インスタンス化することなく、シングルトンパターンを用いてアプリ全体で同じviewContextを使用する
-    var viewContext: NSManagedObjectContext
+    var moc: NSManagedObjectContext
     
     // プライベートな永続コンテナを作成しアプリ内で一つのデータベースを保持する
     static let persistentContainer: NSPersistentContainer = {
@@ -66,7 +64,7 @@ struct PersistenceController{
     ///コードの再利用性とメンテナンス性が向上する
     func save() {
         do {
-            try viewContext.save()
+            try moc.save()
         } catch {
             print("Error saving to CD: ", error.localizedDescription)
         }
