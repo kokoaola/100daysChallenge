@@ -30,7 +30,7 @@ struct ListView: View {
             VStack(spacing: 5){
                 
                 //CoreDataに保存されている全データを取り出す
-                ForEach(coreDataViewModel.allData.reversed()) { item in
+                ForEach(coreDataViewModel.allData.reversed(), id:\.self) { item in
                     
                     //セルをタップするとDetailViewを表示
                     NavigationLink(destination: {

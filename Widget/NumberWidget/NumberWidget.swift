@@ -11,7 +11,7 @@ import SwiftUI
 struct NumberWidget: Widget{
     var body: some WidgetConfiguration{
         
-        StaticConfiguration(kind: ChallengeConstants.numberWidgetKind, provider: NumberWidgetTimelineProvider()) { entry in
+        StaticConfiguration(kind: AppGroupConstants.numberWidgetKind, provider: NumberWidgetTimelineProvider()) { entry in
             NumberWidgetEntryView(entry: entry)
         }
         .supportedFamilies([.systemSmall,.systemMedium])

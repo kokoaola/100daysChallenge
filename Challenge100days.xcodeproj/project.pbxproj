@@ -24,15 +24,16 @@
 		3B2245462B1C504000B64B7A /* TutorialsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2245422B1C504000B64B7A /* TutorialsScreen.swift */; };
 		3B2245472B1C504000B64B7A /* TutorialView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2245432B1C504000B64B7A /* TutorialView2.swift */; };
 		3B2245482B1C504000B64B7A /* TutorialView3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2245442B1C504000B64B7A /* TutorialView3.swift */; };
-		3B2245542B1C51B900B64B7A /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3C91452ACD6F5E0058BDDD /* Constants.swift */; };
+		3B2245542B1C51B900B64B7A /* AppGroupConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3C91452ACD6F5E0058BDDD /* AppGroupConstants.swift */; };
 		3B246ABA2A0698ED00CB7EED /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B246AB92A0698ED00CB7EED /* Contact.swift */; };
+		3B3C691F2B3B25A900DE496C /* UserDefaultsConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3C691E2B3B25A900DE496C /* UserDefaultsConstants.swift */; };
 		3B3C912D2ACD6C7B0058BDDD /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B3C91152ACD6C350058BDDD /* WidgetKit.framework */; };
 		3B3C912E2ACD6C7B0058BDDD /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B3C91172ACD6C350058BDDD /* SwiftUI.framework */; };
 		3B3C91312ACD6C7B0058BDDD /* ChallengeWidgetExtensionBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3C91302ACD6C7B0058BDDD /* ChallengeWidgetExtensionBundle.swift */; };
 		3B3C91352ACD6C7C0058BDDD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3B3C91342ACD6C7C0058BDDD /* Assets.xcassets */; };
 		3B3C91392ACD6C7C0058BDDD /* ChallengeWidgetExtensionExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 3B3C912C2ACD6C7B0058BDDD /* ChallengeWidgetExtensionExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		3B3C91412ACD6DCC0058BDDD /* GaugeWidgetEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3C91402ACD6DCC0058BDDD /* GaugeWidgetEntry.swift */; };
-		3B3C91462ACD6F5E0058BDDD /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3C91452ACD6F5E0058BDDD /* Constants.swift */; };
+		3B3C91462ACD6F5E0058BDDD /* AppGroupConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3C91452ACD6F5E0058BDDD /* AppGroupConstants.swift */; };
 		3B3C91482ACD71850058BDDD /* GaugeWidgetEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3C91402ACD6DCC0058BDDD /* GaugeWidgetEntry.swift */; };
 		3B3C914B2ACD734C0058BDDD /* challengedDay.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3B0027F22A76216800520699 /* challengedDay.xcdatamodeld */; };
 		3B3C914D2ACD74690058BDDD /* GaugeWidgetEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3C914C2ACD74690058BDDD /* GaugeWidgetEntryView.swift */; };
@@ -68,6 +69,10 @@
 		3BC602D329880A5900198F1B /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC602D229880A5900198F1B /* CardView.swift */; };
 		3BC602D52988BE6300198F1B /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC602D42988BE6300198F1B /* ListView.swift */; };
 		3BC602D929891B0300198F1B /* ListAndCardScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC602D829891B0300198F1B /* ListAndCardScreen.swift */; };
+		3BD9FE8C2B39901A00E1D1AD /* DailyData+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD9FE8B2B398FD900E1D1AD /* DailyData+CoreDataProperties.swift */; };
+		3BD9FE8D2B39901B00E1D1AD /* DailyData+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD9FE8B2B398FD900E1D1AD /* DailyData+CoreDataProperties.swift */; };
+		3BD9FE8E2B39901E00E1D1AD /* DailyData+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD9FE8A2B398FD900E1D1AD /* DailyData+CoreDataClass.swift */; };
+		3BD9FE8F2B39901E00E1D1AD /* DailyData+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD9FE8A2B398FD900E1D1AD /* DailyData+CoreDataClass.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -110,6 +115,7 @@
 		3B2245432B1C504000B64B7A /* TutorialView2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialView2.swift; sourceTree = "<group>"; };
 		3B2245442B1C504000B64B7A /* TutorialView3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialView3.swift; sourceTree = "<group>"; };
 		3B246AB92A0698ED00CB7EED /* Contact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
+		3B3C691E2B3B25A900DE496C /* UserDefaultsConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsConstants.swift; sourceTree = "<group>"; };
 		3B3C91152ACD6C350058BDDD /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		3B3C91172ACD6C350058BDDD /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		3B3C912C2ACD6C7B0058BDDD /* ChallengeWidgetExtensionExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ChallengeWidgetExtensionExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -119,7 +125,7 @@
 		3B3C913D2ACD6CA70058BDDD /* Challenge100days.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Challenge100days.entitlements; sourceTree = "<group>"; };
 		3B3C913E2ACD6CE20058BDDD /* ChallengeWidgetExtensionExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ChallengeWidgetExtensionExtension.entitlements; sourceTree = "<group>"; };
 		3B3C91402ACD6DCC0058BDDD /* GaugeWidgetEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GaugeWidgetEntry.swift; sourceTree = "<group>"; };
-		3B3C91452ACD6F5E0058BDDD /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		3B3C91452ACD6F5E0058BDDD /* AppGroupConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppGroupConstants.swift; sourceTree = "<group>"; };
 		3B3C914C2ACD74690058BDDD /* GaugeWidgetEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GaugeWidgetEntryView.swift; sourceTree = "<group>"; };
 		3B3C914E2ACD74B40058BDDD /* GaugeWidgetTimelineProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GaugeWidgetTimelineProvider.swift; sourceTree = "<group>"; };
 		3B3C91502ACD79C90058BDDD /* GaugeWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GaugeWidget.swift; sourceTree = "<group>"; };
@@ -156,6 +162,8 @@
 		3BC602D229880A5900198F1B /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		3BC602D42988BE6300198F1B /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
 		3BC602D829891B0300198F1B /* ListAndCardScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListAndCardScreen.swift; sourceTree = "<group>"; };
+		3BD9FE8A2B398FD900E1D1AD /* DailyData+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DailyData+CoreDataClass.swift"; sourceTree = "<group>"; };
+		3BD9FE8B2B398FD900E1D1AD /* DailyData+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DailyData+CoreDataProperties.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -235,7 +243,8 @@
 		3B2245532B1C518800B64B7A /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				3B3C91452ACD6F5E0058BDDD /* Constants.swift */,
+				3B3C91452ACD6F5E0058BDDD /* AppGroupConstants.swift */,
+				3B3C691E2B3B25A900DE496C /* UserDefaultsConstants.swift */,
 				3B0027F72A76218E00520699 /* AppSetting.swift */,
 			);
 			path = Utils;
@@ -244,17 +253,19 @@
 		3B22455A2B1C53BB00B64B7A /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				3BD9FE8A2B398FD900E1D1AD /* DailyData+CoreDataClass.swift */,
+				3BD9FE8B2B398FD900E1D1AD /* DailyData+CoreDataProperties.swift */,
 				3B0027F22A76216800520699 /* challengedDay.xcdatamodeld */,
 			);
 			path = Models;
 			sourceTree = "<group>";
 		};
-		3B22455B2B1C53DA00B64B7A /* Controllers */ = {
+		3B22455B2B1C53DA00B64B7A /* CoreDataHelper */ = {
 			isa = PBXGroup;
 			children = (
 				3B2245332B1C42F500B64B7A /* PersistenceController.swift */,
 			);
-			path = Controllers;
+			path = CoreDataHelper;
 			sourceTree = "<group>";
 		};
 		3B22455C2B1C53FF00B64B7A /* Resources */ = {
@@ -367,7 +378,7 @@
 				3B0028032A76248800520699 /* Challenge100daysApp.swift */,
 				3BC602C02986AC1500198F1B /* Assets.xcassets */,
 				3BB7BCD52B1C5DC200E12E80 /* Info.plist */,
-				3B22455B2B1C53DA00B64B7A /* Controllers */,
+				3B22455B2B1C53DA00B64B7A /* CoreDataHelper */,
 				3B22455A2B1C53BB00B64B7A /* Models */,
 				3B2245532B1C518800B64B7A /* Utils */,
 				3B2245402B1C4F8200B64B7A /* Screens */,
@@ -512,9 +523,11 @@
 				3B91C40F2ACEBA6700B2D626 /* NumberWidget.swift in Sources */,
 				3B3C914F2ACD74B40058BDDD /* GaugeWidgetTimelineProvider.swift in Sources */,
 				3B3C914B2ACD734C0058BDDD /* challengedDay.xcdatamodeld in Sources */,
+				3BD9FE8F2B39901E00E1D1AD /* DailyData+CoreDataClass.swift in Sources */,
 				3B3C91412ACD6DCC0058BDDD /* GaugeWidgetEntry.swift in Sources */,
+				3BD9FE8D2B39901B00E1D1AD /* DailyData+CoreDataProperties.swift in Sources */,
 				3B3C91512ACD79C90058BDDD /* GaugeWidget.swift in Sources */,
-				3B2245542B1C51B900B64B7A /* Constants.swift in Sources */,
+				3B2245542B1C51B900B64B7A /* AppGroupConstants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -534,8 +547,10 @@
 				3B93B16D299F2D6A006F3332 /* EditGoal.swift in Sources */,
 				3BC602D12986B52100198F1B /* BigButtonScreen.swift in Sources */,
 				3B2245472B1C504000B64B7A /* TutorialView2.swift in Sources */,
+				3B3C691F2B3B25A900DE496C /* UserDefaultsConstants.swift in Sources */,
 				3B4D4E142A695D7E00AFB314 /* NotificationViewModel.swift in Sources */,
 				3BC602CD2986B31000198F1B /* Buttons.swift in Sources */,
+				3BD9FE8E2B39901E00E1D1AD /* DailyData+CoreDataClass.swift in Sources */,
 				3B93B16B299D1307006F3332 /* AboutThisApp.swift in Sources */,
 				3B3CFFFB298E236300102EEE /* GenerateImageWithDate.swift in Sources */,
 				3B5EF9272A71641B00709006 /* ToastView.swift in Sources */,
@@ -551,10 +566,11 @@
 				3B75EB0D298BD0B1000FCDE9 /* AddingMemoSheet.swift in Sources */,
 				3BC602CF2986B50B00198F1B /* AfterPressButtonSheet.swift in Sources */,
 				3B93B16F299FA513006F3332 /* BackUpView.swift in Sources */,
-				3B3C91462ACD6F5E0058BDDD /* Constants.swift in Sources */,
+				3B3C91462ACD6F5E0058BDDD /* AppGroupConstants.swift in Sources */,
 				3B4D4E1A2A6CCD3600AFB314 /* CoreDataViewModel.swift in Sources */,
 				3B3C91482ACD71850058BDDD /* GaugeWidgetEntry.swift in Sources */,
 				3B4D4E102A6435FF00AFB314 /* NotificationView.swift in Sources */,
+				3BD9FE8C2B39901A00E1D1AD /* DailyData+CoreDataProperties.swift in Sources */,
 				3BA4243D2A70D98900A6020D /* UserSettingViewModel.swift in Sources */,
 				3B75EB0F298D5C35000FCDE9 /* RecordDetailScreen.swift in Sources */,
 			);

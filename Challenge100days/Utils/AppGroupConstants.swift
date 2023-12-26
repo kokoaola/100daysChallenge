@@ -12,7 +12,7 @@ import WidgetKit
 
 ///このアプリ内のさまざまな場所で使用される定数をまとめたファイル
 
-struct ChallengeConstants{
+struct AppGroupConstants{
     // App Groupを利用するためのコンテナURLを取得。ここで指定するIDはApp Groupsで設定したもの
     static let appGroupContainerURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.challenge100days")!
     

@@ -23,29 +23,22 @@ class UserSettingViewModel: ObservableObject{
     
     ///ユーザーデフォルト用の変数
     private let defaults = UserDefaults.standard
-    ///ユーザーデフォルト用キー：目標用
-    private let longTermGoalKey = "longTermGoal"
-    ///ユーザーデフォルト用キー：取り組むこと用
-    private let shortTermGoalKey = "shortTermGoal"
-    ///ユーザーデフォルト用キー：初回起動確認用
-    private let isFirstKey = "isFirst"
-    ///ユーザーデフォルト用キー：アプリカラー選択用
-    private let userSelectedColorKey = "userSelectedColorKey"
+
     
 
     init(){
         defaults.register(defaults: ["isFirst":true])
         //アプリ起動時はユーザーデフォルトからデータを取得
-        self.longTermGoal = defaults.string(forKey:longTermGoalKey) ?? ""
-        self.shortTermGoal = defaults.string(forKey:shortTermGoalKey) ?? ""
-        self.isFirst = defaults.bool(forKey:isFirstKey)
-        self.userSelectedColor = defaults.integer(forKey:userSelectedColorKey)
+        self.longTermGoal = defaults.string(forKey:UserDefaultsConstants.longTermGoalKey) ?? ""
+        self.shortTermGoal = defaults.string(forKey:UserDefaultsConstants.shortTermGoalKey) ?? ""
+        self.isFirst = defaults.bool(forKey:UserDefaultsConstants.isFirstKey)
+        self.userSelectedColor = defaults.integer(forKey:UserDefaultsConstants.userSelectedColorKey)
     }
     
     ///ユーザーが選んだアプリの色を保存するメソッド
     func saveUserSettingAppColor(colorNum: Int){
         self.userSelectedColor = colorNum
-        defaults.set(colorNum, forKey: userSelectedColorKey)
+        defaults.set(colorNum, forKey: UserDefaultsConstants.userSelectedColorKey)
     }
     
     ///ユーザーが選んだ目標を保存するメソッド
@@ -53,10 +46,10 @@ class UserSettingViewModel: ObservableObject{
         objectWillChange.send()
         if isLong{
             longTermGoal = goal
-            defaults.set(goal, forKey: longTermGoalKey)
+            defaults.set(goal, forKey: UserDefaultsConstants.longTermGoalKey)
         }else{
             shortTermGoal = goal
-            defaults.set(goal, forKey: shortTermGoalKey)
+            defaults.set(goal, forKey: UserDefaultsConstants.shortTermGoalKey)
         }
     }
     
@@ -64,7 +57,7 @@ class UserSettingViewModel: ObservableObject{
     func toggleTutorialStatus(changeTo:Bool){
         objectWillChange.send()
         isFirst = changeTo
-        defaults.setValue(isFirst, forKey: isFirstKey)
+        defaults.setValue(isFirst, forKey: UserDefaultsConstants.isFirstKey)
     }
     
     ///ユーザーのカスタムセッティングをすべてリセットするメソッド

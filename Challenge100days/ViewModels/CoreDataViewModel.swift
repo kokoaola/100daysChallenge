@@ -33,7 +33,7 @@ class CoreDataViewModel: ObservableObject{
     
     ///当日のタスクが達成済みかを格納する変数2
     init() {
-        let request = NSFetchRequest<DailyData>(entityName: ChallengeConstants.entityName)
+        let request = NSFetchRequest<DailyData>(entityName: AppGroupConstants.entityName)
         request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: true)]
         var tasks: [DailyData] = []
         do{
@@ -48,7 +48,7 @@ class CoreDataViewModel: ObservableObject{
     
     ///すべてのデータを再取得するメソッド
     func getAllData() -> [DailyData]{
-        let request = NSFetchRequest<DailyData>(entityName: ChallengeConstants.entityName)
+        let request = NSFetchRequest<DailyData>(entityName: AppGroupConstants.entityName)
         request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: true)]
         do{
             let tasks = try context.fetch(request)
@@ -82,7 +82,7 @@ class CoreDataViewModel: ObservableObject{
         allData = getAllData()
         
         //ウィジェットを更新
-        ChallengeConstants.reloadTimelines()
+        AppGroupConstants.reloadTimelines()
     }
     
     
@@ -131,7 +131,7 @@ class CoreDataViewModel: ObservableObject{
         objectWillChange.send()
 
         //ウィジェットを更新
-        ChallengeConstants.reloadTimelines()
+        AppGroupConstants.reloadTimelines()
     }
     
     
@@ -152,7 +152,7 @@ class CoreDataViewModel: ObservableObject{
     
     ///データベースのすべての記録を削除するメソッド
     func deleteAllData(){
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: ChallengeConstants.entityName)
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: AppGroupConstants.entityName)
         
         // Create Batch Delete Request
         let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: request)
@@ -168,6 +168,6 @@ class CoreDataViewModel: ObservableObject{
         allData = getAllData()
 
         //ウィジェットを更新
-        ChallengeConstants.reloadTimelines()
+        AppGroupConstants.reloadTimelines()
     }
 }

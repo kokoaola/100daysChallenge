@@ -2,7 +2,7 @@
 //  ListAndCardView.swift
 //  Challenge100days
 //
-//  Created by koala panda on 2023/01/31./Users/koalapanda/Desktop/作ってるアプリ/Challenge100days/Challenge100days/CompleteView.swift
+//  Created by koala panda on 2023/01/31
 //
 
 import SwiftUI
@@ -10,6 +10,7 @@ import SwiftUI
 
 ///ユーザーが記録を閲覧するためのルートのビュー
 struct ListAndCardView: View {
+    @Environment(\.managedObjectContext) var veiwContext
     
     ///ViewModel用の変数
     @EnvironmentObject var notificationViewModel: NotificationViewModel
