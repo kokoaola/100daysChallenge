@@ -15,35 +15,18 @@ extension View {
     }
     
     ///カスタマイズしたテキストエディットのスタイルのextension
-    func customTextEditStyle() -> some View {
+    func customTutorialTextEditStyle() -> some View {
         self
-            .foregroundColor(Color(UIColor.black))
-            .tint(.black)
             .scrollContentBackground(Visibility.hidden)
-            .background(.gray.opacity(0.5))
-            .border(.gray, width: 1)
-            .frame(height: 80)
+            .background(.ultraThinMaterial)
+            .border(.white, width: 1)
+            .frame(height: AppSetting.screenHeight / 12)
     }
     
     ///アクセシビリティに関する項目を追加するextension
     func editAccessibility(label: String? = nil, hint: String? = nil, removeTraits: AccessibilityTraits? = nil, addTraits: AccessibilityTraits? = nil) -> some View {
         self
             .modifier(AccessibilityModifier(label: label, hint: hint, removeTraits: removeTraits, addTraits: addTraits))
-    }
-    
-    
-    ///単価計算用にカスタマイズしたテキストエディットのスタイルのextension
-    func unitCalTextField() -> some View {
-        self
-            .padding(5)
-            .overlay(
-                RoundedRectangle(cornerRadius: 2)
-                    .stroke(.gray.opacity(0.5), lineWidth: 1)
-            )
-            .frame(width: AppStyles.screenWidth / 2)
-            .textFieldStyle(.plain)
-            .scrollContentBackground(.hidden)
-            .background(.white)
     }
 }
 
