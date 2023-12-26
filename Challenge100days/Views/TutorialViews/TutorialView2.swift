@@ -145,21 +145,4 @@ struct TutorialView2: View {
         }
         .foregroundColor(Color(UIColor.label))
     }
-    
-}
-
-
-
-
-struct TutorialView2_Previews: PreviewProvider {
-    @StateObject static var tutorialViewModel = TutorialViewModel()
-    static var previews: some View {
-        Group{
-            TutorialView2(tutorialVM: tutorialViewModel)
-                .environment(\.locale, Locale(identifier:"ja"))
-            TutorialView2(tutorialVM: tutorialViewModel)
-                .environment(\.locale, Locale(identifier:"en"))
-        }
-        .environmentObject(Store())
-    }
 }

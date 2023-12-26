@@ -56,19 +56,3 @@ struct TutorialView3: View {
         }
     }
 }
-
-
-
-
-struct TutorialView3_Previews: PreviewProvider {
-    @StateObject static var tutorialViewModel = TutorialViewModel()
-    static var previews: some View {
-        Group{
-            TutorialView3(tutorialVM: tutorialViewModel)
-                .environment(\.locale, Locale(identifier:"ja"))
-            TutorialView3(tutorialVM: tutorialViewModel)
-                .environment(\.locale, Locale(identifier:"en"))
-        }
-        .environmentObject(Store())
-    }
-}

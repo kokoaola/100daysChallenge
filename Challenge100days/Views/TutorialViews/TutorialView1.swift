@@ -54,17 +54,3 @@ struct TutorialView1: View {
         .padding()
     }
 }
-
-
-struct TutorialView1_Previews: PreviewProvider {
-    @StateObject static var tutorialViewModel = TutorialViewModel()
-    static var previews: some View {
-        Group{
-            TutorialView1(tutorialVM: tutorialViewModel)
-                .environment(\.locale, Locale(identifier:"ja"))
-            TutorialView1(tutorialVM: tutorialViewModel)
-                .environment(\.locale, Locale(identifier:"en"))
-        }
-        .environmentObject(Store())
-    }
-}
