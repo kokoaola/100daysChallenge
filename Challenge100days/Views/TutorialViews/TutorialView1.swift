@@ -11,7 +11,6 @@ import SwiftUI
 ///チュートリアル１ページ目
 struct TutorialView1: View {
     ///ViewModel用の変数
-    @EnvironmentObject var store: Store
     @ObservedObject var tutorialVM: TutorialViewModel
     
     var body: some View {
@@ -27,7 +26,7 @@ struct TutorialView1: View {
             .accessibilityElement(children: .combine)
             
             ///背景色選択用のピッカー
-            Picker(selection: $store.userSelectedColor) {
+            Picker(selection: $tutorialVM.userSelectedColor) {
                 Text("青").tag(0)
                 Text("オレンジ").tag(1)
                 Text("紫").tag(2)
@@ -37,14 +36,13 @@ struct TutorialView1: View {
             }
             .pickerStyle(.segmented)
             
-
             Spacer()
             
             ///進むボタン
             Button {
                 tutorialVM.page = 2
                 //アプリの色を保存
-                store.saveUserSettingAppColor()
+                tutorialVM.saveUserSettingAppColor()
             } label: {
                 ArrowButton(isBackButton: false, labelText: "次へ")
             }

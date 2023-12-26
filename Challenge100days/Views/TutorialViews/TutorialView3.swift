@@ -11,7 +11,6 @@ import SwiftUI
 ///チュートリアル３ページ目
 struct TutorialView3: View {
     ///ViewModel用の変数
-    @EnvironmentObject var store: Store
     @ObservedObject var tutorialVM: TutorialViewModel
     
     var body: some View {
@@ -23,13 +22,14 @@ struct TutorialView3: View {
                     Text("これらの設定は、アプリの設定ページからも変更可能です。")
                     Text("それでは、さっそく始めましょう。")
                 }
+                //VoiceOver用の設定
                 .contentShape(Rectangle())
                 .accessibilityElement(children: .combine)
                 
                 Spacer()
                 
                 HStack{
-                    //戻るボタン
+                    ///戻るボタン
                     Button{
                         tutorialVM.page = 2
                     } label: {
@@ -50,7 +50,6 @@ struct TutorialView3: View {
                 }
                 .padding(.bottom, 30)
                 .frame(maxWidth: .infinity, alignment: .bottom)
-                
             }
             .padding()
         }

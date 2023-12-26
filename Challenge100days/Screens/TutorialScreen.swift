@@ -12,8 +12,7 @@ import SwiftUI
 struct TutorialScreen: View {
     
     ///ViewModel用の変数
-    @EnvironmentObject var store:Store
-    @StateObject private var tutorialVM = TutorialViewModel()
+    @ObservedObject var tutorialVM: TutorialViewModel
     
     
     var body: some View {
@@ -38,7 +37,6 @@ struct TutorialScreen: View {
                 }
             }
             .foregroundColor(.primary)
-            .environmentObject(store)
             
             //背景の設定
             .frame(maxHeight: AppSetting.screenHeight / 1.3)
@@ -46,7 +44,7 @@ struct TutorialScreen: View {
             .cornerRadius(15)
             .padding(.horizontal)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .modifier(UserSettingGradient(appColorNum: store.userSelectedColor))
+            .modifier(UserSettingGradient(appColorNum: tutorialVM.userSelectedColor))
             //背景の設定ここまで
             
         }
@@ -55,14 +53,14 @@ struct TutorialScreen: View {
 }
 
 struct TutorialView_Previews: PreviewProvider {
+    @State static var vm = TutorialViewModel()
     static var previews: some View {
         Group{
-            TutorialScreen()
+            TutorialScreen(tutorialVM: vm)
                 .environment(\.locale, Locale(identifier:"ja"))
-            TutorialScreen()
+            TutorialScreen(tutorialVM: vm)
                 .environment(\.locale, Locale(identifier:"en"))
         }
-        .environmentObject(Store())
     }
 }
 
