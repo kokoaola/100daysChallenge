@@ -15,7 +15,7 @@ struct ListAndCardView: View {
     ///ViewModel用の変数
     @EnvironmentObject var notificationViewModel: NotificationViewModel
     @EnvironmentObject var coreDataViewModel: CoreDataViewModel
-    @EnvironmentObject var userSettingViewModel: Store
+    @EnvironmentObject var store: Store
     
     ///アイテム新規追加用シート格納変数
     @State private var showSheet = false
@@ -61,14 +61,14 @@ struct ListAndCardView: View {
             .padding(.horizontal)
             
             //グラデーション背景の設定
-            .modifier(UserSettingGradient(appColorNum: userSettingViewModel.userSelectedColor))
+            .modifier(UserSettingGradient(appColorNum: store.userSelectedColor))
             
             
             
             //メモ追加ボタンが押下されたら、makeNewItemSheetを表示
             .sheet(isPresented: $showSheet) {
                 makeNewItemSheet()
-                    .environmentObject(userSettingViewModel)
+                    .environmentObject(store)
                     .environmentObject(notificationViewModel)
                     .environmentObject(coreDataViewModel)
                 

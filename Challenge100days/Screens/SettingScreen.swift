@@ -13,7 +13,7 @@ import UserNotifications
 struct SettingView: View {
     ///ViewModel用の変数
     @EnvironmentObject var notificationViewModel: NotificationViewModel
-    @EnvironmentObject var userSettingViewModel: Store
+    @EnvironmentObject var store: Store
     @EnvironmentObject var coreDataViewModel: CoreDataViewModel
     
     ///目標隠すかどうかのフラグ
@@ -54,7 +54,7 @@ struct SettingView: View {
                         
                         //アプリ全体の色を変更するセル
                         Section(){
-                            Picker(selection: $userSettingViewModel.userSelectedColor) {
+                            Picker(selection: $store.userSelectedColor) {
                                 Text("青").tag(0)
                                 Text("オレンジ").tag(1)
                                 Text("紫").tag(2)
@@ -179,7 +179,7 @@ struct SettingView: View {
                 .navigationViewStyle(.stack)
                 .scrollContentBackground(.hidden)
                 //背景グラデーション設定
-                .modifier(UserSettingGradient(appColorNum: userSettingViewModel.userSelectedColor))
+                .modifier(UserSettingGradient(appColorNum: store.userSelectedColor))
                 
                 //目標編集セルタップ後に出現するテキストフィールド付きアラート
                 if showGoalEdittingAlert{
@@ -192,12 +192,12 @@ struct SettingView: View {
             }
             .environmentObject(coreDataViewModel)
             .environmentObject(notificationViewModel)
-            .environmentObject(userSettingViewModel)
+            .environmentObject(store)
         }
         
         //ピッカーが選択される毎に背景色を変更
-        .onChange(of: userSettingViewModel.userSelectedColor) { newColor in
-            userSettingViewModel.saveUserSettingAppColor()
+        .onChange(of: store.userSelectedColor) { newColor in
+            store.saveUserSettingAppColor()
         }
         
         
@@ -221,7 +221,7 @@ struct SettingView: View {
         .alert("リセットしますか？", isPresented: $showResetAlert){
             Button("リセットする",role: .destructive){
                 notificationViewModel.resetNotification()
-                userSettingViewModel.resetUserSetting()
+                store.resetUserSetting()
                 coreDataViewModel.deleteAllData()
             }
             Button("戻る",role: .cancel){}

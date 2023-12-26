@@ -53,7 +53,6 @@ class Store: ObservableObject {
         self.longTermGoal = defaults.string(forKey:UserDefaultsConstants.longTermGoalKey) ?? ""
         self.shortTermGoal = defaults.string(forKey:UserDefaultsConstants.shortTermGoalKey) ?? ""
         self.isFirst = defaults.bool(forKey:UserDefaultsConstants.isFirstKey)
-        
         self.userSelectedColor = defaults.integer(forKey:UserDefaultsConstants.userSelectedColorKey)
     }
     

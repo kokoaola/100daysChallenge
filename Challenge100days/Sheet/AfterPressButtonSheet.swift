@@ -12,7 +12,7 @@ import UIKit
 ///ユーザーが当日のタスクを達成したときに表示するコンプリートウインドウ
 struct CompleteWindowView: View {
     ///ViewModel用の変数
-    @EnvironmentObject var userSettingViewModel:Store
+    @EnvironmentObject var store:Store
     @EnvironmentObject var coreDataViewModel :CoreDataViewModel
     
     ///メモ追加シート表示用のフラグ
@@ -147,7 +147,7 @@ struct CompleteWindowView: View {
             .cornerRadius(15)
             .padding()
             
-           if userSettingViewModel.showAnimation{
+           if store.showAnimation{
                 LottieView(filename: "confetti3", loop: .playOnce)
                     .frame(width: AppSetting.screenWidth)
                     .allowsHitTesting(false)
@@ -166,7 +166,7 @@ struct CompleteWindowView: View {
         //メモ追加ボタンが押下されたら、MemoSheetを表示
         .sheet(isPresented: $showMemo) {
             MemoSheet()
-                .environmentObject(userSettingViewModel)
+                .environmentObject(store)
         }
     }
 }

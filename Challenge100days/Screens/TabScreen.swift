@@ -13,20 +13,20 @@ struct TabScreen: View {
     ///ViewModel用の変数
     @ObservedObject var notificationViewModel = NotificationViewModel()
     @ObservedObject var coreDataViewModel = CoreDataViewModel()
-    @ObservedObject var userSettingViewModel = Store()
+    @ObservedObject var store = Store()
     
     
     var body: some View {
 
-        if userSettingViewModel.isFirst{
+        if store.isFirst{
             //初回起動時はチュートリアルを表示
-            TutorialTopView()
-                .environmentObject(userSettingViewModel)
+            TutorialScreen()
+                .environmentObject(store)
             
         }else{
             
             //ユーザーが初回のチュートリアルを終わらせていればタブを表示
-            TabView(selection: $userSettingViewModel.userSelectedTag){
+            TabView(selection: $store.userSelectedTag){
                 //達成用のビュー
                 ActionView()
                     .tabItem{
@@ -49,7 +49,7 @@ struct TabScreen: View {
             .tint(.primary)
             .environmentObject(coreDataViewModel)
             .environmentObject(notificationViewModel)
-            .environmentObject(userSettingViewModel)
+            .environmentObject(store)
 
         }
 

@@ -9,7 +9,7 @@ import SwiftUI
 
 
 ///チュートリアル共通項目
-struct TutorialTopView: View {
+struct TutorialScreen: View {
     
     ///ViewModel用の変数
     @EnvironmentObject var store:Store
@@ -60,9 +60,9 @@ struct TutorialTopView: View {
 struct TutorialView_Previews: PreviewProvider {
     static var previews: some View {
         Group{
-            TutorialTopView()
+            TutorialScreen()
                 .environment(\.locale, Locale(identifier:"ja"))
-            TutorialTopView()
+            TutorialScreen()
                 .environment(\.locale, Locale(identifier:"en"))
         }
         .environmentObject(Store())

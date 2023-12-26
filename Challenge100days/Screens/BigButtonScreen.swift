@@ -14,7 +14,7 @@ struct ActionView: View {
     ///ViewModel用の変数
     @EnvironmentObject var notificationViewModel: NotificationViewModel
     @EnvironmentObject var coreDataViewModel: CoreDataViewModel
-    @EnvironmentObject var userSettingViewModel: Store
+    @EnvironmentObject var store: Store
     
     ///コンプリートウインドウを表示するかどうかのフラグ
     @State private var showCompleteWindew = false
@@ -42,22 +42,22 @@ struct ActionView: View {
                                     .fontWeight(.bold)
                                     .frame(width: AppSetting.screenWidth * 0.8, alignment: .leading)
                                 
-                                Text("\(userSettingViewModel.longTermGoal)")
+                                Text("\(store.longTermGoal)")
                             }
                             .contentShape(Rectangle())
                             .accessibilityElement()
-                            .accessibilityLabel("目指している姿、\(userSettingViewModel.longTermGoal)")
+                            .accessibilityLabel("目指している姿、\(store.longTermGoal)")
                             
                             //短期目標の表示
                             VStack{
                                 Text("100日取り組むこと : ")
                                     .fontWeight(.bold)
                                     .frame(width: AppSetting.screenWidth * 0.8, alignment: .leading)
-                                Text("\(userSettingViewModel.shortTermGoal)")
+                                Text("\(store.shortTermGoal)")
                             }
                             .contentShape(Rectangle())
                             .accessibilityElement()
-                            .accessibilityLabel("100日取り組むこと、\(userSettingViewModel.shortTermGoal)")
+                            .accessibilityLabel("100日取り組むこと、\(store.shortTermGoal)")
                         }.font(.callout.weight(.medium))
                             .padding()
                             .frame(width: AppSetting.screenWidth * 0.9)
@@ -86,7 +86,7 @@ struct ActionView: View {
                                     HStack{
                                         Button {
                                             showCompleteWindew = true
-                                            userSettingViewModel.showAnimation = false
+                                            store.showAnimation = false
                                         } label: {
                                             Text("ウインドウを再表示する")
                                                 .font(.callout)
@@ -106,7 +106,7 @@ struct ActionView: View {
                     Button(action: {
                         withAnimation{
                             showCompleteWindew = true
-                            userSettingViewModel.showAnimation = true
+                            store.showAnimation = true
                         }
                         //データを保存
                         coreDataViewModel.saveData(date: Date(), memo: "")
@@ -169,7 +169,7 @@ struct ActionView: View {
             .frame(maxWidth: .infinity)
             
             //グラデーション背景の設定
-            .modifier(UserSettingGradient(appColorNum: userSettingViewModel.userSelectedColor))
+            .modifier(UserSettingGradient(appColorNum: store.userSelectedColor))
     }
 }
 

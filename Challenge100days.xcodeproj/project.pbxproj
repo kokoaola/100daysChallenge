@@ -21,13 +21,14 @@
 		3B2245342B1C42F500B64B7A /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2245332B1C42F500B64B7A /* PersistenceController.swift */; };
 		3B2245352B1C42F500B64B7A /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2245332B1C42F500B64B7A /* PersistenceController.swift */; };
 		3B2245452B1C504000B64B7A /* TutorialView1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2245412B1C504000B64B7A /* TutorialView1.swift */; };
-		3B2245462B1C504000B64B7A /* TutorialsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2245422B1C504000B64B7A /* TutorialsScreen.swift */; };
+		3B2245462B1C504000B64B7A /* TutorialScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2245422B1C504000B64B7A /* TutorialScreen.swift */; };
 		3B2245472B1C504000B64B7A /* TutorialView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2245432B1C504000B64B7A /* TutorialView2.swift */; };
 		3B2245482B1C504000B64B7A /* TutorialView3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2245442B1C504000B64B7A /* TutorialView3.swift */; };
 		3B2245542B1C51B900B64B7A /* AppGroupConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3C91452ACD6F5E0058BDDD /* AppGroupConstants.swift */; };
 		3B246ABA2A0698ED00CB7EED /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B246AB92A0698ED00CB7EED /* Contact.swift */; };
 		3B3C691F2B3B25A900DE496C /* UserDefaultsConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3C691E2B3B25A900DE496C /* UserDefaultsConstants.swift */; };
 		3B3C69222B3B279400DE496C /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3C69212B3B279400DE496C /* Store.swift */; };
+		3B3C69242B3B3A7B00DE496C /* TutorialViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3C69232B3B3A7B00DE496C /* TutorialViewModel.swift */; };
 		3B3C912D2ACD6C7B0058BDDD /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B3C91152ACD6C350058BDDD /* WidgetKit.framework */; };
 		3B3C912E2ACD6C7B0058BDDD /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B3C91172ACD6C350058BDDD /* SwiftUI.framework */; };
 		3B3C91312ACD6C7B0058BDDD /* ChallengeWidgetExtensionBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3C91302ACD6C7B0058BDDD /* ChallengeWidgetExtensionBundle.swift */; };
@@ -111,12 +112,13 @@
 		3B22452E2B1C429400B64B7A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		3B2245332B1C42F500B64B7A /* PersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceController.swift; sourceTree = "<group>"; };
 		3B2245412B1C504000B64B7A /* TutorialView1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialView1.swift; sourceTree = "<group>"; };
-		3B2245422B1C504000B64B7A /* TutorialsScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialsScreen.swift; sourceTree = "<group>"; };
+		3B2245422B1C504000B64B7A /* TutorialScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialScreen.swift; sourceTree = "<group>"; };
 		3B2245432B1C504000B64B7A /* TutorialView2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialView2.swift; sourceTree = "<group>"; };
 		3B2245442B1C504000B64B7A /* TutorialView3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialView3.swift; sourceTree = "<group>"; };
 		3B246AB92A0698ED00CB7EED /* Contact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
 		3B3C691E2B3B25A900DE496C /* UserDefaultsConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsConstants.swift; sourceTree = "<group>"; };
 		3B3C69212B3B279400DE496C /* Store.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
+		3B3C69232B3B3A7B00DE496C /* TutorialViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialViewModel.swift; sourceTree = "<group>"; };
 		3B3C91152ACD6C350058BDDD /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		3B3C91172ACD6C350058BDDD /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		3B3C912C2ACD6C7B0058BDDD /* ChallengeWidgetExtensionExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ChallengeWidgetExtensionExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -231,7 +233,7 @@
 			isa = PBXGroup;
 			children = (
 				3BC602BE2986AC1400198F1B /* TabScreen.swift */,
-				3B2245422B1C504000B64B7A /* TutorialsScreen.swift */,
+				3B2245422B1C504000B64B7A /* TutorialScreen.swift */,
 				3B75EB0E298D5C35000FCDE9 /* RecordDetailScreen.swift */,
 				3B93B167299CCDED006F3332 /* SettingScreen.swift */,
 				3BC602D829891B0300198F1B /* ListAndCardScreen.swift */,
@@ -293,6 +295,7 @@
 			children = (
 				3B4D4E132A695D7E00AFB314 /* NotificationViewModel.swift */,
 				3B4D4E192A6CCD3600AFB314 /* CoreDataViewModel.swift */,
+				3B3C69232B3B3A7B00DE496C /* TutorialViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -381,7 +384,6 @@
 		3BC602BB2986AC1400198F1B /* Challenge100days */ = {
 			isa = PBXGroup;
 			children = (
-				3B3C69202B3B278600DE496C /* Grobal State */,
 				3B3C913D2ACD6CA70058BDDD /* Challenge100days.entitlements */,
 				3B0028032A76248800520699 /* Challenge100daysApp.swift */,
 				3BC602C02986AC1500198F1B /* Assets.xcassets */,
@@ -389,6 +391,7 @@
 				3B22455B2B1C53DA00B64B7A /* CoreDataHelper */,
 				3B22455A2B1C53BB00B64B7A /* Models */,
 				3B2245532B1C518800B64B7A /* Utils */,
+				3B3C69202B3B278600DE496C /* Grobal State */,
 				3B2245402B1C4F8200B64B7A /* Screens */,
 				3BB7BD022B1DD53700E12E80 /* Sheet */,
 				3B2245372B1C4EA800B64B7A /* Views */,
@@ -546,7 +549,8 @@
 				3B2245342B1C42F500B64B7A /* PersistenceController.swift in Sources */,
 				3B246ABA2A0698ED00CB7EED /* Contact.swift in Sources */,
 				3BC602D52988BE6300198F1B /* ListView.swift in Sources */,
-				3B2245462B1C504000B64B7A /* TutorialsScreen.swift in Sources */,
+				3B2245462B1C504000B64B7A /* TutorialScreen.swift in Sources */,
+				3B3C69242B3B3A7B00DE496C /* TutorialViewModel.swift in Sources */,
 				3BC04D3729951CD300EB4CDF /* MakeNewItemSheet.swift in Sources */,
 				3B93B168299CCDED006F3332 /* SettingScreen.swift in Sources */,
 				3B44CD89299BCE97001469FA /* ColorSaver.swift in Sources */,

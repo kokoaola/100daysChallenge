@@ -13,7 +13,7 @@ struct MemoSheet: View {
     
     ///ViewModel用の変数
     @EnvironmentObject var coreDataViewModel :CoreDataViewModel
-    @EnvironmentObject var userSettingViewModel:Store
+    @EnvironmentObject var store:Store
     
     ///キーボードフォーカス用変数（Doneボタン表示のため）
     @FocusState var isInputActive: Bool
@@ -99,7 +99,7 @@ struct MemoSheet: View {
             
             //グラデーション＋すりガラス背景設定
             .background(.ultraThinMaterial)
-            .modifier(UserSettingGradient(appColorNum: userSettingViewModel.userSelectedColor))
+            .modifier(UserSettingGradient(appColorNum: store.userSelectedColor))
     }
 }
 

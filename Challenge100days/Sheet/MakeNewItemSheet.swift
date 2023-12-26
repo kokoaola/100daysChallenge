@@ -13,7 +13,7 @@ struct makeNewItemSheet: View {
     
     ///ViewModel用の変数
     @EnvironmentObject var coreDataViewModel :CoreDataViewModel
-    @EnvironmentObject var userSettingViewModel: Store
+    @EnvironmentObject var store: Store
     
     ///画面破棄用の変数
     @Environment(\.dismiss) var dismiss
@@ -131,7 +131,7 @@ struct makeNewItemSheet: View {
             .background(.ultraThinMaterial)
             
             //グラデーション背景の設定
-            .modifier(UserSettingGradient(appColorNum: userSettingViewModel.userSelectedColor))
+            .modifier(UserSettingGradient(appColorNum: store.userSelectedColor))
             
             
             .onChange(of: userSelectedData) { newValue in
