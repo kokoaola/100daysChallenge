@@ -12,7 +12,7 @@ import SwiftUI
 struct TutorialTopView: View {
     
     ///ViewModel用の変数
-    @EnvironmentObject var userSettingViewModel:Store
+    @EnvironmentObject var store:Store
 
     ///表示中のページ番号を格納する変数
     @State private var page = 1
@@ -41,7 +41,7 @@ struct TutorialTopView: View {
                 }
             }
             .foregroundColor(.primary)
-            .environmentObject(userSettingViewModel)
+            .environmentObject(store)
             
             //背景の設定
             .frame(maxHeight: AppSetting.screenHeight / 1.3)
@@ -49,7 +49,7 @@ struct TutorialTopView: View {
             .cornerRadius(15)
             .padding(.horizontal)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .modifier(UserSettingGradient(appColorNum: userSettingViewModel.userSelectedColor))
+            .modifier(UserSettingGradient(appColorNum: store.userSelectedColor))
             //背景の設定ここまで
             
         }
