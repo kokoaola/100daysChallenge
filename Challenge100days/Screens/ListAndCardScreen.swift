@@ -15,7 +15,7 @@ struct ListAndCardView: View {
     ///ViewModel用の変数
     @EnvironmentObject var notificationViewModel: NotificationViewModel
     @EnvironmentObject var coreDataViewModel: CoreDataViewModel
-    @EnvironmentObject var userSettingViewModel: UserSettingViewModel
+    @EnvironmentObject var userSettingViewModel: Store
     
     ///アイテム新規追加用シート格納変数
     @State private var showSheet = false
@@ -111,6 +111,6 @@ struct ListAndCardView_Previews: PreviewProvider {
         }
         .environmentObject(NotificationViewModel())
         .environmentObject(CoreDataViewModel())
-        .environmentObject(UserSettingViewModel())
+        .environmentObject(Store())
     }
 }

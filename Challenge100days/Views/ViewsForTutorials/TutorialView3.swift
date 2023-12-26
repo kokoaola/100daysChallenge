@@ -12,7 +12,7 @@ import SwiftUI
 struct TutorialView3: View {
     
     ///ViewModel用の変数
-    @EnvironmentObject var userSettingViewModel:UserSettingViewModel
+    @EnvironmentObject var store: Store
     
     ///表示中のページ番号を格納
     @Binding var page: Int
@@ -44,8 +44,9 @@ struct TutorialView3: View {
                     
                     //startボタン
                     Button {
-                        userSettingViewModel.userSelectedTag = "One"
-                        userSettingViewModel.toggleTutorialStatus(changeTo: false)
+                        store.userSelectedTag = "One"
+                        //初回起動フラグのfalseにしてユーザーデフォルトに保存
+                        store.isFirst = false
                     } label: {
                         ArrowButton(isBackButton: false, labelText: "始める")
                     }
@@ -72,6 +73,6 @@ struct TutorialView3_Previews: PreviewProvider {
             TutorialView3(page: $sampleNum)
                 .environment(\.locale, Locale(identifier:"ja"))
         }
-        .environmentObject(UserSettingViewModel())
+        .environmentObject(Store())
     }
 }

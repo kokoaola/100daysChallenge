@@ -13,7 +13,7 @@ struct makeNewItemSheet: View {
     
     ///ViewModel用の変数
     @EnvironmentObject var coreDataViewModel :CoreDataViewModel
-    @EnvironmentObject var userSettingViewModel: UserSettingViewModel
+    @EnvironmentObject var userSettingViewModel: Store
     
     ///画面破棄用の変数
     @Environment(\.dismiss) var dismiss
@@ -184,6 +184,6 @@ struct makeNewItemSheet_Previews: PreviewProvider {
                 .environment(\.locale, Locale(identifier:"ja"))
         }
         .environmentObject(CoreDataViewModel())
-        .environmentObject(UserSettingViewModel())
+        .environmentObject(Store())
     }
 }

@@ -11,7 +11,7 @@ import SwiftUI
 struct Challenge100daysApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            TabScreen()
                 .environment(\.managedObjectContext, PersistenceController.persistentContainer.viewContext)
         }
     }

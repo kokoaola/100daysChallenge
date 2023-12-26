@@ -12,7 +12,7 @@ import SwiftUI
 struct TutorialTopView: View {
     
     ///ViewModel用の変数
-    @EnvironmentObject var userSettingViewModel:UserSettingViewModel
+    @EnvironmentObject var userSettingViewModel:Store
 
     ///表示中のページ番号を格納する変数
     @State private var page = 1
@@ -65,7 +65,7 @@ struct TutorialView_Previews: PreviewProvider {
             TutorialTopView()
                 .environment(\.locale, Locale(identifier:"en"))
         }
-        .environmentObject(UserSettingViewModel())
+        .environmentObject(Store())
     }
 }
 

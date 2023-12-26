@@ -14,7 +14,7 @@ struct DetailView: View {
     ///ViewModel用の変数
     @EnvironmentObject var notificationViewModel: NotificationViewModel
     @EnvironmentObject var coreDataViewModel: CoreDataViewModel
-    @EnvironmentObject var userSettingViewModel: UserSettingViewModel
+    @EnvironmentObject var userSettingViewModel: Store
     
     ///画面破棄用の変数
     @Environment(\.dismiss) var dismiss

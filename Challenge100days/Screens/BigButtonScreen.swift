@@ -14,7 +14,7 @@ struct ActionView: View {
     ///ViewModel用の変数
     @EnvironmentObject var notificationViewModel: NotificationViewModel
     @EnvironmentObject var coreDataViewModel: CoreDataViewModel
-    @EnvironmentObject var userSettingViewModel: UserSettingViewModel
+    @EnvironmentObject var userSettingViewModel: Store
     
     ///コンプリートウインドウを表示するかどうかのフラグ
     @State private var showCompleteWindew = false
@@ -183,6 +183,6 @@ struct ActionView_Previews: PreviewProvider {
                 .environment(\.locale, Locale(identifier:"ja"))
         }.environmentObject(NotificationViewModel())
             .environmentObject(CoreDataViewModel())
-            .environmentObject(UserSettingViewModel())
+            .environmentObject(Store())
     }
 }

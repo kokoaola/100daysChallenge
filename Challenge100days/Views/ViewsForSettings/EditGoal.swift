@@ -9,7 +9,7 @@ import SwiftUI
 
 struct EditGoal: View {
     ///ViewModel用の変数
-    @EnvironmentObject var userSettingViewModel:UserSettingViewModel
+    @EnvironmentObject var userSettingViewModel:Store
     @EnvironmentObject var notificationViewModel: NotificationViewModel
     
     ///自分自身の表示状態を格納するフラグ
@@ -68,7 +68,11 @@ struct EditGoal: View {
                 //保存ボタン
                 Button {
                     if !editText.isEmpty && AppSetting.maxLengthOfTerm >= editText.count{
-                        userSettingViewModel.saveUserSettingGoal(isLong: isLong, goal: editText)
+                        if isLong{
+                            userSettingViewModel.longTermGoal = editText
+                        }else{
+                            userSettingViewModel.shortTermGoal = editText
+                        }
                     }
                     toastText = "目標を変更しました"
                     showAlert = false
@@ -117,7 +121,7 @@ struct EditGoal_Previews: PreviewProvider {
             EditGoal(showAlert: $isEdit,showToast: $showToast,toastText: $toastText, isLong: true)
                 .environment(\.locale, Locale(identifier:"ja"))
         }
-        .environmentObject(UserSettingViewModel())
+        .environmentObject(Store())
         .environmentObject(NotificationViewModel())
     }
 }

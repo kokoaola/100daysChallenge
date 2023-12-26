@@ -12,15 +12,12 @@ import UserNotifications
 ///設定画面のビュー
 struct SettingView: View {
     ///ViewModel用の変数
-    @EnvironmentObject var notificationViewModel :NotificationViewModel
-    @EnvironmentObject var userSettingViewModel:UserSettingViewModel
-    @EnvironmentObject var coreDataViewModel:CoreDataViewModel
+    @EnvironmentObject var notificationViewModel: NotificationViewModel
+    @EnvironmentObject var userSettingViewModel: Store
+    @EnvironmentObject var coreDataViewModel: CoreDataViewModel
     
     ///目標隠すかどうかのフラグ
     @AppStorage("hideInfomation") var hideInfomation = false
-    
-    ///カラー設定ピッカー用の変数
-    @State private var selectedColor = 0
     
     ///全データ削除の確認アラート表示用の変数
     @State private var showResetAlert = false
@@ -47,7 +44,6 @@ struct SettingView: View {
     ///バックグラウンド移行と復帰の環境値を監視する
     @Environment(\.scenePhase) var scenePhase
     
-    
     var body: some View {
         NavigationStack{
             
@@ -58,7 +54,7 @@ struct SettingView: View {
                         
                         //アプリ全体の色を変更するセル
                         Section(){
-                            Picker(selection: $selectedColor) {
+                            Picker(selection: $userSettingViewModel.userSelectedColor) {
                                 Text("青").tag(0)
                                 Text("オレンジ").tag(1)
                                 Text("紫").tag(2)
@@ -200,9 +196,8 @@ struct SettingView: View {
         }
         
         //ピッカーが選択される毎に背景色を変更
-        .onChange(of: selectedColor) { newValue in
-            userSettingViewModel.userSelectedColor = newValue
-            userSettingViewModel.saveUserSettingAppColor(colorNum: newValue)
+        .onChange(of: userSettingViewModel.userSelectedColor) { newColor in
+            userSettingViewModel.saveUserSettingAppColor()
         }
         
         
@@ -220,10 +215,6 @@ struct SettingView: View {
                     isNotificationEnabled = false
                 }
             }
-        }
-        
-        .onAppear{
-            selectedColor = userSettingViewModel.userSelectedColor
         }
         
         //リセットボタン押下時のアラート
@@ -265,7 +256,7 @@ struct SettingView_Previews: PreviewProvider {
                 .environment(\.locale, Locale(identifier:"ja"))
         }
         .environmentObject(CoreDataViewModel())
-        .environmentObject(UserSettingViewModel())
+        .environmentObject(Store())
         .environmentObject(NotificationViewModel())
     }
 }

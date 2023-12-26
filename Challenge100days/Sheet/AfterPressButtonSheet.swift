@@ -12,7 +12,7 @@ import UIKit
 ///ユーザーが当日のタスクを達成したときに表示するコンプリートウインドウ
 struct CompleteWindowView: View {
     ///ViewModel用の変数
-    @EnvironmentObject var userSettingViewModel:UserSettingViewModel
+    @EnvironmentObject var userSettingViewModel:Store
     @EnvironmentObject var coreDataViewModel :CoreDataViewModel
     
     ///メモ追加シート表示用のフラグ

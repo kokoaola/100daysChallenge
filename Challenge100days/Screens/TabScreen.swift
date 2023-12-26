@@ -9,11 +9,11 @@ import SwiftUI
 
 
 
-struct ContentView: View {
+struct TabScreen: View {
     ///ViewModel用の変数
     @ObservedObject var notificationViewModel = NotificationViewModel()
     @ObservedObject var coreDataViewModel = CoreDataViewModel()
-    @ObservedObject var userSettingViewModel = UserSettingViewModel()
+    @ObservedObject var userSettingViewModel = Store()
     
     
     var body: some View {
@@ -59,13 +59,13 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         Group{
-            ContentView()
+            TabScreen()
                 .environment(\.locale, Locale(identifier:"en"))
-            ContentView()
+            TabScreen()
                 .environment(\.locale, Locale(identifier:"ja"))
         }
         .environmentObject(NotificationViewModel())
         .environmentObject(CoreDataViewModel())
-        .environmentObject(UserSettingViewModel())
+        .environmentObject(Store())
     }
 }

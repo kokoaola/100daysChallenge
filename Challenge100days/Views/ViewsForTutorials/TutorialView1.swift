@@ -10,16 +10,11 @@ import SwiftUI
 
 ///チュートリアル１ページ目
 struct TutorialView1: View {
-    
     ///ViewModel用の変数
-    @EnvironmentObject var userSettingViewModel:UserSettingViewModel
-    
-    ///カラー設定ピッカー用の変数
-    @State var selectedColor = 0
+    @EnvironmentObject var userSettingViewModel:Store
     
     ///表示中のページ番号を格納
     @Binding var page: Int
-    
     
     var body: some View {
 
@@ -34,7 +29,7 @@ struct TutorialView1: View {
             .accessibilityElement(children: .combine)
             
             //背景色選択用のピッカー
-            Picker(selection: $selectedColor) {
+            Picker(selection: $userSettingViewModel.userSelectedColor) {
                 Text("青").tag(0)
                 Text("オレンジ").tag(1)
                 Text("紫").tag(2)
@@ -50,7 +45,7 @@ struct TutorialView1: View {
             //進むボタン
             Button {
                 page = 2
-                userSettingViewModel.saveUserSettingAppColor(colorNum: selectedColor)
+                userSettingViewModel.saveUserSettingAppColor()
             } label: {
                 ArrowButton(isBackButton: false, labelText: "次へ")
             }
@@ -58,13 +53,6 @@ struct TutorialView1: View {
             .frame(maxWidth: .infinity,alignment: .bottomTrailing)
         }
         .padding()
-        
-        
-        //ピッカーが選択される毎に背景色を変更
-        .onChange(of: selectedColor) { newValue in
-            userSettingViewModel.userSelectedColor = newValue
-            userSettingViewModel.saveUserSettingAppColor(colorNum: newValue)
-        }
     }
 }
 
@@ -78,6 +66,6 @@ struct TutorialView1_Previews: PreviewProvider {
             TutorialView1(page: $sampleNum)
                 .environment(\.locale, Locale(identifier:"en"))
         }
-        .environmentObject(UserSettingViewModel())
+        .environmentObject(Store())
     }
 }

@@ -12,7 +12,7 @@ import SwiftUI
 struct AboutThisApp: View {
     
     ///ViewModel用の変数
-    @EnvironmentObject var userSettingViewModel:UserSettingViewModel
+    @EnvironmentObject var userSettingViewModel:Store
     
     ///文言1を格納する変数
     let about = "アプリをインストールしてくださって、ありがとうございます。\nこのアプリは、目標に向かって進む人を応援、お手伝いしたいという思いで作りました。\n特徴としては以下の2点があります。"
@@ -77,6 +77,6 @@ struct AboutThisApp_Previews: PreviewProvider {
             AboutThisApp()
                 .environment(\.locale, Locale(identifier:"ja"))
         }
-        .environmentObject(UserSettingViewModel())
+        .environmentObject(Store())
     }
 }

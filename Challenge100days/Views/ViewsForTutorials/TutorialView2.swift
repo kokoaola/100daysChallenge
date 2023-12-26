@@ -12,11 +12,11 @@ import SwiftUI
 struct TutorialView2: View {
     
     ///ViewModel用の変数
-    @EnvironmentObject var userSettingViewModel:UserSettingViewModel
+    @EnvironmentObject var store: Store
     
     ///入力したテキストを格納するプロパティ
-    @State private var editText = ""
-    @State private var editText2 = ""
+    @State private var longTermEditText = ""
+    @State private var shortTermEditText = ""
     
     ///キーボードフォーカス用変数（Doneボタン表示のため）
     @FocusState var firstTextEditorFocus: Bool
@@ -37,25 +37,25 @@ struct TutorialView2: View {
                 Text("①あなたが将来なりたい姿はなんですか？")
 
                 ZStack(alignment: .topLeading){
-                    if !editText.isEmpty{
+                    if !longTermEditText.isEmpty{
                         EmptyView()
                     }else{
                         Text("例）画力アップ\n　　TOEIC800点").padding(5)
                     }
                     
                     ///テキストエディター
-                    TextEditor(text: $editText)
+                    TextEditor(text: $longTermEditText)
                         .scrollContentBackground(Visibility.hidden)
                         .background(.ultraThinMaterial)
                         .border(.white, width: 1)
                         .frame(height: AppSetting.screenHeight / 12)
                         .focused($firstTextEditorFocus)
-                        .opacity(editText.isEmpty ? 0.5 : 1)
+                        .opacity(longTermEditText.isEmpty ? 0.5 : 1)
                 }
                 
                 Text("\(AppSetting.maxLengthOfTerm)文字以内のみ設定可能です")
                     .font(.caption)
-                    .foregroundColor(editText.count > AppSetting.maxLengthOfTerm ? .red : .clear)
+                    .foregroundColor(longTermEditText.count > AppSetting.maxLengthOfTerm ? .red : .clear)
             }
             
             
@@ -67,27 +67,27 @@ struct TutorialView2: View {
                 
                 
                 ZStack(alignment: .topLeading){
-                    if !editText2.isEmpty{
+                    if !shortTermEditText.isEmpty{
                         EmptyView()
                     }else{
                         Text("例）１日１枚絵を描く\n　　英語の勉強").padding(5)
                    }
                     
                     ///テキストエディター
-                    TextEditor(text: $editText2)
+                    TextEditor(text: $shortTermEditText)
                         .scrollContentBackground(Visibility.hidden)
                         .background(.ultraThinMaterial)
                         .border(.white, width: 1)
                         .frame(height: AppSetting.screenHeight / 12)
                         .focused($secondTextEditorFocus)
-                        .opacity(editText2.isEmpty ? 0.5 : 1)
+                        .opacity(shortTermEditText.isEmpty ? 0.5 : 1)
                     
                     
                     
                 }
                 Text("\(AppSetting.maxLengthOfTerm)文字以内のみ設定可能です")
                     .font(.caption)
-                    .foregroundColor(editText2.count > AppSetting.maxLengthOfTerm ? .red : .clear)
+                    .foregroundColor(shortTermEditText.count > AppSetting.maxLengthOfTerm ? .red : .clear)
             }
             
             Spacer()
@@ -97,8 +97,9 @@ struct TutorialView2: View {
             HStack{
                 Button {
                     page = 1
-                    userSettingViewModel.saveUserSettingGoal(isLong: true, goal: editText)
-                    userSettingViewModel.saveUserSettingGoal(isLong: false, goal: editText2)
+                    ///目標を保存
+                    store.longTermGoal = longTermEditText
+                    store.shortTermGoal = shortTermEditText
                 } label: {
                     ArrowButton(isBackButton: true, labelText: "戻る")
                 }
@@ -108,15 +109,17 @@ struct TutorialView2: View {
                 //                    進むボタン
                 Button {
                     page = 3
-                    userSettingViewModel.saveUserSettingGoal(isLong: true, goal: editText)
-                    userSettingViewModel.saveUserSettingGoal(isLong: false, goal: editText2)
+                    
+                    ///目標を保存
+                    store.longTermGoal = longTermEditText
+                    store.shortTermGoal = shortTermEditText
                 } label: {
                     ArrowButton(isBackButton: false, labelText: "次へ")
-                        .opacity(!editText.isEmpty && !editText2.isEmpty && editText.count <= AppSetting.maxLengthOfTerm && editText2.count <= AppSetting.maxLengthOfTerm ? 1 : 0.4)
+                        .opacity(!longTermEditText.isEmpty && !shortTermEditText.isEmpty && longTermEditText.count <= AppSetting.maxLengthOfTerm && shortTermEditText.count <= AppSetting.maxLengthOfTerm ? 1 : 0.4)
                 }
                 
                 //                    次へボタンの無効判定
-                .disabled(editText.isEmpty || editText2.isEmpty || editText.count > AppSetting.maxLengthOfTerm || editText2.count > AppSetting.maxLengthOfTerm)
+                .disabled(longTermEditText.isEmpty || shortTermEditText.isEmpty || longTermEditText.count > AppSetting.maxLengthOfTerm || shortTermEditText.count > AppSetting.maxLengthOfTerm)
             }
             .padding(.bottom, 30)
         }
@@ -126,8 +129,8 @@ struct TutorialView2: View {
         .foregroundColor(Color(UIColor.label))
         
         .onAppear{
-            editText = userSettingViewModel.longTermGoal
-            editText2 = userSettingViewModel.shortTermGoal
+            longTermEditText = store.longTermGoal
+            shortTermEditText = store.shortTermGoal
         }
         
         
@@ -165,6 +168,6 @@ struct TutorialView2_Previews: PreviewProvider {
             TutorialView2(page: $sampleNum)
                 .environment(\.locale, Locale(identifier:"ja"))
         }
-        .environmentObject(UserSettingViewModel())
+        .environmentObject(Store())
     }
 }

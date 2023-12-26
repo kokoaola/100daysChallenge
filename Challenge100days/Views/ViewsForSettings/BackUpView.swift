@@ -13,7 +13,7 @@ import Combine
 struct BackUpView: View {
     ///ViewModel用の変数
     @EnvironmentObject var coreDataViewModel :CoreDataViewModel
-    @EnvironmentObject var userSettingViewModel:UserSettingViewModel
+    @EnvironmentObject var userSettingViewModel:Store
     
     ///キーボードフォーカス用変数（Doneボタン表示のため）
     @FocusState var isInputActive: Bool
