@@ -14,15 +14,13 @@ struct TabScreen: View {
     @ObservedObject var notificationViewModel = NotificationViewModel()
     @ObservedObject var coreDataViewModel = CoreDataViewModel()
     @ObservedObject var store = Store()
-    
+    @StateObject private var tutorialVM = TutorialViewModel()
     
     var body: some View {
 
-        if store.isFirst{
+        if tutorialVM.isFirst{
             //初回起動時はチュートリアルを表示
-            TutorialScreen()
-                .environmentObject(store)
-            
+            TutorialScreen(tutorialVM: tutorialVM)
         }else{
             
             //ユーザーが初回のチュートリアルを終わらせていればタブを表示

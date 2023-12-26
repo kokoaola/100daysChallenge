@@ -38,11 +38,12 @@ struct TutorialView3: View {
                     
                     Spacer()
                     
-                    //startボタン
+                    ///startボタン
                     Button {
-                        store.userSelectedTag = "One"
-                        //初回起動フラグのfalseにしてユーザーデフォルトに保存
-                        store.isFirst = false
+                        //初回起動フラグのfalseにして保存
+                        withAnimation {
+                            tutorialVM.isFirst = false
+                        }
                     } label: {
                         ArrowButton(isBackButton: false, labelText: "始める")
                     }
