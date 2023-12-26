@@ -10,17 +10,13 @@ import SwiftUI
 
 ///チュートリアル３ページ目
 struct TutorialView3: View {
-    
     ///ViewModel用の変数
     @EnvironmentObject var store: Store
-    
-    ///表示中のページ番号を格納
-    @Binding var page: Int
+    @ObservedObject var tutorialVM: TutorialViewModel
     
     var body: some View {
         
         ZStack(alignment: .top){
-            
             VStack(alignment: .leading, spacing: 30){
                 VStack(alignment: .leading, spacing: 30){
                     Text("設定は以上です。")
@@ -35,7 +31,7 @@ struct TutorialView3: View {
                 HStack{
                     //戻るボタン
                     Button{
-                        page = 2
+                        tutorialVM.page = 2
                     } label: {
                         ArrowButton(isBackButton: true, labelText: "戻る")
                     }
@@ -56,7 +52,6 @@ struct TutorialView3: View {
                 
             }
             .padding()
-            
         }
     }
 }
@@ -65,13 +60,13 @@ struct TutorialView3: View {
 
 
 struct TutorialView3_Previews: PreviewProvider {
-    @State static var sampleNum = 1
+    @StateObject static var tutorialViewModel = TutorialViewModel()
     static var previews: some View {
         Group{
-            TutorialView3(page: $sampleNum)
-                .environment(\.locale, Locale(identifier:"en"))
-            TutorialView3(page: $sampleNum)
+            TutorialView3(tutorialVM: tutorialViewModel)
                 .environment(\.locale, Locale(identifier:"ja"))
+            TutorialView3(tutorialVM: tutorialViewModel)
+                .environment(\.locale, Locale(identifier:"en"))
         }
         .environmentObject(Store())
     }

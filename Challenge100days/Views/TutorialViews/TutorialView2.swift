@@ -13,20 +13,11 @@ struct TutorialView2: View {
     
     ///ViewModel用の変数
     @EnvironmentObject var store: Store
-    
-    ///入力したテキストを格納するプロパティ
-    @State private var longTermEditText = ""
-    @State private var shortTermEditText = ""
+    @ObservedObject var tutorialVM: TutorialViewModel
     
     ///キーボードフォーカス用変数（Doneボタン表示のため）
-    @FocusState var firstTextEditorFocus: Bool
-    
-    
-    ///キーボードフォーカス用変数（Doneボタン表示のため）
-    @FocusState var secondTextEditorFocus: Bool
-    
-    ///表示中のページ番号を格納
-    @Binding var page: Int
+    @FocusState var longTermEditorFocus: Bool
+    @FocusState var shortTermEditorFocus: Bool
     
     var body: some View {
         VStack(alignment: .leading){
@@ -36,26 +27,27 @@ struct TutorialView2: View {
             VStack(alignment: .leading){
                 Text("①あなたが将来なりたい姿はなんですか？")
 
+                //プレースホルダー
                 ZStack(alignment: .topLeading){
-                    if !longTermEditText.isEmpty{
+                    if !tutorialVM.longTermEditText.isEmpty{
                         EmptyView()
                     }else{
                         Text("例）画力アップ\n　　TOEIC800点").padding(5)
                     }
                     
                     ///テキストエディター
-                    TextEditor(text: $longTermEditText)
+                    TextEditor(text: $tutorialVM.longTermEditText)
                         .scrollContentBackground(Visibility.hidden)
                         .background(.ultraThinMaterial)
                         .border(.white, width: 1)
                         .frame(height: AppSetting.screenHeight / 12)
-                        .focused($firstTextEditorFocus)
-                        .opacity(longTermEditText.isEmpty ? 0.5 : 1)
+                        .focused($longTermEditorFocus)
+                        .opacity(tutorialVM.longTermEditText.isEmpty ? 0.5 : 1)
                 }
                 
                 Text("\(AppSetting.maxLengthOfTerm)文字以内のみ設定可能です")
                     .font(.caption)
-                    .foregroundColor(longTermEditText.count > AppSetting.maxLengthOfTerm ? .red : .clear)
+                    .foregroundColor(tutorialVM.longTermEditText.count > AppSetting.maxLengthOfTerm ? .red : .clear)
             }
             
             
@@ -67,27 +59,27 @@ struct TutorialView2: View {
                 
                 
                 ZStack(alignment: .topLeading){
-                    if !shortTermEditText.isEmpty{
+                    if !tutorialVM.shortTermEditText.isEmpty{
                         EmptyView()
                     }else{
                         Text("例）１日１枚絵を描く\n　　英語の勉強").padding(5)
                    }
                     
                     ///テキストエディター
-                    TextEditor(text: $shortTermEditText)
+                    TextEditor(text: $tutorialVM.shortTermEditText)
                         .scrollContentBackground(Visibility.hidden)
                         .background(.ultraThinMaterial)
                         .border(.white, width: 1)
                         .frame(height: AppSetting.screenHeight / 12)
-                        .focused($secondTextEditorFocus)
-                        .opacity(shortTermEditText.isEmpty ? 0.5 : 1)
+                        .focused($shortTermEditorFocus)
+                        .opacity(tutorialVM.shortTermEditText.isEmpty ? 0.5 : 1)
                     
                     
                     
                 }
                 Text("\(AppSetting.maxLengthOfTerm)文字以内のみ設定可能です")
                     .font(.caption)
-                    .foregroundColor(shortTermEditText.count > AppSetting.maxLengthOfTerm ? .red : .clear)
+                    .foregroundColor(tutorialVM.shortTermEditText.count > AppSetting.maxLengthOfTerm ? .red : .clear)
             }
             
             Spacer()
@@ -96,10 +88,10 @@ struct TutorialView2: View {
             //                        戻るボタン
             HStack{
                 Button {
-                    page = 1
+                    tutorialVM.page = 1
                     ///目標を保存
-                    store.longTermGoal = longTermEditText
-                    store.shortTermGoal = shortTermEditText
+                    store.longTermGoal = tutorialVM.longTermEditText
+                    store.shortTermGoal = tutorialVM.shortTermEditText
                 } label: {
                     ArrowButton(isBackButton: true, labelText: "戻る")
                 }
@@ -108,18 +100,18 @@ struct TutorialView2: View {
                 
                 //                    進むボタン
                 Button {
-                    page = 3
+                    tutorialVM.page = 3
                     
                     ///目標を保存
-                    store.longTermGoal = longTermEditText
-                    store.shortTermGoal = shortTermEditText
+                    store.longTermGoal = tutorialVM.longTermEditText
+                    store.shortTermGoal = tutorialVM.shortTermEditText
                 } label: {
                     ArrowButton(isBackButton: false, labelText: "次へ")
-                        .opacity(!longTermEditText.isEmpty && !shortTermEditText.isEmpty && longTermEditText.count <= AppSetting.maxLengthOfTerm && shortTermEditText.count <= AppSetting.maxLengthOfTerm ? 1 : 0.4)
+                        .opacity(!tutorialVM.longTermEditText.isEmpty && !tutorialVM.shortTermEditText.isEmpty && tutorialVM.longTermEditText.count <= AppSetting.maxLengthOfTerm && tutorialVM.shortTermEditText.count <= AppSetting.maxLengthOfTerm ? 1 : 0.4)
                 }
                 
                 //                    次へボタンの無効判定
-                .disabled(longTermEditText.isEmpty || shortTermEditText.isEmpty || longTermEditText.count > AppSetting.maxLengthOfTerm || shortTermEditText.count > AppSetting.maxLengthOfTerm)
+                .disabled(tutorialVM.longTermEditText.isEmpty || tutorialVM.shortTermEditText.isEmpty || tutorialVM.longTermEditText.count > AppSetting.maxLengthOfTerm || tutorialVM.shortTermEditText.count > AppSetting.maxLengthOfTerm)
             }
             .padding(.bottom, 30)
         }
@@ -129,8 +121,8 @@ struct TutorialView2: View {
         .foregroundColor(Color(UIColor.label))
         
         .onAppear{
-            longTermEditText = store.longTermGoal
-            shortTermEditText = store.shortTermGoal
+            tutorialVM.longTermEditText = store.longTermGoal
+            tutorialVM.shortTermEditText = store.shortTermGoal
         }
         
         
@@ -139,14 +131,14 @@ struct TutorialView2: View {
             ToolbarItemGroup(placement: .keyboard) {
                 Spacer()
                 //1つめのテキストフィールド入力中
-                if firstTextEditorFocus && !secondTextEditorFocus{
+                if longTermEditorFocus && !shortTermEditorFocus{
                     Button("次へ"){
-                        secondTextEditorFocus = true
+                        shortTermEditorFocus = true
                     }
                 }else{
                     Button("閉じる"){
-                        firstTextEditorFocus = false
-                        secondTextEditorFocus = false
+                        longTermEditorFocus = false
+                        shortTermEditorFocus = false
                     }
                 }
             }
@@ -160,13 +152,13 @@ struct TutorialView2: View {
 
 
 struct TutorialView2_Previews: PreviewProvider {
-    @State static var sampleNum = 1
+    @StateObject static var tutorialViewModel = TutorialViewModel()
     static var previews: some View {
         Group{
-            TutorialView2(page: $sampleNum)
-                .environment(\.locale, Locale(identifier:"en"))
-            TutorialView2(page: $sampleNum)
+            TutorialView2(tutorialVM: tutorialViewModel)
                 .environment(\.locale, Locale(identifier:"ja"))
+            TutorialView2(tutorialVM: tutorialViewModel)
+                .environment(\.locale, Locale(identifier:"en"))
         }
         .environmentObject(Store())
     }

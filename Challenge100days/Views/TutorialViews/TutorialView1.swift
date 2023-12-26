@@ -11,25 +11,23 @@ import SwiftUI
 ///チュートリアル１ページ目
 struct TutorialView1: View {
     ///ViewModel用の変数
-    @EnvironmentObject var userSettingViewModel:Store
-    
-    ///表示中のページ番号を格納
-    @Binding var page: Int
+    @EnvironmentObject var store: Store
+    @ObservedObject var tutorialVM: TutorialViewModel
     
     var body: some View {
 
         VStack(alignment: .leading, spacing: 30){
-            
             VStack(alignment: .leading, spacing: 20){
                 Text("はじめまして。")
                 Text("このアプリは、あなたの目標達成までの道のりを100日間サポートするためのアプリです。")
                 Text("まずはアプリ全体の色を選んでください。")
             }
+            //VoiceOver用の設定
             .contentShape(Rectangle())
             .accessibilityElement(children: .combine)
             
-            //背景色選択用のピッカー
-            Picker(selection: $userSettingViewModel.userSelectedColor) {
+            ///背景色選択用のピッカー
+            Picker(selection: $store.userSelectedColor) {
                 Text("青").tag(0)
                 Text("オレンジ").tag(1)
                 Text("紫").tag(2)
@@ -42,10 +40,11 @@ struct TutorialView1: View {
 
             Spacer()
             
-            //進むボタン
+            ///進むボタン
             Button {
-                page = 2
-                userSettingViewModel.saveUserSettingAppColor()
+                tutorialVM.page = 2
+                //アプリの色を保存
+                store.saveUserSettingAppColor()
             } label: {
                 ArrowButton(isBackButton: false, labelText: "次へ")
             }
@@ -58,12 +57,12 @@ struct TutorialView1: View {
 
 
 struct TutorialView1_Previews: PreviewProvider {
-    @State static var sampleNum = 1
+    @StateObject static var tutorialViewModel = TutorialViewModel()
     static var previews: some View {
         Group{
-            TutorialView1(page: $sampleNum)
+            TutorialView1(tutorialVM: tutorialViewModel)
                 .environment(\.locale, Locale(identifier:"ja"))
-            TutorialView1(page: $sampleNum)
+            TutorialView1(tutorialVM: tutorialViewModel)
                 .environment(\.locale, Locale(identifier:"en"))
         }
         .environmentObject(Store())

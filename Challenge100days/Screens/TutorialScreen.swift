@@ -13,31 +13,28 @@ struct TutorialScreen: View {
     
     ///ViewModel用の変数
     @EnvironmentObject var store:Store
-
-    ///表示中のページ番号を格納する変数
-    @State private var page = 1
+    @StateObject private var tutorialVM = TutorialViewModel()
     
     
     var body: some View {
         NavigationView {
-            
 
             VStack{
                 //上部のページ番号
-                Text("\(page) / 3")
+                Text("\(tutorialVM.page) / 3")
                     .padding(.top)
                     .font(.title.weight(.bold))
                     .foregroundColor(.primary)
-                    .accessibilityLabel("3ページ中、\(page)ページ目")
+                    .accessibilityLabel("3ページ中、\(tutorialVM.page)ページ目")
                 
                 //ページに応じたチュートリアルを表示
-                switch page{
+                switch tutorialVM.page{
                 case 1:
-                    TutorialView1(page: $page)
+                    TutorialView1(tutorialVM: tutorialVM)
                 case 2:
-                    TutorialView2(page: $page)
+                    TutorialView2(tutorialVM: tutorialVM)
                 default:
-                    TutorialView3(page: $page)
+                    TutorialView3(tutorialVM: tutorialVM)
                 }
             }
             .foregroundColor(.primary)
