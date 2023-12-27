@@ -37,7 +37,6 @@ class GrobalStore: ObservableObject {
             allData = []
         }
         
-        objectWillChange.send()
         guard let lastData = allData.last?.date else {
             dayNumber = 1
             finishedTodaysTask = false

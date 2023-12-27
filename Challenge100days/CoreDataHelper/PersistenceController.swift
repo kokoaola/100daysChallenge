@@ -62,11 +62,12 @@ struct PersistenceController{
     ///保存用関数
     ///アプリ全体でのデータ管理を中央化、カプセル化して他の部分からデータベース操作を容易に行えるようにするため、PersistenceControllerにsave関数を記述する
     ///コードの再利用性とメンテナンス性が向上する
-    func save() {
+    func save(completion: @escaping (Error?) -> Void)  {
         do {
             try moc.save()
         } catch {
-            print("Error saving to CD: ", error.localizedDescription)
+            // エラー処理
+            completion(error)
         }
     }
 }

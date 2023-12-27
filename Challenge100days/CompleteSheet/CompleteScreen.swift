@@ -12,132 +12,79 @@ import UIKit
 ///ユーザーが当日のタスクを達成したときに表示するコンプリートウインドウ
 struct CompleteSheet: View {
     ///ViewModel用の変数
-    @EnvironmentObject var store: Store
-    @EnvironmentObject var coreDataViewModel :CoreDataViewModel
-    
+    @EnvironmentObject var store: GrobalStore
     ///メモ追加シート表示用のフラグ
     @State var showMemo = false
-    
     ///画面戻る用のフラグ
-    @Binding var showCompleteWindew:Bool
-    
+    @Binding var showCompleteWindew: Bool
     ///表示＆共有用の画像
-    @State var image: Image?
-    
-    ///今日が何日目か計算する変数
-    let dayNumber: Int
-    
-    var showAnimation = true
+    @Binding var image: Image?
     
     var body: some View {
+        let dayNumber = store.dayNumber
         
         ZStack{
-            //四角に画像とボタンを重ねてる
             VStack(alignment: .center, spacing: 10){
-                
-                //閉じるボタン
+                ///左上の閉じるボタン
                 HStack{
-                    Button(action: {
-                        showCompleteWindew = false
-                    }){
-                        CloseButton()
-                    }
+                    Button(action: { showCompleteWindew = false }, label: { CloseButton() })
                     Spacer()
                 }
                 
-                
-                //100日達成する前に表示する画像
+                ///1〜99日目に表示するビュー
                 if dayNumber <= 99{
                     VStack(alignment: .center, spacing: 30){
-                        
-                        //読み上げ用のVStack
-                        VStack{
+                        VStack{ //VoiceOver用のVStack
                             Text("\(dayNumber)日目のチャレンジ達成！")
                             Text("よく頑張ったね！")
                         }
                         .foregroundColor(.primary)
                         .contentShape(Rectangle())
                         .accessibilityElement(children: .combine)
-                        
-                        
-                        
                         //コンプリート画像
-//                        generateImageWithText(number: dayNumber, day: coreDataViewModel.allData.last?.date ?? Date.now)
-                        
-                        if image == nil{
-                            ProgressView()
-                                .frame(height: AppSetting.screenHeight * 0.3)
-                        }else{
-                            image?
-                                .resizable().scaledToFit()
-                                .accessibilityLabel("日付入りの綺麗な画像")
-                                .padding()
-                                .frame(height: AppSetting.screenHeight * 0.3)
-                        }
-                    }.padding(.vertical,30)
+                        CompleteImageView(image: $image)
+                    }
+                    .padding(.vertical,30)
+                    
                     
                 }else{
                     ///100日目達成以降のビュー
                     VStack(alignment: .center, spacing: 0){
-                        //Congratulationsのアニメーション
+                        //アニメーション
                         LottieView(filename: "cong", loop: .loop)
                             .frame(height: AppSetting.screenHeight * 0.1)
-                        
                         //コンプリート画像
-                        generateImageWithText(number: dayNumber, day: coreDataViewModel.allData.last?.date ?? Date.now)
-                            .resizable().scaledToFit()
-                            .accessibilityLabel("日付入りの綺麗な画像")
-                            .padding(.horizontal)
-                            .frame(height: AppSetting.screenHeight * 0.3)
-                        
-                        
+                        CompleteImageView(image: $image)
+                        //アニメーション
                         LottieView(filename: "award", loop: .playOnce)
                             .padding(.top, -AppSetting.screenHeight * 0.03)
                     }
-                    
-                    
                 }
                 
-                //iPadの時はボタンを横並び
+                ///iPadの時はボタンを横並び
                 if UIDevice.current.userInterfaceIdiom == .pad{
                     Spacer()
                     HStack(spacing:24){
                         //シェアボタン
-                        ShareLink(
-                            item: image ?? Image("noImage"),
-                            message: Text("#Day\(dayNumber) #100DaysChallenge #100日チャレンジ\n"),
-                            preview: SharePreview("Day\(dayNumber) of 100DaysChallenge", image: image ?? Image("noImage"))){
-                                LeftIconBigButton(icon: Image(systemName: "square.and.arrow.up"), text: "シェアする")
-                                    .foregroundColor(.blue.opacity(0.9))
-                            }
+                        ShareLinkView(image: image, dayNumber: dayNumber)
                         
                         //メモ追加ボタン
                         Button {
                             showMemo = true
                         } label: {
-                            LeftIconBigButton(icon: Image(systemName: "rectangle.and.pencil.and.ellipsis"), text: "メモを追加")
-                                .foregroundColor(.green.opacity(0.9))
+                            LeftIconBigButton(color: .green, icon: Image(systemName: "rectangle.and.pencil.and.ellipsis"), text: "メモを追加")
                         }
                     }
                 }else{
-                    
+                    ///iPhoneの時はボタンを縦並び
                     VStack{
-                        //シェアボタン
-                        ShareLink(
-                            item: image ?? Image("noImage"),
-                            message: Text("#Day\(dayNumber) #100DaysChallenge #100日チャレンジ\n"),
-                            //message: Text("Day\(dayNumber) of #100DaysChallenge\nhttps://apps.apple.com/app/id6449479183"),
-                            preview: SharePreview("Day\(dayNumber) of 100DaysChallenge", image: image ?? Image("noImage"))){
-                                LeftIconBigButton(icon: Image(systemName: "square.and.arrow.up"), text: "シェアする")
-                                    .foregroundColor(.blue.opacity(0.9))
-                            }
-                        
-                        //メモ追加ボタン
+                        ///シェアボタン
+                        ShareLinkView(image: image, dayNumber: dayNumber)
+                        ///メモ追加ボタン
                         Button {
                             showMemo = true
                         } label: {
-                            LeftIconBigButton(icon: Image(systemName: "rectangle.and.pencil.and.ellipsis"), text: "メモを追加")
-                                .foregroundColor(.green.opacity(0.9))
+                            LeftIconBigButton(color: .green, icon: Image(systemName: "rectangle.and.pencil.and.ellipsis"), text: "メモを追加").foregroundColor(.green.opacity(0.9))
                         }
                     }
                 }
@@ -149,19 +96,13 @@ struct CompleteSheet: View {
             .cornerRadius(15)
             .padding()
             
-           if showAnimation{
+            
+            ///シートの上に重ねる紙吹雪のアニメーション
+            if !store.finishedTodaysTask{
                 LottieView(filename: "confetti3", loop: .playOnce)
                     .frame(width: AppSetting.screenWidth)
                     .allowsHitTesting(false)
                     .opacity(0.8)
-            }
-        }
-        .onAppear{
-            //イメージを作成してセット
-            DispatchQueue.main.async {
-                if image == nil{
-                    image = generateImageWithText(number: dayNumber, day: coreDataViewModel.allData.last?.date ?? Date.now)
-                }
             }
         }
         //メモ追加ボタンが押下されたら、MemoSheetを表示

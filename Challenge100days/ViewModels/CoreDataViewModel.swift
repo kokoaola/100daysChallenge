@@ -76,7 +76,7 @@ class CoreDataViewModel: ObservableObject{
         entity.num = Int16(allData.count + 1)
 
         // 変更を保存
-        PersistenceController.shared.save()
+//        PersistenceController.shared.save()
         
         objectWillChange.send()
         allData = getAllData()
@@ -98,7 +98,7 @@ class CoreDataViewModel: ObservableObject{
         }
         
         // 変更を保存
-        PersistenceController.shared.save()
+//        PersistenceController.shared.save()
         
         objectWillChange.send()
         allData = getAllData()
@@ -111,7 +111,7 @@ class CoreDataViewModel: ObservableObject{
         context.delete(data)
 
         // 変更を保存
-        PersistenceController.shared.save()
+//        PersistenceController.shared.save()
         
         objectWillChange.send()
         allData = getAllData()
@@ -144,7 +144,7 @@ class CoreDataViewModel: ObservableObject{
                 data.num = Int16(index + 1)
             }
             // 変更を保存
-            PersistenceController.shared.save()
+//            PersistenceController.shared.save()
         }
             objectWillChange.send()
             allData = getAllData()
