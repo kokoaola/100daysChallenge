@@ -62,16 +62,22 @@ struct CompleteSheet: View {
                         
                         
                         //コンプリート画像
-                        generateImageWithText(number: dayNumber, day: coreDataViewModel.allData.last?.date ?? Date.now)
-                            .resizable().scaledToFit()
-                            .accessibilityLabel("日付入りの綺麗な画像")
-                            .padding()
+//                        generateImageWithText(number: dayNumber, day: coreDataViewModel.allData.last?.date ?? Date.now)
+                        
+                        if image == nil{
+                            ProgressView()
+                                .frame(height: AppSetting.screenHeight * 0.3)
+                        }else{
+                            image?
+                                .resizable().scaledToFit()
+                                .accessibilityLabel("日付入りの綺麗な画像")
+                                .padding()
+                                .frame(height: AppSetting.screenHeight * 0.3)
+                        }
                     }.padding(.vertical,30)
                     
                 }else{
-                    
-                    
-                    //100日目達成以降の画像
+                    ///100日目達成以降のビュー
                     VStack(alignment: .center, spacing: 0){
                         //Congratulationsのアニメーション
                         LottieView(filename: "cong", loop: .loop)
@@ -153,7 +159,9 @@ struct CompleteSheet: View {
         .onAppear{
             //イメージを作成してセット
             DispatchQueue.main.async {
-                image = generateImageWithText(number: dayNumber, day: coreDataViewModel.allData.last?.date ?? Date.now)
+                if image == nil{
+                    image = generateImageWithText(number: dayNumber, day: coreDataViewModel.allData.last?.date ?? Date.now)
+                }
             }
         }
         //メモ追加ボタンが押下されたら、MemoSheetを表示
