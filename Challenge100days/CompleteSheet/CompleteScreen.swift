@@ -147,7 +147,7 @@ struct CompleteWindowView: View {
             .cornerRadius(15)
             .padding()
             
-           if store.showAnimation{
+           if showAnimation{
                 LottieView(filename: "confetti3", loop: .playOnce)
                     .frame(width: AppSetting.screenWidth)
                     .allowsHitTesting(false)

@@ -63,7 +63,7 @@ struct ActionView: View {
                 
                 //ボタン押下後は完了のビューを重ねて表示
                 if bigButtonVM.showCompleteWindew {
-                    CompleteWindowView(showCompleteWindew: $bigButtonVM.showCompleteWindew, dayNumber: grobalStore.dayNumber)
+                    CompleteWindowView(showCompleteWindew: $bigButtonVM.showCompleteWindew, dayNumber: grobalStore.dayNumber, showAnimation: !grobalStore.finishedTodaysTask)
                         .padding(.horizontal)
                         .transition(.scale)
                         .environmentObject(coreDataViewModel)
