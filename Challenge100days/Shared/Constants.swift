@@ -40,4 +40,6 @@ struct UserDefaultsConstants{
     static let isFirstKey = "isFirst"
     ///ユーザーデフォルト用キー：アプリカラー選択用
     static let userSelectedColorKey = "userSelectedColorKey"
+    ////ユーザーデフォルト用キー：目標隠すか用
+    static let hideInfomationKey = "hideInfomation"
 }
