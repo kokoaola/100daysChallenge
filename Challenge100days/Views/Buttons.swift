@@ -94,6 +94,7 @@ struct SaveButton: View {
 
 ///アイコンが左にある大きいボタンのビュー
 struct LeftIconBigButton: View{
+    let color: Color
     ///アイコンを受け取って格納する変数
     let icon: Image?
     
@@ -126,6 +127,7 @@ struct LeftIconBigButton: View{
             .font(.title2.weight(.bold))
             .foregroundColor(tint)
         }
+        .foregroundColor(color.opacity(0.9))
     }
 }
 
@@ -137,7 +139,7 @@ struct OriginalButton_Previews: PreviewProvider {
         Group{
             
             VStack{
-                LeftIconBigButton(icon: Image(systemName: "rectangle.and.pencil.and.ellipsis"), text: "メモを追加")
+                LeftIconBigButton(color:.blue, icon: Image(systemName: "rectangle.and.pencil.and.ellipsis"), text: "メモを追加")
                 
                 CloseButton()
                 HStack{

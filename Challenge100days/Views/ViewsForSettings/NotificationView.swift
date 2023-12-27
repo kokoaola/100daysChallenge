@@ -60,8 +60,7 @@ struct NotificationView: View {
                     dismiss()
                     
                 } label: {
-                    LeftIconBigButton(icon: nil, text: "決定")
-                        .foregroundColor(.green)
+                    LeftIconBigButton(color:.green, icon: nil, text: "決定")
                         .padding(.bottom)
                 }
             }
