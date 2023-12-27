@@ -92,43 +92,6 @@ struct SaveButton: View {
 }
 
 
-///コンプリートボタンビュー
-struct CompleteButton: View {
-    ///ボタンの幅を格納する変数
-    let width = 300.0
-    
-    ///ボタンの高さを格納する変数
-    let height = 170.0
-    
-    ///番号を受け取って格納する変数
-    let num: Int
-    
-    var body: some View {
-        
-        Capsule()
-            .frame(width: width, height: height)
-            .shadow(color:Color.black, radius: 5.0,
-                    x: 8, y: 8)
-        
-            .overlay{
-                VStack{
-                    Text("\(num) / 100")
-                    Text("Complete!")
-                    
-                }
-                .font(.largeTitle.weight(.bold))
-                .foregroundColor(.white)
-                
-                
-                Capsule()
-                    .stroke(lineWidth: 10)
-                    .foregroundColor(.white)
-                    .frame(width: width-10, height: height-10)
-            }
-    }
-}
-
-
 ///アイコンが左にある大きいボタンのビュー
 struct LeftIconBigButton: View{
     ///アイコンを受け取って格納する変数
