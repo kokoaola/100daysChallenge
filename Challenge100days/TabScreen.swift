@@ -13,6 +13,7 @@ struct TabScreen: View {
     ///ViewModel用の変数
     @ObservedObject var notificationViewModel = NotificationViewModel()
     @ObservedObject var coreDataViewModel = CoreDataViewModel()
+    @ObservedObject var grobalStore = GrobalStore()
     @ObservedObject var store = Store()
     @StateObject private var tutorialVM = TutorialViewModel()
     
@@ -47,8 +48,8 @@ struct TabScreen: View {
             .tint(.primary)
             .environmentObject(coreDataViewModel)
             .environmentObject(notificationViewModel)
+            .environmentObject(grobalStore)
             .environmentObject(store)
-
         }
 
     }
@@ -65,5 +66,6 @@ struct ContentView_Previews: PreviewProvider {
         .environmentObject(NotificationViewModel())
         .environmentObject(CoreDataViewModel())
         .environmentObject(Store())
+        .environmentObject(GrobalStore())
     }
 }

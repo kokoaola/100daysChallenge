@@ -25,11 +25,13 @@
 		3B2245482B1C504000B64B7A /* TutorialView3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2245442B1C504000B64B7A /* TutorialView3.swift */; };
 		3B2245542B1C51B900B64B7A /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3C91452ACD6F5E0058BDDD /* Constants.swift */; };
 		3B246ABA2A0698ED00CB7EED /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B246AB92A0698ED00CB7EED /* Contact.swift */; };
-		3B3C69222B3B279400DE496C /* GrobalStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3C69212B3B279400DE496C /* GrobalStore.swift */; };
+		3B3C69222B3B279400DE496C /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3C69212B3B279400DE496C /* Store.swift */; };
 		3B3C69242B3B3A7B00DE496C /* TutorialViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3C69232B3B3A7B00DE496C /* TutorialViewModel.swift */; };
 		3B3C69272B3B40D100DE496C /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3C69262B3B40D100DE496C /* View+Extensions.swift */; };
 		3B3C69292B3B4C4D00DE496C /* ViewModelBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3C69282B3B4C4D00DE496C /* ViewModelBase.swift */; };
 		3B3C69302B3BED9900DE496C /* CompleteButtonComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3C692F2B3BED9900DE496C /* CompleteButtonComponent.swift */; };
+		3B3C69332B3BEEA600DE496C /* BigButtonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3C69322B3BEEA600DE496C /* BigButtonViewModel.swift */; };
+		3B3C69352B3BF3B200DE496C /* GrobalStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3C69342B3BF3B200DE496C /* GrobalStore.swift */; };
 		3B3C912D2ACD6C7B0058BDDD /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B3C91152ACD6C350058BDDD /* WidgetKit.framework */; };
 		3B3C912E2ACD6C7B0058BDDD /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B3C91172ACD6C350058BDDD /* SwiftUI.framework */; };
 		3B3C91312ACD6C7B0058BDDD /* ChallengeWidgetExtensionBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3C91302ACD6C7B0058BDDD /* ChallengeWidgetExtensionBundle.swift */; };
@@ -116,11 +118,13 @@
 		3B2245432B1C504000B64B7A /* TutorialView2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialView2.swift; sourceTree = "<group>"; };
 		3B2245442B1C504000B64B7A /* TutorialView3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialView3.swift; sourceTree = "<group>"; };
 		3B246AB92A0698ED00CB7EED /* Contact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
-		3B3C69212B3B279400DE496C /* GrobalStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GrobalStore.swift; sourceTree = "<group>"; };
+		3B3C69212B3B279400DE496C /* Store.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
 		3B3C69232B3B3A7B00DE496C /* TutorialViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialViewModel.swift; sourceTree = "<group>"; };
 		3B3C69262B3B40D100DE496C /* View+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; };
 		3B3C69282B3B4C4D00DE496C /* ViewModelBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewModelBase.swift; sourceTree = "<group>"; };
 		3B3C692F2B3BED9900DE496C /* CompleteButtonComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteButtonComponent.swift; sourceTree = "<group>"; };
+		3B3C69322B3BEEA600DE496C /* BigButtonViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigButtonViewModel.swift; sourceTree = "<group>"; };
+		3B3C69342B3BF3B200DE496C /* GrobalStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrobalStore.swift; sourceTree = "<group>"; };
 		3B3C91152ACD6C350058BDDD /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		3B3C91172ACD6C350058BDDD /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		3B3C912C2ACD6C7B0058BDDD /* ChallengeWidgetExtensionExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ChallengeWidgetExtensionExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -283,7 +287,8 @@
 			isa = PBXGroup;
 			children = (
 				3B3C69282B3B4C4D00DE496C /* ViewModelBase.swift */,
-				3B3C69212B3B279400DE496C /* GrobalStore.swift */,
+				3B3C69212B3B279400DE496C /* Store.swift */,
+				3B3C69342B3BF3B200DE496C /* GrobalStore.swift */,
 				3B3C91452ACD6F5E0058BDDD /* Constants.swift */,
 				3B0027F72A76218E00520699 /* AppSetting.swift */,
 			);
@@ -294,6 +299,7 @@
 			isa = PBXGroup;
 			children = (
 				3BC602D02986B52100198F1B /* BigButtonScreen.swift */,
+				3B3C69322B3BEEA600DE496C /* BigButtonViewModel.swift */,
 				3B3C692F2B3BED9900DE496C /* CompleteButtonComponent.swift */,
 			);
 			path = CompleteButton;
@@ -567,6 +573,7 @@
 				3B44CD89299BCE97001469FA /* ColorSaver.swift in Sources */,
 				3B2245452B1C504000B64B7A /* TutorialView1.swift in Sources */,
 				3B3C69302B3BED9900DE496C /* CompleteButtonComponent.swift in Sources */,
+				3B3C69352B3BF3B200DE496C /* GrobalStore.swift in Sources */,
 				3BC602D329880A5900198F1B /* CardView.swift in Sources */,
 				3B93B16D299F2D6A006F3332 /* EditGoal.swift in Sources */,
 				3B3C69292B3B4C4D00DE496C /* ViewModelBase.swift in Sources */,
@@ -585,13 +592,14 @@
 				3BC602BF2986AC1400198F1B /* TabScreen.swift in Sources */,
 				3B0027F42A76216800520699 /* challengedDay.xcdatamodeld in Sources */,
 				3B0028042A76248800520699 /* Challenge100daysApp.swift in Sources */,
+				3B3C69332B3BEEA600DE496C /* BigButtonViewModel.swift in Sources */,
 				3B0D983C2A068DD20001FD0A /* PrivacyPolicyWebView.swift in Sources */,
 				3B75EB0D298BD0B1000FCDE9 /* AddingMemoSheet.swift in Sources */,
 				3BC602CF2986B50B00198F1B /* AfterPressButtonSheet.swift in Sources */,
 				3B93B16F299FA513006F3332 /* BackUpView.swift in Sources */,
 				3B3C91462ACD6F5E0058BDDD /* Constants.swift in Sources */,
 				3B4D4E1A2A6CCD3600AFB314 /* CoreDataViewModel.swift in Sources */,
-				3B3C69222B3B279400DE496C /* GrobalStore.swift in Sources */,
+				3B3C69222B3B279400DE496C /* Store.swift in Sources */,
 				3B3C91482ACD71850058BDDD /* GaugeWidgetEntry.swift in Sources */,
 				3B4D4E102A6435FF00AFB314 /* NotificationView.swift in Sources */,
 				3BD9FE8C2B39901A00E1D1AD /* DailyData+CoreDataProperties.swift in Sources */,

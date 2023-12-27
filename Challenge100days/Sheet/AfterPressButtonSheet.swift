@@ -22,7 +22,7 @@ struct CompleteWindowView: View {
     @Binding var showCompleteWindew:Bool
     
     ///画面戻る用のフラグ
-    @Binding var closed:Bool
+//    @Binding var closed:Bool
     
     ///表示＆共有用の画像
     @State var image: Image?
@@ -41,7 +41,7 @@ struct CompleteWindowView: View {
                 //閉じるボタン
                 HStack{
                     Button(action: {
-                        closed = true
+//                        closed = true
                         showCompleteWindew = false
                     }){
                         CloseButton()
