@@ -32,6 +32,7 @@
 		3B3C69302B3BED9900DE496C /* CompleteButtonComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3C692F2B3BED9900DE496C /* CompleteButtonComponent.swift */; };
 		3B3C69332B3BEEA600DE496C /* BigButtonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3C69322B3BEEA600DE496C /* BigButtonViewModel.swift */; };
 		3B3C69352B3BF3B200DE496C /* GrobalStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3C69342B3BF3B200DE496C /* GrobalStore.swift */; };
+		3B3C69382B3C09CA00DE496C /* CompleteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3C69372B3C09CA00DE496C /* CompleteViewModel.swift */; };
 		3B3C912D2ACD6C7B0058BDDD /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B3C91152ACD6C350058BDDD /* WidgetKit.framework */; };
 		3B3C912E2ACD6C7B0058BDDD /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B3C91172ACD6C350058BDDD /* SwiftUI.framework */; };
 		3B3C91312ACD6C7B0058BDDD /* ChallengeWidgetExtensionBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3C91302ACD6C7B0058BDDD /* ChallengeWidgetExtensionBundle.swift */; };
@@ -68,7 +69,7 @@
 		3BC602BF2986AC1400198F1B /* TabScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC602BE2986AC1400198F1B /* TabScreen.swift */; };
 		3BC602C42986AC1500198F1B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3BC602C32986AC1500198F1B /* Preview Assets.xcassets */; };
 		3BC602CD2986B31000198F1B /* Buttons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC602CC2986B31000198F1B /* Buttons.swift */; };
-		3BC602CF2986B50B00198F1B /* AfterPressButtonSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC602CE2986B50B00198F1B /* AfterPressButtonSheet.swift */; };
+		3BC602CF2986B50B00198F1B /* CompleteScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC602CE2986B50B00198F1B /* CompleteScreen.swift */; };
 		3BC602D12986B52100198F1B /* BigButtonScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC602D02986B52100198F1B /* BigButtonScreen.swift */; };
 		3BC602D329880A5900198F1B /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC602D229880A5900198F1B /* CardView.swift */; };
 		3BC602D52988BE6300198F1B /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC602D42988BE6300198F1B /* ListView.swift */; };
@@ -125,6 +126,7 @@
 		3B3C692F2B3BED9900DE496C /* CompleteButtonComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteButtonComponent.swift; sourceTree = "<group>"; };
 		3B3C69322B3BEEA600DE496C /* BigButtonViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigButtonViewModel.swift; sourceTree = "<group>"; };
 		3B3C69342B3BF3B200DE496C /* GrobalStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrobalStore.swift; sourceTree = "<group>"; };
+		3B3C69372B3C09CA00DE496C /* CompleteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteViewModel.swift; sourceTree = "<group>"; };
 		3B3C91152ACD6C350058BDDD /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		3B3C91172ACD6C350058BDDD /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		3B3C912C2ACD6C7B0058BDDD /* ChallengeWidgetExtensionExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ChallengeWidgetExtensionExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -165,7 +167,7 @@
 		3BC602C02986AC1500198F1B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3BC602C32986AC1500198F1B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		3BC602CC2986B31000198F1B /* Buttons.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Buttons.swift; sourceTree = "<group>"; };
-		3BC602CE2986B50B00198F1B /* AfterPressButtonSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AfterPressButtonSheet.swift; sourceTree = "<group>"; };
+		3BC602CE2986B50B00198F1B /* CompleteScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteScreen.swift; sourceTree = "<group>"; };
 		3BC602D02986B52100198F1B /* BigButtonScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigButtonScreen.swift; sourceTree = "<group>"; };
 		3BC602D229880A5900198F1B /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		3BC602D42988BE6300198F1B /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
@@ -305,6 +307,15 @@
 			path = CompleteButton;
 			sourceTree = "<group>";
 		};
+		3B3C69362B3C07AC00DE496C /* CompleteSheet */ = {
+			isa = PBXGroup;
+			children = (
+				3BC602CE2986B50B00198F1B /* CompleteScreen.swift */,
+				3B3C69372B3C09CA00DE496C /* CompleteViewModel.swift */,
+			);
+			path = CompleteSheet;
+			sourceTree = "<group>";
+		};
 		3B3C910E2ACD43830058BDDD /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
@@ -369,7 +380,6 @@
 			children = (
 				3BC04D3629951CD300EB4CDF /* MakeNewItemSheet.swift */,
 				3B75EB0C298BD0B1000FCDE9 /* AddingMemoSheet.swift */,
-				3BC602CE2986B50B00198F1B /* AfterPressButtonSheet.swift */,
 			);
 			path = Sheet;
 			sourceTree = "<group>";
@@ -409,6 +419,7 @@
 				3BC602BE2986AC1400198F1B /* TabScreen.swift */,
 				3B3C692B2B3BEAE100DE496C /* Tutorial */,
 				3B3C692E2B3BEC6F00DE496C /* CompleteButton */,
+				3B3C69362B3C07AC00DE496C /* CompleteSheet */,
 				3B2245402B1C4F8200B64B7A /* Screens */,
 				3BB7BD022B1DD53700E12E80 /* Sheet */,
 				3B2245372B1C4EA800B64B7A /* Views */,
@@ -575,6 +586,7 @@
 				3B3C69302B3BED9900DE496C /* CompleteButtonComponent.swift in Sources */,
 				3B3C69352B3BF3B200DE496C /* GrobalStore.swift in Sources */,
 				3BC602D329880A5900198F1B /* CardView.swift in Sources */,
+				3B3C69382B3C09CA00DE496C /* CompleteViewModel.swift in Sources */,
 				3B93B16D299F2D6A006F3332 /* EditGoal.swift in Sources */,
 				3B3C69292B3B4C4D00DE496C /* ViewModelBase.swift in Sources */,
 				3BC602D12986B52100198F1B /* BigButtonScreen.swift in Sources */,
@@ -595,7 +607,7 @@
 				3B3C69332B3BEEA600DE496C /* BigButtonViewModel.swift in Sources */,
 				3B0D983C2A068DD20001FD0A /* PrivacyPolicyWebView.swift in Sources */,
 				3B75EB0D298BD0B1000FCDE9 /* AddingMemoSheet.swift in Sources */,
-				3BC602CF2986B50B00198F1B /* AfterPressButtonSheet.swift in Sources */,
+				3BC602CF2986B50B00198F1B /* CompleteScreen.swift in Sources */,
 				3B93B16F299FA513006F3332 /* BackUpView.swift in Sources */,
 				3B3C91462ACD6F5E0058BDDD /* Constants.swift in Sources */,
 				3B4D4E1A2A6CCD3600AFB314 /* CoreDataViewModel.swift in Sources */,

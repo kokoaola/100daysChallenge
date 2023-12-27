@@ -21,9 +21,6 @@ struct CompleteWindowView: View {
     ///画面戻る用のフラグ
     @Binding var showCompleteWindew:Bool
     
-    ///画面戻る用のフラグ
-//    @Binding var closed:Bool
-    
     ///表示＆共有用の画像
     @State var image: Image?
     
@@ -41,7 +38,6 @@ struct CompleteWindowView: View {
                 //閉じるボタン
                 HStack{
                     Button(action: {
-//                        closed = true
                         showCompleteWindew = false
                     }){
                         CloseButton()
@@ -155,14 +151,7 @@ struct CompleteWindowView: View {
             }
         }
         .onAppear{
-            image = generateImageWithText(number: dayNumber, day: coreDataViewModel.allData.last?.date ?? Date.now)
         }
-        .onDisappear{
-            showCompleteWindew = false
-        }
-        
-        
-        
         //メモ追加ボタンが押下されたら、MemoSheetを表示
         .sheet(isPresented: $showMemo) {
             MemoSheet()
