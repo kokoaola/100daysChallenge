@@ -151,6 +151,10 @@ struct CompleteSheet: View {
             }
         }
         .onAppear{
+            //イメージを作成してセット
+            DispatchQueue.main.async {
+                image = generateImageWithText(number: dayNumber, day: coreDataViewModel.allData.last?.date ?? Date.now)
+            }
         }
         //メモ追加ボタンが押下されたら、MemoSheetを表示
         .sheet(isPresented: $showMemo) {
