@@ -34,72 +34,15 @@ struct ActionView: View {
                 VStack(spacing: 20){
                     
                     //目標非表示設定がOFFになってれば目標を表示
-                    if hideInfomation == false{
-                        VStack(alignment: .center, spacing: 10){
-                            VStack{
-                                //長期目標の表示
-                                Text("目指している姿  :  ")
-                                    .fontWeight(.bold)
-                                    .frame(width: AppSetting.screenWidth * 0.8, alignment: .leading)
-                                
-                                Text("\(store.longTermGoal)")
-                            }
-                            .contentShape(Rectangle())
-                            .accessibilityElement()
-                            .accessibilityLabel("目指している姿、\(store.longTermGoal)")
-                            
-                            //短期目標の表示
-                            VStack{
-                                Text("100日取り組むこと : ")
-                                    .fontWeight(.bold)
-                                    .frame(width: AppSetting.screenWidth * 0.8, alignment: .leading)
-                                Text("\(store.shortTermGoal)")
-                            }
-                            .contentShape(Rectangle())
-                            .accessibilityElement()
-                            .accessibilityLabel("100日取り組むこと、\(store.shortTermGoal)")
-                        }.font(.callout.weight(.medium))
-                            .padding()
-                            .frame(width: AppSetting.screenWidth * 0.9)
-                            
-                            .background(.ultraThinMaterial)
-                            .cornerRadius(15)
-                            .padding(.top,32)
-                            .padding(.bottom, 42)
-                            .foregroundColor(.primary)
-
+                    if bigButtonVM.hideInfomation == false{
+                        TermsView(longTermGoal: bigButtonVM.longTermGoal, shortTermGoal: bigButtonVM.shortTermGoal)
                     }else{
                         Spacer()
                     }
                     
                     
                     //コメントが入る白い吹き出し
-                    SpeechBubbleView()
-                        .offset(x:0, y:-10)
-                        .overlay{
-                            VStack{
-                                Text(showAfterFinishString ? "本日のチャレンジは達成済みです。\nお疲れ様でした！" : "今日の取り組みが終わったら、\nボタンを押して完了しよう" )
-                                    .lineSpacing(10)
-                                
-                                //今日のタスク完了済みならコンプリートウインドウ再表示ボタンを配置
-                                if showAfterFinishString{
-                                    HStack{
-                                        Button {
-                                            showCompleteWindew = true
-                                            store.showAnimation = false
-                                        } label: {
-                                            Text("ウインドウを再表示する")
-                                                .font(.callout)
-                                                .foregroundColor(.blue)
-                                        }
-                                        .frame(width: AppSetting.screenWidth * 0.8, alignment: .trailing)
-                                    }
-                                }
-                            }
-                            .frame(width: AppSetting.screenWidth * 0.9, height: AppSetting.screenWidth * 0.3)
-                            .foregroundColor(.black)
-                            
-                        }
+                    SpeechBubbleView(finishedTodaysTask: grobalStore.finishedTodaysTask, showCompleteWindew: $bigButtonVM.showCompleteWindew)
                     
                     
                     //Completeボタン:今日のミッションが未達成ならボタンを有効にして表示

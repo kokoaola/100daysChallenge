@@ -7,6 +7,45 @@
 
 import SwiftUI
 
+///コンプリートボタンビュー
+struct TermsView: View {
+    let longTermGoal: String
+    let shortTermGoal: String
+    var body: some View{
+        VStack(alignment: .center, spacing: 10){
+            VStack{
+                //長期目標の表示
+                Text("目指している姿  :  ")
+                    .fontWeight(.bold)
+                    .frame(width: AppSetting.screenWidth * 0.8, alignment: .leading)
+                
+                Text("\(longTermGoal)")
+            }
+            .contentShape(Rectangle())
+            .accessibilityElement()
+            .accessibilityLabel("目指している姿、\(longTermGoal)")
+            
+            //短期目標の表示
+            VStack{
+                Text("100日取り組むこと : ")
+                    .fontWeight(.bold)
+                    .frame(width: AppSetting.screenWidth * 0.8, alignment: .leading)
+                Text("\(shortTermGoal)")
+            }
+            .contentShape(Rectangle())
+            .accessibilityElement()
+            .accessibilityLabel("100日取り組むこと、\(shortTermGoal)")
+        }.font(.callout.weight(.medium))
+            .padding()
+            .frame(width: AppSetting.screenWidth * 0.9)
+        
+            .background(.ultraThinMaterial)
+            .cornerRadius(15)
+            .padding(.top,32)
+            .padding(.bottom, 42)
+            .foregroundColor(.primary)
+    }
+}
 
 ///コンプリートボタンビュー
 struct CompleteButton: View {
@@ -40,6 +79,8 @@ struct CompleteButton: View {
 
 ///吹き出しのビュー
 struct SpeechBubbleView: View{
+    var finishedTodaysTask: Bool
+    @Binding var showCompleteWindew: Bool
     var body: some View {
         SpeechBubblePath()
             .rotation(Angle(degrees: 180))
@@ -47,6 +88,31 @@ struct SpeechBubbleView: View{
             .frame(width: AppSetting.screenWidth * 0.9, height: AppSetting.screenWidth * 0.3)
             .opacity(0.8)
             .padding(.top)
+        
+            .offset(x:0, y:-10)
+            .overlay{
+                VStack{
+                    Text(finishedTodaysTask ? "本日のチャレンジは達成済みです。\nお疲れ様でした！" : "今日の取り組みが終わったら、\nボタンを押して完了しよう" )
+                        .lineSpacing(10)
+                    //今日のタスク完了済みならコンプリートウインドウ再表示ボタンを配置
+                    if finishedTodaysTask{
+                        HStack{
+                            Button {
+                                showCompleteWindew = true
+//                                bigButtonVM.showAnimation = false
+                            } label: {
+                                Text("ウインドウを再表示する")
+                                    .font(.callout)
+                                    .foregroundColor(.blue)
+                            }
+                            .frame(width: AppSetting.screenWidth * 0.8, alignment: .trailing)
+                        }
+                    }
+                }
+                .frame(width: AppSetting.screenWidth * 0.9, height: AppSetting.screenWidth * 0.3)
+                .foregroundColor(.black)
+                
+            }
     }
 }
 
