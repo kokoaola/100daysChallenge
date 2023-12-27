@@ -23,6 +23,16 @@ extension View {
             .frame(height: AppSetting.screenHeight / 12)
     }
     
+    func customAddMemoTextEditStyle() -> some View {
+        self
+        .foregroundColor(Color(UIColor.label))
+        .lineSpacing(10)
+        .scrollContentBackground(Visibility.hidden)
+        .background(.ultraThinMaterial)
+        .border(.white, width: 3)
+        .frame(height: 300)
+}
+    
     ///アクセシビリティに関する項目を追加するextension
     func editAccessibility(label: String? = nil, hint: String? = nil, removeTraits: AccessibilityTraits? = nil, addTraits: AccessibilityTraits? = nil) -> some View {
         self
