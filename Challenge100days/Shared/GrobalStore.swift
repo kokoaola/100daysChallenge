@@ -19,10 +19,7 @@ class GrobalStore: ObservableObject {
     ///全体で表示中のタブを格納する変数
     @Published var userSelectedTag = "one"
     ///当日のタスクが達成済みかを格納する変数
-    var finishedTodaysTask: Bool{
-        guard let lastData = allData.last?.date else { return false }
-        return Calendar.current.isDate(Date.now, equalTo: lastData, toGranularity: .day)
-    }
+    @Published var finishedTodaysTask = false
     
     init(){
         setAllData()
@@ -40,9 +37,17 @@ class GrobalStore: ObservableObject {
             allData = []
         }
         
-        if finishedTodaysTask{
+        objectWillChange.send()
+        guard let lastData = allData.last?.date else {
+            dayNumber = 1
+            finishedTodaysTask = false
+            return }
+        
+        if Calendar.current.isDate(Date.now, equalTo: lastData, toGranularity: .day){
+            finishedTodaysTask = true
             dayNumber = allData.count
         }else{
+            finishedTodaysTask = false
             dayNumber = allData.count + 1
         }
     }

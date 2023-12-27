@@ -35,7 +35,6 @@ struct ActionView: View {
                     Button(action: {
                         withAnimation{
                             bigButtonVM.showCompleteWindew = true
-                            bigButtonVM.showAnimation = true
                         }
                         
                         //データを保存
