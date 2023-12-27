@@ -12,7 +12,6 @@ import SwiftUI
 struct CloseButton: View{
     var body: some View {
         Text("閉じる")
-//        Image(systemName: "xmark")
             .foregroundColor(.blue)
             .padding()
     }
