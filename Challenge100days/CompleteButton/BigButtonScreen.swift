@@ -15,7 +15,6 @@ struct ActionView: View {
     @EnvironmentObject var notificationViewModel: NotificationViewModel
     @StateObject private var bigButtonVM = BigButtonViewModel()
     @EnvironmentObject var grobalStore: GrobalStore
-    @EnvironmentObject var coreDataViewModel: CoreDataViewModel
     
     ///表示＆共有用の画像
     @State var image: Image?
@@ -41,14 +40,17 @@ struct ActionView: View {
                     }
                     
                     //データを保存
-                    bigButtonVM.saveTodaysChallenge(challengeDate: grobalStore.dayNumber)
-                    //配列を更新
-                    grobalStore.setAllData()
-                    
-                    Task{
-                        //通知設定している場合、本日の通知はスキップする
-                        if notificationViewModel.isNotificationOn{
-                            await notificationViewModel.setNotification(item: grobalStore.allData.last)
+                    bigButtonVM.saveTodaysChallenge(challengeDate: grobalStore.dayNumber) { success in
+                        if success {
+                            //配列を更新
+                            grobalStore.setAllData()
+                            
+                            Task{
+                                //通知設定している場合、本日の通知はスキップする
+                                if notificationViewModel.isNotificationOn{
+                                    await notificationViewModel.setNotification(item: grobalStore.allData.last)
+                                }
+                            }
                         }
                     }
                 }, label: {
@@ -69,8 +71,6 @@ struct ActionView: View {
                 CompleteSheet(showCompleteWindew: $bigButtonVM.showCompleteWindew, image: $image)
                     .padding(.horizontal)
                     .transition(.scale)
-                    .environmentObject(coreDataViewModel)
-                
                 
                 //子ビューのキーボード閉じるボタンの実装
                     .toolbar {
@@ -91,18 +91,10 @@ struct ActionView: View {
             bigButtonVM.showCompleteWindew = false
             grobalStore.setAllData()
             
-            //イメージを作成してセット
+            //あらかじめ当日分のイメージを作成してセット
             DispatchQueue.main.async {
                 image = generateImageWithText(number: grobalStore.dayNumber, day: Date.now)
             }
-            //                if !coreDataViewModel.checkTodaysTask{
-            //                    grobalStore.dayNumber = Int(coreDataViewModel.allData.last?.num ?? 0) + 1
-            //                    showAfterFinishString = false
-            //                }else{
-            //                    //タスク達成済みなら表示する番号は総データ数と同じ、吹き出し文言はボタン押下後のものにする
-            //                    grobalStore.dayNumber = Int(coreDataViewModel.allData.last?.num ?? 0)
-            //                    showAfterFinishString = true
-            //                }
         }
         
         .frame(maxWidth: .infinity)

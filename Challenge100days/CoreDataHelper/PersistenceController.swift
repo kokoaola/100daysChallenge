@@ -59,17 +59,30 @@ struct PersistenceController{
     }()
     
     
-    ///保存用関数
+    ///データの非同期保存用関数
     ///アプリ全体でのデータ管理を中央化、カプセル化して他の部分からデータベース操作を容易に行えるようにするため、PersistenceControllerにsave関数を記述する
     ///コードの再利用性とメンテナンス性が向上する
-    func save(completion: @escaping (Error?) -> Void)  {
+    func saveAsync(completion: @escaping (Error?) -> Void)  {
         do {
             try moc.save()
+            completion(nil)
         } catch {
-            // エラー処理
             completion(error)
         }
     }
+    
+    // 非同期で削除する関数
+//    func deleteAsync(_ object: NSManagedObject, completion: @escaping (Error?) -> Void) {
+//        perform {
+//            self.delete(object)
+//            do {
+//                try self.save()
+//                completion(nil)
+//            } catch {
+//                completion(error)
+//            }
+//        }
+//    }
 }
 
 

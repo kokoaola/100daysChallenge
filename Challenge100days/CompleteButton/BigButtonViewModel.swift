@@ -33,7 +33,7 @@ final class BigButtonViewModel: ViewModelBase{
     }
     
     ///当日のタスクの完了を保存するメソッド
-    func saveTodaysChallenge(challengeDate: Int) {
+    func saveTodaysChallenge(challengeDate: Int, completion: @escaping (Bool) -> Void) {
         //データのインスタンス生成
         let entity = DailyData(context: PersistenceController.shared.moc)
         entity.id = UUID()
@@ -42,13 +42,15 @@ final class BigButtonViewModel: ViewModelBase{
         entity.num = Int16(challengeDate)
         
         // 変更を保存
-        PersistenceController.shared.save { error in
-            if let error = error {
-                print("Error updating document: \(error)")
-                // エラー処理
-            }else{
+        PersistenceController.shared.saveAsync { error in
+            if let _ = error {
+                // エラーハンドリング
+                completion(false)
+            } else {
                 //ウィジェットを更新
                 AppGroupConstants.reloadTimelines()
+                // 保存成功
+                completion(true)
             }
         }
     }

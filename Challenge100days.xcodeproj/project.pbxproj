@@ -62,6 +62,8 @@
 		3B93B16B299D1307006F3332 /* AboutThisApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B93B16A299D1307006F3332 /* AboutThisApp.swift */; };
 		3B93B16D299F2D6A006F3332 /* EditGoal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B93B16C299F2D6A006F3332 /* EditGoal.swift */; };
 		3B93B16F299FA513006F3332 /* BackUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B93B16E299FA513006F3332 /* BackUpView.swift */; };
+		3B9912C42B3C3FF300E4DB40 /* TutorialComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9912C32B3C3FF300E4DB40 /* TutorialComponents.swift */; };
+		3B9912C62B3C402F00E4DB40 /* ListAndCardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9912C52B3C402F00E4DB40 /* ListAndCardViewModel.swift */; };
 		3BC04D3729951CD300EB4CDF /* MakeNewItemSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC04D3629951CD300EB4CDF /* MakeNewItemSheet.swift */; };
 		3BC188B42A81F41C00929C11 /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC188B32A81F41C00929C11 /* LottieView.swift */; };
 		3BC188BF2A8212DA00929C11 /* confetti3.json in Resources */ = {isa = PBXBuildFile; fileRef = 3BC188BE2A8212DA00929C11 /* confetti3.json */; };
@@ -158,6 +160,8 @@
 		3B93B16A299D1307006F3332 /* AboutThisApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutThisApp.swift; sourceTree = "<group>"; };
 		3B93B16C299F2D6A006F3332 /* EditGoal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditGoal.swift; sourceTree = "<group>"; };
 		3B93B16E299FA513006F3332 /* BackUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackUpView.swift; sourceTree = "<group>"; };
+		3B9912C32B3C3FF300E4DB40 /* TutorialComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialComponents.swift; sourceTree = "<group>"; };
+		3B9912C52B3C402F00E4DB40 /* ListAndCardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListAndCardViewModel.swift; sourceTree = "<group>"; };
 		3BB7BCD52B1C5DC200E12E80 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3BC04D3629951CD300EB4CDF /* MakeNewItemSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeNewItemSheet.swift; sourceTree = "<group>"; };
 		3BC188B32A81F41C00929C11 /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
@@ -202,11 +206,8 @@
 		3B2245372B1C4EA800B64B7A /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				3BC188B32A81F41C00929C11 /* LottieView.swift */,
 				3BC602CC2986B31000198F1B /* Buttons.swift */,
 				3B5EF9262A71641B00709006 /* ToastView.swift */,
-				3BC602D229880A5900198F1B /* CardView.swift */,
-				3BC602D42988BE6300198F1B /* ListView.swift */,
 				3B44CD88299BCE96001469FA /* ColorSaver.swift */,
 				3B22453E2B1C4F3C00B64B7A /* ViewsForSettings */,
 			);
@@ -230,8 +231,9 @@
 			isa = PBXGroup;
 			children = (
 				3B75EB0E298D5C35000FCDE9 /* RecordDetailScreen.swift */,
+				3BC602D229880A5900198F1B /* CardView.swift */,
+				3BC602D42988BE6300198F1B /* ListView.swift */,
 				3B93B167299CCDED006F3332 /* SettingScreen.swift */,
-				3BC602D829891B0300198F1B /* ListAndCardScreen.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -272,6 +274,7 @@
 				3B2245412B1C504000B64B7A /* TutorialView1.swift */,
 				3B2245432B1C504000B64B7A /* TutorialView2.swift */,
 				3B2245442B1C504000B64B7A /* TutorialView3.swift */,
+				3B9912C32B3C3FF300E4DB40 /* TutorialComponents.swift */,
 				3B3C69232B3B3A7B00DE496C /* TutorialViewModel.swift */,
 			);
 			path = Tutorial;
@@ -303,8 +306,8 @@
 			isa = PBXGroup;
 			children = (
 				3BC602D02986B52100198F1B /* BigButtonScreen.swift */,
-				3B3C69322B3BEEA600DE496C /* BigButtonViewModel.swift */,
 				3B3C692F2B3BED9900DE496C /* CompleteButtonComponent.swift */,
+				3B3C69322B3BEEA600DE496C /* BigButtonViewModel.swift */,
 			);
 			path = CompleteButton;
 			sourceTree = "<group>";
@@ -313,6 +316,7 @@
 			isa = PBXGroup;
 			children = (
 				3BC602CE2986B50B00198F1B /* CompleteScreen.swift */,
+				3BC188B32A81F41C00929C11 /* LottieView.swift */,
 				3B3C69392B3C151E00DE496C /* CompleteViewComponents.swift */,
 			);
 			path = CompleteSheet;
@@ -386,6 +390,15 @@
 			path = NumberWidget;
 			sourceTree = "<group>";
 		};
+		3B9912C22B3C3F9400E4DB40 /* ListAndCardScreen */ = {
+			isa = PBXGroup;
+			children = (
+				3BC602D829891B0300198F1B /* ListAndCardScreen.swift */,
+				3B9912C52B3C402F00E4DB40 /* ListAndCardViewModel.swift */,
+			);
+			path = ListAndCardScreen;
+			sourceTree = "<group>";
+		};
 		3BB7BD022B1DD53700E12E80 /* Sheet */ = {
 			isa = PBXGroup;
 			children = (
@@ -431,6 +444,7 @@
 				3B3C692E2B3BEC6F00DE496C /* CompleteButton */,
 				3B3C69362B3C07AC00DE496C /* CompleteSheet */,
 				3B3C693B2B3C296100DE496C /* AddMemoScreen */,
+				3B9912C22B3C3F9400E4DB40 /* ListAndCardScreen */,
 				3B2245402B1C4F8200B64B7A /* Screens */,
 				3BB7BD022B1DD53700E12E80 /* Sheet */,
 				3B2245372B1C4EA800B64B7A /* Views */,
@@ -589,6 +603,7 @@
 				3B246ABA2A0698ED00CB7EED /* Contact.swift in Sources */,
 				3BC602D52988BE6300198F1B /* ListView.swift in Sources */,
 				3B2245462B1C504000B64B7A /* TutorialScreen.swift in Sources */,
+				3B9912C62B3C402F00E4DB40 /* ListAndCardViewModel.swift in Sources */,
 				3B3C69242B3B3A7B00DE496C /* TutorialViewModel.swift in Sources */,
 				3BC04D3729951CD300EB4CDF /* MakeNewItemSheet.swift in Sources */,
 				3B93B168299CCDED006F3332 /* SettingScreen.swift in Sources */,
@@ -619,6 +634,7 @@
 				3B75EB0D298BD0B1000FCDE9 /* AddMemoSheet.swift in Sources */,
 				3BC602CF2986B50B00198F1B /* CompleteScreen.swift in Sources */,
 				3B93B16F299FA513006F3332 /* BackUpView.swift in Sources */,
+				3B9912C42B3C3FF300E4DB40 /* TutorialComponents.swift in Sources */,
 				3B3C91462ACD6F5E0058BDDD /* Constants.swift in Sources */,
 				3B4D4E1A2A6CCD3600AFB314 /* CoreDataViewModel.swift in Sources */,
 				3B3C69222B3B279400DE496C /* Store.swift in Sources */,
