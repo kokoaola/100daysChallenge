@@ -47,9 +47,9 @@ struct ActionView: View {
                             
                             Task{
                                 //通知設定している場合、本日の通知はスキップする
-                                if notificationViewModel.isNotificationOn{
-                                    await notificationViewModel.setNotification(item: grobalStore.allData.last)
-                                }
+//                                if notificationViewModel.isNotificationOn{
+//                                    await notificationViewModel.setNotification(item: grobalStore.allData.last)
+//                                }
                             }
                         }
                     }
@@ -89,12 +89,12 @@ struct ActionView: View {
         //アプリを開いた日のタスクが未達成の場合、コンプリートウインドウを非表示、表示する番号は総データ数＋1、吹き出し文言はボタン押下前のものにする
         .onAppear{
             bigButtonVM.showCompleteWindew = false
-            grobalStore.setAllData()
-            
+
             //あらかじめ当日分のイメージを作成してセット
             DispatchQueue.main.async {
-                image = generateImageWithText(number: grobalStore.dayNumber, day: Date.now)
+                grobalStore.setAllData()
             }
+            image = generateImageWithText(number: grobalStore.dayNumber, day: Date.now)
         }
         
         .frame(maxWidth: .infinity)
@@ -105,16 +105,16 @@ struct ActionView: View {
 }
 
 
-struct ActionView_Previews: PreviewProvider {
-    static var previews: some View {
-        Group{
-            ActionView()
-                .environment(\.locale, Locale(identifier:"en"))
-            ActionView()
-                .environment(\.locale, Locale(identifier:"ja"))
-        }.environmentObject(NotificationViewModel())
-            .environmentObject(CoreDataViewModel())
-            .environmentObject(GrobalStore())
-            .environmentObject(Store())
-    }
-}
+//struct ActionView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        Group{
+//            ActionView()
+//                .environment(\.locale, Locale(identifier:"en"))
+//            ActionView()
+//                .environment(\.locale, Locale(identifier:"ja"))
+//        }.environmentObject(NotificationViewModel())
+//            .environmentObject(CoreDataViewModel())
+//            .environmentObject(GlobalStore())
+//            .environmentObject(Store())
+//    }
+//}
