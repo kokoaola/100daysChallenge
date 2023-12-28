@@ -12,8 +12,8 @@ import CoreData
 ///記録の詳細を表示するビュー
 struct DetailScreen: View {
     ///ViewModel用の変数
-    @EnvironmentObject var notificationViewModel: NotificationViewModel
-    @EnvironmentObject var coreDataViewModel: CoreDataViewModel
+    //    @EnvironmentObject var notificationViewModel: NotificationViewModel
+    //    @EnvironmentObject var coreDataViewModel: CoreDataViewModel
     @EnvironmentObject var store: GlobalStore
     @StateObject var detailVM = DetailViewModel()
     
@@ -108,12 +108,9 @@ struct DetailScreen: View {
                 
                 //編集内容保存ボタン
                 Button("保存する") {
-                    Task{
-                        await coreDataViewModel.updateDataMemo(newMemo: detailVM.editText, data:item )
-                        
-                        await coreDataViewModel.assignNumbers()
-                    }
+                    detailVM.updateMemo(item: item)
                     isInputActive = false
+                    store.setAllData()
                 }
                 
                 .foregroundColor(detailVM.editText.count <= AppSetting.maxLengthOfMemo ? .primary : .gray)
@@ -172,15 +169,15 @@ struct DetailScreen: View {
                         dismiss()
                     }
                 }
-
-//                Task{
-//                    if notificationViewModel.isNotificationOn{
-//                        await notificationViewModel.setNotification(item: coreDataViewModel.allData.last)
-//                    }
-//                }
                 
-
-
+                //                Task{
+                //                    if notificationViewModel.isNotificationOn{
+                //                        await notificationViewModel.setNotification(item: coreDataViewModel.allData.last)
+                //                    }
+                //                }
+                
+                
+                
             }
             Button("戻る",role: .cancel){}
         }message: {
