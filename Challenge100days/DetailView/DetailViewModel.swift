@@ -22,6 +22,10 @@ final class DetailViewModel: ViewModelBase{
         self.item = item
     }
     
+    var isTextValid: Bool{
+        AppSetting.maxLengthOfMemo >= self.editText.count
+    }
+    
     
     ///引数で受け取った日のメモを更新するメソッド、データがnilなら最新のメモを更新
     func updateMemo(item: DailyData){

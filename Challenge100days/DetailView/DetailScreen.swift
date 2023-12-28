@@ -12,8 +12,6 @@ import CoreData
 ///記録の詳細を表示するビュー
 struct DetailScreen: View {
     ///ViewModel用の変数
-    //    @EnvironmentObject var notificationViewModel: NotificationViewModel
-    //    @EnvironmentObject var coreDataViewModel: CoreDataViewModel
     @EnvironmentObject var store: GlobalStore
     @StateObject var detailVM = DetailViewModel()
     
@@ -53,34 +51,19 @@ struct DetailScreen: View {
             ZStack(alignment: .topLeading){
                 if detailVM.editText.isEmpty{
                     Text("保存されたメモはありません。\nタップで追加できます。")
-                        .padding(8)
-                        .foregroundColor(.primary)
-                        .opacity(0.5)
+                        .foregroundColor(.primary.opacity(0.4))
                 }
                 //メモ編集用のテキストエディター
                 TextEditor(text: $detailVM.editText)
-                    .lineSpacing(2)
-                    .scrollContentBackground(Visibility.hidden)
-                    .frame(maxHeight: .infinity)
+                    .customDetailViewTextEditStyle()
                     .focused($isInputActive)
-                    .tint(.white)
                 //タップでキーボードを閉じる
                     .onTapGesture {
                         AppSetting.colseKeyBoard()
                     }
             }
         }
-        .padding()
-        .frame(maxHeight: AppSetting.screenHeight / 1.4)
-        .background(.thinMaterial)
-        .cornerRadius(15)
-        .foregroundColor(.primary)
-        .padding(.top, -50)
-        .padding()
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-        .background(.ultraThinMaterial)
-        .navigationBarBackButtonHidden(true)
-        
+        .detailViewStyle()
         //グラデーション背景の設定
         .modifier(UserSettingGradient(appColorNum: detailVM.userSelectedColor))
         
@@ -104,7 +87,7 @@ struct DetailScreen: View {
                 //文字数が上限を超えてる時の注意書き
                 Text("\(AppSetting.maxLengthOfMemo)文字以内のみ設定可能です")
                     .font(.caption)
-                    .foregroundColor(detailVM.editText.count > AppSetting.maxLengthOfMemo ? .red : .clear)
+                    .foregroundColor(detailVM.isTextValid ? .clear : .red)
                 
                 //編集内容保存ボタン
                 Button("保存する") {
@@ -113,9 +96,9 @@ struct DetailScreen: View {
                     store.setAllData()
                 }
                 
-                .foregroundColor(detailVM.editText.count <= AppSetting.maxLengthOfMemo ? .primary : .gray)
-                .opacity(detailVM.editText.count <= AppSetting.maxLengthOfMemo ? 1.0 : 0.5)
-                .disabled(detailVM.editText.count > AppSetting.maxLengthOfMemo)
+                .foregroundColor(detailVM.isTextValid ? .primary : .gray)
+                .opacity(detailVM.isTextValid ? 1.0 : 0.5)
+                .disabled(!detailVM.isTextValid)
             }
             
             //表示している日の記録の削除用ごみ箱アイコン
@@ -186,17 +169,17 @@ struct DetailScreen: View {
     }
 }
 
-//
+
 //struct MemoView_Previews: PreviewProvider {
-//    static private var dataController = DataController()
+//    static private var dataController = PersistenceController.persistentContainer.viewContext
 //    static let moc = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
 //
 //    static var previews: some View {
 //
-//        DetailView(item: <#DailyData#>)
+//        DetailScreen(item:DailyData(context: dataController))
 //        //            MemoView(num: 1, item: book)
-//            .environment(\.managedObjectContext, dataController.container.viewContext)
+//            .environment(\.managedObjectContext, PersistenceController.persistentContainer.viewContext)
 //
 //    }
 //}
-
+//

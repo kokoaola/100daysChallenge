@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CoreData
 
 
 ///ユーザーが記録を閲覧するためのルートのビュー
@@ -19,7 +20,7 @@ struct ListAndCardView: View {
         ScrollView(.vertical, showsIndicators: false){
             //カードとリスト表示共通部分
             HStack(){
-                Text("開始日 : ") + Text("\(AppSetting.makeDate(day: store.allData.first?.wrappedDate))")
+                Text("開始日 : ") + Text("\(AppSetting.makeDate(day: store.allData.first?.wrappedDate ?? Date()))")
                     .font(.footnote)
                 
                 Spacer()
@@ -78,16 +79,27 @@ struct ListAndCardView: View {
 
 
 
+//struct ListAndCardView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        Group{
+//            ListAndCardView()
+//                .environment(\.locale, Locale(identifier:"en"))
+//            ListAndCardView()
+//                .environment(\.locale, Locale(identifier:"ja"))
+//        }
+//        .environmentObject(NotificationViewModel())
+//        .environmentObject(CoreDataViewModel())
+//        .environmentObject(Store())
+//    }
+//}
 struct ListAndCardView_Previews: PreviewProvider {
+    static private var dataController = PersistenceController.persistentContainer.viewContext
+//    static let moc = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
+    
     static var previews: some View {
-        Group{
-            ListAndCardView()
-                .environment(\.locale, Locale(identifier:"en"))
-            ListAndCardView()
-                .environment(\.locale, Locale(identifier:"ja"))
-        }
-        .environmentObject(NotificationViewModel())
-        .environmentObject(CoreDataViewModel())
-        .environmentObject(Store())
+        
+        ListAndCardView()
+            .environment(\.managedObjectContext, PersistenceController.persistentContainer.viewContext)
+            .environmentObject(GlobalStore())
     }
 }

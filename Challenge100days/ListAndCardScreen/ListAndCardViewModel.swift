@@ -17,7 +17,7 @@ final class ListAndCardViewModel: ViewModelBase{
     
     @Published private(set) var allData: [DailyData] = []
     
-    
+    ///配列をビューモデルにセットする関数
     func setDailyData(allData: [DailyData]){
         self.allData = allData
     }

@@ -15,6 +15,7 @@ extension View {
     }
     
     ///カスタマイズしたテキストエディットのスタイルのextension
+    ///チュートリアルのテキストエディット
     func customTutorialTextEditStyle() -> some View {
         self
             .scrollContentBackground(Visibility.hidden)
@@ -23,6 +24,17 @@ extension View {
             .frame(height: AppSetting.screenHeight / 12)
     }
     
+    ///DetailViewのテキストエディット
+    func customDetailViewTextEditStyle() -> some View {
+        self
+            .lineSpacing(2)
+            .scrollContentBackground(Visibility.hidden)
+            .frame(maxHeight: .infinity)
+            .tint(.white)
+    }
+    
+    
+    ///AddMemoViewのテキストエディット
     func customAddMemoTextEditStyle() -> some View {
         self
         .foregroundColor(Color(UIColor.label))
@@ -37,6 +49,21 @@ extension View {
     func editAccessibility(label: String? = nil, hint: String? = nil, removeTraits: AccessibilityTraits? = nil, addTraits: AccessibilityTraits? = nil) -> some View {
         self
             .modifier(AccessibilityModifier(label: label, hint: hint, removeTraits: removeTraits, addTraits: addTraits))
+    }
+    
+    ///DetailViewのスクリーンに表示するセルのサイズのextension
+    func detailViewStyle() -> some View {
+        self
+            .padding()
+            .frame(maxHeight: AppSetting.screenHeight / 1.4)
+            .background(.thinMaterial)
+            .cornerRadius(15)
+            .foregroundColor(.primary)
+            .padding(.top, -30)
+            .padding([.bottom, .horizontal])
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+            .background(.ultraThinMaterial)
+            .navigationBarBackButtonHidden(true)
     }
 }
 
