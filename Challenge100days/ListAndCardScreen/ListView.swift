@@ -11,89 +11,35 @@ import SwiftUI
 ///リスト形式で表示するビュー
 struct ListView: View {
     ///ViewModel用の変数
-    @EnvironmentObject var store: GlobalStore
-    
+    @ObservedObject var listAndCardVM: ListAndCardViewModel
     
     var body: some View {
         
         ///データが一件も存在しない時の表示
-        if store.allData.isEmpty{
-            Text("まだデータがありません")
-                .foregroundColor(Color(UIColor.label))
-                .frame(maxWidth: .infinity, alignment: .center)
-                .padding()
-                .background(.thinMaterial)
-                .cornerRadius(15)
-        }else{
+        if listAndCardVM.allData.isEmpty{
+            NoDataView()
             
+        ///データが存在するときの表示
+        }else{
             VStack(spacing: 5){
-                
                 //CoreDataに保存されている全データを取り出す
-                ForEach(store.allData.reversed(), id:\.self) { item in
-                    
-                    //セルをタップするとDetailViewを表示
+                ForEach(listAndCardVM.allData.reversed(), id:\.self) { item in
+
+                    //セルをタップするとDetailViewに遷移
                     NavigationLink(destination: {
                         DetailScreen(item: item)
                     }){
-                        
-                        //セル部分のレイアウト
-                        HStack(alignment: .center){
-                            ZStack{
-                                
-                                //青い四角に番号を重ねて左端に表示
-                                Text("\(item.num)")
-                                    .font(.title2) .foregroundColor(.white)
-                                    .frame(width: AppSetting.screenWidth * 0.12, height: AppSetting.screenWidth * 0.12)
-                                    .background(.blue)
-                                    .cornerRadius(15)
-                                
-                                //最終アイテム追加してから１日以内なら、日付にキラキラを重ねて表示
-                                Image(systemName: "sparkles")
-                                    .offset(x:14, y:-14)
-                                    .foregroundColor(Calendar.current.isDate(Date.now, equalTo: item.date ?? Date.now, toGranularity: .day) ? .yellow : .clear)
-                            }
-                            .padding(.trailing, 5)
-                            
-                            //メモの内容を表示
-                            VStack{
-                                Text(item.memo?.replacingOccurrences(of: "\n", with: " ") ?? "")
-                                //プレビュー用しやすいように改行はスペースに変換
-                                    .lineSpacing(1)
-                                    .frame(maxWidth: .infinity,maxHeight: .infinity,alignment: .topLeading)
-                                    .multilineTextAlignment(.leading)
-                                    .foregroundColor(Color(UIColor.label))
-                                
-                                //日付を右下に配置
-                                Text(item.date ?? Date(), format:.dateTime.day().month().year())
-                                    .foregroundColor(.secondary)
-                                    .frame(maxWidth: .infinity,alignment: .bottomTrailing)
-                                
-                            }.frame(maxWidth: .infinity,maxHeight: .infinity)
-                                .font(.footnote)
-                            
-                            //右の矢印
-                            Image(systemName: "chevron.forward")
-                                .fontWeight(.thin)
-                                .foregroundColor(.gray)
-                            
-                        }
-                        .accessibilityElement()
-                        .accessibilityLabel("\(item.num)日目の記録、\(item.date ?? Date(), format:.dateTime.day().month().year())")
-                        .accessibilityAddTraits(.isLink)
-                        
-                        //セルの高さは最大150pxまで大きくなれる
-                        .frame(maxHeight: 150)
-                        .fixedSize(horizontal: false, vertical: true)
+                        ///itemを渡すと再描写が反映されない
+                        ListLowView(num: item.wrappedNum, date: item.wrappedDate, memo: item.wrappedMemo)
                     }
                     
                     //ラインの表示
-                    if item != store.allData.first{
+                    if item != listAndCardVM.allData.first{
                         Divider()
                             .padding(.vertical, 5)
                     }
                 }
             }
-//            .environmentObject(notificationViewModel)
             .fixedSize(horizontal: false, vertical: true)
             .padding()
             .background(.thinMaterial)
@@ -105,14 +51,14 @@ struct ListView: View {
 
 
 
-struct ListView_Previews: PreviewProvider {
-    static var previews: some View {
-        Group{
-            ListView()
-                .environment(\.locale, Locale(identifier:"en"))
-            ListView()
-                .environment(\.locale, Locale(identifier:"ja"))
-        }.environmentObject(NotificationViewModel())
-            .environmentObject(CoreDataViewModel())
-    }
-}
+//struct ListView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        Group{
+//            ListView()
+//                .environment(\.locale, Locale(identifier:"en"))
+//            ListView()
+//                .environment(\.locale, Locale(identifier:"ja"))
+//        }.environmentObject(NotificationViewModel())
+//            .environmentObject(CoreDataViewModel())
+//    }
+//}
