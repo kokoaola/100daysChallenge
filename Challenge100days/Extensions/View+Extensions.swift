@@ -10,8 +10,8 @@ import SwiftUI
 
 extension View {
     ///自身をナビゲーションビューに入れるextension
-    func embedInNavigationView() -> some View {
-        return NavigationView { self }
+    func embedInNavigationStack() -> some View {
+        return NavigationStack { self }
     }
     
     ///カスタマイズしたテキストエディットのスタイルのextension
