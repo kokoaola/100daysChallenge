@@ -14,4 +14,12 @@ final class ListAndCardViewModel: ViewModelBase{
     
     ///リストで表示が選択されたときのフラグ
     @Published var showList = true
+    
+    @Published private(set) var allData: [DailyData] = []
+    
+    
+    func setDailyData(allData: [DailyData]){
+        self.allData = allData
+    }
+    
 }
