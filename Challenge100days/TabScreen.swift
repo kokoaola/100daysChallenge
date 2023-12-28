@@ -22,31 +22,27 @@ struct TabScreen: View {
         }else{
             
             //ユーザーが初回のチュートリアルを終わらせていればタブを表示
-            TabView(selection: $store.userSelectedTag){
+            TabView{
                 //達成用のビュー
                 ActionView()
                     .tabItem{
                         Label("取り組む", systemImage: "figure.stairs")
-                    }.tag("One")
+                    }
                 
                 //実績表示用のビュー
                 ListAndCardView()
                     .tabItem{
                         Label("これまでの記録", systemImage: "list.clipboard")
-                    }.tag("Two")
+                    }
                 
                 //設定用のビュー
-                SettingView()
-                    .tabItem{
-                        Label("設定", systemImage: "gearshape")
-                    }.tag("Three")
+//                SettingView()
+//                    .tabItem{
+//                        Label("設定", systemImage: "gearshape")
+//                    }.tag("Three")
                 
             }
             .tint(.primary)
-            .environmentObject(coreDataViewModel)
-            .environmentObject(notificationViewModel)
-            .environmentObject(grobalStore)
-            .environmentObject(store)
 //            .environmentObject(globalStore)
         }
 

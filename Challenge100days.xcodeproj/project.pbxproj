@@ -31,7 +31,7 @@
 		3B3C69292B3B4C4D00DE496C /* ViewModelBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3C69282B3B4C4D00DE496C /* ViewModelBase.swift */; };
 		3B3C69302B3BED9900DE496C /* CompleteButtonComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3C692F2B3BED9900DE496C /* CompleteButtonComponent.swift */; };
 		3B3C69332B3BEEA600DE496C /* BigButtonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3C69322B3BEEA600DE496C /* BigButtonViewModel.swift */; };
-		3B3C69352B3BF3B200DE496C /* GrobalStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3C69342B3BF3B200DE496C /* GrobalStore.swift */; };
+		3B3C69352B3BF3B200DE496C /* GlobalStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3C69342B3BF3B200DE496C /* GlobalStore.swift */; };
 		3B3C693A2B3C151E00DE496C /* CompleteViewComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3C69392B3C151E00DE496C /* CompleteViewComponents.swift */; };
 		3B3C693D2B3C29AF00DE496C /* AddMemoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3C693C2B3C29AF00DE496C /* AddMemoViewModel.swift */; };
 		3B3C912D2ACD6C7B0058BDDD /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B3C91152ACD6C350058BDDD /* WidgetKit.framework */; };
@@ -53,7 +53,7 @@
 		3B4D4E1A2A6CCD3600AFB314 /* CoreDataViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4D4E192A6CCD3600AFB314 /* CoreDataViewModel.swift */; };
 		3B5EF9272A71641B00709006 /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5EF9262A71641B00709006 /* ToastView.swift */; };
 		3B75EB0D298BD0B1000FCDE9 /* AddMemoSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B75EB0C298BD0B1000FCDE9 /* AddMemoSheet.swift */; };
-		3B75EB0F298D5C35000FCDE9 /* RecordDetailScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B75EB0E298D5C35000FCDE9 /* RecordDetailScreen.swift */; };
+		3B75EB0F298D5C35000FCDE9 /* DetailScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B75EB0E298D5C35000FCDE9 /* DetailScreen.swift */; };
 		3B91C4092ACEB6B900B2D626 /* NumberWidgetEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B91C4082ACEB6B900B2D626 /* NumberWidgetEntry.swift */; };
 		3B91C40B2ACEB6E200B2D626 /* NumberWidgetEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B91C40A2ACEB6E200B2D626 /* NumberWidgetEntryView.swift */; };
 		3B91C40D2ACEB88A00B2D626 /* NumberWidgetTimelineProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B91C40C2ACEB88A00B2D626 /* NumberWidgetTimelineProvider.swift */; };
@@ -64,6 +64,8 @@
 		3B93B16F299FA513006F3332 /* BackUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B93B16E299FA513006F3332 /* BackUpView.swift */; };
 		3B9912C42B3C3FF300E4DB40 /* TutorialComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9912C32B3C3FF300E4DB40 /* TutorialComponents.swift */; };
 		3B9912C62B3C402F00E4DB40 /* ListAndCardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9912C52B3C402F00E4DB40 /* ListAndCardViewModel.swift */; };
+		3B9912C92B3C658300E4DB40 /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9912C82B3C658300E4DB40 /* DetailViewModel.swift */; };
+		3B9912CC2B3C6E2500E4DB40 /* MakeNewItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9912CB2B3C6E2500E4DB40 /* MakeNewItemViewModel.swift */; };
 		3BC04D3729951CD300EB4CDF /* MakeNewItemSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC04D3629951CD300EB4CDF /* MakeNewItemSheet.swift */; };
 		3BC188B42A81F41C00929C11 /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC188B32A81F41C00929C11 /* LottieView.swift */; };
 		3BC188BF2A8212DA00929C11 /* confetti3.json in Resources */ = {isa = PBXBuildFile; fileRef = 3BC188BE2A8212DA00929C11 /* confetti3.json */; };
@@ -128,7 +130,7 @@
 		3B3C69282B3B4C4D00DE496C /* ViewModelBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewModelBase.swift; sourceTree = "<group>"; };
 		3B3C692F2B3BED9900DE496C /* CompleteButtonComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteButtonComponent.swift; sourceTree = "<group>"; };
 		3B3C69322B3BEEA600DE496C /* BigButtonViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigButtonViewModel.swift; sourceTree = "<group>"; };
-		3B3C69342B3BF3B200DE496C /* GrobalStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrobalStore.swift; sourceTree = "<group>"; };
+		3B3C69342B3BF3B200DE496C /* GlobalStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalStore.swift; sourceTree = "<group>"; };
 		3B3C69392B3C151E00DE496C /* CompleteViewComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteViewComponents.swift; sourceTree = "<group>"; };
 		3B3C693C2B3C29AF00DE496C /* AddMemoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMemoViewModel.swift; sourceTree = "<group>"; };
 		3B3C91152ACD6C350058BDDD /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
@@ -151,7 +153,7 @@
 		3B4D4E192A6CCD3600AFB314 /* CoreDataViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataViewModel.swift; sourceTree = "<group>"; };
 		3B5EF9262A71641B00709006 /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
 		3B75EB0C298BD0B1000FCDE9 /* AddMemoSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMemoSheet.swift; sourceTree = "<group>"; };
-		3B75EB0E298D5C35000FCDE9 /* RecordDetailScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordDetailScreen.swift; sourceTree = "<group>"; };
+		3B75EB0E298D5C35000FCDE9 /* DetailScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailScreen.swift; sourceTree = "<group>"; };
 		3B91C4082ACEB6B900B2D626 /* NumberWidgetEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberWidgetEntry.swift; sourceTree = "<group>"; };
 		3B91C40A2ACEB6E200B2D626 /* NumberWidgetEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberWidgetEntryView.swift; sourceTree = "<group>"; };
 		3B91C40C2ACEB88A00B2D626 /* NumberWidgetTimelineProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberWidgetTimelineProvider.swift; sourceTree = "<group>"; };
@@ -162,6 +164,8 @@
 		3B93B16E299FA513006F3332 /* BackUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackUpView.swift; sourceTree = "<group>"; };
 		3B9912C32B3C3FF300E4DB40 /* TutorialComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialComponents.swift; sourceTree = "<group>"; };
 		3B9912C52B3C402F00E4DB40 /* ListAndCardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListAndCardViewModel.swift; sourceTree = "<group>"; };
+		3B9912C82B3C658300E4DB40 /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
+		3B9912CB2B3C6E2500E4DB40 /* MakeNewItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeNewItemViewModel.swift; sourceTree = "<group>"; };
 		3BB7BCD52B1C5DC200E12E80 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3BC04D3629951CD300EB4CDF /* MakeNewItemSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeNewItemSheet.swift; sourceTree = "<group>"; };
 		3BC188B32A81F41C00929C11 /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
@@ -230,9 +234,6 @@
 		3B2245402B1C4F8200B64B7A /* Screens */ = {
 			isa = PBXGroup;
 			children = (
-				3B75EB0E298D5C35000FCDE9 /* RecordDetailScreen.swift */,
-				3BC602D229880A5900198F1B /* CardView.swift */,
-				3BC602D42988BE6300198F1B /* ListView.swift */,
 				3B93B167299CCDED006F3332 /* SettingScreen.swift */,
 			);
 			path = Screens;
@@ -295,7 +296,7 @@
 			children = (
 				3B3C69282B3B4C4D00DE496C /* ViewModelBase.swift */,
 				3B3C69212B3B279400DE496C /* Store.swift */,
-				3B3C69342B3BF3B200DE496C /* GrobalStore.swift */,
+				3B3C69342B3BF3B200DE496C /* GlobalStore.swift */,
 				3B3C91452ACD6F5E0058BDDD /* Constants.swift */,
 				3B0027F72A76218E00520699 /* AppSetting.swift */,
 			);
@@ -394,17 +395,36 @@
 			isa = PBXGroup;
 			children = (
 				3BC602D829891B0300198F1B /* ListAndCardScreen.swift */,
+				3BC602D229880A5900198F1B /* CardView.swift */,
+				3BC602D42988BE6300198F1B /* ListView.swift */,
 				3B9912C52B3C402F00E4DB40 /* ListAndCardViewModel.swift */,
 			);
 			path = ListAndCardScreen;
 			sourceTree = "<group>";
 		};
-		3BB7BD022B1DD53700E12E80 /* Sheet */ = {
+		3B9912C72B3C653400E4DB40 /* DetailView */ = {
+			isa = PBXGroup;
+			children = (
+				3B75EB0E298D5C35000FCDE9 /* DetailScreen.swift */,
+				3B9912C82B3C658300E4DB40 /* DetailViewModel.swift */,
+			);
+			path = DetailView;
+			sourceTree = "<group>";
+		};
+		3B9912CA2B3C6DD700E4DB40 /* MakeNewItem */ = {
 			isa = PBXGroup;
 			children = (
 				3BC04D3629951CD300EB4CDF /* MakeNewItemSheet.swift */,
+				3B9912CB2B3C6E2500E4DB40 /* MakeNewItemViewModel.swift */,
 			);
-			path = Sheet;
+			path = MakeNewItem;
+			sourceTree = "<group>";
+		};
+		3B9912CE2B3D459900E4DB40 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Settings;
 			sourceTree = "<group>";
 		};
 		3BC602B02986AC1400198F1B = {
@@ -445,10 +465,12 @@
 				3B3C69362B3C07AC00DE496C /* CompleteSheet */,
 				3B3C693B2B3C296100DE496C /* AddMemoScreen */,
 				3B9912C22B3C3F9400E4DB40 /* ListAndCardScreen */,
+				3B9912C72B3C653400E4DB40 /* DetailView */,
+				3B9912CA2B3C6DD700E4DB40 /* MakeNewItem */,
 				3B2245402B1C4F8200B64B7A /* Screens */,
-				3BB7BD022B1DD53700E12E80 /* Sheet */,
 				3B2245372B1C4EA800B64B7A /* Views */,
 				3B3C910E2ACD43830058BDDD /* ViewModels */,
+				3B9912CE2B3D459900E4DB40 /* Settings */,
 				3B22455C2B1C53FF00B64B7A /* Resources */,
 				3BC602C22986AC1500198F1B /* Preview Content */,
 			);
@@ -607,13 +629,15 @@
 				3B3C69242B3B3A7B00DE496C /* TutorialViewModel.swift in Sources */,
 				3BC04D3729951CD300EB4CDF /* MakeNewItemSheet.swift in Sources */,
 				3B93B168299CCDED006F3332 /* SettingScreen.swift in Sources */,
+				3B9912CC2B3C6E2500E4DB40 /* MakeNewItemViewModel.swift in Sources */,
 				3B44CD89299BCE97001469FA /* ColorSaver.swift in Sources */,
 				3B2245452B1C504000B64B7A /* TutorialView1.swift in Sources */,
 				3B3C69302B3BED9900DE496C /* CompleteButtonComponent.swift in Sources */,
-				3B3C69352B3BF3B200DE496C /* GrobalStore.swift in Sources */,
+				3B3C69352B3BF3B200DE496C /* GlobalStore.swift in Sources */,
 				3BC602D329880A5900198F1B /* CardView.swift in Sources */,
 				3B93B16D299F2D6A006F3332 /* EditGoal.swift in Sources */,
 				3B3C69292B3B4C4D00DE496C /* ViewModelBase.swift in Sources */,
+				3B9912C92B3C658300E4DB40 /* DetailViewModel.swift in Sources */,
 				3BC602D12986B52100198F1B /* BigButtonScreen.swift in Sources */,
 				3B2245472B1C504000B64B7A /* TutorialView2.swift in Sources */,
 				3B4D4E142A695D7E00AFB314 /* NotificationViewModel.swift in Sources */,
@@ -644,7 +668,7 @@
 				3B3C693D2B3C29AF00DE496C /* AddMemoViewModel.swift in Sources */,
 				3B3C693A2B3C151E00DE496C /* CompleteViewComponents.swift in Sources */,
 				3B3C69272B3B40D100DE496C /* View+Extensions.swift in Sources */,
-				3B75EB0F298D5C35000FCDE9 /* RecordDetailScreen.swift in Sources */,
+				3B75EB0F298D5C35000FCDE9 /* DetailScreen.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
