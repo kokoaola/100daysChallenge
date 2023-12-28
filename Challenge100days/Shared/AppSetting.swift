@@ -7,14 +7,6 @@
 
 import SwiftUI
 
-enum AppColor {
-    case blue
-    case orange
-    case purple
-    case monotone
-}
-
-
 ///アプリ全体の設定
 struct AppSetting{
     ///使用端末の横画面サイズ
@@ -33,38 +25,26 @@ struct AppSetting{
     static let photos =
     [     //紙吹雪,
         "Jason Leung",
-        
         //グラフィック,
         "Alejandro Ortiz",
-        
         //グラデーション赤
         "Codioful (Formerly Gradienta)",
-        
         //宇宙星たくさん,
         "Paul Volkmer",
-        
         //グラフィック紫
         "Alejandro Ortiz2",
-        
         //オーロラj
         "Yang Xi",
-        
         //木目
         "Mockup Photos",
-        
         //グラフィック,
         "Alejandro Ortiz4",
-        
         //宇宙ぐるぐる,
         "Pawel Czerwinski",
-        
         //グラフィック,
         "Alejandro Ortiz3",
-        
         //グラデーション青緑
         "Codioful (Formerly Gradienta)2"
-        
-        
     ]
     
     //Date型をString型に変換する

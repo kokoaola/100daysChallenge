@@ -40,9 +40,8 @@ struct TutorialView3: View {
                     
                     ///startボタン
                     Button {
-                        //初回起動フラグのfalseにして保存
                         withAnimation {
-                            tutorialVM.isFirst = false
+                            tutorialVM.isFirst = false //初回起動フラグのfalseにして保存
                         }
                     } label: {
                         ArrowButton(isBackButton: false, labelText: "始める")

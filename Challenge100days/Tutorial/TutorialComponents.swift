@@ -17,13 +17,9 @@ struct ArrowButton: View{
     
     ///角丸のレベルを格納する変数
     let radius:CGFloat = 10.0
-    
-    ///ボタンの幅を格納する変数
+    ///ボタンの幅と高さを格納する変数
     let width = AppSetting.screenWidth / 3
-    
-    ///ボタンの高さを格納する変数
     let height = AppSetting.screenWidth / 6
-    
     ///文字色を格納する変数
     let tint = Color.white
     

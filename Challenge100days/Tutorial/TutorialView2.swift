@@ -79,8 +79,7 @@ struct TutorialView2: View {
             HStack{
                 Button {
                     tutorialVM.page = 1
-                    //目標を保存
-                    tutorialVM.saveTerm()
+                    tutorialVM.saveTerm() //目標を保存
                 } label: {
                     ArrowButton(isBackButton: true, labelText: "戻る")
                 }
@@ -90,8 +89,7 @@ struct TutorialView2: View {
                 ///進むボタン
                 Button {
                     tutorialVM.page = 3
-                    //目標を保存
-                    tutorialVM.saveTerm()
+                    tutorialVM.saveTerm() //目標を保存
                 } label: {
                     ArrowButton(isBackButton: false, labelText: "次へ")
                         .opacity(tutorialVM.isNextButtonNotFade ? 1 : 0.4)

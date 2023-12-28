@@ -11,7 +11,6 @@ import SwiftUI
 
 struct TabScreen: View {
     ///ViewModel用の変数
-//    @EnvironmentObject var globalStore: GlobalStore
     @StateObject private var tutorialVM = TutorialViewModel()
     
     var body: some View {

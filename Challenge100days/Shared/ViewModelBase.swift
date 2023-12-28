@@ -5,7 +5,7 @@
 //  Created by koala panda on 2023/12/19.
 //
 
-import SwiftUI
+import Foundation
 
 ///ベースのビューモデル
 class ViewModelBase: ObservableObject {

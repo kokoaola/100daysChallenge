@@ -41,8 +41,7 @@ struct TutorialView1: View {
             ///進むボタン
             Button {
                 tutorialVM.page = 2
-                //アプリの色を保存
-                tutorialVM.saveUserSettingAppColor()
+                tutorialVM.saveUserSettingAppColor() //アプリの色を保存
             } label: {
                 ArrowButton(isBackButton: false, labelText: "次へ")
             }
