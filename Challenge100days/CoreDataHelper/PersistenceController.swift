@@ -71,18 +71,17 @@ struct PersistenceController{
         }
     }
     
-    // 非同期で削除する関数
-//    func deleteAsync(_ object: NSManagedObject, completion: @escaping (Error?) -> Void) {
-//        perform {
-//            self.delete(object)
-//            do {
-//                try self.save()
-//                completion(nil)
-//            } catch {
-//                completion(error)
-//            }
-//        }
-//    }
-}
+    /// 非同期で削除する関数
+    func deleteAsync(_ object: NSManagedObject, completion: @escaping (Error?) -> Void) {
+            moc.delete(object)
+        
+            do {
+                try moc.save()
+                completion(nil)
+            } catch {
+                completion(error)
+            }
+        }
+    }
 
 
