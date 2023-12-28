@@ -14,7 +14,7 @@ struct ActionView: View {
     ///ViewModel用の変数
     @EnvironmentObject var notificationViewModel: NotificationViewModel
     @StateObject private var bigButtonVM = BigButtonViewModel()
-    @EnvironmentObject var grobalStore: GrobalStore
+    @EnvironmentObject var grobalStore: GlobalStore
     
     ///表示＆共有用の画像
     @State var image: Image?

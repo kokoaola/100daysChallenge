@@ -11,10 +11,7 @@ import SwiftUI
 
 struct TabScreen: View {
     ///ViewModel用の変数
-    @ObservedObject var notificationViewModel = NotificationViewModel()
-    @ObservedObject var coreDataViewModel = CoreDataViewModel()
-    @ObservedObject var grobalStore = GrobalStore()
-    @ObservedObject var store = Store()
+//    @EnvironmentObject var globalStore: GlobalStore
     @StateObject private var tutorialVM = TutorialViewModel()
     
     var body: some View {
@@ -50,6 +47,7 @@ struct TabScreen: View {
             .environmentObject(notificationViewModel)
             .environmentObject(grobalStore)
             .environmentObject(store)
+//            .environmentObject(globalStore)
         }
 
     }
@@ -65,7 +63,6 @@ struct ContentView_Previews: PreviewProvider {
         }
         .environmentObject(NotificationViewModel())
         .environmentObject(CoreDataViewModel())
-        .environmentObject(Store())
-        .environmentObject(GrobalStore())
+        .environmentObject(GlobalStore())
     }
 }

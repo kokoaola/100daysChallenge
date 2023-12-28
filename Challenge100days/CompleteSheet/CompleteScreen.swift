@@ -12,7 +12,7 @@ import UIKit
 ///ユーザーが当日のタスクを達成したときに表示するコンプリートウインドウ
 struct CompleteSheet: View {
     ///ViewModel用の変数
-    @EnvironmentObject var store: GrobalStore
+    @EnvironmentObject var store: GlobalStore
     ///メモ追加シート表示用のフラグ
     @State var showMemo = false
     ///画面戻る用のフラグ
