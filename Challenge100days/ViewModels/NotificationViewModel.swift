@@ -48,7 +48,7 @@ class NotificationViewModel: ObservableObject{
         guard let item else {return false}
         
         //今日の日付と引数の日付が同日ならtrueを返す
-        if Calendar.current.isDate(Date.now, equalTo: item.date ?? Date.now, toGranularity: .day){
+        if Calendar.current.isDate(Date.now, equalTo: item.wrappedDate, toGranularity: .day){
             print("今日のタスクは達成済み")
             return true
         }else{

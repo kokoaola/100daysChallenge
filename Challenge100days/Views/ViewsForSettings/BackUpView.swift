@@ -82,7 +82,7 @@ struct BackUpView: View {
         //データが1つ以上格納されていればテキストエディターの初期値に設定
         .onAppear{
             for item in coreDataViewModel.allData{
-                string = string + "\n" + "Day" + String(item.num) + "  " +  AppSetting.makeDate(day: item.date ?? Date.now) + "\n" + (item.memo ?? "") + "\n"
+                string = string + "\n" + "Day" + String(item.num) + "  " +  AppSetting.makeDate(day: item.wrappedDate) + "\n" + (item.wrappedMemo) + "\n"
             }
         }
     }

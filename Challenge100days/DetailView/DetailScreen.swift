@@ -40,12 +40,12 @@ struct DetailScreen: View {
                 
                 Spacer()
                 
-                Text(AppSetting.makeDate(day: item.date ?? Date.now))
+                Text(AppSetting.makeDate(day: item.wrappedDate))
                     .font(.title3.weight(.ultraLight))
                     .padding(.leading, 40)
             }
             .accessibilityElement()
-            .accessibilityLabel("\(item.num)日目の記録、\(AppSetting.makeAccessibilityDate(day: item.date ?? Date()))")
+            .accessibilityLabel("\(item.num)日目の記録、\(AppSetting.makeAccessibilityDate(day: item.wrappedDate))")
             .foregroundColor(.primary)
             .frame(maxWidth: .infinity, alignment: .leading)
             
@@ -89,11 +89,11 @@ struct DetailScreen: View {
             detailVM.setItem(item: item)
             //あらかじめシェア用の画像を生成
             DispatchQueue.main.async {
-                image = generateImageWithText(number: Int(item.num), day: item.date ?? Date.now)
+                image = generateImageWithText(number: Int(item.num), day: item.wrappedDate)
             }
             
             //保存されたメモ内容があれば、テキストエディターの初期値として表示
-            detailVM.editText = item.memo ?? ""
+            detailVM.editText = item.wrappedMemo
         }
         
         
