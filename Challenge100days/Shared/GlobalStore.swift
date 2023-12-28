@@ -47,7 +47,6 @@ class GlobalStore: ObservableObject {
         }
         
         guard let lastData = allData.last?.date else {
-            self.objectWillChange.send()
             dayNumber = 1
             finishedTodaysTask = false
             return
@@ -55,13 +54,11 @@ class GlobalStore: ObservableObject {
         
         if Calendar.current.isDate(Date.now, equalTo: lastData, toGranularity: .day){
             DispatchQueue.main.async {
-                self.objectWillChange.send()
                 self.finishedTodaysTask = true
                 self.dayNumber = self.allData.count
             }
         }else{
             DispatchQueue.main.async {
-                self.objectWillChange.send()
                 self.finishedTodaysTask = false
                 self.dayNumber = self.allData.count + 1
             }
