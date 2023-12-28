@@ -14,28 +14,13 @@ struct makeNewItemSheet: View {
     ///ViewModel用の変数
     @EnvironmentObject var coreDataViewModel :CoreDataViewModel
     @EnvironmentObject var store: GlobalStore
+    @StateObject var makeNewItemVM = MakeNewItemViewModel()
     
     ///画面破棄用の変数
     @Environment(\.dismiss) var dismiss
     
     ///キーボードフォーカス用変数（Doneボタン表示のため）
     @FocusState var isInputActive: Bool
-    
-    ///入力したテキストを格納するプロパティ
-    @State private var editText = ""
-    
-    ///選択された日付を格納するプロパティ
-    @State private var userSelectedData = Calendar.current.date(byAdding: .day, value: -1, to: Date())!
-    
-    ///編集時のデータピッカー用の変数（未来のデータは追加できないようにするため）
-    var dateClosedRange : ClosedRange<Date>{
-        let min = Calendar.current.date(byAdding: .year, value: -10, to: Date())!
-        let max = Calendar.current.date(byAdding: .day, value: -1, to: Date())!
-        return min...max
-    }
-    
-    ///選択された日付が有効か判定するプロパティ
-    @State var isVailed = false
     
     
     
@@ -67,7 +52,7 @@ struct makeNewItemSheet: View {
                 HStack(alignment: .top){
                     Text("日付")
                     Spacer()
-                    DatePicker(selection: $userSelectedData, in: dateClosedRange, displayedComponents: .date, label: {Text("追加する日付")})
+                    DatePicker(selection: $makeNewItemVM.userSelectedDate, in: makeNewItemVM.dateClosedRange, displayedComponents: .date, label: {Text("追加する日付")})
                         .environment(\.locale, Locale(identifier: "ja-Jp"))
                         .datePickerStyle(.compact)
                         .padding(.top, -10)
@@ -79,7 +64,7 @@ struct makeNewItemSheet: View {
                     Text("メモ")
                     Spacer()
                 }
-                TextEditor(text: $editText)
+                TextEditor(text: $makeNewItemVM.editText)
                     .foregroundColor(Color(UIColor.label))
                     .lineSpacing(10)
                     .scrollContentBackground(Visibility.hidden)
@@ -92,13 +77,13 @@ struct makeNewItemSheet: View {
                     }
                 
                 //選択された日付が有効ではない時に表示する警告
-                if !isVailed{
+                if !makeNewItemVM.isVailed{
                     Label("選択した日はすでに記録が存在しています。", systemImage: "exclamationmark.circle")
                         .font(.footnote)
                         .padding(5)
                         .foregroundColor(.red)
                         .cornerRadius(10)
-                }else if editText.count > AppSetting.maxLengthOfMemo{
+                }else if makeNewItemVM.editText.count > AppSetting.maxLengthOfMemo{
                     //メモの文字数が上限を超えていた場合に表示する警告
                     Label("\(AppSetting.maxLengthOfMemo)文字以内のみ設定可能です", systemImage: "exclamationmark.circle")
                         .font(.footnote)
@@ -109,18 +94,33 @@ struct makeNewItemSheet: View {
                 
                 //保存ボタン
                 Button{
-                    dismiss()
-                    coreDataViewModel.saveData(date:userSelectedData, memo:editText)
-                    Task{
-                        await coreDataViewModel.assignNumbers()
+                    
+                    makeNewItemVM.saveTodaysChallenge(challengeDate: store.dayNumber){ success in
+                        if success {
+                            DispatchQueue.main.async {
+                                Task{
+                                    await store.assignNumbers()
+                                }
+                            }
+                            store.setAllData()
+                            dismiss()
+                        }else{
+                            dismiss()
+                        }
                     }
+                    
+
+//                    coreDataViewModel.saveData(date:userSelectedData, memo:editText)
+//                    Task{
+//                        await coreDataViewModel.assignNumbers()
+//                    }
                     
                 } label: {
                     SaveButton()
-                        .foregroundColor(editText.count <= AppSetting.maxLengthOfMemo && isVailed ? .green : .gray)
-                        .opacity(editText.count <= AppSetting.maxLengthOfMemo && isVailed ? 1.0 : 0.5)
+                        .foregroundColor(makeNewItemVM.editText.count <= AppSetting.maxLengthOfMemo && makeNewItemVM.isVailed ? .green : .gray)
+                        .opacity(makeNewItemVM.editText.count <= AppSetting.maxLengthOfMemo && makeNewItemVM.isVailed ? 1.0 : 0.5)
                 }
-                .disabled(isVailed == false || editText.count > AppSetting.maxLengthOfMemo)
+                .disabled(makeNewItemVM.isVailed == false || makeNewItemVM.editText.count > AppSetting.maxLengthOfMemo)
                 
             }
             .foregroundColor(.primary)
@@ -131,32 +131,32 @@ struct makeNewItemSheet: View {
             .background(.ultraThinMaterial)
             
             //グラデーション背景の設定
-//            .modifier(UserSettingGradient(appColorNum: store.userSelectedColor))
+            .modifier(UserSettingGradient(appColorNum: makeNewItemVM.userSelectedColor))
             
             
-            .onChange(of: userSelectedData) { newValue in
+            .onChange(of: makeNewItemVM.userSelectedDate) { newValue in
                 //データベースに存在するアイテムの日付とダブってればSaveボタンを無効にする
-//                for item in coreDataViewModel.allData{
-//                    if Calendar.current.isDate(item.date!, equalTo: newValue , toGranularity: .day){
-//                        isVailed = false
-//                        return
-//                    }
-//                }
+                for item in store.allData{
+                    if Calendar.current.isDate(item.date!, equalTo: newValue , toGranularity: .day){
+                        makeNewItemVM.isVailed = false
+                        return
+                    }
+                }
                 //ダブりがなければisVailedをTrueにしてリターン
-                isVailed = true
+                makeNewItemVM.isVailed = true
             }
             
             .onAppear{
                 let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: Date())!
                 //データベースに昨日の日付があれば、Saveボタンを無効にする
-//                for item in coreDataViewModel.allData{
-//                    if Calendar.current.isDate(item.date!, equalTo: yesterday , toGranularity: .day){
-//                        isVailed = false
-//                        return
-//                    }
-//                }
+                for item in store.allData{
+                    if Calendar.current.isDate(item.date!, equalTo: yesterday , toGranularity: .day){
+                        makeNewItemVM.isVailed = false
+                        return
+                    }
+                }
                 //ダブりがなければisVailedをTrueにしてリターン
-                isVailed = true
+                makeNewItemVM.isVailed = true
             }
             
             //キーボード閉じるボタンを配置
