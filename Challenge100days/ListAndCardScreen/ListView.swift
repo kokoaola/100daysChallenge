@@ -11,14 +11,13 @@ import SwiftUI
 ///リスト形式で表示するビュー
 struct ListView: View {
     ///ViewModel用の変数
-    @EnvironmentObject var notificationViewModel :NotificationViewModel
-    @EnvironmentObject var coreDataViewModel :CoreDataViewModel
+    @EnvironmentObject var store: GlobalStore
     
     
     var body: some View {
         
         ///データが一件も存在しない時の表示
-        if coreDataViewModel.allData.isEmpty{
+        if store.allData.isEmpty{
             Text("まだデータがありません")
                 .foregroundColor(Color(UIColor.label))
                 .frame(maxWidth: .infinity, alignment: .center)
@@ -30,11 +29,11 @@ struct ListView: View {
             VStack(spacing: 5){
                 
                 //CoreDataに保存されている全データを取り出す
-                ForEach(coreDataViewModel.allData.reversed(), id:\.self) { item in
+                ForEach(store.allData.reversed(), id:\.self) { item in
                     
                     //セルをタップするとDetailViewを表示
                     NavigationLink(destination: {
-                        DetailView(item: item)
+                        DetailScreen(item: item)
                     }){
                         
                         //セル部分のレイアウト
@@ -88,13 +87,13 @@ struct ListView: View {
                     }
                     
                     //ラインの表示
-                    if item != coreDataViewModel.allData.first{
+                    if item != store.allData.first{
                         Divider()
                             .padding(.vertical, 5)
                     }
                 }
             }
-            .environmentObject(notificationViewModel)
+//            .environmentObject(notificationViewModel)
             .fixedSize(horizontal: false, vertical: true)
             .padding()
             .background(.thinMaterial)

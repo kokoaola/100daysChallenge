@@ -11,19 +11,15 @@ import SwiftUI
 ///カード形式で表示するビュー
 struct CardView: View {
     ///ViewModel用の変数
-    @EnvironmentObject var notificationViewModel :NotificationViewModel
-    @EnvironmentObject var coreDataViewModel :CoreDataViewModel
-    
-    ///グリッドレイアウトの設定用変数
-    let columns = Array(repeating: GridItem(.flexible()), count: 10)
-    
+    @EnvironmentObject var store: GlobalStore
+
     
     var body: some View {
+        ///グリッドレイアウトの設定用変数
+        let columns = Array(repeating: GridItem(.flexible()), count: 10)
         
         //ビュー重ねる用のZStack
         ZStack(alignment: .top){
-            
-            
             //背景の空白グリッド表示用のビュー
             LazyVGrid(columns: columns) {
                 ForEach(1...100, id: \.self) { num in
@@ -57,10 +53,10 @@ struct CardView: View {
             LazyVGrid(columns: columns) {
                 
                 //CoreDataに保存されている全データを取り出す
-                ForEach(coreDataViewModel.allData, id: \.self) { item in
+                ForEach(store.allData, id: \.self) { item in
                     //遷移先はDetailView
                     NavigationLink(destination: {
-                        DetailView(item: item)
+                        DetailScreen(item: item)
                     }){
                         
                         VStack(spacing: -3){
@@ -77,7 +73,7 @@ struct CardView: View {
                                 //最終アイテム追加してから１日以内ならキラキラを表示
                                 Image(systemName: "sparkles")
                                     .offset(x:8, y:-9)
-                                    .foregroundColor(item == coreDataViewModel.allData.last && coreDataViewModel.checkTodaysTask ? .yellow : .clear)
+//                                    .foregroundColor((item == store.allData.last) && store.checkTodaysTask ? .yellow : .clear)
                                 
                                 //セルに番号を重ねる
                                 Text("\(item.num)")
@@ -91,8 +87,8 @@ struct CardView: View {
                     .accessibilityLabel("\(item.num)日目の記録")
                 }
             }//全面のグリッドビューここまで
-            .environmentObject(notificationViewModel)
-            .environmentObject(coreDataViewModel)
+//            .environmentObject(notificationViewModel)
+//            .environmentObject(coreDataViewModel)
         }
         
         .padding()

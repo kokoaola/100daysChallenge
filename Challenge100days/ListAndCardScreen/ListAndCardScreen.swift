@@ -13,15 +13,8 @@ struct ListAndCardView: View {
     @Environment(\.managedObjectContext) var veiwContext
     
     ///ViewModel用の変数
-    @EnvironmentObject var notificationViewModel: NotificationViewModel
-    @EnvironmentObject var coreDataViewModel: CoreDataViewModel
-    @EnvironmentObject var store: Store
-    
-    ///アイテム新規追加用シート格納変数
-    @State private var showSheet = false
-    
-    ///リストで表示が選択されたときのフラグ
-    @State private var showList = true
+    @StateObject var listAndCardVM = ListAndCardViewModel()
+    @EnvironmentObject var store: GlobalStore
     
     var body: some View {
         NavigationStack(){
@@ -30,13 +23,13 @@ struct ListAndCardView: View {
             ScrollView(.vertical, showsIndicators: false){
                 //カード表示、リスト表示共通部分
                 HStack(){
-                    Text("開始日 : ") + Text("\(AppSetting.makeDate(day:coreDataViewModel.allData.first?.date ?? Date.now))")
+                    Text("開始日 : ") + Text("\(AppSetting.makeDate(day: store.allData.first?.date ?? Date.now))")
                         .font(.footnote)
                     
                     Spacer()
                     
                     //カードとリストの表示を選択するピッカー
-                    Picker("", selection: $showList){
+                    Picker("", selection: $listAndCardVM.showList){
                         Text("カード")
                             .tag(false)
                         Text("リスト")
@@ -49,36 +42,30 @@ struct ListAndCardView: View {
                 }
                 
                 //ピッカーの状態に応じてビューを表示
-                if showList{
+                if listAndCardVM.showList{
                     ListView()
                 }else{
                     CardView()
                 }
             }
-            .environmentObject(notificationViewModel)
-            .environmentObject(coreDataViewModel)
             .foregroundColor(Color(UIColor.label))
             .padding(.horizontal)
             
             //グラデーション背景の設定
-            .modifier(UserSettingGradient(appColorNum: store.userSelectedColor))
+            .modifier(UserSettingGradient(appColorNum: listAndCardVM.userSelectedColor))
             
             
             
             //メモ追加ボタンが押下されたら、makeNewItemSheetを表示
-            .sheet(isPresented: $showSheet) {
+            .sheet(isPresented: $listAndCardVM.showSheet) {
                 makeNewItemSheet()
-                    .environmentObject(store)
-                    .environmentObject(notificationViewModel)
-                    .environmentObject(coreDataViewModel)
-                
             }
             
             //データの新規追加用のプラスボタン
             .toolbar{
                 ToolbarItem{
                     Button(action: {
-                        showSheet = true
+                        listAndCardVM.showSheet = true
                     }, label: {
                         Image(systemName: "plus")
                             .foregroundColor(.primary)
