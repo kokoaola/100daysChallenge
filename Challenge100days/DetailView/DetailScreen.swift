@@ -10,11 +10,12 @@ import CoreData
 
 
 ///記録の詳細を表示するビュー
-struct DetailView: View {
+struct DetailScreen: View {
     ///ViewModel用の変数
     @EnvironmentObject var notificationViewModel: NotificationViewModel
     @EnvironmentObject var coreDataViewModel: CoreDataViewModel
     @EnvironmentObject var store: GlobalStore
+    @StateObject var detailVM = DetailViewModel()
     
     ///画面破棄用の変数
     @Environment(\.dismiss) var dismiss
@@ -22,18 +23,11 @@ struct DetailView: View {
     ///ビュー生成時にオブジェクトデータ受け取る用変数
     let item: DailyData
     
-    ///削除ボタン押下後の確認アラート用のフラグ
-    @State private var showCansel = false
-    
-    ///入力したテキストを格納するプロパティ
-    @State private var editText = ""
-    
-    ///シェア用の画像格納用変数
-    @State private var image: Image?
-    
     ///キーボードフォーカス用変数（Doneボタン表示のため）
     @FocusState var isInputActive: Bool
     
+    ///シェア用の画像格納用変数
+    @State private var image: Image?
     
     
     var body: some View {
@@ -57,14 +51,14 @@ struct DetailView: View {
             
             //メモが何も記入されていない場合はプレースホルダーを表示
             ZStack(alignment: .topLeading){
-                if editText.isEmpty{
+                if detailVM.editText.isEmpty{
                     Text("保存されたメモはありません。\nタップで追加できます。")
                         .padding(8)
                         .foregroundColor(.primary)
                         .opacity(0.5)
                 }
                 //メモ編集用のテキストエディター
-                TextEditor(text: $editText)
+                TextEditor(text: $detailVM.editText)
                     .lineSpacing(2)
                     .scrollContentBackground(Visibility.hidden)
                     .frame(maxHeight: .infinity)
@@ -88,15 +82,18 @@ struct DetailView: View {
         .navigationBarBackButtonHidden(true)
         
         //グラデーション背景の設定
-        .modifier(UserSettingGradient(appColorNum: store.userSelectedColor))
+        .modifier(UserSettingGradient(appColorNum: detailVM.userSelectedColor))
         
         
         .onAppear{
-            //シェア用の画像を生成
-            image = generateImageWithText(number: Int(item.num), day: item.date ?? Date.now)
+            detailVM.setItem(item: item)
+            //あらかじめシェア用の画像を生成
+            DispatchQueue.main.async {
+                image = generateImageWithText(number: Int(item.num), day: item.date ?? Date.now)
+            }
             
             //保存されたメモ内容があれば、テキストエディターの初期値として表示
-            editText = item.memo ?? ""
+            detailVM.editText = item.memo ?? ""
         }
         
         
@@ -107,27 +104,27 @@ struct DetailView: View {
                 //文字数が上限を超えてる時の注意書き
                 Text("\(AppSetting.maxLengthOfMemo)文字以内のみ設定可能です")
                     .font(.caption)
-                    .foregroundColor(editText.count > AppSetting.maxLengthOfMemo ? .red : .clear)
+                    .foregroundColor(detailVM.editText.count > AppSetting.maxLengthOfMemo ? .red : .clear)
                 
                 //編集内容保存ボタン
                 Button("保存する") {
                     Task{
-                        await coreDataViewModel.updateDataMemo(newMemo:editText, data:item )
+                        await coreDataViewModel.updateDataMemo(newMemo: detailVM.editText, data:item )
                         
                         await coreDataViewModel.assignNumbers()
                     }
                     isInputActive = false
                 }
                 
-                .foregroundColor(editText.count <= AppSetting.maxLengthOfMemo ? .primary : .gray)
-                .opacity(editText.count <= AppSetting.maxLengthOfMemo ? 1.0 : 0.5)
-                .disabled(editText.count > AppSetting.maxLengthOfMemo)
+                .foregroundColor(detailVM.editText.count <= AppSetting.maxLengthOfMemo ? .primary : .gray)
+                .opacity(detailVM.editText.count <= AppSetting.maxLengthOfMemo ? 1.0 : 0.5)
+                .disabled(detailVM.editText.count > AppSetting.maxLengthOfMemo)
             }
             
             //表示している日の記録の削除用ごみ箱アイコン
             ToolbarItem(placement: .navigationBarTrailing){
                 Button {
-                    showCansel = true
+                    detailVM.showCansel = true
                 } label: {
                     Image(systemName: "trash")
                 }
@@ -160,19 +157,30 @@ struct DetailView: View {
         
         
         //削除ボタン押下時のアラート
-        .alert("この日の記録を破棄しますか？", isPresented: $showCansel){
+        .alert("この日の記録を破棄しますか？", isPresented: $detailVM.showCansel){
             Button("破棄する",role: .destructive){
-
-                Task{
-                    await coreDataViewModel.deleteData(data:item)
-                    await coreDataViewModel.assignNumbers()
-                    if notificationViewModel.isNotificationOn{
-                        await notificationViewModel.setNotification(item: coreDataViewModel.allData.last)
+                detailVM.deleteData(data: item) { success in
+                    if success {
+                        DispatchQueue.main.async {
+                            Task{
+                                await store.assignNumbers()
+                            }
+                        }
+                        store.setAllData()
+                        dismiss()
+                    }else{
+                        dismiss()
                     }
                 }
+
+//                Task{
+//                    if notificationViewModel.isNotificationOn{
+//                        await notificationViewModel.setNotification(item: coreDataViewModel.allData.last)
+//                    }
+//                }
                 
 
-                dismiss()
+
             }
             Button("戻る",role: .cancel){}
         }message: {
