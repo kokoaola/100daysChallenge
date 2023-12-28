@@ -13,7 +13,7 @@ struct makeNewItemSheet: View {
     
     ///ViewModel用の変数
     @EnvironmentObject var coreDataViewModel :CoreDataViewModel
-    @EnvironmentObject var store: Store
+    @EnvironmentObject var store: GlobalStore
     
     ///画面破棄用の変数
     @Environment(\.dismiss) var dismiss
@@ -131,17 +131,17 @@ struct makeNewItemSheet: View {
             .background(.ultraThinMaterial)
             
             //グラデーション背景の設定
-            .modifier(UserSettingGradient(appColorNum: store.userSelectedColor))
+//            .modifier(UserSettingGradient(appColorNum: store.userSelectedColor))
             
             
             .onChange(of: userSelectedData) { newValue in
                 //データベースに存在するアイテムの日付とダブってればSaveボタンを無効にする
-                for item in coreDataViewModel.allData{
-                    if Calendar.current.isDate(item.date!, equalTo: newValue , toGranularity: .day){
-                        isVailed = false
-                        return
-                    }
-                }
+//                for item in coreDataViewModel.allData{
+//                    if Calendar.current.isDate(item.date!, equalTo: newValue , toGranularity: .day){
+//                        isVailed = false
+//                        return
+//                    }
+//                }
                 //ダブりがなければisVailedをTrueにしてリターン
                 isVailed = true
             }
@@ -149,12 +149,12 @@ struct makeNewItemSheet: View {
             .onAppear{
                 let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: Date())!
                 //データベースに昨日の日付があれば、Saveボタンを無効にする
-                for item in coreDataViewModel.allData{
-                    if Calendar.current.isDate(item.date!, equalTo: yesterday , toGranularity: .day){
-                        isVailed = false
-                        return
-                    }
-                }
+//                for item in coreDataViewModel.allData{
+//                    if Calendar.current.isDate(item.date!, equalTo: yesterday , toGranularity: .day){
+//                        isVailed = false
+//                        return
+//                    }
+//                }
                 //ダブりがなければisVailedをTrueにしてリターン
                 isVailed = true
             }

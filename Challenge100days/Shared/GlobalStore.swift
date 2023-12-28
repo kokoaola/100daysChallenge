@@ -32,7 +32,9 @@ class GrobalStore: ObservableObject {
         request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: true)]
         do{
             let tasks = try context.fetch(request)
-            allData = tasks
+            DispatchQueue.main.async {
+                self.allData = tasks
+            }
         }catch{
             allData = []
         }
@@ -43,11 +45,16 @@ class GrobalStore: ObservableObject {
             return }
         
         if Calendar.current.isDate(Date.now, equalTo: lastData, toGranularity: .day){
-            finishedTodaysTask = true
-            dayNumber = allData.count
+            DispatchQueue.main.async {
+                self.finishedTodaysTask = true
+                self.dayNumber = self.allData.count
+            }
         }else{
-            finishedTodaysTask = false
-            dayNumber = allData.count + 1
+            DispatchQueue.main.async {
+                self.finishedTodaysTask = false
+                self.dayNumber = self.allData.count + 1
+            }
         }
     }
 }
+
