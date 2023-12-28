@@ -7,10 +7,11 @@
 
 import SwiftUI
 
-///コンプリートボタンビュー
-struct TermsView: View {
+///目標を表示するビュー
+struct GoalView: View {
     let longTermGoal: String
     let shortTermGoal: String
+    
     var body: some View{
         VStack(alignment: .center, spacing: 10){
             VStack{
@@ -35,15 +36,8 @@ struct TermsView: View {
             .contentShape(Rectangle())
             .accessibilityElement()
             .accessibilityLabel("100日取り組むこと、\(shortTermGoal)")
-        }.font(.callout.weight(.medium))
-            .padding()
-            .frame(width: AppSetting.screenWidth * 0.9)
-        
-            .background(.ultraThinMaterial)
-            .cornerRadius(15)
-            .padding(.top,32)
-            .padding(.bottom, 42)
-            .foregroundColor(.primary)
+        }
+        .GoalBackground()
     }
 }
 

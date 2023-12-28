@@ -22,16 +22,15 @@ struct ActionView: View {
     var body: some View {
         ZStack{
             VStack(spacing: 20){
-                //目標非表示設定がOFFになってれば目標を表示
+                ///目標非表示設定がOFFになってれば目標を表示
                 if bigButtonVM.hideInfomation == false{
-                    TermsView(longTermGoal: bigButtonVM.longTermGoal, shortTermGoal: bigButtonVM.shortTermGoal)
+                    GoalView(longTermGoal: bigButtonVM.longTermGoal, shortTermGoal: bigButtonVM.shortTermGoal)
                 }else{
                     Spacer()
                 }
                 
-                //コメントが入る白い吹き出し
+                ///コメントが入る白い吹き出し
                 SpeechBubbleView(finishedTodaysTask: grobalStore.finishedTodaysTask, showCompleteWindew: $bigButtonVM.showCompleteWindew)
-                
                 
                 ///Completeボタン:今日のミッションが未達成ならボタンを有効にして表示
                 Button(action: {
@@ -42,14 +41,13 @@ struct ActionView: View {
                     //データを保存
                     bigButtonVM.saveTodaysChallenge(challengeDate: grobalStore.dayNumber) { success in
                         if success {
-                            //配列を更新
-                            grobalStore.setAllData()
-                            
                             Task{
                                 //通知設定している場合、本日の通知はスキップする
-//                                if notificationViewModel.isNotificationOn{
-//                                    await notificationViewModel.setNotification(item: grobalStore.allData.last)
-//                                }
+                                //                                if notificationViewModel.isNotificationOn{
+                                //                                    await notificationViewModel.setNotification(item: grobalStore.allData.last)
+                                //                                }
+                                //配列を更新
+                                grobalStore.setAllData()
                             }
                         }
                     }
@@ -58,7 +56,6 @@ struct ActionView: View {
                     CompleteButton(num: grobalStore.dayNumber)
                         .opacity(grobalStore.finishedTodaysTask ? 0.3 : 1.0)
                 })
-                
                 .disabled(grobalStore.finishedTodaysTask)
                 
                 Spacer()
@@ -72,7 +69,7 @@ struct ActionView: View {
                     .padding(.horizontal)
                     .transition(.scale)
                 
-                //子ビューのキーボード閉じるボタンの実装
+                ///子ビューのキーボード閉じるボタンの実装
                     .toolbar {
                         ToolbarItemGroup(placement: .keyboard) {
                             Spacer()  // 右寄せにする
@@ -84,21 +81,17 @@ struct ActionView: View {
                     }
             }
         }
-        
-        
-        //アプリを開いた日のタスクが未達成の場合、コンプリートウインドウを非表示、表示する番号は総データ数＋1、吹き出し文言はボタン押下前のものにする
         .onAppear{
+            //コンプリートウインドウを非表示
             bigButtonVM.showCompleteWindew = false
-
             //あらかじめ当日分のイメージを作成してセット
             DispatchQueue.main.async {
                 grobalStore.setAllData()
+                image = generateImageWithText(number: grobalStore.dayNumber, day: Date.now)
             }
-            image = generateImageWithText(number: grobalStore.dayNumber, day: Date.now)
         }
         
         .frame(maxWidth: .infinity)
-        
         //グラデーション背景の設定
         .modifier(UserSettingGradient(appColorNum: bigButtonVM.userSelectedColor))
     }

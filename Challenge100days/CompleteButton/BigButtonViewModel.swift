@@ -22,6 +22,9 @@ final class BigButtonViewModel: ViewModelBase{
         }
     }
     
+    ///コンプリートウインドウを表示するかどうかのフラグ
+    @Published var dayNumber = 1
+    
     override init(){
         //defaultsへのアクセスをsuper.initの後に移動する処理
         self.showCompleteWindew = false
@@ -53,5 +56,9 @@ final class BigButtonViewModel: ViewModelBase{
                 completion(true)
             }
         }
+    }
+    
+    func setDayNumber(num: Int){
+        self.dayNumber = num
     }
 }

@@ -20,6 +20,9 @@ class GlobalStore: ObservableObject {
     @Published var userSelectedTag = "one"
     ///当日のタスクが達成済みかを格納する変数
     @Published var finishedTodaysTask = true
+    
+    
+    
     let request = NSFetchRequest<DailyData>(entityName: AppGroupConstants.entityName)
     
     init(){
@@ -32,38 +35,37 @@ class GlobalStore: ObservableObject {
     
     ///すべてのデータを取得するメソッド
     func setAllData(){
-        
         request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: true)]
-        do{
-            let tasks = try context.fetch(request)
-            DispatchQueue.main.async {
-                self.allData = tasks
+        
+        DispatchQueue.main.async {
+
+            do{
+                let tasks = try self.context.fetch(self.request)
+                    self.allData = tasks
+            }catch{
+                self.allData = []
+                self.dayNumber = 1
+                self.finishedTodaysTask = false
+                return
             }
-        }catch{
-            allData = []
-            dayNumber = 1
-            finishedTodaysTask = false
-            return
-        }
-        
-        guard let lastData = allData.last?.date else {
-            dayNumber = 1
-            finishedTodaysTask = false
-            return
-        }
-        
-        if Calendar.current.isDate(Date.now, equalTo: lastData, toGranularity: .day){
-            DispatchQueue.main.async {
+            
+            guard let lastData = self.allData.last?.date else {
+                self.dayNumber = 1
+                self.finishedTodaysTask = false
+                return
+            }
+            
+            if Calendar.current.isDate(Date.now, equalTo: lastData, toGranularity: .day){
                 self.finishedTodaysTask = true
                 self.dayNumber = self.allData.count
-            }
-        }else{
-            DispatchQueue.main.async {
+            }else{
                 self.finishedTodaysTask = false
                 self.dayNumber = self.allData.count + 1
             }
         }
     }
+    
+    
     
     ///データの番号を振り直すメソッド
     func assignNumbers() async{

@@ -65,6 +65,18 @@ extension View {
             .background(.ultraThinMaterial)
             .navigationBarBackButtonHidden(true)
     }
+    
+    func GoalBackground() -> some View{
+        self
+            .font(.callout.weight(.medium))
+            .padding()
+            .frame(width: AppSetting.screenWidth * 0.9)
+            .background(.ultraThinMaterial)
+            .cornerRadius(15)
+            .padding(.top,32)
+            .padding(.bottom, 42)
+            .foregroundColor(.primary)
+    }
 }
 
 
