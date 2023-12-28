@@ -22,28 +22,22 @@ final class DetailViewModel: ViewModelBase{
         self.item = item
     }
     
-    ///当日のタスクの完了を保存するメソッド
-    //    func saveTodaysChallenge(challengeDate: Int, completion: @escaping (Bool) -> Void) {
-    //        //データのインスタンス生成
-    //        let entity = DailyData(context: PersistenceController.shared.moc)
-    //        entity.id = UUID()
-    //        entity.date = Date()
-    //        entity.memo = ""
-    //        entity.num = Int16(challengeDate)
-    //
-    //        // 変更を保存
-    //        PersistenceController.shared.saveAsync { error in
-    //            if let _ = error {
-    //                // エラーハンドリング
-    //                completion(false)
-    //            } else {
-    //                //ウィジェットを更新
-    //                AppGroupConstants.reloadTimelines()
-    //                // 保存成功
-    //                completion(true)
-    //            }
-    //        }
-    //    }
+    
+    ///引数で受け取った日のメモを更新するメソッド、データがnilなら最新のメモを更新
+    func updateMemo(item: DailyData){
+        let oldMemo = item.memo
+        
+        item.memo = editText
+        
+        // 変更を保存
+        PersistenceController.shared.saveAsync{ error in
+            if let _ = error {
+                // エラーハンドリング
+                item.memo = oldMemo
+            }
+        }
+    }
+    
     
     
     
