@@ -51,7 +51,6 @@ class TutorialViewModel: ViewModelBase{
     
     ///入力された目標をユーザーデフォルトに保存する関数
     func saveTerm(){
-        longTermGoal = longTermEditText
-        shortTermGoal = shortTermEditText
+        setGoal(long: longTermEditText, short: shortTermEditText)
     }
 }

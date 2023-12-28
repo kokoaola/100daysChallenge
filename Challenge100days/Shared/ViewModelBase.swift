@@ -21,17 +21,10 @@ class ViewModelBase: ObservableObject {
         }
     }
     ///長期目標を格納する変数
-    @Published var longTermGoal: String{
-        didSet {
-            defaults.set(self.longTermGoal, forKey: UserDefaultsConstants.longTermGoalKey)
-        }
-    }
+    @Published private(set) var longTermGoal: String
     ///短期目標を格納する変数
-    @Published var shortTermGoal: String{
-        didSet {
-            defaults.set(self.shortTermGoal, forKey: UserDefaultsConstants.shortTermGoalKey)
-        }
-    }
+    @Published private(set) var shortTermGoal: String
+    
     init(){
         //初期値が入っていない場合は初回起動フラグにtrueを設定
         defaults.register(defaults: ["isFirst":true])
