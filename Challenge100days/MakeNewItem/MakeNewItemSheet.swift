@@ -108,7 +108,6 @@ struct makeNewItemSheet: View {
                             dismiss()
                         }
                     }
-                    
 
 //                    coreDataViewModel.saveData(date:userSelectedData, memo:editText)
 //                    Task{

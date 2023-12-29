@@ -11,19 +11,19 @@ import SwiftUI
 ///リスト形式で表示するビュー
 struct ListView: View {
     ///ViewModel用の変数
-    var allData: [DailyData]
+    @ObservedObject var listAndCardVM: ListAndCardViewModel
     
     var body: some View {
         
         ///データが一件も存在しない時の表示
-        if allData.isEmpty{
+        if listAndCardVM.allData.isEmpty{
             NoDataView()
             
         ///データが存在するときの表示
         }else{
             VStack(spacing: 5){
                 //CoreDataに保存されている全データを取り出す
-                ForEach(allData.reversed(), id:\.self) { item in
+                ForEach(listAndCardVM.allData.reversed(), id:\.self) { item in
 
                     //セルをタップするとDetailViewに遷移
                     NavigationLink(destination: {
@@ -34,7 +34,7 @@ struct ListView: View {
                     }
                     
                     //ラインの表示
-                    if item != allData.first{
+                    if item != listAndCardVM.allData.first{
                         Divider()
                             .padding(.vertical, 5)
                     }

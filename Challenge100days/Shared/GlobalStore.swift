@@ -77,11 +77,11 @@ class GlobalStore: ObservableObject {
                 return
             }
         
+
             for (index, data) in allTask.enumerated() {
                 // numを1から順に割り当てる
                 data.num = Int16(index + 1)
             }
-        
         await MainActor.run{
             // 変更を保存
             PersistenceController.shared.saveAsync { error in

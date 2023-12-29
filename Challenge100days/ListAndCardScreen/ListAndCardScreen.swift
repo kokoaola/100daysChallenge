@@ -39,9 +39,9 @@ struct ListAndCardView: View {
             
             ///ピッカーの状態に応じてビューを表示
             if listAndCardVM.showList{
-                ListView(allData: listAndCardVM.allData)
+                ListView(listAndCardVM: listAndCardVM)
             }else{
-                CardView(allData: listAndCardVM.allData)
+                CardView(listAndCardVM: listAndCardVM)
             }
         }
         .foregroundColor(Color(UIColor.label))
@@ -50,18 +50,21 @@ struct ListAndCardView: View {
         .modifier(UserSettingGradient(appColorNum: listAndCardVM.userSelectedColor))
         
         //メモ追加ボタンが押下されたら、makeNewItemSheetを表示
-        .sheet(isPresented: $listAndCardVM.showSheet) {
+        .sheet(isPresented : $listAndCardVM.showSheet , onDismiss : {
+            //シートが閉じられた時には配列をビューに再セット（onAppearが適用されないため）
+            withAnimation {
+                listAndCardVM.setDailyData(allData: store.allData)
+            }
+        }) {
             makeNewItemSheet()
         }
         
         //ビュー表示時に最新のリストをセットする
         .onAppear{
-            DispatchQueue.main.async {
                 withAnimation {
                     listAndCardVM.setDailyData(allData: store.allData)
                 }
             }
-        }
         //データの新規追加用のプラスボタン
         .toolbar{
             ToolbarItem{

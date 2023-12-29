@@ -26,7 +26,7 @@ final class MakeNewItemViewModel: ViewModelBase{
     ///選択された日付が有効か判定するプロパティ
     @Published var isVailed = false
     
-    ///当日のタスクの完了を保存するメソッド
+    ///選択された日付の完了を保存するメソッド
     func saveTodaysChallenge(challengeDate: Int, completion: @escaping (Bool) -> Void) {
         //データのインスタンス生成
         let entity = DailyData(context: PersistenceController.shared.moc)
