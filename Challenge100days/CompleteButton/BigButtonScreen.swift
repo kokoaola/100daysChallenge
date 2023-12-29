@@ -13,8 +13,8 @@ struct ActionView: View {
     
     ///ViewModel用の変数
     @EnvironmentObject var notificationViewModel: NotificationViewModel
+    @EnvironmentObject var globalStore: GlobalStore
     @StateObject private var bigButtonVM = BigButtonViewModel()
-    @EnvironmentObject var grobalStore: GlobalStore
     
     ///表示＆共有用の画像
     @State var image: Image?
@@ -30,7 +30,7 @@ struct ActionView: View {
                 }
                 
                 ///コメントが入る白い吹き出し
-                SpeechBubbleView(finishedTodaysTask: grobalStore.finishedTodaysTask, showCompleteWindew: $bigButtonVM.showCompleteWindew)
+                SpeechBubbleView(finishedTodaysTask: globalStore.finishedTodaysTask, showCompleteWindew: $bigButtonVM.showCompleteWindew)
                 
                 ///Completeボタン:今日のミッションが未達成ならボタンを有効にして表示
                 Button(action: {
@@ -39,24 +39,24 @@ struct ActionView: View {
                     }
                     
                     //データを保存
-                    bigButtonVM.saveTodaysChallenge(challengeDate: grobalStore.dayNumber) { success in
+                    bigButtonVM.saveTodaysChallenge(challengeDate: globalStore.dayNumber) { success in
                         if success {
                             Task{
-                                //通知設定している場合、本日の通知はスキップする
-                                //                                if notificationViewModel.isNotificationOn{
-                                //                                    await notificationViewModel.setNotification(item: grobalStore.allData.last)
-                                //                                }
+                                // 通知設定している場合、本日の通知はスキップする
+                                if notificationViewModel.isNotificationOn{
+                                    await notificationViewModel.setNotification(isFinishTodaysTask: globalStore.finishedTodaysTask)
+                                }
                                 //配列を更新
-                                grobalStore.setAllData()
+                                globalStore.setAllData()
                             }
                         }
                     }
                 }, label: {
                     //達成済みの場合ラベルは薄く表示
-                    CompleteButton(num: grobalStore.dayNumber)
-                        .opacity(grobalStore.finishedTodaysTask ? 0.3 : 1.0)
+                    CompleteButton(num: globalStore.dayNumber)
+                        .opacity(globalStore.finishedTodaysTask ? 0.3 : 1.0)
                 })
-                .disabled(grobalStore.finishedTodaysTask)
+                .disabled(globalStore.finishedTodaysTask)
                 
                 Spacer()
             }
@@ -86,8 +86,8 @@ struct ActionView: View {
             bigButtonVM.showCompleteWindew = false
             //あらかじめ当日分のイメージを作成してセット
             DispatchQueue.main.async {
-                grobalStore.setAllData()
-                image = generateImageWithText(number: grobalStore.dayNumber, day: Date.now)
+                globalStore.setAllData()
+                image = generateImageWithText(number: globalStore.dayNumber, day: Date.now)
             }
         }
         
