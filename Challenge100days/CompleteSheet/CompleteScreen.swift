@@ -110,6 +110,9 @@ struct CompleteSheet: View {
             MemoSheet()
                 .environmentObject(store)
         }
+//        .onAppear{
+//            image = generateImageWithText(number: store.dayNumber, day: Date.now)
+//        }
     }
 }
 

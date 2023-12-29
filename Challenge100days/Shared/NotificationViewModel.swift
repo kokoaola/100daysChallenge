@@ -43,19 +43,19 @@ class NotificationViewModel: ObservableObject{
     }
     
     ///今日のタスクが終了しているか確認してBool型で返すメソッド
-    func checkTodaysTask(item: DailyData?) -> Bool{
-        //もしデータが空なら未達成
-        guard let item else {return false}
-        
-        //今日の日付と引数の日付が同日ならtrueを返す
-        if Calendar.current.isDate(Date.now, equalTo: item.wrappedDate, toGranularity: .day){
-            print("今日のタスクは達成済み")
-            return true
-        }else{
-            print("今日のタスクは未達成")
-            return false
-        }
-    }
+//    func checkTodaysTask(item: DailyData?) -> Bool{
+//        //もしデータが空なら未達成
+//        guard let item else {return false}
+//
+//        //今日の日付と引数の日付が同日ならtrueを返す
+//        if Calendar.current.isDate(Date.now, equalTo: item.wrappedDate, toGranularity: .day){
+//            print("今日のタスクは達成済み")
+//            return true
+//        }else{
+//            print("今日のタスクは未達成")
+//            return false
+//        }
+//    }
     
     ///通知のオンオフを切り替えるメソッド
     func switchUserNotification(isOn: Bool){
@@ -94,7 +94,7 @@ class NotificationViewModel: ObservableObject{
     }
     
     ///通知をセットするメソッド（当日のタスクが達成済みなら翌日から開始する）
-    func setNotification(item: DailyData?) async{
+    func setNotification(isFinishTodaysTask: Bool) async{
         //ユーザーが選択した日時を保存
         saveUserSelectedDays()
         saveUserSelectedTime()
@@ -118,7 +118,7 @@ class NotificationViewModel: ObservableObject{
         
         var setDate = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: Date())
         //今日のタスク完了済みなら明日から
-        if self.checkTodaysTask(item: item){
+        if isFinishTodaysTask{
             setDate = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: Date().addingTimeInterval(24*60*60))
         }
         

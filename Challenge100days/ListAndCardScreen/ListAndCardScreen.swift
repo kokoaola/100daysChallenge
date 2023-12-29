@@ -12,7 +12,7 @@ import CoreData
 ///ユーザーが記録を閲覧するためのルートのビュー
 struct ListAndCardView: View {
     ///ViewModel用の変数
-    @StateObject var listAndCardVM = ListAndCardViewModel()
+    @ObservedObject var listAndCardVM: ListAndCardViewModel
     @EnvironmentObject var store: GlobalStore
     
     var body: some View {
@@ -39,22 +39,28 @@ struct ListAndCardView: View {
             
             ///ピッカーの状態に応じてビューを表示
             if listAndCardVM.showList{
-                ListView(listAndCardVM: listAndCardVM)
+                ListView(allData: listAndCardVM.allData)
             }else{
-                CardView(listAndCardVM: listAndCardVM)
+                CardView(allData: listAndCardVM.allData)
             }
         }
         .foregroundColor(Color(UIColor.label))
         .padding(.horizontal)
         //グラデーション背景の設定
         .modifier(UserSettingGradient(appColorNum: listAndCardVM.userSelectedColor))
+        
         //メモ追加ボタンが押下されたら、makeNewItemSheetを表示
         .sheet(isPresented: $listAndCardVM.showSheet) {
             makeNewItemSheet()
         }
+        
+        //ビュー表示時に最新のリストをセットする
         .onAppear{
-            store.setAllData()
-            listAndCardVM.setDailyData(allData: store.allData)
+            DispatchQueue.main.async {
+                withAnimation {
+                    listAndCardVM.setDailyData(allData: store.allData)
+                }
+            }
         }
         //データの新規追加用のプラスボタン
         .toolbar{
@@ -92,14 +98,14 @@ struct ListAndCardView: View {
 //        .environmentObject(Store())
 //    }
 //}
-struct ListAndCardView_Previews: PreviewProvider {
-    static private var dataController = PersistenceController.persistentContainer.viewContext
-//    static let moc = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
-    
-    static var previews: some View {
-        
-        ListAndCardView()
-            .environment(\.managedObjectContext, PersistenceController.persistentContainer.viewContext)
-            .environmentObject(GlobalStore())
-    }
-}
+//struct ListAndCardView_Previews: PreviewProvider {
+//    static private var dataController = PersistenceController.persistentContainer.viewContext
+////    static let moc = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
+//
+//    static var previews: some View {
+//
+//        ListAndCardView()
+//            .environment(\.managedObjectContext, PersistenceController.persistentContainer.viewContext)
+//            .environmentObject(GlobalStore())
+//    }
+//}

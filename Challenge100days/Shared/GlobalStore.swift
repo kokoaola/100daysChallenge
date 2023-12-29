@@ -69,13 +69,20 @@ class GlobalStore: ObservableObject {
     
     ///データの番号を振り直すメソッド
     func assignNumbers() async{
-        setAllData()
+        var allTask = [DailyData]()
+        request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: true)]
+            do{
+                allTask = try self.context.fetch(self.request)
+            }catch{
+                return
+            }
         
-        await MainActor.run{
-            for (index, data) in self.allData.enumerated() {
+            for (index, data) in allTask.enumerated() {
                 // numを1から順に割り当てる
                 data.num = Int16(index + 1)
             }
+        
+        await MainActor.run{
             // 変更を保存
             PersistenceController.shared.saveAsync { error in
                 if let _ = error {

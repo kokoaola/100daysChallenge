@@ -46,7 +46,6 @@ class ViewModelBase: ObservableObject {
             defaults.set(self.longTermGoal, forKey: UserDefaultsConstants.longTermGoalKey)
             self.longTermGoal = long
         }
-        
         if let short = short {
             defaults.set(self.shortTermGoal, forKey: UserDefaultsConstants.shortTermGoalKey)
             self.shortTermGoal = short

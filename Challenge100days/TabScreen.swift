@@ -12,6 +12,10 @@ import SwiftUI
 struct TabScreen: View {
     ///ViewModel用の変数
     @StateObject private var tutorialVM = TutorialViewModel()
+    ///ViewModel用の変数
+    @StateObject var listAndCardVM = ListAndCardViewModel()
+    @EnvironmentObject var globalStore: GlobalStore
+    
     
     var body: some View {
 
@@ -29,7 +33,7 @@ struct TabScreen: View {
                     }
                 
                 //実績表示用のビュー
-                ListAndCardView()
+                ListAndCardView(listAndCardVM: listAndCardVM)
                     .tabItem{
                         Label("これまでの記録", systemImage: "list.clipboard")
                     }
@@ -42,9 +46,14 @@ struct TabScreen: View {
                 
             }
             .tint(.primary)
-//            .environmentObject(globalStore)
+            
+            ///起動時にリストに配列をセットしておく
+            .onAppear{
+                DispatchQueue.main.async {
+                        listAndCardVM.setDailyData(allData: globalStore.allData)
+                }
+            }
         }
-
     }
 }
 

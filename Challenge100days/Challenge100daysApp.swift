@@ -13,6 +13,7 @@ struct Challenge100daysApp: App {
         WindowGroup {
             TabScreen()
                 .environment(\.managedObjectContext, PersistenceController.persistentContainer.viewContext)
+                .environmentObject(NotificationViewModel())
                 .environmentObject(GlobalStore())
         }
     }

@@ -10,8 +10,7 @@ import SwiftUI
 
 ///カード形式で表示するビュー
 struct CardView: View {
-    ///ViewModel用の変数
-    @ObservedObject var listAndCardVM: ListAndCardViewModel
+    var allData: [DailyData]
     
     ///グリッドレイアウトの設定用変数
     let columns = Array(repeating: GridItem(.flexible()), count: 10)
@@ -31,7 +30,7 @@ struct CardView: View {
             LazyVGrid(columns: columns) {
                 
                 //CoreDataに保存されている全データを取り出す
-                ForEach(listAndCardVM.allData, id: \.self) { item in
+                ForEach(allData, id: \.self) { item in
                     //遷移先はDetailView
                     NavigationLink(destination: {
                         DetailScreen(item: item)
