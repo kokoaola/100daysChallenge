@@ -45,7 +45,6 @@ struct TabScreen: View {
             }
             .environmentObject(globalStore)
             .tint(.primary)
-            
             ///起動時にリストに配列をセットしておく
             .onAppear{
                 DispatchQueue.main.async {

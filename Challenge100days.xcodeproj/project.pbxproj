@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		3B0027F42A76216800520699 /* challengedDay.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3B0027F22A76216800520699 /* challengedDay.xcdatamodeld */; };
-		3B0027F82A76218E00520699 /* AppSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0027F72A76218E00520699 /* AppSetting.swift */; };
 		3B0028042A76248800520699 /* Challenge100daysApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0028032A76248800520699 /* Challenge100daysApp.swift */; };
 		3B0D04542B3974AF001FA2F4 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 3B0D04532B3974AF001FA2F4 /* Lottie */; };
 		3B0D983A2A053D430001FD0A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3BC602C02986AC1500198F1B /* Assets.xcassets */; };
@@ -115,7 +114,6 @@
 
 /* Begin PBXFileReference section */
 		3B0027F32A76216800520699 /* challengedDay.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = challengedDay.xcdatamodel; sourceTree = "<group>"; };
-		3B0027F72A76218E00520699 /* AppSetting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppSetting.swift; path = Challenge100days/Shared/AppSetting.swift; sourceTree = SOURCE_ROOT; };
 		3B0028032A76248800520699 /* Challenge100daysApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Challenge100daysApp.swift; sourceTree = "<group>"; };
 		3B0D983B2A068DD20001FD0A /* PrivacyPolicyWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyPolicyWebView.swift; sourceTree = "<group>"; };
 		3B22452A2B1C429400B64B7A /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -288,7 +286,6 @@
 				3B4D4E132A695D7E00AFB314 /* NotificationViewModel.swift */,
 				3B3C69342B3BF3B200DE496C /* GlobalStore.swift */,
 				3B3C91452ACD6F5E0058BDDD /* Constants.swift */,
-				3B0027F72A76218E00520699 /* AppSetting.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -643,7 +640,6 @@
 				3B93B16B299D1307006F3332 /* AboutThisApp.swift in Sources */,
 				3B3CFFFB298E236300102EEE /* GenerateImageWithDate.swift in Sources */,
 				3B5EF9272A71641B00709006 /* ToastView.swift in Sources */,
-				3B0027F82A76218E00520699 /* AppSetting.swift in Sources */,
 				3B2245482B1C504000B64B7A /* TutorialView3.swift in Sources */,
 				3BC602D929891B0300198F1B /* ListAndCardScreen.swift in Sources */,
 				3B9912D02B3D505600E4DB40 /* CardComponents.swift in Sources */,

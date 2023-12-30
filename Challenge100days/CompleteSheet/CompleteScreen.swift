@@ -22,97 +22,104 @@ struct CompleteSheet: View {
     
     var body: some View {
         let dayNumber = store.dayNumber
-        
         ZStack{
-            VStack(alignment: .center, spacing: 10){
-                ///左上の閉じるボタン
-                HStack{
-                    Button(action: { showCompleteWindew = false }, label: { CloseButton() })
-                    Spacer()
-                }
-                
-                ///1〜99日目に表示するビュー
-                if dayNumber <= 99{
-                    VStack(alignment: .center, spacing: 30){
-                        VStack{ //VoiceOver用のVStack
-                            Text("\(dayNumber)日目のチャレンジ達成！")
-                            Text("よく頑張ったね！")
+            Color.red
+                .ignoresSafeArea()
+            ZStack{
+                VStack(alignment: .center, spacing: 10){
+                    ///左上の閉じるボタン
+                    HStack{
+                        Button(action: { showCompleteWindew = false }, label: { CloseButton() })
+                        Spacer()
+                    }
+                    
+                    ///1〜99日目に表示するビュー
+                    if dayNumber <= 99{
+                        VStack(alignment: .center, spacing: 30){
+                            VStack{ //VoiceOver用のVStack
+                                Text("\(dayNumber)日目のチャレンジ達成！")
+                                Text("よく頑張ったね！")
+                            }
+                            .foregroundColor(.primary)
+                            .contentShape(Rectangle())
+                            .accessibilityElement(children: .combine)
+                            //コンプリート画像
+                            CompleteImageView(image: $image)
                         }
-                        .foregroundColor(.primary)
-                        .contentShape(Rectangle())
-                        .accessibilityElement(children: .combine)
-                        //コンプリート画像
-                        CompleteImageView(image: $image)
-                    }
-                    .padding(.vertical,30)
-                    
-                    
-                }else{
-                    ///100日目達成以降のビュー
-                    VStack(alignment: .center, spacing: 0){
-                        //アニメーション
-                        LottieView(filename: "cong", loop: .loop)
-                            .frame(height: AppSetting.screenHeight * 0.1)
-                        //コンプリート画像
-                        CompleteImageView(image: $image)
-                        //アニメーション
-                        LottieView(filename: "award", loop: .playOnce)
-                            .padding(.top, -AppSetting.screenHeight * 0.03)
-                    }
-                }
-                
-                ///iPadの時はボタンを横並び
-                if UIDevice.current.userInterfaceIdiom == .pad{
-                    Spacer()
-                    HStack(spacing:24){
-                        //シェアボタン
-                        ShareLinkView(image: image, dayNumber: dayNumber)
+                        .padding(.vertical,30)
                         
-                        //メモ追加ボタン
-                        Button {
-                            showMemo = true
-                        } label: {
-                            LeftIconBigButton(color: .green, icon: Image(systemName: "rectangle.and.pencil.and.ellipsis"), text: "メモを追加")
+                        
+                    }else{
+                        ///100日目達成以降のビュー
+                        VStack(alignment: .center, spacing: 0){
+                            //アニメーション
+                            LottieView(filename: "cong", loop: .loop)
+                                .frame(height: AppSetting.screenHeight * 0.1)
+                            //コンプリート画像
+                            CompleteImageView(image: $image)
+                            //アニメーション
+                            LottieView(filename: "award", loop: .playOnce)
+                                .padding(.top, -AppSetting.screenHeight * 0.03)
                         }
                     }
-                }else{
-                    ///iPhoneの時はボタンを縦並び
-                    VStack{
-                        ///シェアボタン
-                        ShareLinkView(image: image, dayNumber: dayNumber)
-                        ///メモ追加ボタン
-                        Button {
-                            showMemo = true
-                        } label: {
-                            LeftIconBigButton(color: .green, icon: Image(systemName: "rectangle.and.pencil.and.ellipsis"), text: "メモを追加").foregroundColor(.green.opacity(0.9))
+                    
+                    ///iPadの時はボタンを横並び
+                    if UIDevice.current.userInterfaceIdiom == .pad{
+                        Spacer()
+                        HStack(spacing:24){
+                            //シェアボタン
+                            ShareLinkView(image: image, dayNumber: dayNumber)
+                            
+                            //メモ追加ボタン
+                            Button {
+                                showMemo = true
+                            } label: {
+                                LeftIconBigButton(color: .green, icon: Image(systemName: "rectangle.and.pencil.and.ellipsis"), text: "メモを追加")
+                            }
+                        }
+                    }else{
+                        ///iPhoneの時はボタンを縦並び
+                        VStack{
+                            ///シェアボタン
+                            ShareLinkView(image: image, dayNumber: dayNumber)
+                            ///メモ追加ボタン
+                            Button {
+                                showMemo = true
+                            } label: {
+                                LeftIconBigButton(color: .green, icon: Image(systemName: "rectangle.and.pencil.and.ellipsis"), text: "メモを追加").foregroundColor(.green.opacity(0.9))
+                            }
                         }
                     }
+                    
+                    Spacer()
                 }
+                .background(.thinMaterial)
+                .frame(width: AppSetting.screenWidth - 30)
+                .cornerRadius(15)
+                .padding()
                 
-                Spacer()
+                
+                ///シートの上に重ねる紙吹雪のアニメーション
+                if !store.finishedTodaysTask{
+                    LottieView(filename: "confetti3", loop: .playOnce)
+                        .frame(width: AppSetting.screenWidth)
+                        .allowsHitTesting(false)
+                        .opacity(0.8)
+                }
             }
-            .background(.thinMaterial)
-            .frame(width: AppSetting.screenWidth - 30)
-            .cornerRadius(15)
-            .padding()
-            
-            
-            ///シートの上に重ねる紙吹雪のアニメーション
-            if !store.finishedTodaysTask{
-                LottieView(filename: "confetti3", loop: .playOnce)
-                    .frame(width: AppSetting.screenWidth)
-                    .allowsHitTesting(false)
-                    .opacity(0.8)
+            //メモ追加ボタンが押下されたら、MemoSheetを表示
+            .sheet(isPresented: $showMemo) {
+//                NavigationStack {
+                    MemoSheet()
+                        .environmentObject(store)
+//                }
+
             }
+            //        .onAppear{
+            //            image = generateImageWithText(number: store.dayNumber, day: Date.now)
+            //        }
         }
-        //メモ追加ボタンが押下されたら、MemoSheetを表示
-        .sheet(isPresented: $showMemo) {
-            MemoSheet()
-                .environmentObject(store)
-        }
-//        .onAppear{
-//            image = generateImageWithText(number: store.dayNumber, day: Date.now)
-//        }
+        .ignoresSafeArea(.keyboard, edges: .bottom)
     }
 }
 

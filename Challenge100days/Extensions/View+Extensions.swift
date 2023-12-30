@@ -38,11 +38,12 @@ extension View {
     func customAddMemoTextEditStyle() -> some View {
         self
         .foregroundColor(Color(UIColor.label))
-        .lineSpacing(10)
+//        .lineSpacing(10)
         .scrollContentBackground(Visibility.hidden)
         .background(.ultraThinMaterial)
         .border(.white, width: 3)
-        .frame(height: 300)
+        .padding(.horizontal)
+//        .frame(height: 200)
 }
     
     ///アクセシビリティに関する項目を追加するextension
@@ -121,6 +122,45 @@ struct UserSettingGradient: ViewModifier{
             endPoint: .bottomTrailing
         ))
     }
+}
+
+///引数で受け取った番号に応じた背景色を指定するViewModifier
+struct GradientColor: View{
+    let appColorNum: Int
+    var colors:[Color]{
+        switch appColorNum{
+        case 0:
+            return [.blue, .green]
+        case 1:
+            return [.green, .yellow]
+        case 2:
+            return [.purple, .blue]
+        case 3:
+            return [.black, .black]
+        default:
+            return [.blue, .green]
+        }
+    }
+    
+    var body: some View{
+        ZStack{
+            LinearGradient(
+                colors: [colors[0], colors[1]],
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+            )
+            Rectangle()
+                .fill(Material.ultraThinMaterial)
+        }
+    }
+    
+//    func body(content: Content) -> some View{
+//        content.background(.secondary).foregroundStyle(LinearGradient(
+//            colors: [colors[0], colors[1]],
+//            startPoint: .topLeading,
+//            endPoint: .bottomTrailing
+//        ))
+//    }
 }
 
 

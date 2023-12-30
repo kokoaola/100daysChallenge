@@ -22,82 +22,88 @@ struct MemoSheet: View {
     @Environment(\.dismiss) var dismiss
     
     var body: some View {
-        VStack(spacing: 10){
-            ZStack{
+        VStack(spacing: 0){
+                //文字数が上限オーバーした時の警告
+                Label("\(AppSetting.maxLengthOfMemo)文字以内のみ設定可能です", systemImage: "exclamationmark.circle.fill")
+                    .font(.footnote)
+                    .padding(.vertical, 10)
+                    .foregroundColor(addMemoVM.isLengthValid ? .clear : .red)
                 
-                //左上のシート閉じるボタン
+                //テキストエディター
+                TextEditor(text: $addMemoVM.editText)
+                    .customAddMemoTextEditStyle()
+                    .focused($isInputActive)
+                    .onTapGesture {
+                        isInputActive = false
+                    }
+                    .padding(.bottom, 20)
+                
+                //保存ボタン
                 Button {
+                    Task{
+                        await addMemoVM.updateDataMemo(data: store.allData.last, completion: {
+                            store.setAllData()
+                        })
+                    }
                     dismiss()
                 } label: {
-                    CloseButton()
+                    SaveButton()
+                        .foregroundColor(addMemoVM.isLengthValid ? .green : .gray)
+                        .opacity(addMemoVM.isLengthValid ? 1.0 : 0.5)
                 }
-                .frame(maxWidth: .infinity, alignment: .leading)
-                
-                //画面タイトル
-                Text("メモの追加").font(.title3)
-                    .padding()
-                
+                .accessibilityLabel("メモを保存する")
+                .tint(.green)
+                //文字数が上限オーバーしている場合はボタンは無効
+                .disabled(!addMemoVM.isLengthValid)
+                .padding(.bottom, AppSetting.screenHeight / 5)
+        
             }
-            .foregroundColor(Color(UIColor.label))
-            
-            
-            //文字数が上限オーバーした時の警告
-            Label("\(AppSetting.maxLengthOfMemo)文字以内のみ設定可能です", systemImage: "exclamationmark.circle")
-                .font(.footnote)
-                .padding(5)
-                .foregroundColor(addMemoVM.isLengthValid ? .clear : .red)
-            //テキストエディター
-            TextEditor(text: $addMemoVM.editText)
-                .customAddMemoTextEditStyle()
-                .focused($isInputActive)
-                .onTapGesture {
-                    AppSetting.colseKeyBoard()
+            //キーボード閉じるボタン
+            .toolbar {
+                ToolbarItemGroup(placement: .keyboard) {
+                    Spacer()
+                    Button("閉じる") {
+                        isInputActive = false
+                    }
                 }
-            
-            //保存ボタン
-            Button {
-                Task{
-                    await addMemoVM.updateDataMemo(data: store.allData.last, completion: {
-                        store.setAllData()
-                    })
+                
+                //シート閉じるボタン
+                ToolbarItemGroup(placement: .navigationBarLeading) {
+                    Spacer()
+                    Button("閉じる") {
+                        dismiss()
+                    }
+                    .editAccessibility(label: "Close", addTraits: .isButton)
+                }
+            }
+            .foregroundColor(.primary)
+            //ナビゲーションバーの設定
+            .navigationTitle("メモの追加")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbarBackground(.visible, for: .navigationBar)
 
-                }
-                dismiss()
-            } label: {
-                SaveButton()
-                    .foregroundColor(addMemoVM.isLengthValid ? .green : .gray)
-                    .opacity(addMemoVM.isLengthValid ? 1.0 : 0.5)
-            }
-            .accessibilityLabel("メモを保存する")
-            .tint(.green)
-            //文字数が上限オーバーしている場合はボタンは無効
-            .disabled(!addMemoVM.isLengthValid)
-            .padding(.top)
-        }
-        .padding()
-        .frame(maxHeight: .infinity, alignment: .top)
-        
         //グラデーション＋すりガラス背景設定
-        .background(.ultraThinMaterial)
-        .modifier(UserSettingGradient(appColorNum: addMemoVM.userSelectedColor))
-        
-        .onAppear{
-            self.isInputActive = true
-        }
-        
+            .background(.ultraThinMaterial)
+            .modifier(UserSettingGradient(appColorNum: addMemoVM.userSelectedColor))
+            .onAppear{
+                self.isInputActive = true
+            }
+
+        .ignoresSafeArea(.keyboard, edges: .bottom)
+        .embedInNavigationStack()
     }
 }
 
 
-//struct MemoSheet_Previews: PreviewProvider {
-//    static var previews: some View {
-//        Group{
-//            MemoSheet()
-//                .environment(\.locale, Locale(identifier:"en"))
-//            MemoSheet()
-//                .environment(\.locale, Locale(identifier:"ja"))
-//        }
-//        .environmentObject(CoreDataViewModel())
-//        .environmentObject(Store())
-//    }
-//}
+struct MemoSheet_Previews: PreviewProvider {
+    static var previews: some View {
+        Group{
+            MemoSheet()
+                .environment(\.locale, Locale(identifier:"en"))
+            MemoSheet()
+                .environment(\.locale, Locale(identifier:"ja"))
+        }
+        .environmentObject(CoreDataViewModel())
+        .environmentObject(Store())
+    }
+}
