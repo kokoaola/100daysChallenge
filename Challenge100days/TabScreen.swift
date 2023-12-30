@@ -11,23 +11,21 @@ import SwiftUI
 
 struct TabScreen: View {
     ///ViewModel用の変数
-    @StateObject private var tutorialVM = TutorialViewModel()
-    ///ViewModel用の変数
     @StateObject var listAndCardVM = ListAndCardViewModel()
     @EnvironmentObject var globalStore: GlobalStore
-    
+    @StateObject var bigButtonVM = BigButtonViewModel()
     
     var body: some View {
 
-        if tutorialVM.isFirst{
+        if listAndCardVM.isFirst{
             //初回起動時はチュートリアルを表示
-            TutorialScreen(tutorialVM: tutorialVM)
+            TutorialScreen()
         }else{
             
             //ユーザーが初回のチュートリアルを終わらせていればタブを表示
             TabView{
                 //達成用のビュー
-                ActionView()
+                ActionView(bigButtonVM: bigButtonVM)
                     .tabItem{
                         Label("取り組む", systemImage: "figure.stairs")
                     }
@@ -45,12 +43,15 @@ struct TabScreen: View {
 //                    }.tag("Three")
                 
             }
+            .environmentObject(globalStore)
             .tint(.primary)
             
             ///起動時にリストに配列をセットしておく
             .onAppear{
                 DispatchQueue.main.async {
-                        listAndCardVM.setDailyData(allData: globalStore.allData)
+                    globalStore.setAllData()
+//                    bigButtonVM.setDayNumber(num: globalStore.dayNumber)
+                    listAndCardVM.setDailyData(allData: globalStore.allData)
                 }
             }
         }

@@ -14,7 +14,7 @@ struct ActionView: View {
     ///ViewModel用の変数
     @EnvironmentObject var notificationViewModel: NotificationViewModel
     @EnvironmentObject var globalStore: GlobalStore
-    @StateObject private var bigButtonVM = BigButtonViewModel()
+    @StateObject var bigButtonVM: BigButtonViewModel
     
     ///表示＆共有用の画像
     @State var image: Image?
@@ -37,7 +37,6 @@ struct ActionView: View {
                     withAnimation{
                         bigButtonVM.showCompleteWindew = true
                     }
-                    
                     //データを保存
                     bigButtonVM.saveTodaysChallenge(challengeDate: globalStore.dayNumber) { success in
                         if success {
@@ -70,15 +69,15 @@ struct ActionView: View {
                     .transition(.scale)
                 
                 ///子ビューのキーボード閉じるボタンの実装
-                    .toolbar {
-                        ToolbarItemGroup(placement: .keyboard) {
-                            Spacer()  // 右寄せにする
-                            Button("閉じる") {
-                                AppSetting.colseKeyBoard()
-                            }
-                            .foregroundColor(.primary)
-                        }
-                    }
+//                    .toolbar {
+//                        ToolbarItemGroup(placement: .keyboard) {
+//                            Spacer()  // 右寄せにする
+//                            Button("閉じる") {
+//                                AppSetting.colseKeyBoard()
+//                            }
+//                            .foregroundColor(.primary)
+//                        }
+//                    }
             }
         }
         .onAppear{

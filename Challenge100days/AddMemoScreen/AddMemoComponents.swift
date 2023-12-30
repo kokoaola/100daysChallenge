@@ -20,26 +20,22 @@ struct CloseButton: View{
 
 ///アイコンが左にある大きいボタンのビュー
 struct LeftIconBigButton: View{
+    //色
     let color: Color
-    ///アイコンを受け取って格納する変数
+    //アイコン
     let icon: Image?
-    
-    ///表示するStringを受け取って格納する変数
+    //表示するString
     let text: String
     
-    ///角丸のレベルを格納する変数
-    let radius:CGFloat = 10.0
-    
-    ///ボタンの幅を格納する変数
-    let width = UIDevice.current.userInterfaceIdiom == .pad ? AppSetting.screenWidth / 3 : AppSetting.screenWidth / 1.7
-    
-    ///ボタンの高さを格納する変数
-    let height = AppSetting.screenWidth / 5
-    
-    ///文字色を格納する変数
-    let tint = Color(UIColor.white)
-    
     var body: some View {
+        //角丸のレベル
+        let radius:CGFloat = 10.0
+        //ボタンの幅と高さ
+        let width = UIDevice.current.userInterfaceIdiom == .pad ? AppSetting.screenWidth / 3 : AppSetting.screenWidth / 1.7
+        let height = AppSetting.screenWidth / 5
+        //文字色
+        let tint = Color(UIColor.white)
+        
         ZStack{
             RoundedRectangle(cornerRadius: radius)
                 .frame(width: width, height: height)

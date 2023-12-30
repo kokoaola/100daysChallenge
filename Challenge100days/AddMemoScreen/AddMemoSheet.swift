@@ -11,6 +11,7 @@ import SwiftUI
 ///ユーザーが記録にメモを追加するためのビュー
 struct MemoSheet: View {
     ///ViewModel用の変数
+    @EnvironmentObject var coreDataViewModel :CoreDataViewModel
     @EnvironmentObject var store: GlobalStore
     @StateObject var addMemoVM = AddMemoViewModel()
     
@@ -23,13 +24,19 @@ struct MemoSheet: View {
     var body: some View {
         VStack(spacing: 10){
             ZStack{
+                
                 //左上のシート閉じるボタン
-                Button { dismiss() } label: { CloseButton() }
-                    .frame(maxWidth: .infinity, alignment: .leading)
+                Button {
+                    dismiss()
+                } label: {
+                    CloseButton()
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
                 
                 //画面タイトル
                 Text("メモの追加").font(.title3)
                     .padding()
+                
             }
             .foregroundColor(Color(UIColor.label))
             
@@ -39,7 +46,6 @@ struct MemoSheet: View {
                 .font(.footnote)
                 .padding(5)
                 .foregroundColor(addMemoVM.isLengthValid ? .clear : .red)
-            
             //テキストエディター
             TextEditor(text: $addMemoVM.editText)
                 .customAddMemoTextEditStyle()
@@ -51,9 +57,10 @@ struct MemoSheet: View {
             //保存ボタン
             Button {
                 Task{
-                    await addMemoVM.updateDataMemo(data: store.allData.last) {
-                            store.setAllData()
-                    }
+                    await addMemoVM.updateDataMemo(data: store.allData.last, completion: {
+                        store.setAllData()
+                    })
+
                 }
                 dismiss()
             } label: {
@@ -77,16 +84,7 @@ struct MemoSheet: View {
         .onAppear{
             self.isInputActive = true
         }
-        //キーボード閉じるボタン
-        .toolbar {
-            ToolbarItemGroup(placement: .keyboard) {
-                Spacer()
-                Button("閉じる") {
-                    isInputActive = false
-                }
-                .foregroundColor(.primary)
-            }
-        }
+        
     }
 }
 

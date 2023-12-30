@@ -12,8 +12,7 @@ import SwiftUI
 struct TutorialScreen: View {
     
     ///ViewModel用の変数
-    @ObservedObject var tutorialVM: TutorialViewModel
-    
+    @StateObject private var tutorialVM = TutorialViewModel()
     
     var body: some View {
         VStack{
@@ -52,9 +51,9 @@ struct TutorialView_Previews: PreviewProvider {
     @State static var vm = TutorialViewModel()
     static var previews: some View {
         Group{
-            TutorialScreen(tutorialVM: vm)
+            TutorialScreen()
                 .environment(\.locale, Locale(identifier:"ja"))
-            TutorialScreen(tutorialVM: vm)
+            TutorialScreen()
                 .environment(\.locale, Locale(identifier:"en"))
         }
     }

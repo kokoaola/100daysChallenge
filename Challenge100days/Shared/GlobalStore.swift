@@ -17,7 +17,7 @@ class GlobalStore: ObservableObject {
     ///今日が何日目のチャレンジか格納する変数
     @Published var dayNumber: Int
     ///全体で表示中のタブを格納する変数
-    @Published var userSelectedTag = "one"
+//    @Published var userSelectedTag = "one"
     ///当日のタスクが達成済みかを格納する変数
     @Published var finishedTodaysTask = true
     
@@ -26,9 +26,16 @@ class GlobalStore: ObservableObject {
     let request = NSFetchRequest<DailyData>(entityName: AppGroupConstants.entityName)
     
     init(){
-        allData = []
-        dayNumber = 1
-        
+        request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: true)]
+        do{
+            let tasks = try self.context.fetch(self.request)
+            self.allData = tasks
+            self.dayNumber = tasks.count
+        }catch{
+            self.allData = []
+            self.dayNumber = 1
+            return
+        }
         setAllData()
     }
     
@@ -38,10 +45,11 @@ class GlobalStore: ObservableObject {
         request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: true)]
         
         DispatchQueue.main.async {
-
+            
             do{
+                //配列に最新のデータをセット
                 let tasks = try self.context.fetch(self.request)
-                    self.allData = tasks
+                self.allData = tasks
             }catch{
                 self.allData = []
                 self.dayNumber = 1
@@ -49,12 +57,14 @@ class GlobalStore: ObservableObject {
                 return
             }
             
+            //最後の日付を取得
             guard let lastData = self.allData.last?.date else {
                 self.dayNumber = 1
                 self.finishedTodaysTask = false
                 return
             }
             
+            //最後の日付が起動した日と同じか確認
             if Calendar.current.isDate(Date.now, equalTo: lastData, toGranularity: .day){
                 self.finishedTodaysTask = true
                 self.dayNumber = self.allData.count
@@ -71,17 +81,17 @@ class GlobalStore: ObservableObject {
     func assignNumbers() async{
         var allTask = [DailyData]()
         request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: true)]
-            do{
-                allTask = try self.context.fetch(self.request)
-            }catch{
-                return
-            }
+        do{
+            allTask = try self.context.fetch(self.request)
+        }catch{
+            return
+        }
         
-
-            for (index, data) in allTask.enumerated() {
-                // numを1から順に割り当てる
-                data.num = Int16(index + 1)
-            }
+        
+        for (index, data) in allTask.enumerated() {
+            // numを1から順に割り当てる
+            data.num = Int16(index + 1)
+        }
         await MainActor.run{
             // 変更を保存
             PersistenceController.shared.saveAsync { error in

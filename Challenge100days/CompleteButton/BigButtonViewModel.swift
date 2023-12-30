@@ -9,6 +9,7 @@ import Foundation
 
 
 final class BigButtonViewModel: ViewModelBase{
+    
     ///コンプリートウインドウを表示するかどうかのフラグ
     @Published var showCompleteWindew: Bool
     
