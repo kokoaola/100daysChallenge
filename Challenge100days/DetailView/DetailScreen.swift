@@ -27,6 +27,10 @@ struct DetailScreen: View {
     ///シェア用の画像格納用変数
     @State private var image: Image?
     
+    @Binding var allData: [DailyData]
+    
+    var onDeleted: ([DailyData]) -> Void // クロージャを受け取るプロパティ
+    
     
     var body: some View {
         
@@ -139,28 +143,16 @@ struct DetailScreen: View {
         //削除ボタン押下時のアラート
         .alert("この日の記録を破棄しますか？", isPresented: $detailVM.showCansel){
             Button("破棄する",role: .destructive){
-                detailVM.deleteData(data: item) { success in
-                    if success {
-                        DispatchQueue.main.async {
-                            Task{
-                                await store.assignNumbers()
-                            }
+                dismiss()
+                
+                detailVM.deleteData(data: item)
+                Task{
+                    await store.assignNumbers(completion: {
+                        withAnimation {
+                            onDeleted(store.allData)
                         }
-                        store.setAllData()
-                        dismiss()
-                    }else{
-                        dismiss()
-                    }
+                    })
                 }
-                
-                //                Task{
-                //                    if notificationViewModel.isNotificationOn{
-                //                        await notificationViewModel.setNotification(item: coreDataViewModel.allData.last)
-                //                    }
-                //                }
-                
-                
-                
             }
             Button("戻る",role: .cancel){}
         }message: {

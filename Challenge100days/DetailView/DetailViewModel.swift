@@ -46,17 +46,17 @@ final class DetailViewModel: ViewModelBase{
     
     
     ///引数で受け取ったデータを削除するメソッド
-    func deleteData(data: DailyData, completion: @escaping (Bool) -> Void) {
+    func deleteData(data: DailyData) {
         // 変更を保存
         PersistenceController.shared.deleteAsync(data){ error in
             if let _ = error {
                 // エラーハンドリング
-                completion(false)
+//                completion(false)
             } else {
                 //ウィジェットを更新
                 AppGroupConstants.reloadTimelines()
                 // 保存成功
-                completion(true)
+//                completion(true)
             }
         }
     }

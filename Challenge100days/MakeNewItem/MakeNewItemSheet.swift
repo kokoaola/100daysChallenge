@@ -99,10 +99,12 @@ struct makeNewItemSheet: View {
                         if success {
                             DispatchQueue.main.async {
                                 Task{
-                                    await store.assignNumbers()
+                                    await store.assignNumbers(completion: {
+                                        store.setAllData()
+                                    })
                                 }
                             }
-                            store.setAllData()
+
                             dismiss()
                         }else{
                             dismiss()

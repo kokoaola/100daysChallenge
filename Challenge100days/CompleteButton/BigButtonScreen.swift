@@ -67,17 +67,6 @@ struct ActionView: View {
                 CompleteSheet(showCompleteWindew: $bigButtonVM.showCompleteWindew, image: $image)
                     .padding(.horizontal)
                     .transition(.scale)
-                
-                ///子ビューのキーボード閉じるボタンの実装
-//                    .toolbar {
-//                        ToolbarItemGroup(placement: .keyboard) {
-//                            Spacer()  // 右寄せにする
-//                            Button("閉じる") {
-//                                AppSetting.colseKeyBoard()
-//                            }
-//                            .foregroundColor(.primary)
-//                        }
-//                    }
             }
         }
         .onAppear{

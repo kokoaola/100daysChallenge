@@ -78,28 +78,37 @@ class GlobalStore: ObservableObject {
     
     
     ///データの番号を振り直すメソッド
-    func assignNumbers() async{
+    ///
+    func assignNumbers(completion: @escaping () -> Void) async {
         var allTask = [DailyData]()
+        
         request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: true)]
-        do{
+        do {
             allTask = try self.context.fetch(self.request)
-        }catch{
+        } catch {
+            print("Fetch error")
             return
         }
+        print("Fetched tasks count: \(allTask.count)")
         
-        
-        for (index, data) in allTask.enumerated() {
-            // numを1から順に割り当てる
+        // allTaskの内容を更新する前にコピーを作成
+        let updatedTasks = allTask.enumerated().map { (index, data) -> DailyData in
+            let data = data
             data.num = Int16(index + 1)
+            return data
         }
-        await MainActor.run{
+        
+        await MainActor.run {
             // 変更を保存
             PersistenceController.shared.saveAsync { error in
-                if let _ = error {
+                if let error = error {
+                    print("Save error: \(error)")
                 } else {
-                    //                self.setAllData()
+                    self.allData = updatedTasks
+                    completion() // 処理完了時にコンプリーションハンドラを呼び出す
                 }
             }
         }
     }
+
 }

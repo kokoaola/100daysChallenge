@@ -61,10 +61,11 @@ struct ListAndCardView: View {
         
         //ビュー表示時に最新のリストをセットする
         .onAppear{
-                withAnimation {
-                    listAndCardVM.setDailyData(allData: store.allData)
-                }
+            print("LIST AND CARD", listAndCardVM.allData.count)
+            withAnimation {
+                listAndCardVM.setDailyData(allData: store.allData)
             }
+        }
         //データの新規追加用のプラスボタン
         .toolbar{
             ToolbarItem{
@@ -112,3 +113,5 @@ struct ListAndCardView: View {
 //            .environmentObject(GlobalStore())
 //    }
 //}
+
+

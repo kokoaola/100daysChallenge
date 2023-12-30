@@ -34,7 +34,9 @@ struct CardView: View {
                 ForEach(listAndCardVM.allData, id: \.self) { item in
                     //遷移先はDetailView
                     NavigationLink(destination: {
-                        DetailScreen(item: item)
+                        DetailScreen(item: item, allData: $listAndCardVM.allData){ items in
+                            listAndCardVM.setDailyData(allData: items)
+                        }
                     }){
                         CardFrontComponents(num: item.wrappedNum, date: item.wrappedDate)
                     }

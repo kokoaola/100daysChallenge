@@ -22,9 +22,6 @@ struct CompleteSheet: View {
     
     var body: some View {
         let dayNumber = store.dayNumber
-        ZStack{
-            Color.red
-                .ignoresSafeArea()
             ZStack{
                 VStack(alignment: .center, spacing: 10){
                     ///左上の閉じるボタン
@@ -109,17 +106,9 @@ struct CompleteSheet: View {
             }
             //メモ追加ボタンが押下されたら、MemoSheetを表示
             .sheet(isPresented: $showMemo) {
-//                NavigationStack {
-                    MemoSheet()
-                        .environmentObject(store)
-//                }
-
+                MemoSheet()
+                    .environmentObject(store)
             }
-            //        .onAppear{
-            //            image = generateImageWithText(number: store.dayNumber, day: Date.now)
-            //        }
-        }
-        .ignoresSafeArea(.keyboard, edges: .bottom)
     }
 }
 
