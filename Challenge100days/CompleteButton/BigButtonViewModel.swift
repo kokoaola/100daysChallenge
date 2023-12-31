@@ -29,7 +29,7 @@ final class BigButtonViewModel: ViewModelBase{
     override init(){
         //defaultsへのアクセスをsuper.initの後に移動する処理
         self.showCompleteWindew = false
-        self.hideInfomation = false
+        self.hideInfomation = true
         // super.initを呼び出す
         super.init()
         // super.initの後でdefaultsから値を取得

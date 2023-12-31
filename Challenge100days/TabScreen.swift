@@ -37,10 +37,10 @@ struct TabScreen: View {
                     }
                 
                 //設定用のビュー
-//                SettingView()
-//                    .tabItem{
-//                        Label("設定", systemImage: "gearshape")
-//                    }.tag("Three")
+                SettingView()
+                    .tabItem{
+                        Label("設定", systemImage: "gearshape")
+                    }.tag("Three")
                 
             }
             .environmentObject(globalStore)

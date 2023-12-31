@@ -10,8 +10,12 @@ import CoreData
 
 ///目標と初回起動のフラグを格納するグローバルオブジェクト
 class GlobalStore: ObservableObject {
-    ///データコントローラー格納変数
+    //データコントローラー格納変数
     let context = PersistenceController.persistentContainer.viewContext
+    let request = NSFetchRequest<DailyData>(entityName: AppGroupConstants.entityName)
+    //ユーザーデフォルト用の変数
+    let defaults = UserDefaults.standard
+    
     ///データを全件格納する変数
     @Published var allData : [DailyData]
     ///今日が何日目のチャレンジか格納する変数
@@ -19,13 +23,17 @@ class GlobalStore: ObservableObject {
     ///全体で表示中のタブを格納する変数
 //    @Published var userSelectedTag = "one"
     ///当日のタスクが達成済みかを格納する変数
-    @Published var finishedTodaysTask = true
+    @Published private(set) var finishedTodaysTask = true
     
+    ///目標を表示するかどうかの設定を格納する変数
+    @Published private(set) var hideInfomation: Bool = true
+    ///背景色を格納する変数
+    @Published private(set) var userSelectedColor: Int = 0
     
-    
-    let request = NSFetchRequest<DailyData>(entityName: AppGroupConstants.entityName)
+
     
     init(){
+        
         request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: true)]
         do{
             let tasks = try self.context.fetch(self.request)
@@ -37,6 +45,9 @@ class GlobalStore: ObservableObject {
             return
         }
         setAllData()
+        
+        self.hideInfomation = defaults.bool(forKey: UserDefaultsConstants.hideInfomationKey)
+        self.userSelectedColor = defaults.integer(forKey:UserDefaultsConstants.userSelectedColorKey)
     }
     
     
@@ -78,7 +89,6 @@ class GlobalStore: ObservableObject {
     
     
     ///データの番号を振り直すメソッド
-    ///
     func assignNumbers(completion: @escaping () -> Void) async {
         var allTask = [DailyData]()
         
@@ -110,5 +120,14 @@ class GlobalStore: ObservableObject {
             }
         }
     }
-
+    
+    func switchHideInfomation(_ isShow: Bool){
+        defaults.set(isShow, forKey: UserDefaultsConstants.hideInfomationKey)
+        self.hideInfomation = isShow
+    }
+    
+    func saveSettingColor(_ color: Int){
+        defaults.set(color, forKey: UserDefaultsConstants.userSelectedColorKey)
+        self.userSelectedColor = color
+    }
 }

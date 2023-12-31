@@ -23,7 +23,7 @@ struct ActionView: View {
         ZStack{
             VStack(spacing: 20){
                 ///目標非表示設定がOFFになってれば目標を表示
-                if bigButtonVM.hideInfomation == false{
+                if globalStore.hideInfomation == false{
                     GoalView(longTermGoal: bigButtonVM.longTermGoal, shortTermGoal: bigButtonVM.shortTermGoal)
                 }else{
                     Spacer()
@@ -81,7 +81,7 @@ struct ActionView: View {
         
         .frame(maxWidth: .infinity)
         //グラデーション背景の設定
-        .modifier(UserSettingGradient(appColorNum: bigButtonVM.userSelectedColor))
+        .modifier(UserSettingGradient(appColorNum: globalStore.userSelectedColor))
     }
 }
 

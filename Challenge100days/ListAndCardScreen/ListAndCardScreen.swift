@@ -13,14 +13,14 @@ import CoreData
 struct ListAndCardView: View {
     ///ViewModel用の変数
     @ObservedObject var listAndCardVM: ListAndCardViewModel
-    @EnvironmentObject var store: GlobalStore
+    @EnvironmentObject var globalStore: GlobalStore
     
     var body: some View {
         //画面全体はスクロールビュー
         ScrollView(.vertical, showsIndicators: false){
             //カードとリスト表示共通部分
             HStack(){
-                Text("開始日 : ") + Text("\(AppSetting.makeDate(day: store.allData.first?.wrappedDate ?? Date()))")
+                Text("開始日 : ") + Text("\(AppSetting.makeDate(day: globalStore.allData.first?.wrappedDate ?? Date()))")
                     .font(.footnote)
                 
                 Spacer()
@@ -47,13 +47,13 @@ struct ListAndCardView: View {
         .foregroundColor(Color(UIColor.label))
         .padding(.horizontal)
         //グラデーション背景の設定
-        .modifier(UserSettingGradient(appColorNum: listAndCardVM.userSelectedColor))
+        .modifier(UserSettingGradient(appColorNum: globalStore.userSelectedColor))
         
         //メモ追加ボタンが押下されたら、makeNewItemSheetを表示
         .sheet(isPresented : $listAndCardVM.showSheet , onDismiss : {
             //シートが閉じられた時には配列をビューに再セット（onAppearが適用されないため）
             withAnimation {
-                listAndCardVM.setDailyData(allData: store.allData)
+                listAndCardVM.setDailyData(allData: globalStore.allData)
             }
         }) {
             makeNewItemSheet()
@@ -63,7 +63,7 @@ struct ListAndCardView: View {
         .onAppear{
             print("LIST AND CARD", listAndCardVM.allData.count)
             withAnimation {
-                listAndCardVM.setDailyData(allData: store.allData)
+                listAndCardVM.setDailyData(allData: globalStore.allData)
             }
         }
         //データの新規追加用のプラスボタン

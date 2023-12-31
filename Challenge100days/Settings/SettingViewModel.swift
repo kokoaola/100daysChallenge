@@ -6,3 +6,34 @@
 //
 
 import Foundation
+
+
+final class SettingViewModel: ViewModelBase{
+    ///目標を表示するかどうかの設定を格納する変数
+    @Published var hideInfomation: Bool = true
+    
+    ///全データ削除の確認アラート表示用の変数
+    @Published var showResetAlert = false
+    
+    ///動作完了時のトーストポップアップ用変数
+    @Published var showToast = false
+    @Published var toastText = ""
+    
+    ///通知をお願いするアラート表示用のフラグ（設定画面への遷移ボタン）
+    @Published var showNotificationAlert = false
+    
+    ///目標再設定アラート表示用変数
+    @Published var showGoalEdittingAlert = false
+    
+    ///長期目標か短期目標かのフラグ
+    @Published var isLongTermGoal = false
+    
+    override init(){
+        // super.initを呼び出す
+        super.init()
+        // super.initの後でdefaultsから値を取得
+        self.hideInfomation = defaults.bool(forKey: UserDefaultsConstants.hideInfomationKey)
+    }
+    
+    
+}

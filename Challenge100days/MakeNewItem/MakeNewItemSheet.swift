@@ -12,8 +12,7 @@ import SwiftUI
 struct makeNewItemSheet: View {
     
     ///ViewModel用の変数
-    @EnvironmentObject var coreDataViewModel :CoreDataViewModel
-    @EnvironmentObject var store: GlobalStore
+    @EnvironmentObject var globalStore: GlobalStore
     @StateObject var makeNewItemVM = MakeNewItemViewModel()
     
     ///画面破棄用の変数
@@ -95,12 +94,12 @@ struct makeNewItemSheet: View {
                 //保存ボタン
                 Button{
                     
-                    makeNewItemVM.saveTodaysChallenge(challengeDate: store.dayNumber){ success in
+                    makeNewItemVM.saveTodaysChallenge(challengeDate: globalStore.dayNumber){ success in
                         if success {
                             DispatchQueue.main.async {
                                 Task{
-                                    await store.assignNumbers(completion: {
-                                        store.setAllData()
+                                    await globalStore.assignNumbers(completion: {
+                                        globalStore.setAllData()
                                     })
                                 }
                             }
@@ -132,12 +131,12 @@ struct makeNewItemSheet: View {
             .background(.ultraThinMaterial)
             
             //グラデーション背景の設定
-            .modifier(UserSettingGradient(appColorNum: makeNewItemVM.userSelectedColor))
+            .modifier(UserSettingGradient(appColorNum: globalStore.userSelectedColor))
             
             
             .onChange(of: makeNewItemVM.userSelectedDate) { newValue in
                 //データベースに存在するアイテムの日付とダブってればSaveボタンを無効にする
-                for item in store.allData{
+                for item in globalStore.allData{
                     if Calendar.current.isDate(item.date!, equalTo: newValue , toGranularity: .day){
                         makeNewItemVM.isVailed = false
                         return
@@ -150,7 +149,7 @@ struct makeNewItemSheet: View {
             .onAppear{
                 let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: Date())!
                 //データベースに昨日の日付があれば、Saveボタンを無効にする
-                for item in store.allData{
+                for item in globalStore.allData{
                     if Calendar.current.isDate(item.date!, equalTo: yesterday , toGranularity: .day){
                         makeNewItemVM.isVailed = false
                         return

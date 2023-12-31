@@ -13,6 +13,7 @@ struct TutorialScreen: View {
     
     ///ViewModel用の変数
     @StateObject private var tutorialVM = TutorialViewModel()
+    @EnvironmentObject var globalStore: GlobalStore
     
     var body: some View {
         VStack{
@@ -41,7 +42,7 @@ struct TutorialScreen: View {
         .cornerRadius(15)
         .padding(.horizontal)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .modifier(UserSettingGradient(appColorNum: tutorialVM.userSelectedColor))
+        .modifier(UserSettingGradient(appColorNum: globalStore.userSelectedColor))
         .embedInNavigationStack()
         .navigationViewStyle(.stack)
     }

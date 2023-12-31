@@ -12,7 +12,7 @@ import CoreData
 ///記録の詳細を表示するビュー
 struct DetailScreen: View {
     ///ViewModel用の変数
-    @EnvironmentObject var store: GlobalStore
+    @EnvironmentObject var globalStore: GlobalStore
     @StateObject var detailVM = DetailViewModel()
     
     ///画面破棄用の変数
@@ -69,7 +69,7 @@ struct DetailScreen: View {
         }
         .detailViewStyle()
         //グラデーション背景の設定
-        .modifier(UserSettingGradient(appColorNum: detailVM.userSelectedColor))
+        .modifier(UserSettingGradient(appColorNum: globalStore.userSelectedColor))
         
         
         .onAppear{
@@ -97,7 +97,7 @@ struct DetailScreen: View {
                 Button("保存する") {
                     detailVM.updateMemo(item: item)
                     isInputActive = false
-                    store.setAllData()
+                    globalStore.setAllData()
                 }
                 
                 .foregroundColor(detailVM.isTextValid ? .primary : .gray)
@@ -147,9 +147,9 @@ struct DetailScreen: View {
                 
                 detailVM.deleteData(data: item)
                 Task{
-                    await store.assignNumbers(completion: {
+                    await globalStore.assignNumbers(completion: {
                         withAnimation {
-                            onDeleted(store.allData)
+                            onDeleted(globalStore.allData)
                         }
                     })
                 }
