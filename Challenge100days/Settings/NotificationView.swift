@@ -11,7 +11,7 @@ import SwiftUI
 struct NotificationView: View {
     ///ViewModel用の変数
     @EnvironmentObject var notificationViewModel :NotificationViewModel
-    @EnvironmentObject var coreDataViewModel :CoreDataViewModel
+    @EnvironmentObject var globalStore: GlobalStore
     
     ///トーストの表示状態を格納するフラグ
     @Binding var showToast: Bool
@@ -21,6 +21,9 @@ struct NotificationView: View {
     
     ///画面破棄用
     @Environment(\.dismiss) var dismiss
+    
+    ///バックグラウンド移行と復帰の環境値を監視する
+    @Environment(\.scenePhase) var scenePhase
     
     ///一週間分の要素を生成
     let week = Array(1...7)
@@ -52,7 +55,7 @@ struct NotificationView: View {
                 //保存ボタン
                 Button {
                     Task{
-//                        await notificationViewModel.setNotification(item: coreDataViewModel.allData.last)
+                        await notificationViewModel.setNotification(isFinishTodaysTask: globalStore.finishedTodaysTask)
                     }
                     //トーストを表示して画面破棄
                     toastText = "通知を設定しました。"
@@ -65,6 +68,43 @@ struct NotificationView: View {
                 }
             }
 
+        }
+        .disabled(!notificationViewModel.isNotificationEnabled)
+        .opacity(notificationViewModel.isNotificationEnabled ? 1.0 : 0.5)
+        
+        .onAppear{
+            //タップ時に通知の許可を判定、許可されていれば画面遷移
+            notificationViewModel.isUserNotificationEnabled()
+        }
+        //バックグラウンド復帰時に通知の状態を確認
+        //これしないと通知OFFでも通知設定画面に遷移できてしまうため
+        .onChange(of: scenePhase) { newPhase in
+                notificationViewModel.isUserNotificationEnabled()
+//            center.requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
+//                if success {
+//                    settingViewModel.isNotificationEnabled = true
+//                }else {
+//                    settingViewModel.isNotificationEnabled = false
+//                }
+//            }
+        }
+        //通知セルタップ時に通知がOFFになっている時のアラート
+        .alert("通知が許可されていません", isPresented: $notificationViewModel.showNotificationAlert){
+            Button("通知画面を開く") {
+                DispatchQueue.main.async {
+                    if let url = URL(string: UIApplication.openSettingsURLString) {
+                        UIApplication.shared.open(url, options: [:], completionHandler: {_ in
+                            notificationViewModel.showNotificationAlert = false
+                        })
+                    }
+                }
+            }
+            Button("戻る",role: .cancel){
+                notificationViewModel.showNotificationAlert = false
+                dismiss()
+            }
+        }message: {
+            Text("設定画面から通知を許可してください")
         }
     }
     

@@ -28,6 +28,9 @@ final class SettingViewModel: ViewModelBase{
     ///長期目標か短期目標かのフラグ
     @Published var isLongTermGoal = false
     
+    ///通知状態の格納用変数
+    @Published var isNotificationEnabled = false
+    
     override init(){
         // super.initを呼び出す
         super.init()

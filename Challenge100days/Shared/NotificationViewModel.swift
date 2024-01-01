@@ -20,6 +20,14 @@ class NotificationViewModel: ObservableObject{
     ///ユーザーによる通知設定がされているかを格納する変数
     var isNotificationOn: Bool
     
+    
+
+    ///通知許可が設定されているかの状態の格納用変数
+    @Published var isNotificationEnabled = false
+    ///通知をお願いするアラート表示用のフラグ（設定画面への遷移ボタン）
+    @Published var showNotificationAlert = false
+    
+    
     ///通知用変数
     let content = UNMutableNotificationContent()
     let notificationCenter = UNUserNotificationCenter.current()
@@ -42,20 +50,28 @@ class NotificationViewModel: ObservableObject{
         self.isNotificationOn = defaults.bool(forKey: isNotificationOnKey)
     }
     
-    ///今日のタスクが終了しているか確認してBool型で返すメソッド
-//    func checkTodaysTask(item: DailyData?) -> Bool{
-//        //もしデータが空なら未達成
-//        guard let item else {return false}
-//
-//        //今日の日付と引数の日付が同日ならtrueを返す
-//        if Calendar.current.isDate(Date.now, equalTo: item.wrappedDate, toGranularity: .day){
-//            print("今日のタスクは達成済み")
-//            return true
-//        }else{
-//            print("今日のタスクは未達成")
-//            return false
-//        }
-//    }
+    ///アプリの通知設定が許可されているか取得する関数
+    func isUserNotificationEnabled(){
+        notificationCenter.requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
+            if let error = error {
+                print(error.localizedDescription)
+            }
+            
+            if success {
+                //通知OK
+                DispatchQueue.main.async {
+                    self.isNotificationEnabled = true
+                    self.showNotificationAlert = false
+                }
+            }else {
+                //通知NG
+                DispatchQueue.main.async {
+                    self.isNotificationEnabled = false
+                    self.showNotificationAlert = true
+                }
+            }
+        }
+    }
     
     ///通知のオンオフを切り替えるメソッド
     func switchUserNotification(isOn: Bool){

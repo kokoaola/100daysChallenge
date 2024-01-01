@@ -18,15 +18,6 @@ struct SettingView: View {
     @ObservedObject var notificationViewModel = NotificationViewModel()
     @ObservedObject var coreDataViewModel = CoreDataViewModel()
     
-    ///通知確認用の変数
-    let center = UNUserNotificationCenter.current()
-    
-    ///通知状態の格納用変数
-    @State private var isNotificationEnabled = false
-    
-    ///バックグラウンド移行と復帰の環境値を監視する
-    @Environment(\.scenePhase) var scenePhase
-    
     var body: some View {
         NavigationStack{
             
@@ -62,109 +53,107 @@ struct SettingView: View {
                                 }
                             
                             // 通知設定用のセル
-                            ZStack{
-                                Rectangle().foregroundColor(.clear)
-                                    .contentShape(Rectangle())
-                                //タップ時に通知の許可を判定、許可されていれば画面遷移
-                                    .onTapGesture {
-                                        center.requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
-                                            if let error = error {
-                                                print(error.localizedDescription)
-                                            }
-                                            
-                                            if success {
-                                                //通知OK
-                                                isNotificationEnabled = true
-                                            }else {
-                                                //通知NG
-                                                settingViewModel.showNotificationAlert = true
-                                                isNotificationEnabled = false
-                                            }
+//                            ZStack{
+//                                Rectangle().foregroundColor(.clear)
+//                                    .contentShape(Rectangle())
+//                                //タップ時に通知の許可を判定、許可されていれば画面遷移
+//                                    .onTapGesture {
+//                                        center.requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
+//                                            if let error = error {
+//                                                print(error.localizedDescription)
+//                                            }
+//
+//                                            if success {
+//                                                //通知OK
+//                                                settingViewModel.isNotificationEnabled = true
+//                                            }else {
+//                                                //通知NG
+//                                                settingViewModel.showNotificationAlert = true
+//                                                settingViewModel.isNotificationEnabled = false
+//                                            }
+//                                        }
+//                                    }
+//                                        .disabled(settingViewModel.isNotificationEnabled)
+                                        
+                                        NavigationLink {
+                                            NotificationView(showToast: $settingViewModel.showToast, toastText: $settingViewModel.toastText)
+                                        } label: {
+                                            Text("通知を設定する")
                                         }
+//                                    }
+                            }
+                            
+                            Section{
+                                //長期目標変更用のセル
+                                Button("目標を変更する") {
+                                    settingViewModel.isLongTermGoal = true
+                                    settingViewModel.showToast = false
+                                    withAnimation {
+                                        settingViewModel.showGoalEdittingAlert = true
                                     }
-                                    .disabled(isNotificationEnabled)
+                                }
                                 
+                                //短期目標変更用のセル
+                                Button("100日取り組む内容を変更する") {
+                                    settingViewModel.isLongTermGoal = false
+                                    settingViewModel.showToast = false
+                                    withAnimation {
+                                        settingViewModel.showGoalEdittingAlert = true
+                                    }
+                                }
+                            }
+                            
+                            Section{
+                                //バックアップデータ取得用のセル
                                 NavigationLink {
-                                    NotificationView(showToast: $settingViewModel.showToast, toastText: $settingViewModel.toastText)
+                                    BackUpView()
                                 } label: {
-                                    Text("通知を設定する")
+                                    Text("バックアップ")
                                 }
                                 
-                            }
-                            
-                        }
-                        
-                        Section{
-                            //長期目標変更用のセル
-                            Button("目標を変更する") {
-                                settingViewModel.showToast = false
-                                settingViewModel.isLongTermGoal = true
-                                withAnimation {
-                                    settingViewModel.showGoalEdittingAlert = true
+                                //プライバシーポリシーページ遷移用のセル
+                                NavigationLink {
+                                    PrivacyPolicyWebView()
+                                } label: {
+                                    Text("プライバシーポリシー")
+                                }
+                                
+                                //アプリ解説ページ遷移用のセル
+                                NavigationLink {
+                                    AboutThisApp()
+                                } label: {
+                                    Text("このアプリについて")
+                                }
+                                
+                                //お問い合わせページ遷移用のセル
+                                NavigationLink {
+                                    ContactWebView()
+                                } label: {
+                                    Text("お問い合わせ")
                                 }
                             }
                             
-                            //短期目標変更用のセル
-                            Button("100日取り組む内容を変更する") {
-                                settingViewModel.showToast = false
-                                settingViewModel.isLongTermGoal = false
-                                withAnimation {
-                                    settingViewModel.showGoalEdittingAlert = true
+                            //全データ消去用のセル
+                            Section{
+                                HStack{
+                                    Spacer()
+                                    Text("リセット")
+                                        .foregroundColor(.red)
+                                    Spacer()
+                                }
+                                .contentShape(Rectangle())
+                                .onTapGesture {
+                                    settingViewModel.showResetAlert = true
                                 }
                             }
                         }
-                        
-                        Section{
-                            //バックアップデータ取得用のセル
-                            NavigationLink {
-                                BackUpView()
-                            } label: {
-                                Text("バックアップ")
-                            }
-                            
-                            //プライバシーポリシーページ遷移用のセル
-                            NavigationLink {
-                                PrivacyPolicyWebView()
-                            } label: {
-                                Text("プライバシーポリシー")
-                            }
-                            
-                            //アプリ解説ページ遷移用のセル
-                            NavigationLink {
-                                AboutThisApp()
-                            } label: {
-                                Text("このアプリについて")
-                            }
-                            
-                            //お問い合わせページ遷移用のセル
-                            NavigationLink {
-                                ContactWebView()
-                            } label: {
-                                Text("お問い合わせ")
-                            }
-                        }
-                        
-                        //全データ消去用のセル
-                        Section{
-                            HStack{
-                                Spacer()
-                                Text("リセット")
-                                    .foregroundColor(.red)
-                                Spacer()
-                            }
-                            .contentShape(Rectangle())
-                            .onTapGesture {
-                                settingViewModel.showResetAlert = true
-                            }
-                        }
+                        //アラート表示中はリスト無効、背景透ける
+                        .disabled(settingViewModel.showGoalEdittingAlert)
+                        .accessibilityHidden(settingViewModel.showGoalEdittingAlert)
+                        .opacity(settingViewModel.showGoalEdittingAlert ? 0.3 : 1.0)
+                        .animation(nil, value: settingViewModel.showGoalEdittingAlert)
+                        .foregroundColor(Color(UIColor.label))
                     }
-                    //アラート表示中はリスト無効、背景透ける
-                    .disabled(settingViewModel.showGoalEdittingAlert)
-                    .accessibilityHidden(settingViewModel.showGoalEdittingAlert)
-                    .opacity(settingViewModel.showGoalEdittingAlert ? 0.3 : 1.0)
-                    .animation(nil, value: settingViewModel.showGoalEdittingAlert)
-                    .foregroundColor(Color(UIColor.label))
-                }
                 
                 //ナビゲーションの設定
                 .navigationTitle("設定")
@@ -195,17 +184,17 @@ struct SettingView: View {
         .animation(settingViewModel.showGoalEdittingAlert ? .easeInOut(duration: 0.05) : nil, value: settingViewModel.showGoalEdittingAlert)
         
         
-        //バックグラウンド復帰時に通知の状態を確認
-        //これしないと通知OFFでも通知設定画面に遷移できてしまうため
-        .onChange(of: scenePhase) { newPhase in
-            center.requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
-                if success {
-                    isNotificationEnabled = true
-                }else {
-                    isNotificationEnabled = false
-                }
-            }
-        }
+//        //バックグラウンド復帰時に通知の状態を確認
+//        //これしないと通知OFFでも通知設定画面に遷移できてしまうため
+//        .onChange(of: scenePhase) { newPhase in
+//            center.requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
+//                if success {
+//                    settingViewModel.isNotificationEnabled = true
+//                }else {
+//                    settingViewModel.isNotificationEnabled = false
+//                }
+//            }
+//        }
         
         //リセットボタン押下時のアラート
         .alert("リセットしますか？", isPresented: $settingViewModel.showResetAlert){
@@ -219,17 +208,17 @@ struct SettingView: View {
             Text("この動作は取り消せません。")
         }
         
-        //通知セルタップ時に通知がOFFになっている時のアラート
-        .alert("通知が許可されていません", isPresented: $settingViewModel.showNotificationAlert){
-            Button("通知画面を開く") {
-                if let url = URL(string: UIApplication.openSettingsURLString) {
-                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
-                }
-            }
-            Button("戻る",role: .cancel){}
-        }message: {
-            Text("設定画面から通知を許可してください")
-        }
+//        //通知セルタップ時に通知がOFFになっている時のアラート
+//        .alert("通知が許可されていません", isPresented: $settingViewModel.showNotificationAlert){
+//            Button("通知画面を開く") {
+//                if let url = URL(string: UIApplication.openSettingsURLString) {
+//                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
+//                }
+//            }
+//            Button("戻る",role: .cancel){}
+//        }message: {
+//            Text("設定画面から通知を許可してください")
+//        }
     }
 }
 

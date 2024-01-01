@@ -220,7 +220,6 @@
 				3B246AB92A0698ED00CB7EED /* Contact.swift */,
 				3B93B16C299F2D6A006F3332 /* EditGoal.swift */,
 				3B93B16A299D1307006F3332 /* AboutThisApp.swift */,
-				3B4D4E0F2A6435FF00AFB314 /* NotificationView.swift */,
 				3B5EF9262A71641B00709006 /* ToastView.swift */,
 				3B93B16E299FA513006F3332 /* BackUpView.swift */,
 			);
@@ -415,8 +414,9 @@
 			isa = PBXGroup;
 			children = (
 				3B93B167299CCDED006F3332 /* SettingScreen.swift */,
-				3B22453E2B1C4F3C00B64B7A /* ViewsForSettings */,
+				3B4D4E0F2A6435FF00AFB314 /* NotificationView.swift */,
 				3B9912D92B3D90D000E4DB40 /* SettingViewModel.swift */,
+				3B22453E2B1C4F3C00B64B7A /* ViewsForSettings */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -451,9 +451,9 @@
 				3BB7BCD52B1C5DC200E12E80 /* Info.plist */,
 				3B3C69212B3B279400DE496C /* Store.swift */,
 				3B3C692C2B3BEB4300DE496C /* Model */,
+				3B3C69252B3B40D100DE496C /* Extensions */,
 				3B22455B2B1C53DA00B64B7A /* CoreDataHelper */,
 				3B3C692D2B3BEC0500DE496C /* Shared */,
-				3B3C69252B3B40D100DE496C /* Extensions */,
 				3BC602BE2986AC1400198F1B /* TabScreen.swift */,
 				3B3C692B2B3BEAE100DE496C /* Tutorial */,
 				3B3C692E2B3BEC6F00DE496C /* CompleteButton */,
