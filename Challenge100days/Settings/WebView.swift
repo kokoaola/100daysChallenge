@@ -33,6 +33,8 @@ struct ContactWebView: UIViewRepresentable {
     }
 }
 
+
+
 ///ウェブ上のプライバシーポリシーを表示する
 struct PrivacyPolicyWebView: UIViewRepresentable {
     ///URL
@@ -48,6 +50,7 @@ struct PrivacyPolicyWebView: UIViewRepresentable {
         uiView.load(request)
     }
 }
+
 
 
 struct Contact_Previews: PreviewProvider {

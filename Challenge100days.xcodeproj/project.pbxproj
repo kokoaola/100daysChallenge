@@ -29,7 +29,7 @@
 		3B3C69292B3B4C4D00DE496C /* ViewModelBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3C69282B3B4C4D00DE496C /* ViewModelBase.swift */; };
 		3B3C69302B3BED9900DE496C /* CompleteButtonComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3C692F2B3BED9900DE496C /* CompleteButtonComponent.swift */; };
 		3B3C69332B3BEEA600DE496C /* BigButtonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3C69322B3BEEA600DE496C /* BigButtonViewModel.swift */; };
-		3B3C69352B3BF3B200DE496C /* GlobalStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3C69342B3BF3B200DE496C /* GlobalStore.swift */; };
+		3B3C69352B3BF3B200DE496C /* CoreDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3C69342B3BF3B200DE496C /* CoreDataStore.swift */; };
 		3B3C693A2B3C151E00DE496C /* CompleteViewComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3C69392B3C151E00DE496C /* CompleteViewComponents.swift */; };
 		3B3C693D2B3C29AF00DE496C /* AddMemoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3C693C2B3C29AF00DE496C /* AddMemoViewModel.swift */; };
 		3B3C912D2ACD6C7B0058BDDD /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B3C91152ACD6C350058BDDD /* WidgetKit.framework */; };
@@ -130,7 +130,7 @@
 		3B3C69282B3B4C4D00DE496C /* ViewModelBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewModelBase.swift; sourceTree = "<group>"; };
 		3B3C692F2B3BED9900DE496C /* CompleteButtonComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteButtonComponent.swift; sourceTree = "<group>"; };
 		3B3C69322B3BEEA600DE496C /* BigButtonViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigButtonViewModel.swift; sourceTree = "<group>"; };
-		3B3C69342B3BF3B200DE496C /* GlobalStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalStore.swift; sourceTree = "<group>"; };
+		3B3C69342B3BF3B200DE496C /* CoreDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStore.swift; sourceTree = "<group>"; };
 		3B3C69392B3C151E00DE496C /* CompleteViewComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteViewComponents.swift; sourceTree = "<group>"; };
 		3B3C693C2B3C29AF00DE496C /* AddMemoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMemoViewModel.swift; sourceTree = "<group>"; };
 		3B3C91152ACD6C350058BDDD /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
@@ -268,7 +268,7 @@
 			isa = PBXGroup;
 			children = (
 				3B3C69282B3B4C4D00DE496C /* ViewModelBase.swift */,
-				3B3C69342B3BF3B200DE496C /* GlobalStore.swift */,
+				3B3C69342B3BF3B200DE496C /* CoreDataStore.swift */,
 				3B3C91452ACD6F5E0058BDDD /* Constants.swift */,
 			);
 			path = Shared;
@@ -624,7 +624,7 @@
 				3B2245452B1C504000B64B7A /* TutorialView1.swift in Sources */,
 				3B9912D22B3D526400E4DB40 /* ListComponents.swift in Sources */,
 				3B3C69302B3BED9900DE496C /* CompleteButtonComponent.swift in Sources */,
-				3B3C69352B3BF3B200DE496C /* GlobalStore.swift in Sources */,
+				3B3C69352B3BF3B200DE496C /* CoreDataStore.swift in Sources */,
 				3BC602D329880A5900198F1B /* CardView.swift in Sources */,
 				3B93B16D299F2D6A006F3332 /* EditGoalAlert.swift in Sources */,
 				3B3C69292B3B4C4D00DE496C /* ViewModelBase.swift in Sources */,

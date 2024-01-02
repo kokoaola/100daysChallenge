@@ -16,35 +16,21 @@ func generateImageWithText(number: Int, day: Date) -> Image {
     var imageIndex = 0
     
     switch number{
-    case (0...9):
-        imageIndex = 1
-    case (10...19):
-        imageIndex = 2
-    case (20...29):
-        imageIndex = 3
-    case (30...39):
-        imageIndex = 4
-    case (40...49):
-        imageIndex = 5
-    case (50...59):
-        imageIndex = 6
-    case (60...69):
-        imageIndex = 7
-    case (70...79):
-        imageIndex = 8
-    case (80...89):
-        imageIndex = 9
-    case (90...99):
-        imageIndex = 10
-    default:
-        imageIndex = 0
+    case (0...9): imageIndex = 1
+    case (10...19): imageIndex = 2
+    case (20...29): imageIndex = 3
+    case (30...39): imageIndex = 4
+    case (40...49): imageIndex = 5
+    case (50...59): imageIndex = 6
+    case (60...69): imageIndex = 7
+    case (70...79): imageIndex = 8
+    case (80...89): imageIndex = 9
+    case (90...99): imageIndex = 10
+    default: imageIndex = 0
     }
     
-    
-    let imageName = AppSetting.photos[imageIndex]
-    
-    
     //画像をUIImageに変換に変換
+    let imageName = AppSetting.photos[imageIndex]
     guard let image = UIImage(named: imageName) else{
         return Image("noImage")
     }
