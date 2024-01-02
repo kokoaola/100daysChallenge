@@ -14,6 +14,7 @@ struct DetailScreen: View {
     ///ViewModel用の変数
     @EnvironmentObject var globalStore: GlobalStore
     @StateObject var detailVM = DetailViewModel()
+    @EnvironmentObject var notificationVM: NotificationViewModel
     
     ///画面破棄用の変数
     @Environment(\.dismiss) var dismiss
@@ -63,7 +64,7 @@ struct DetailScreen: View {
                     .focused($isInputActive)
                 //タップでキーボードを閉じる
                     .onTapGesture {
-                        AppSetting.colseKeyBoard()
+                        isInputActive.toggle()
                     }
             }
         }
@@ -152,6 +153,11 @@ struct DetailScreen: View {
                             onDeleted(globalStore.allData)
                         }
                     })
+                    let lastDate = Calendar.current.dateComponents([.year, .month, .day], from: allData.last?.wrappedDate ?? Date())
+                    let today = Calendar.current.dateComponents([.year, .month, .day], from: Date())
+                    
+                    await notificationVM.setNotification(isFinishTodaysTask: lastDate == today)
+                    print("LastDate == today", lastDate == today)
                 }
             }
             Button("戻る",role: .cancel){}

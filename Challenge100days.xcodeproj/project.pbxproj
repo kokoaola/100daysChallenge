@@ -11,7 +11,6 @@
 		3B0028042A76248800520699 /* Challenge100daysApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0028032A76248800520699 /* Challenge100daysApp.swift */; };
 		3B0D04542B3974AF001FA2F4 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 3B0D04532B3974AF001FA2F4 /* Lottie */; };
 		3B0D983A2A053D430001FD0A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3BC602C02986AC1500198F1B /* Assets.xcassets */; };
-		3B0D983C2A068DD20001FD0A /* PrivacyPolicyWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0D983B2A068DD20001FD0A /* PrivacyPolicyWebView.swift */; };
 		3B22452F2B1C429400B64B7A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3B2245292B1C429400B64B7A /* Localizable.strings */; };
 		3B2245302B1C429400B64B7A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3B2245292B1C429400B64B7A /* Localizable.strings */; };
 		3B2245312B1C429400B64B7A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3B22452B2B1C429400B64B7A /* InfoPlist.strings */; };
@@ -23,7 +22,7 @@
 		3B2245472B1C504000B64B7A /* TutorialView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2245432B1C504000B64B7A /* TutorialView2.swift */; };
 		3B2245482B1C504000B64B7A /* TutorialView3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2245442B1C504000B64B7A /* TutorialView3.swift */; };
 		3B2245542B1C51B900B64B7A /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3C91452ACD6F5E0058BDDD /* Constants.swift */; };
-		3B246ABA2A0698ED00CB7EED /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B246AB92A0698ED00CB7EED /* Contact.swift */; };
+		3B246ABA2A0698ED00CB7EED /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B246AB92A0698ED00CB7EED /* WebView.swift */; };
 		3B3C69222B3B279400DE496C /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3C69212B3B279400DE496C /* Store.swift */; };
 		3B3C69242B3B3A7B00DE496C /* TutorialViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3C69232B3B3A7B00DE496C /* TutorialViewModel.swift */; };
 		3B3C69272B3B40D100DE496C /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3C69262B3B40D100DE496C /* View+Extensions.swift */; };
@@ -46,6 +45,7 @@
 		3B3C914F2ACD74B40058BDDD /* GaugeWidgetTimelineProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3C914E2ACD74B40058BDDD /* GaugeWidgetTimelineProvider.swift */; };
 		3B3C91512ACD79C90058BDDD /* GaugeWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3C91502ACD79C90058BDDD /* GaugeWidget.swift */; };
 		3B3CFFFB298E236300102EEE /* GenerateImageWithDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3CFFFA298E236300102EEE /* GenerateImageWithDate.swift */; };
+		3B4C14DB2B43D4DC00951378 /* NotificationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4C14DA2B43D4DC00951378 /* NotificationModel.swift */; };
 		3B4D4E102A6435FF00AFB314 /* NotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4D4E0F2A6435FF00AFB314 /* NotificationView.swift */; };
 		3B4D4E142A695D7E00AFB314 /* NotificationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4D4E132A695D7E00AFB314 /* NotificationViewModel.swift */; };
 		3B4D4E1A2A6CCD3600AFB314 /* CoreDataViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4D4E192A6CCD3600AFB314 /* CoreDataViewModel.swift */; };
@@ -58,7 +58,7 @@
 		3B91C40F2ACEBA6700B2D626 /* NumberWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B91C40E2ACEBA6700B2D626 /* NumberWidget.swift */; };
 		3B93B168299CCDED006F3332 /* SettingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B93B167299CCDED006F3332 /* SettingScreen.swift */; };
 		3B93B16B299D1307006F3332 /* AboutThisApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B93B16A299D1307006F3332 /* AboutThisApp.swift */; };
-		3B93B16D299F2D6A006F3332 /* EditGoal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B93B16C299F2D6A006F3332 /* EditGoal.swift */; };
+		3B93B16D299F2D6A006F3332 /* EditGoalAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B93B16C299F2D6A006F3332 /* EditGoalAlert.swift */; };
 		3B93B16F299FA513006F3332 /* BackUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B93B16E299FA513006F3332 /* BackUpView.swift */; };
 		3B9912C42B3C3FF300E4DB40 /* TutorialComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9912C32B3C3FF300E4DB40 /* TutorialComponents.swift */; };
 		3B9912C62B3C402F00E4DB40 /* ListAndCardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9912C52B3C402F00E4DB40 /* ListAndCardViewModel.swift */; };
@@ -66,7 +66,6 @@
 		3B9912CC2B3C6E2500E4DB40 /* MakeNewItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9912CB2B3C6E2500E4DB40 /* MakeNewItemViewModel.swift */; };
 		3B9912D02B3D505600E4DB40 /* CardComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9912CF2B3D505600E4DB40 /* CardComponents.swift */; };
 		3B9912D22B3D526400E4DB40 /* ListComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9912D12B3D526400E4DB40 /* ListComponents.swift */; };
-		3B9912D42B3D87C100E4DB40 /* DetailViewComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9912D32B3D87C100E4DB40 /* DetailViewComponents.swift */; };
 		3B9912D62B3D8FB800E4DB40 /* AddMemoComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9912D52B3D8FB800E4DB40 /* AddMemoComponents.swift */; };
 		3B9912D82B3D900A00E4DB40 /* MakeNewItemComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9912D72B3D900A00E4DB40 /* MakeNewItemComponents.swift */; };
 		3B9912DA2B3D90D000E4DB40 /* SettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B9912D92B3D90D000E4DB40 /* SettingViewModel.swift */; };
@@ -115,7 +114,6 @@
 /* Begin PBXFileReference section */
 		3B0027F32A76216800520699 /* challengedDay.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = challengedDay.xcdatamodel; sourceTree = "<group>"; };
 		3B0028032A76248800520699 /* Challenge100daysApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Challenge100daysApp.swift; sourceTree = "<group>"; };
-		3B0D983B2A068DD20001FD0A /* PrivacyPolicyWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyPolicyWebView.swift; sourceTree = "<group>"; };
 		3B22452A2B1C429400B64B7A /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
 		3B22452C2B1C429400B64B7A /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		3B22452D2B1C429400B64B7A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -125,7 +123,7 @@
 		3B2245422B1C504000B64B7A /* TutorialScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialScreen.swift; sourceTree = "<group>"; };
 		3B2245432B1C504000B64B7A /* TutorialView2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialView2.swift; sourceTree = "<group>"; };
 		3B2245442B1C504000B64B7A /* TutorialView3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialView3.swift; sourceTree = "<group>"; };
-		3B246AB92A0698ED00CB7EED /* Contact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
+		3B246AB92A0698ED00CB7EED /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
 		3B3C69212B3B279400DE496C /* Store.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
 		3B3C69232B3B3A7B00DE496C /* TutorialViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialViewModel.swift; sourceTree = "<group>"; };
 		3B3C69262B3B40D100DE496C /* View+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; };
@@ -149,6 +147,7 @@
 		3B3C914E2ACD74B40058BDDD /* GaugeWidgetTimelineProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GaugeWidgetTimelineProvider.swift; sourceTree = "<group>"; };
 		3B3C91502ACD79C90058BDDD /* GaugeWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GaugeWidget.swift; sourceTree = "<group>"; };
 		3B3CFFFA298E236300102EEE /* GenerateImageWithDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateImageWithDate.swift; sourceTree = "<group>"; };
+		3B4C14DA2B43D4DC00951378 /* NotificationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationModel.swift; sourceTree = "<group>"; };
 		3B4D4E0F2A6435FF00AFB314 /* NotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationView.swift; sourceTree = "<group>"; };
 		3B4D4E132A695D7E00AFB314 /* NotificationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewModel.swift; sourceTree = "<group>"; };
 		3B4D4E192A6CCD3600AFB314 /* CoreDataViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataViewModel.swift; sourceTree = "<group>"; };
@@ -161,7 +160,7 @@
 		3B91C40E2ACEBA6700B2D626 /* NumberWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberWidget.swift; sourceTree = "<group>"; };
 		3B93B167299CCDED006F3332 /* SettingScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingScreen.swift; sourceTree = "<group>"; };
 		3B93B16A299D1307006F3332 /* AboutThisApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutThisApp.swift; sourceTree = "<group>"; };
-		3B93B16C299F2D6A006F3332 /* EditGoal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditGoal.swift; sourceTree = "<group>"; };
+		3B93B16C299F2D6A006F3332 /* EditGoalAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditGoalAlert.swift; sourceTree = "<group>"; };
 		3B93B16E299FA513006F3332 /* BackUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackUpView.swift; sourceTree = "<group>"; };
 		3B9912C32B3C3FF300E4DB40 /* TutorialComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialComponents.swift; sourceTree = "<group>"; };
 		3B9912C52B3C402F00E4DB40 /* ListAndCardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListAndCardViewModel.swift; sourceTree = "<group>"; };
@@ -169,7 +168,6 @@
 		3B9912CB2B3C6E2500E4DB40 /* MakeNewItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeNewItemViewModel.swift; sourceTree = "<group>"; };
 		3B9912CF2B3D505600E4DB40 /* CardComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardComponents.swift; sourceTree = "<group>"; };
 		3B9912D12B3D526400E4DB40 /* ListComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListComponents.swift; sourceTree = "<group>"; };
-		3B9912D32B3D87C100E4DB40 /* DetailViewComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewComponents.swift; sourceTree = "<group>"; };
 		3B9912D52B3D8FB800E4DB40 /* AddMemoComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMemoComponents.swift; sourceTree = "<group>"; };
 		3B9912D72B3D900A00E4DB40 /* MakeNewItemComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeNewItemComponents.swift; sourceTree = "<group>"; };
 		3B9912D92B3D90D000E4DB40 /* SettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewModel.swift; sourceTree = "<group>"; };
@@ -213,19 +211,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		3B22453E2B1C4F3C00B64B7A /* ViewsForSettings */ = {
-			isa = PBXGroup;
-			children = (
-				3B0D983B2A068DD20001FD0A /* PrivacyPolicyWebView.swift */,
-				3B246AB92A0698ED00CB7EED /* Contact.swift */,
-				3B93B16C299F2D6A006F3332 /* EditGoal.swift */,
-				3B93B16A299D1307006F3332 /* AboutThisApp.swift */,
-				3B5EF9262A71641B00709006 /* ToastView.swift */,
-				3B93B16E299FA513006F3332 /* BackUpView.swift */,
-			);
-			path = ViewsForSettings;
-			sourceTree = "<group>";
-		};
 		3B22455B2B1C53DA00B64B7A /* CoreDataHelper */ = {
 			isa = PBXGroup;
 			children = (
@@ -274,6 +259,7 @@
 				3B0027F22A76216800520699 /* challengedDay.xcdatamodeld */,
 				3BD9FE8A2B398FD900E1D1AD /* DailyData+CoreDataClass.swift */,
 				3BD9FE8B2B398FD900E1D1AD /* DailyData+CoreDataProperties.swift */,
+				3B4C14DA2B43D4DC00951378 /* NotificationModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -282,7 +268,6 @@
 			isa = PBXGroup;
 			children = (
 				3B3C69282B3B4C4D00DE496C /* ViewModelBase.swift */,
-				3B4D4E132A695D7E00AFB314 /* NotificationViewModel.swift */,
 				3B3C69342B3BF3B200DE496C /* GlobalStore.swift */,
 				3B3C91452ACD6F5E0058BDDD /* Constants.swift */,
 			);
@@ -366,6 +351,15 @@
 			path = Widget;
 			sourceTree = "<group>";
 		};
+		3B4C14D72B4314A000951378 /* Notification */ = {
+			isa = PBXGroup;
+			children = (
+				3B4D4E0F2A6435FF00AFB314 /* NotificationView.swift */,
+				3B4D4E132A695D7E00AFB314 /* NotificationViewModel.swift */,
+			);
+			path = Notification;
+			sourceTree = "<group>";
+		};
 		3B91C4032ACEB65C00B2D626 /* NumberWidget */ = {
 			isa = PBXGroup;
 			children = (
@@ -394,7 +388,6 @@
 			isa = PBXGroup;
 			children = (
 				3B75EB0E298D5C35000FCDE9 /* DetailScreen.swift */,
-				3B9912D32B3D87C100E4DB40 /* DetailViewComponents.swift */,
 				3B9912C82B3C658300E4DB40 /* DetailViewModel.swift */,
 			);
 			path = DetailView;
@@ -414,9 +407,12 @@
 			isa = PBXGroup;
 			children = (
 				3B93B167299CCDED006F3332 /* SettingScreen.swift */,
-				3B4D4E0F2A6435FF00AFB314 /* NotificationView.swift */,
+				3B246AB92A0698ED00CB7EED /* WebView.swift */,
+				3B93B16E299FA513006F3332 /* BackUpView.swift */,
+				3B93B16C299F2D6A006F3332 /* EditGoalAlert.swift */,
+				3B93B16A299D1307006F3332 /* AboutThisApp.swift */,
+				3B5EF9262A71641B00709006 /* ToastView.swift */,
 				3B9912D92B3D90D000E4DB40 /* SettingViewModel.swift */,
-				3B22453E2B1C4F3C00B64B7A /* ViewsForSettings */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -463,6 +459,7 @@
 				3B9912C72B3C653400E4DB40 /* DetailView */,
 				3B9912CA2B3C6DD700E4DB40 /* MakeNewItem */,
 				3B9912CE2B3D459900E4DB40 /* Settings */,
+				3B4C14D72B4314A000951378 /* Notification */,
 				3B3C910E2ACD43830058BDDD /* ViewModels */,
 				3B22455C2B1C53FF00B64B7A /* Resources */,
 				3BC602C22986AC1500198F1B /* Preview Content */,
@@ -615,7 +612,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3B2245342B1C42F500B64B7A /* PersistenceController.swift in Sources */,
-				3B246ABA2A0698ED00CB7EED /* Contact.swift in Sources */,
+				3B246ABA2A0698ED00CB7EED /* WebView.swift in Sources */,
 				3BC602D52988BE6300198F1B /* ListView.swift in Sources */,
 				3B9912DA2B3D90D000E4DB40 /* SettingViewModel.swift in Sources */,
 				3B2245462B1C504000B64B7A /* TutorialScreen.swift in Sources */,
@@ -629,13 +626,14 @@
 				3B3C69302B3BED9900DE496C /* CompleteButtonComponent.swift in Sources */,
 				3B3C69352B3BF3B200DE496C /* GlobalStore.swift in Sources */,
 				3BC602D329880A5900198F1B /* CardView.swift in Sources */,
-				3B93B16D299F2D6A006F3332 /* EditGoal.swift in Sources */,
+				3B93B16D299F2D6A006F3332 /* EditGoalAlert.swift in Sources */,
 				3B3C69292B3B4C4D00DE496C /* ViewModelBase.swift in Sources */,
 				3B9912C92B3C658300E4DB40 /* DetailViewModel.swift in Sources */,
 				3BC602D12986B52100198F1B /* BigButtonScreen.swift in Sources */,
 				3B2245472B1C504000B64B7A /* TutorialView2.swift in Sources */,
 				3B9912D82B3D900A00E4DB40 /* MakeNewItemComponents.swift in Sources */,
 				3B4D4E142A695D7E00AFB314 /* NotificationViewModel.swift in Sources */,
+				3B4C14DB2B43D4DC00951378 /* NotificationModel.swift in Sources */,
 				3BD9FE8E2B39901E00E1D1AD /* DailyData+CoreDataClass.swift in Sources */,
 				3B93B16B299D1307006F3332 /* AboutThisApp.swift in Sources */,
 				3B3CFFFB298E236300102EEE /* GenerateImageWithDate.swift in Sources */,
@@ -649,7 +647,6 @@
 				3B0027F42A76216800520699 /* challengedDay.xcdatamodeld in Sources */,
 				3B0028042A76248800520699 /* Challenge100daysApp.swift in Sources */,
 				3B3C69332B3BEEA600DE496C /* BigButtonViewModel.swift in Sources */,
-				3B0D983C2A068DD20001FD0A /* PrivacyPolicyWebView.swift in Sources */,
 				3B75EB0D298BD0B1000FCDE9 /* AddMemoSheet.swift in Sources */,
 				3BC602CF2986B50B00198F1B /* CompleteScreen.swift in Sources */,
 				3B93B16F299FA513006F3332 /* BackUpView.swift in Sources */,
@@ -658,7 +655,6 @@
 				3B4D4E1A2A6CCD3600AFB314 /* CoreDataViewModel.swift in Sources */,
 				3B3C69222B3B279400DE496C /* Store.swift in Sources */,
 				3B3C91482ACD71850058BDDD /* GaugeWidgetEntry.swift in Sources */,
-				3B9912D42B3D87C100E4DB40 /* DetailViewComponents.swift in Sources */,
 				3B4D4E102A6435FF00AFB314 /* NotificationView.swift in Sources */,
 				3BD9FE8C2B39901A00E1D1AD /* DailyData+CoreDataProperties.swift in Sources */,
 				3B3C693D2B3C29AF00DE496C /* AddMemoViewModel.swift in Sources */,

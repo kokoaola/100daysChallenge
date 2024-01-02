@@ -11,7 +11,6 @@ import SwiftUI
 ///ユーザーが記録にメモを追加するためのビュー
 struct MemoSheet: View {
     ///ViewModel用の変数
-    @EnvironmentObject var coreDataViewModel :CoreDataViewModel
     @EnvironmentObject var globalStore: GlobalStore
     @StateObject var addMemoVM = AddMemoViewModel()
     
@@ -104,7 +103,6 @@ struct MemoSheet_Previews: PreviewProvider {
             MemoSheet()
                 .environment(\.locale, Locale(identifier:"ja"))
         }
-        .environmentObject(CoreDataViewModel())
         .environmentObject(Store())
     }
 }

@@ -66,7 +66,6 @@ struct ContentView_Previews: PreviewProvider {
                 .environment(\.locale, Locale(identifier:"ja"))
         }
         .environmentObject(NotificationViewModel())
-        .environmentObject(CoreDataViewModel())
         .environmentObject(GlobalStore())
     }
 }

@@ -71,9 +71,7 @@ struct makeNewItemSheet: View {
                     .border(.white)
                     .frame(height: 300)
                     .focused($isInputActive)
-                    .onTapGesture {
-                        AppSetting.colseKeyBoard()
-                    }
+//userSettingNotificationTime
                 
                 //選択された日付が有効ではない時に表示する警告
                 if !makeNewItemVM.isVailed{
@@ -183,7 +181,6 @@ struct makeNewItemSheet_Previews: PreviewProvider {
             makeNewItemSheet()
                 .environment(\.locale, Locale(identifier:"ja"))
         }
-        .environmentObject(CoreDataViewModel())
         .environmentObject(Store())
     }
 }

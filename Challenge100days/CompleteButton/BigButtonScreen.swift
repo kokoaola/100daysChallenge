@@ -43,7 +43,7 @@ struct ActionView: View {
                             Task{
                                 // 通知設定している場合、本日の通知はスキップする
                                 if notificationViewModel.isNotificationOn{
-                                    await notificationViewModel.setNotification(isFinishTodaysTask: globalStore.finishedTodaysTask)
+                                    await notificationViewModel.setNotification(isFinishTodaysTask: true)
                                 }
                                 //配列を更新
                                 globalStore.setAllData()

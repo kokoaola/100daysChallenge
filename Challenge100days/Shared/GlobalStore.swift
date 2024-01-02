@@ -130,4 +130,24 @@ class GlobalStore: ObservableObject {
         defaults.set(color, forKey: UserDefaultsConstants.userSelectedColorKey)
         self.userSelectedColor = color
     }
+    
+    ///データベースのすべての記録を削除するメソッド
+    func deleteAllData(){
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: AppGroupConstants.entityName)
+        
+        // Create Batch Delete Request
+        let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: request)
+        
+        do {
+            try context.execute(batchDeleteRequest)
+        } catch {
+            // Error Handling
+            print("Error deleting data: \(error)")
+        }
+        
+        setAllData()
+        
+        //ウィジェットを更新
+        AppGroupConstants.reloadTimelines()
+    }
 }

@@ -37,6 +37,4 @@ final class SettingViewModel: ViewModelBase{
         // super.initの後でdefaultsから値を取得
         self.hideInfomation = defaults.bool(forKey: UserDefaultsConstants.hideInfomationKey)
     }
-    
-    
 }

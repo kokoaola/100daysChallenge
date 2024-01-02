@@ -33,7 +33,21 @@ struct ContactWebView: UIViewRepresentable {
     }
 }
 
-
+///ウェブ上のプライバシーポリシーを表示する
+struct PrivacyPolicyWebView: UIViewRepresentable {
+    ///URL
+    var urlString = "https://kokoaola.github.io/privacyPolicy/privacy100days.html"
+    
+    func makeUIView(context: Context) -> WKWebView{
+        return WKWebView()
+    }
+    
+    func updateUIView(_ uiView: WKWebView, context: Context) {
+        let url = URL(string: urlString)!
+        let request = URLRequest(url: url)
+        uiView.load(request)
+    }
+}
 
 
 struct Contact_Previews: PreviewProvider {
