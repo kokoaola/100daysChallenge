@@ -13,7 +13,7 @@ struct TutorialScreen: View {
     
     ///ViewModel用の変数
     @StateObject private var tutorialVM = TutorialViewModel()
-    @EnvironmentObject var globalStore: GlobalStore
+    @EnvironmentObject var globalStore: CoreDataStore
     
     var body: some View {
         VStack{

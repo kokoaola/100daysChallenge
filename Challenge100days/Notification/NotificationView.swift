@@ -11,7 +11,7 @@ import SwiftUI
 struct NotificationView: View {
     ///ViewModel用の変数
     @EnvironmentObject var notificationViewModel :NotificationViewModel
-    @EnvironmentObject var globalStore: GlobalStore
+    @EnvironmentObject var globalStore: CoreDataStore
     
     ///トーストの表示状態を格納するフラグ
     @Binding var showToast: Bool
@@ -157,6 +157,6 @@ struct Notification_Previews: PreviewProvider {
                 .environment(\.locale, Locale(identifier:"ja"))
         }
         .environmentObject(NotificationViewModel())
-        .environmentObject(GlobalStore())
+        .environmentObject(CoreDataStore())
     }
 }

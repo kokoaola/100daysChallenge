@@ -12,7 +12,7 @@ import UserNotifications
 ///設定画面のビュー
 struct SettingView: View {
     ///ViewModel用の変数
-    @EnvironmentObject var globalStore: GlobalStore
+    @EnvironmentObject var globalStore: CoreDataStore
     @ObservedObject var settingViewModel = SettingViewModel()
     
     @ObservedObject var notificationViewModel = NotificationViewModel()

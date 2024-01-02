@@ -13,7 +13,7 @@ struct ActionView: View {
     
     ///ViewModel用の変数
     @EnvironmentObject var notificationViewModel: NotificationViewModel
-    @EnvironmentObject var globalStore: GlobalStore
+    @EnvironmentObject var globalStore: CoreDataStore
     @StateObject var bigButtonVM: BigButtonViewModel
     
     ///表示＆共有用の画像

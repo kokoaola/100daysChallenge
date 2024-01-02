@@ -12,7 +12,7 @@ import SwiftUI
 struct TabScreen: View {
     ///ViewModel用の変数
     @StateObject var listAndCardVM = ListAndCardViewModel()
-    @EnvironmentObject var globalStore: GlobalStore
+    @EnvironmentObject var globalStore: CoreDataStore
     @StateObject var bigButtonVM = BigButtonViewModel()
     
     var body: some View {
@@ -66,6 +66,6 @@ struct ContentView_Previews: PreviewProvider {
                 .environment(\.locale, Locale(identifier:"ja"))
         }
         .environmentObject(NotificationViewModel())
-        .environmentObject(GlobalStore())
+        .environmentObject(CoreDataStore())
     }
 }

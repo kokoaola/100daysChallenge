@@ -13,7 +13,7 @@ import CoreData
 struct ListAndCardView: View {
     ///ViewModel用の変数
     @ObservedObject var listAndCardVM: ListAndCardViewModel
-    @EnvironmentObject var globalStore: GlobalStore
+    @EnvironmentObject var globalStore: CoreDataStore
     
     var body: some View {
         //画面全体はスクロールビュー

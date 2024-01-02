@@ -12,7 +12,7 @@ import SwiftUI
 struct makeNewItemSheet: View {
     
     ///ViewModel用の変数
-    @EnvironmentObject var globalStore: GlobalStore
+    @EnvironmentObject var globalStore: CoreDataStore
     @StateObject var makeNewItemVM = MakeNewItemViewModel()
     
     ///画面破棄用の変数
@@ -181,6 +181,6 @@ struct makeNewItemSheet_Previews: PreviewProvider {
             makeNewItemSheet()
                 .environment(\.locale, Locale(identifier:"ja"))
         }
-        .environmentObject(Store())
+        .environmentObject(CoreDataStore())
     }
 }

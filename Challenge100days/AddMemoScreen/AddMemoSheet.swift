@@ -11,7 +11,7 @@ import SwiftUI
 ///ユーザーが記録にメモを追加するためのビュー
 struct MemoSheet: View {
     ///ViewModel用の変数
-    @EnvironmentObject var globalStore: GlobalStore
+    @EnvironmentObject var globalStore: CoreDataStore
     @StateObject var addMemoVM = AddMemoViewModel()
     
     ///キーボードフォーカス用変数（Doneボタン表示のため）

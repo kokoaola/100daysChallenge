@@ -12,7 +12,7 @@ import CoreData
 ///記録の詳細を表示するビュー
 struct DetailScreen: View {
     ///ViewModel用の変数
-    @EnvironmentObject var globalStore: GlobalStore
+    @EnvironmentObject var globalStore: CoreDataStore
     @StateObject var detailVM = DetailViewModel()
     @EnvironmentObject var notificationVM: NotificationViewModel
     

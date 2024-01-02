@@ -9,7 +9,7 @@ import Foundation
 import CoreData
 
 ///目標と初回起動のフラグを格納するグローバルオブジェクト
-class GlobalStore: ObservableObject {
+class CoreDataStore: ObservableObject {
     //データコントローラー格納変数
     let context = PersistenceController.persistentContainer.viewContext
     let request = NSFetchRequest<DailyData>(entityName: AppGroupConstants.entityName)
@@ -17,11 +17,9 @@ class GlobalStore: ObservableObject {
     let defaults = UserDefaults.standard
     
     ///データを全件格納する変数
-    @Published var allData : [DailyData]
+    @Published private(set) var allData : [DailyData]
     ///今日が何日目のチャレンジか格納する変数
-    @Published var dayNumber: Int
-    ///全体で表示中のタブを格納する変数
-//    @Published var userSelectedTag = "one"
+    @Published private(set) var dayNumber: Int
     ///当日のタスクが達成済みかを格納する変数
     @Published private(set) var finishedTodaysTask = true
     
@@ -121,11 +119,13 @@ class GlobalStore: ObservableObject {
         }
     }
     
+    ///目標を隠すかどうかを設定する関数
     func switchHideInfomation(_ isShow: Bool){
         defaults.set(isShow, forKey: UserDefaultsConstants.hideInfomationKey)
         self.hideInfomation = isShow
     }
     
+    ///アプリ全体のカラーを設定する関数
     func saveSettingColor(_ color: Int){
         defaults.set(color, forKey: UserDefaultsConstants.userSelectedColorKey)
         self.userSelectedColor = color
@@ -134,8 +134,6 @@ class GlobalStore: ObservableObject {
     ///データベースのすべての記録を削除するメソッド
     func deleteAllData(){
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: AppGroupConstants.entityName)
-        
-        // Create Batch Delete Request
         let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: request)
         
         do {
@@ -146,7 +144,6 @@ class GlobalStore: ObservableObject {
         }
         
         setAllData()
-        
         //ウィジェットを更新
         AppGroupConstants.reloadTimelines()
     }

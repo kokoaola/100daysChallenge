@@ -12,7 +12,7 @@ import SwiftUI
 struct TutorialView1: View {
     ///ViewModel用の変数
     @ObservedObject var tutorialVM: TutorialViewModel
-    @EnvironmentObject var globalStore: GlobalStore
+    @EnvironmentObject var globalStore: CoreDataStore
     
     var body: some View {
 
