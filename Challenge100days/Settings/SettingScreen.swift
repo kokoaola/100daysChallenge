@@ -14,9 +14,7 @@ struct SettingView: View {
     ///ViewModel用の変数
     @EnvironmentObject var globalStore: CoreDataStore
     @ObservedObject var settingViewModel = SettingViewModel()
-    
-    @ObservedObject var notificationViewModel = NotificationViewModel()
-//    @ObservedObject var coreDataViewModel = CoreDataViewModel()
+    @StateObject var notificationViewModel = NotificationViewModel()
     
     var body: some View {
         NavigationStack{
@@ -62,8 +60,8 @@ struct SettingView: View {
                         Section{
                             //長期目標変更用のセル
                             Button("目標を変更する") {
-                                settingViewModel.isLongTermGoal = true
-                                settingViewModel.showToast = false
+                                settingViewModel.editLongTermGoal = true
+                                    settingViewModel.editText = globalStore.longTermGoal
                                 withAnimation {
                                     settingViewModel.showGoalEdittingAlert = true
                                 }
@@ -71,8 +69,8 @@ struct SettingView: View {
                             
                             //短期目標変更用のセル
                             Button("100日取り組む内容を変更する") {
-                                settingViewModel.isLongTermGoal = false
-                                settingViewModel.showToast = false
+                                settingViewModel.editLongTermGoal = false
+                                settingViewModel.editText = globalStore.shortTermGoal
                                 withAnimation {
                                     settingViewModel.showGoalEdittingAlert = true
                                 }
@@ -141,11 +139,15 @@ struct SettingView: View {
                 
                 //目標編集セルタップ後に出現するテキストフィールド付きアラート
                 if settingViewModel.showGoalEdittingAlert{
-                    EditGoal(showAlert: $settingViewModel.showGoalEdittingAlert,showToast: $settingViewModel.showToast,toastText: $settingViewModel.toastText, isLong: settingViewModel.isLongTermGoal)
-                        .transition(.opacity)
+                    
+                    EditGoal(settingViewModel: settingViewModel){
+                        let isLong = settingViewModel.editLongTermGoal
+                        globalStore.setGoal(long: isLong ? settingViewModel.editText : nil, short: isLong ? nil : settingViewModel.editText)
+                    }
+                    .transition(.opacity)
                 }
                 
-                    
+                
                 //完了時に表示されるトーストポップアップ
                 ToastView(show: $settingViewModel.showToast, text: settingViewModel.toastText)
             }

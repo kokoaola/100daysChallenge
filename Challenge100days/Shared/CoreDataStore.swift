@@ -27,10 +27,16 @@ class CoreDataStore: ObservableObject {
     @Published private(set) var hideInfomation: Bool = true
     ///背景色を格納する変数
     @Published private(set) var userSelectedColor: Int = 0
-    
+    ///長期目標を格納する変数
+    @Published private(set) var longTermGoal: String
+    ///短期目標を格納する変数
+    @Published private(set) var shortTermGoal: String
 
     
     init(){
+        //アプリ起動時はユーザーデフォルトからデータを取得
+        self.longTermGoal = defaults.string(forKey:UserDefaultsConstants.longTermGoalKey) ?? ""
+        self.shortTermGoal = defaults.string(forKey:UserDefaultsConstants.shortTermGoalKey) ?? ""
         
         request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: true)]
         do{
@@ -146,5 +152,17 @@ class CoreDataStore: ObservableObject {
         setAllData()
         //ウィジェットを更新
         AppGroupConstants.reloadTimelines()
+    }
+    
+    ///目標を保存するメソッド
+    func setGoal(long: String?, short: String?){
+        if let long = long {
+            defaults.set(self.longTermGoal, forKey: UserDefaultsConstants.longTermGoalKey)
+            self.longTermGoal = long
+        }
+        if let short = short {
+            defaults.set(self.shortTermGoal, forKey: UserDefaultsConstants.shortTermGoalKey)
+            self.shortTermGoal = short
+        }
     }
 }

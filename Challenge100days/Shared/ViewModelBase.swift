@@ -35,22 +35,22 @@ class ViewModelBase: ObservableObject {
         self.userSelectedColor = defaults.integer(forKey:UserDefaultsConstants.userSelectedColorKey)
     }
     
-    ///ユーザーが選んだアプリの色を保存するメソッド
-    func saveUserSettingAppColor(){
-        defaults.set(self.userSelectedColor, forKey: UserDefaultsConstants.userSelectedColorKey)
-    }
-    
-    ///長期目標を保存する
-    func setGoal(long: String?, short: String?){
-        if let long = long {
-            defaults.set(self.longTermGoal, forKey: UserDefaultsConstants.longTermGoalKey)
-            self.longTermGoal = long
-        }
-        if let short = short {
-            defaults.set(self.shortTermGoal, forKey: UserDefaultsConstants.shortTermGoalKey)
-            self.shortTermGoal = short
-        }
-    }
+//    ///ユーザーが選んだアプリの色を保存するメソッド
+//    func saveUserSettingAppColor(){
+//        defaults.set(self.userSelectedColor, forKey: UserDefaultsConstants.userSelectedColorKey)
+//    }
+//    
+//    ///目標を保存するメソッド
+//    func setGoal(long: String?, short: String?){
+//        if let long = long {
+//            defaults.set(self.longTermGoal, forKey: UserDefaultsConstants.longTermGoalKey)
+//            self.longTermGoal = long
+//        }
+//        if let short = short {
+//            defaults.set(self.shortTermGoal, forKey: UserDefaultsConstants.shortTermGoalKey)
+//            self.shortTermGoal = short
+//        }
+//    }
 }
 
 

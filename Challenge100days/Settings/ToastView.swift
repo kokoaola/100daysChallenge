@@ -20,7 +20,7 @@ struct ToastView: View {
     @State private var opa = 0.0
     
     ///タイマー用変数
-    @State var timer: Timer?
+    @State private var timer: Timer?
     
     
     var body: some View {

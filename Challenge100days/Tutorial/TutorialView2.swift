@@ -13,6 +13,7 @@ struct TutorialView2: View {
     
     ///ViewModel用の変数
     @ObservedObject var tutorialVM: TutorialViewModel
+    @EnvironmentObject var globalStore: CoreDataStore
     
     ///キーボードフォーカス用変数（Doneボタン表示のため）
     @FocusState var longTermEditorFocus: Bool
@@ -79,7 +80,7 @@ struct TutorialView2: View {
             HStack{
                 Button {
                     tutorialVM.page = 1
-                    tutorialVM.saveTerm() //目標を保存
+                    globalStore.setGoal(long: tutorialVM.longTermEditText, short: tutorialVM.shortTermEditText) //目標を保存
                 } label: {
                     ArrowButton(isBackButton: true, labelText: "戻る")
                 }
@@ -89,7 +90,7 @@ struct TutorialView2: View {
                 ///進むボタン
                 Button {
                     tutorialVM.page = 3
-                    tutorialVM.saveTerm() //目標を保存
+                    globalStore.setGoal(long: tutorialVM.longTermEditText, short: tutorialVM.shortTermEditText) //目標を保存
                 } label: {
                     ArrowButton(isBackButton: false, labelText: "次へ")
                         .opacity(tutorialVM.isNextButtonNotFade ? 1 : 0.4)
