@@ -9,8 +9,8 @@ import SwiftUI
 
 ///目標を表示するビュー
 struct GoalView: View {
-    let longTermGoal: String
-    let shortTermGoal: String
+    var longTermGoal: String
+    var shortTermGoal: String
     
     var body: some View{
         VStack(alignment: .center, spacing: 10){
@@ -93,7 +93,6 @@ struct SpeechBubbleView: View{
                         HStack{
                             Button {
                                 showCompleteWindew = true
-//                                bigButtonVM.showAnimation = false
                             } label: {
                                 Text("ウインドウを再表示する")
                                     .font(.callout)

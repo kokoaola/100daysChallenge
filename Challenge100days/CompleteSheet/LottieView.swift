@@ -8,6 +8,8 @@
 import SwiftUI
 import Lottie
 
+
+///Lottieのアニメーションを表示するためのビュー
 struct LottieView: UIViewRepresentable {
     
     let filename: String

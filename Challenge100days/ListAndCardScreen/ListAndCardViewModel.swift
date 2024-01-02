@@ -8,7 +8,7 @@
 import Foundation
 
 
-final class ListAndCardViewModel: ViewModelBase{
+final class ListAndCardViewModel: ObservableObject{
     ///アイテム新規追加用シート格納変数
     @Published var showSheet = false
     

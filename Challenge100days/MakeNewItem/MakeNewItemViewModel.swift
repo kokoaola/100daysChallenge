@@ -8,7 +8,7 @@
 import Foundation
 
 
-final class MakeNewItemViewModel: ViewModelBase{
+final class MakeNewItemViewModel: ObservableObject{
     
     ///入力したテキストを格納するプロパティ
     @Published var editText = ""

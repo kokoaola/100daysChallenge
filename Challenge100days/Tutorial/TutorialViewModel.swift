@@ -8,13 +8,19 @@
 import Foundation
 
 
-class TutorialViewModel: ViewModelBase{
+class TutorialViewModel: ObservableObject{
+    ///ユーザーデフォルト用の変数
+    let defaults = UserDefaults.standard
     ///表示中のページ番号を格納する変数
     @Published var page = 1
     
     ///入力したテキストを格納するプロパティ
     @Published var longTermEditText = ""
     @Published var shortTermEditText = ""
+    
+    ///背景色を格納する変数
+    @Published var userSelectedColor: Int = 1
+    
     
     ///UIの状態を判別するプロパティ
     //２つのテキストフィールドが両方とも空白ではないことを判別するプロパティ
@@ -42,15 +48,20 @@ class TutorialViewModel: ViewModelBase{
         self.longTermEditText.isEmpty || self.shortTermEditText.isEmpty || isLongTermLengthValid || isShortTermLengthValid
     }
     
-    
-    ///すでに保存された目標をテキストフィールドの初期値に設定
-    func setTermToTextField(){
-        self.longTermEditText = longTermGoal
-        self.shortTermEditText = shortTermGoal
-    }
-    
-//    ///入力された目標をユーザーデフォルトに保存する関数
-//    func saveTerm(){
-//        setGoal(long: longTermEditText, short: shortTermEditText)
+    ///目標を保存するメソッド
+//    func saveGoal(long: String, short: String){
+//        defaults.set(self.longTermEditText, forKey: UserDefaultsConstants.longTermGoalKey)
+//        defaults.set(self.shortTermEditText, forKey: UserDefaultsConstants.shortTermGoalKey)
 //    }
+    
+    
+    //    func setTermToTextField(){
+    //        self.longTermEditText = longTermGoal
+    //        self.shortTermEditText = shortTermGoal
+    //    }
+    
+    //    ///入力された目標をユーザーデフォルトに保存する関数
+    //    func saveTerm(){
+    //        setGoal(long: longTermEditText, short: shortTermEditText)
+    //    }
 }

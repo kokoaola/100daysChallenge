@@ -8,7 +8,7 @@
 import Foundation
 
 
-final class DetailViewModel: ViewModelBase{
+final class DetailViewModel: ObservableObject{
     var item: DailyData?
     
     ///入力したテキストを格納するプロパティ

@@ -8,7 +8,7 @@
 import Foundation
 
 
-final class AddMemoViewModel: ViewModelBase{
+final class AddMemoViewModel: ObservableObject{
     ///編集文章格納用
     @Published var editText = ""
     

@@ -17,7 +17,7 @@ struct TabScreen: View {
     
     var body: some View {
 
-        if listAndCardVM.isFirst{
+        if globalStore.isFirst{
             //初回起動時はチュートリアルを表示
             TutorialScreen()
         }else{
@@ -66,6 +66,5 @@ struct ContentView_Previews: PreviewProvider {
                 .environment(\.locale, Locale(identifier:"ja"))
         }
         .environmentObject(NotificationViewModel())
-        .environmentObject(CoreDataStore())
     }
 }

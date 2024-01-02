@@ -103,6 +103,5 @@ struct MemoSheet_Previews: PreviewProvider {
             MemoSheet()
                 .environment(\.locale, Locale(identifier:"ja"))
         }
-        .environmentObject(Store())
     }
 }

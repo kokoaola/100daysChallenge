@@ -8,7 +8,7 @@
 import Foundation
 
 
-final class BigButtonViewModel: ViewModelBase{
+final class BigButtonViewModel: ObservableObject{
     
     ///コンプリートウインドウを表示するかどうかのフラグ
     @Published var showCompleteWindew: Bool
@@ -16,24 +16,8 @@ final class BigButtonViewModel: ViewModelBase{
     ///アニメーション制御用
     @Published var showAnimation: Bool = true
     
-    ///目標を表示するかどうかの設定を格納する変数
-    @Published var hideInfomation: Bool{
-        didSet {
-            defaults.set(self.hideInfomation, forKey: UserDefaultsConstants.hideInfomationKey)
-        }
-    }
-    
-    ///コンプリートウインドウを表示するかどうかのフラグ
-    @Published var dayNumber = 1
-    
-    override init(){
-        //defaultsへのアクセスをsuper.initの後に移動する処理
+    init(){
         self.showCompleteWindew = false
-        self.hideInfomation = true
-        // super.initを呼び出す
-        super.init()
-        // super.initの後でdefaultsから値を取得
-        self.hideInfomation = defaults.bool(forKey: UserDefaultsConstants.hideInfomationKey)
     }
     
     ///当日のタスクの完了を保存するメソッド
@@ -57,9 +41,5 @@ final class BigButtonViewModel: ViewModelBase{
                 completion(true)
             }
         }
-    }
-    
-    func setDayNumber(num: Int){
-        self.dayNumber = num
     }
 }

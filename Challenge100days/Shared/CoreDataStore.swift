@@ -11,10 +11,10 @@ import CoreData
 ///目標と初回起動のフラグを格納するグローバルオブジェクト
 class CoreDataStore: ObservableObject {
     //データコントローラー格納変数
-    let context = PersistenceController.persistentContainer.viewContext
-    let request = NSFetchRequest<DailyData>(entityName: AppGroupConstants.entityName)
+    private let context = PersistenceController.persistentContainer.viewContext
+    private let request = NSFetchRequest<DailyData>(entityName: AppGroupConstants.entityName)
     //ユーザーデフォルト用の変数
-    let defaults = UserDefaults.standard
+    private let defaults = UserDefaults.standard
     
     ///データを全件格納する変数
     @Published private(set) var allData : [DailyData]
@@ -31,13 +31,25 @@ class CoreDataStore: ObservableObject {
     @Published private(set) var longTermGoal: String
     ///短期目標を格納する変数
     @Published private(set) var shortTermGoal: String
+    ///初回起動確認用
+    @Published var isFirst: Bool{
+        didSet {
+            defaults.set(self.isFirst, forKey: UserDefaultsConstants.isFirstKey)
+        }
+    }
 
     
     init(){
         //アプリ起動時はユーザーデフォルトからデータを取得
+        //初期値が入っていない場合は初回起動フラグにtrueを設定
+        defaults.register(defaults: ["isFirst":true])
         self.longTermGoal = defaults.string(forKey:UserDefaultsConstants.longTermGoalKey) ?? ""
         self.shortTermGoal = defaults.string(forKey:UserDefaultsConstants.shortTermGoalKey) ?? ""
+        self.isFirst = defaults.bool(forKey:UserDefaultsConstants.isFirstKey)
+        self.hideInfomation = defaults.bool(forKey: UserDefaultsConstants.hideInfomationKey)
+        self.userSelectedColor = defaults.integer(forKey:UserDefaultsConstants.userSelectedColorKey)
         
+        //配列にすべてのデータを格納
         request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: true)]
         do{
             let tasks = try self.context.fetch(self.request)
@@ -50,8 +62,6 @@ class CoreDataStore: ObservableObject {
         }
         setAllData()
         
-        self.hideInfomation = defaults.bool(forKey: UserDefaultsConstants.hideInfomationKey)
-        self.userSelectedColor = defaults.integer(forKey:UserDefaultsConstants.userSelectedColorKey)
     }
     
     
@@ -125,11 +135,28 @@ class CoreDataStore: ObservableObject {
         }
     }
     
+    
+    ///データベースのすべての記録を削除するメソッド
+    func deleteAllData(){
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: AppGroupConstants.entityName)
+        let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: request)
+        do {
+            try context.execute(batchDeleteRequest)
+        } catch {
+            print("Error deleting data: \(error)")
+        }
+        setAllData()
+        //ウィジェットを更新
+        AppGroupConstants.reloadTimelines()
+    }
+    
+    
     ///目標を隠すかどうかを設定する関数
     func switchHideInfomation(_ isShow: Bool){
         defaults.set(isShow, forKey: UserDefaultsConstants.hideInfomationKey)
         self.hideInfomation = isShow
     }
+    
     
     ///アプリ全体のカラーを設定する関数
     func saveSettingColor(_ color: Int){
@@ -137,22 +164,6 @@ class CoreDataStore: ObservableObject {
         self.userSelectedColor = color
     }
     
-    ///データベースのすべての記録を削除するメソッド
-    func deleteAllData(){
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: AppGroupConstants.entityName)
-        let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: request)
-        
-        do {
-            try context.execute(batchDeleteRequest)
-        } catch {
-            // Error Handling
-            print("Error deleting data: \(error)")
-        }
-        
-        setAllData()
-        //ウィジェットを更新
-        AppGroupConstants.reloadTimelines()
-    }
     
     ///目標を保存するメソッド
     func setGoal(long: String?, short: String?){
@@ -165,4 +176,10 @@ class CoreDataStore: ObservableObject {
             self.shortTermGoal = short
         }
     }
+}
+
+///目標と初回起動のフラグを格納するグローバルオブジェクト
+class UserDefaultsStore: ObservableObject {
+    
+    
 }

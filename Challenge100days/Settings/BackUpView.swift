@@ -12,14 +12,13 @@ import Combine
 ///バックアップデータ保存用のビュー
 struct BackUpView: View {
     ///ViewModel用の変数
-//    @EnvironmentObject var coreDataViewModel :CoreDataViewModel
     @EnvironmentObject var globalStore: CoreDataStore
     
     ///キーボードフォーカス用変数（Doneボタン表示のため）
     @FocusState var isInputActive: Bool
     
     ///編集文章格納用変数
-    @State var string = ""
+    @State private var string = ""
     
     ///ポップアップ表示フラグ格納用変数
     @State private var showToast = false

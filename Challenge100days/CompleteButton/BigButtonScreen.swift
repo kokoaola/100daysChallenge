@@ -24,7 +24,7 @@ struct ActionView: View {
             VStack(spacing: 20){
                 ///目標非表示設定がOFFになってれば目標を表示
                 if globalStore.hideInfomation == false{
-                    GoalView(longTermGoal: bigButtonVM.longTermGoal, shortTermGoal: bigButtonVM.shortTermGoal)
+                    GoalView(longTermGoal: globalStore.longTermGoal, shortTermGoal: globalStore.shortTermGoal)
                 }else{
                     Spacer()
                 }

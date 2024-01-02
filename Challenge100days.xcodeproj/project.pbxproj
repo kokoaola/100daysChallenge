@@ -26,7 +26,6 @@
 		3B3C69222B3B279400DE496C /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3C69212B3B279400DE496C /* Store.swift */; };
 		3B3C69242B3B3A7B00DE496C /* TutorialViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3C69232B3B3A7B00DE496C /* TutorialViewModel.swift */; };
 		3B3C69272B3B40D100DE496C /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3C69262B3B40D100DE496C /* View+Extensions.swift */; };
-		3B3C69292B3B4C4D00DE496C /* ViewModelBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3C69282B3B4C4D00DE496C /* ViewModelBase.swift */; };
 		3B3C69302B3BED9900DE496C /* CompleteButtonComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3C692F2B3BED9900DE496C /* CompleteButtonComponent.swift */; };
 		3B3C69332B3BEEA600DE496C /* BigButtonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3C69322B3BEEA600DE496C /* BigButtonViewModel.swift */; };
 		3B3C69352B3BF3B200DE496C /* CoreDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3C69342B3BF3B200DE496C /* CoreDataStore.swift */; };
@@ -127,7 +126,6 @@
 		3B3C69212B3B279400DE496C /* Store.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
 		3B3C69232B3B3A7B00DE496C /* TutorialViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialViewModel.swift; sourceTree = "<group>"; };
 		3B3C69262B3B40D100DE496C /* View+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; };
-		3B3C69282B3B4C4D00DE496C /* ViewModelBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewModelBase.swift; sourceTree = "<group>"; };
 		3B3C692F2B3BED9900DE496C /* CompleteButtonComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteButtonComponent.swift; sourceTree = "<group>"; };
 		3B3C69322B3BEEA600DE496C /* BigButtonViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigButtonViewModel.swift; sourceTree = "<group>"; };
 		3B3C69342B3BF3B200DE496C /* CoreDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStore.swift; sourceTree = "<group>"; };
@@ -267,7 +265,6 @@
 		3B3C692D2B3BEC0500DE496C /* Shared */ = {
 			isa = PBXGroup;
 			children = (
-				3B3C69282B3B4C4D00DE496C /* ViewModelBase.swift */,
 				3B3C69342B3BF3B200DE496C /* CoreDataStore.swift */,
 				3B3C91452ACD6F5E0058BDDD /* Constants.swift */,
 			);
@@ -627,7 +624,6 @@
 				3B3C69352B3BF3B200DE496C /* CoreDataStore.swift in Sources */,
 				3BC602D329880A5900198F1B /* CardView.swift in Sources */,
 				3B93B16D299F2D6A006F3332 /* EditGoalAlert.swift in Sources */,
-				3B3C69292B3B4C4D00DE496C /* ViewModelBase.swift in Sources */,
 				3B9912C92B3C658300E4DB40 /* DetailViewModel.swift in Sources */,
 				3BC602D12986B52100198F1B /* BigButtonScreen.swift in Sources */,
 				3B2245472B1C504000B64B7A /* TutorialView2.swift in Sources */,
