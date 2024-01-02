@@ -41,6 +41,14 @@ struct UserDefaultsConstants{
     static let userSelectedColorKey = "userSelectedColorKey"
     ////ユーザーデフォルト用キー：目標隠すか用
     static let hideInfomationKey = "hideInfomation"
+    ///ユーザーデフォルト用キー：通知時間用
+    static let userSettingNotificationTimeKey = "notificationTime"
+    ///ユーザーデフォルト用キー：通知曜日用(アップデート前)
+    static let userSettingNotificationDayKey = "notificationDay"
+    ///ユーザーデフォルト用キー：通知曜日用(アップデート後)
+    static let userSettingWeekdays = "weekdaysStatus"
+    ///ユーザーデフォルト用キー：通知ON-OFF用
+    static let isNotificationOnKey = "notificationOn"
 }
 
 

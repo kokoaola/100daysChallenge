@@ -31,54 +31,43 @@ class NotificationViewModel: ObservableObject{
     
     ///ユーザーデフォルト用変数
     private let defaults = UserDefaults.standard
-    //ユーザーデフォルト用キー：通知時間用
-    private let userSettingNotificationTimeKey = "notificationTime"
-    //ユーザーデフォルト用キー：通知曜日用
-    private let userSettingNotificationDayKey = "notificationDay"
-    //ユーザーデフォルト用キー：通知ON-OFF用
-    private let isNotificationOnKey = "notificationOn"
     
     
     init(){
-        //アプリ起動時はユーザーデフォルトからデータを取得
-        let array = defaults.object(forKey: userSettingNotificationDayKey) as? [Int] ?? []
-        self.isNotificationOn = defaults.bool(forKey: isNotificationOnKey)
+        self.isNotificationOn = defaults.bool(forKey: UserDefaultsConstants.isNotificationOnKey)
         
         if isNotificationOn{
-            self.userSettingNotificationTime = defaults.object(forKey: userSettingNotificationTimeKey) as? Date ?? Date()
+            self.userSettingNotificationTime = defaults.object(forKey: UserDefaultsConstants.userSettingNotificationTimeKey) as? Date ?? Date()
         }else{
             var components = Calendar.current.dateComponents([.year, .month, .day], from: Date())
             components.hour = 19
             components.minute = 0
             self.userSettingNotificationTime = Calendar.current.date(from: components) ?? Date()
         }
+        
+        //アプリ起動時はユーザーデフォルトからデータを取得
+        let array = defaults.object(forKey: UserDefaultsConstants.userSettingNotificationDayKey) as? [Int] ?? []
         //保存されたデータを読み込む
-        if let savedWeekdaysStatus = UserDefaults.standard.array(forKey: "weekdaysStatus") as? [[String: Any]] {
-            var restoredWeekdaysStatus: [Weekday: Bool] = [:]
-            for item in savedWeekdaysStatus {
-                if let weekdayRaw = item["weekday"] as? Int, let status = item["status"] as? Bool, let weekday = Weekday(rawValue: weekdayRaw) {
-                    restoredWeekdaysStatus[weekday] = status
-                }
-            }
-            self.userSettingNotificationDays = restoredWeekdaysStatus
+        // `num` 値のセットから `[Weekday: Bool]` 辞書を作成する
+        var newWeekdays: [Weekday: Bool] = [:]
+        // 全ての曜日をループして、各曜日が activeWeekdaysNums セット内にあるかどうかをチェック
+        for weekday in Weekday.allCases {
+            newWeekdays[weekday] = array.contains(weekday.num)
         }
+        userSettingNotificationDays = newWeekdays
     }
     
     ///アプリの通知設定が許可されているか取得する関数
     func isUserNotificationEnabled(){
         notificationCenter.requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
-            if let error = error {
-                print(error.localizedDescription)
-            }
+            if let error = error { return }
             
-            if success {
-                //通知OK
+            if success {//通知OK
                 DispatchQueue.main.async {
                     self.isNotificationEnabled = true
                     self.showNotificationAlert = false
                 }
-            }else {
-                //通知NG
+            }else {//通知NG
                 DispatchQueue.main.async {
                     self.isNotificationEnabled = false
                     self.showNotificationAlert = true
@@ -98,7 +87,7 @@ class NotificationViewModel: ObservableObject{
         defaults.set(userSettingNotificationTime, forKey: "notificationTime")
         // 曜日の状態をIntとBoolのペアの配列として保存
         let weekdaysStatusToSave = userSettingNotificationDays.map { ["weekday": $0.key.rawValue, "status": $0.value] as [String : Any] }
-        defaults.set(weekdaysStatusToSave, forKey: "weekdaysStatus")
+        defaults.set(weekdaysStatusToSave, forKey: UserDefaultsConstants.userSettingNotificationDayKey)
     }
     
     ///通知を全てキャンセルするメソッド
@@ -139,15 +128,14 @@ class NotificationViewModel: ObservableObject{
     func setNotification(isFinishTodaysTask: Bool) async{
         // 設定されている曜日のnum値を格納するセットを作成
         let activeWeekdaysNums = Set(userSettingNotificationDays.filter { $0.value }.map { $0.key.num })
-        
+        //曜日が選択されていなければ通知を全てキャンセル
         if activeWeekdaysNums.isEmpty{
             resetNotification()
+            return
+        }else{
+            //ユーザーが選択した日時を保存
+            saveUserSelectedTime()
         }
-        
-        
-        print("isFinishTodaysTask", isFinishTodaysTask)
-        //ユーザーが選択した日時を保存
-        saveUserSelectedTime()
         
         //すでに予約されている通知の設定をすべて削除
         notificationCenter.removeAllPendingNotificationRequests()
@@ -181,7 +169,6 @@ class NotificationViewModel: ObservableObject{
         var notificationRequests = [UNNotificationRequest]()
         for day in activeWeekdaysNums{
             dateComponentsDay.weekday = day  // 1が日曜日、2が月曜日、というように設定
-            print("dateComponentsDay", dateComponentsDay)
             let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponentsDay, repeats: true)
             // リクエストを追加
             let uuidStringMonday = UUID().uuidString
@@ -189,7 +176,7 @@ class NotificationViewModel: ObservableObject{
             notificationRequests.append(request)
         }
         
-        // ローカル通知をスケジュール
+        // 通知をスケジュール
         for notificationRequest in notificationRequests {
             Task {
                 do {
@@ -197,7 +184,6 @@ class NotificationViewModel: ObservableObject{
                     switchUserNotification(isOn: true)
                 } catch {
                     switchUserNotification(isOn: false)
-                    fatalError()
                 }
             }
         }
