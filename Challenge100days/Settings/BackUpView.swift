@@ -13,6 +13,7 @@ import Combine
 struct BackUpView: View {
     ///ViewModel用の変数
     @EnvironmentObject var globalStore: CoreDataStore
+    @EnvironmentObject var userSettingsStore: UserDefaultsStore
     
     ///キーボードフォーカス用変数（Doneボタン表示のため）
     @FocusState var isInputActive: Bool
@@ -51,7 +52,7 @@ struct BackUpView: View {
         .toolbarBackground(.visible, for: .navigationBar)
         
         //背景グラデーション設定
-        .modifier(UserSettingGradient(appColorNum: globalStore.userSelectedColor))
+        .modifier(UserSettingGradient(appColorNum: userSettingsStore.savedColor))
         
         //キーボード閉じるボタン
         .toolbar {

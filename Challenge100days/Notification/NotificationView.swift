@@ -11,7 +11,7 @@ import SwiftUI
 struct NotificationView: View {
     ///ViewModel用の変数
     @EnvironmentObject var notificationViewModel :NotificationViewModel
-    @EnvironmentObject var globalStore: CoreDataStore
+    @EnvironmentObject var coreDataStore: CoreDataStore
     
     ///トーストの表示状態を格納するフラグ
     @Binding var showToast: Bool
@@ -93,7 +93,7 @@ struct NotificationView: View {
                 //保存ボタン
                 Button {
                     Task{
-                        await notificationViewModel.setNotification(isFinishTodaysTask: globalStore.finishedTodaysTask)
+                        await notificationViewModel.setNotification(isFinishTodaysTask: coreDataStore.finishedTodaysTask)
                     }
                     //トーストを表示して画面破棄
                     toastText = "通知を設定しました。"

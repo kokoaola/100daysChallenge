@@ -28,7 +28,6 @@ struct ListView: View {
                     //セルをタップするとDetailViewに遷移
                     NavigationLink(destination: {
                         DetailScreen(item: item, allData: $listAndCardVM.allData) { items in
-                            print("CardView",items.count)
                             listAndCardVM.setDailyData(allData: items)
                         }
                     }){

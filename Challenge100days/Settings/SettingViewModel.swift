@@ -12,7 +12,7 @@ final class SettingViewModel: ObservableObject{
     ///目標を表示するかどうかの設定を格納する変数
     @Published var hideInfomation: Bool = true
     
-    @Published var userSelectedColor = 1
+    @Published var selectedColor: Int = 0
     
     ///全データ削除の確認アラート表示用の変数
     @Published var showResetAlert = false

@@ -12,9 +12,10 @@ import CoreData
 ///記録の詳細を表示するビュー
 struct DetailScreen: View {
     ///ViewModel用の変数
-    @EnvironmentObject var globalStore: CoreDataStore
+    @EnvironmentObject var coreDataStore: CoreDataStore
+    @EnvironmentObject var userDefaultsStore: UserDefaultsStore
     @StateObject var detailVM = DetailViewModel()
-    @EnvironmentObject var notificationVM: NotificationViewModel
+    @StateObject var notificationVM = NotificationViewModel()
     
     ///画面破棄用の変数
     @Environment(\.dismiss) var dismiss
@@ -70,7 +71,7 @@ struct DetailScreen: View {
         }
         .detailViewStyle()
         //グラデーション背景の設定
-        .modifier(UserSettingGradient(appColorNum: globalStore.userSelectedColor))
+        .modifier(UserSettingGradient(appColorNum: userDefaultsStore.savedColor))
         
         
         .onAppear{
@@ -98,7 +99,7 @@ struct DetailScreen: View {
                 Button("保存する") {
                     detailVM.updateMemo(item: item)
                     isInputActive = false
-                    globalStore.setAllData()
+                    coreDataStore.setAllData()
                 }
                 
                 .foregroundColor(detailVM.isTextValid ? .primary : .gray)
@@ -148,16 +149,15 @@ struct DetailScreen: View {
                 
                 detailVM.deleteData(data: item)
                 Task{
-                    await globalStore.assignNumbers(completion: {
+                    await coreDataStore.assignNumbers(completion: {
                         withAnimation {
-                            onDeleted(globalStore.allData)
+                            onDeleted(coreDataStore.allData)
                         }
                     })
                     let lastDate = Calendar.current.dateComponents([.year, .month, .day], from: allData.last?.wrappedDate ?? Date())
                     let today = Calendar.current.dateComponents([.year, .month, .day], from: Date())
                     
                     await notificationVM.setNotification(isFinishTodaysTask: lastDate == today)
-                    print("LastDate == today", lastDate == today)
                 }
             }
             Button("戻る",role: .cancel){}

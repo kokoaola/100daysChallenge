@@ -12,7 +12,7 @@ import SwiftUI
 struct TutorialView1: View {
     ///ViewModel用の変数
     @ObservedObject var tutorialVM: TutorialViewModel
-    @EnvironmentObject var globalStore: CoreDataStore
+    @EnvironmentObject var userDefaultsStore: UserDefaultsStore
     
     var body: some View {
 
@@ -43,7 +43,7 @@ struct TutorialView1: View {
             Button {
                 tutorialVM.page = 2
                 //アプリの色を保存
-                globalStore.saveSettingColor(tutorialVM.userSelectedColor)
+                userDefaultsStore.saveSettingColor(tutorialVM.userSelectedColor)
             } label: {
                 ArrowButton(isBackButton: false, labelText: "次へ")
             }

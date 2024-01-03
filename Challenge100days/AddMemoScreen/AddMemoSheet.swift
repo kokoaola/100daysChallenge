@@ -11,7 +11,8 @@ import SwiftUI
 ///ユーザーが記録にメモを追加するためのビュー
 struct MemoSheet: View {
     ///ViewModel用の変数
-    @EnvironmentObject var globalStore: CoreDataStore
+    @EnvironmentObject var coreDataStore: CoreDataStore
+    @EnvironmentObject var userDefaultsStore: UserDefaultsStore
     @StateObject var addMemoVM = AddMemoViewModel()
     
     ///キーボードフォーカス用変数（Doneボタン表示のため）
@@ -40,8 +41,8 @@ struct MemoSheet: View {
                 //保存ボタン
                 Button {
                     Task{
-                        await addMemoVM.updateDataMemo(data: globalStore.allData.last, completion: {
-                            globalStore.setAllData()
+                        await addMemoVM.updateDataMemo(data: coreDataStore.allData.last, completion: {
+                            coreDataStore.setAllData()
                         })
                     }
                     dismiss()
@@ -84,7 +85,7 @@ struct MemoSheet: View {
         //グラデーション＋すりガラス背景設定
             .background(.ultraThinMaterial)
         //グラデーション背景の設定
-            .modifier(UserSettingGradient(appColorNum: globalStore.userSelectedColor))
+            .modifier(UserSettingGradient(appColorNum: userDefaultsStore.savedColor))
             .onAppear{
                 self.isInputActive = true
             }

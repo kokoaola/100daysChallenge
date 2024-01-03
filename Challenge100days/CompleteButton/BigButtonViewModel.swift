@@ -11,14 +11,10 @@ import Foundation
 final class BigButtonViewModel: ObservableObject{
     
     ///コンプリートウインドウを表示するかどうかのフラグ
-    @Published var showCompleteWindew: Bool
+    @Published var showCompleteWindew: Bool = false
     
     ///アニメーション制御用
     @Published var showAnimation: Bool = true
-    
-    init(){
-        self.showCompleteWindew = false
-    }
     
     ///当日のタスクの完了を保存するメソッド
     func saveTodaysChallenge(challengeDate: Int, completion: @escaping (Bool) -> Void) {

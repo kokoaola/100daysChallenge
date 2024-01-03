@@ -13,8 +13,6 @@ class CoreDataStore: ObservableObject {
     //データコントローラー格納変数
     private let context = PersistenceController.persistentContainer.viewContext
     private let request = NSFetchRequest<DailyData>(entityName: AppGroupConstants.entityName)
-    //ユーザーデフォルト用の変数
-    private let defaults = UserDefaults.standard
     
     ///データを全件格納する変数
     @Published private(set) var allData : [DailyData]
@@ -22,32 +20,9 @@ class CoreDataStore: ObservableObject {
     @Published private(set) var dayNumber: Int
     ///当日のタスクが達成済みかを格納する変数
     @Published private(set) var finishedTodaysTask = true
-    
-    ///目標を表示するかどうかの設定を格納する変数
-    @Published private(set) var hideInfomation: Bool = true
-    ///背景色を格納する変数
-    @Published private(set) var userSelectedColor: Int = 0
-    ///長期目標を格納する変数
-    @Published private(set) var longTermGoal: String
-    ///短期目標を格納する変数
-    @Published private(set) var shortTermGoal: String
-    ///初回起動確認用
-    @Published var isFirst: Bool{
-        didSet {
-            defaults.set(self.isFirst, forKey: UserDefaultsConstants.isFirstKey)
-        }
-    }
 
     
     init(){
-        //アプリ起動時はユーザーデフォルトからデータを取得
-        //初期値が入っていない場合は初回起動フラグにtrueを設定
-        defaults.register(defaults: ["isFirst":true])
-        self.longTermGoal = defaults.string(forKey:UserDefaultsConstants.longTermGoalKey) ?? ""
-        self.shortTermGoal = defaults.string(forKey:UserDefaultsConstants.shortTermGoalKey) ?? ""
-        self.isFirst = defaults.bool(forKey:UserDefaultsConstants.isFirstKey)
-        self.hideInfomation = defaults.bool(forKey: UserDefaultsConstants.hideInfomationKey)
-        self.userSelectedColor = defaults.integer(forKey:UserDefaultsConstants.userSelectedColorKey)
         
         //配列にすべてのデータを格納
         request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: true)]
@@ -149,37 +124,66 @@ class CoreDataStore: ObservableObject {
         //ウィジェットを更新
         AppGroupConstants.reloadTimelines()
     }
+}
+
+
+
+///ユーザーデフォルト用のグローバルオブジェクト
+class UserDefaultsStore: ObservableObject {
+    //ユーザーデフォルト用の変数
+    private let defaults = UserDefaults.standard
+    
+    ///目標を表示するかどうかの設定を格納する変数
+    @Published private(set) var hideInfomation: Bool = true
+    ///背景色を格納する変数
+    @Published private(set) var savedColor: Int = 0
+    ///長期目標を格納する変数
+    @Published private(set) var longTermGoal: String
+    ///短期目標を格納する変数
+    @Published private(set) var shortTermGoal: String
+    ///初回起動確認用
+    @Published var isFirst: Bool{
+        didSet {
+            defaults.set(self.isFirst, forKey: UserDefaultsConstants.isFirstKey)
+        }
+    }
     
     
+    init(){
+        //アプリ起動時はユーザーデフォルトからデータを取得
+        //初期値が入っていない場合は初回起動フラグにtrueを設定
+        defaults.register(defaults: ["isFirst":true])
+        self.longTermGoal = defaults.string(forKey:UserDefaultsConstants.longTermGoalKey) ?? ""
+        self.shortTermGoal = defaults.string(forKey:UserDefaultsConstants.shortTermGoalKey) ?? ""
+        self.isFirst = defaults.bool(forKey:UserDefaultsConstants.isFirstKey)
+        self.hideInfomation = defaults.bool(forKey: UserDefaultsConstants.hideInfomationKey)
+        self.savedColor = defaults.integer(forKey:UserDefaultsConstants.userSelectedColorKey)
+        
+    }
+
     ///目標を隠すかどうかを設定する関数
     func switchHideInfomation(_ isShow: Bool){
-        defaults.set(isShow, forKey: UserDefaultsConstants.hideInfomationKey)
         self.hideInfomation = isShow
+        defaults.set(isShow, forKey: UserDefaultsConstants.hideInfomationKey)
     }
     
     
     ///アプリ全体のカラーを設定する関数
     func saveSettingColor(_ color: Int){
+        self.savedColor = color
         defaults.set(color, forKey: UserDefaultsConstants.userSelectedColorKey)
-        self.userSelectedColor = color
     }
     
     
     ///目標を保存するメソッド
     func setGoal(long: String?, short: String?){
         if let long = long {
-            defaults.set(self.longTermGoal, forKey: UserDefaultsConstants.longTermGoalKey)
             self.longTermGoal = long
+            defaults.set(self.longTermGoal, forKey: UserDefaultsConstants.longTermGoalKey)
         }
         if let short = short {
-            defaults.set(self.shortTermGoal, forKey: UserDefaultsConstants.shortTermGoalKey)
             self.shortTermGoal = short
+            defaults.set(self.shortTermGoal, forKey: UserDefaultsConstants.shortTermGoalKey)
         }
     }
-}
-
-///目標と初回起動のフラグを格納するグローバルオブジェクト
-class UserDefaultsStore: ObservableObject {
-    
-    
 }

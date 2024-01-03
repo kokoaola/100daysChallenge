@@ -12,7 +12,7 @@ import SwiftUI
 struct TutorialView3: View {
     ///ViewModel用の変数
     @ObservedObject var tutorialVM: TutorialViewModel
-    @EnvironmentObject var globalStore: CoreDataStore
+    @EnvironmentObject var userDefaultsStore: UserDefaultsStore
     
     var body: some View {
         
@@ -42,7 +42,7 @@ struct TutorialView3: View {
                     ///startボタン
                     Button {
                         withAnimation {
-                            globalStore.isFirst = false //初回起動フラグのfalseにして保存
+                            userDefaultsStore.isFirst = false //初回起動フラグのfalseにして保存
                         }
                     } label: {
                         ArrowButton(isBackButton: false, labelText: "始める")

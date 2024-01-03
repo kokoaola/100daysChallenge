@@ -10,11 +10,11 @@ import SwiftUI
 
 ///タスク達成時にコンプリートボタンを押すためのビュー
 struct ActionView: View {
-    
     ///ViewModel用の変数
-    @EnvironmentObject var notificationViewModel: NotificationViewModel
-    @EnvironmentObject var globalStore: CoreDataStore
-    @StateObject var bigButtonVM: BigButtonViewModel
+    @EnvironmentObject var coreDataStore: CoreDataStore
+    @EnvironmentObject var userDefaultsStore: UserDefaultsStore
+    @ObservedObject var bigButtonVM: BigButtonViewModel
+    @StateObject var notificationViewModel = NotificationViewModel()
     
     ///表示＆共有用の画像
     @State var image: Image?
@@ -23,14 +23,14 @@ struct ActionView: View {
         ZStack{
             VStack(spacing: 20){
                 ///目標非表示設定がOFFになってれば目標を表示
-                if globalStore.hideInfomation == false{
-                    GoalView(longTermGoal: globalStore.longTermGoal, shortTermGoal: globalStore.shortTermGoal)
+                if userDefaultsStore.hideInfomation == false{
+                    GoalView(longTermGoal: userDefaultsStore.longTermGoal, shortTermGoal: userDefaultsStore.shortTermGoal)
                 }else{
                     Spacer()
                 }
                 
                 ///コメントが入る白い吹き出し
-                SpeechBubbleView(finishedTodaysTask: globalStore.finishedTodaysTask, showCompleteWindew: $bigButtonVM.showCompleteWindew)
+                SpeechBubbleView(finishedTodaysTask: coreDataStore.finishedTodaysTask, showCompleteWindew: $bigButtonVM.showCompleteWindew)
                 
                 ///Completeボタン:今日のミッションが未達成ならボタンを有効にして表示
                 Button(action: {
@@ -38,7 +38,7 @@ struct ActionView: View {
                         bigButtonVM.showCompleteWindew = true
                     }
                     //データを保存
-                    bigButtonVM.saveTodaysChallenge(challengeDate: globalStore.dayNumber) { success in
+                    bigButtonVM.saveTodaysChallenge(challengeDate: coreDataStore.dayNumber) { success in
                         if success {
                             Task{
                                 // 通知設定している場合、本日の通知はスキップする
@@ -46,16 +46,16 @@ struct ActionView: View {
                                     await notificationViewModel.setNotification(isFinishTodaysTask: true)
                                 }
                                 //配列を更新
-                                globalStore.setAllData()
+                                coreDataStore.setAllData()
                             }
                         }
                     }
                 }, label: {
                     //達成済みの場合ラベルは薄く表示
-                    CompleteButton(num: globalStore.dayNumber)
-                        .opacity(globalStore.finishedTodaysTask ? 0.3 : 1.0)
+                    CompleteButton(num: coreDataStore.dayNumber)
+                        .opacity(coreDataStore.finishedTodaysTask ? 0.3 : 1.0)
                 })
-                .disabled(globalStore.finishedTodaysTask)
+                .disabled(coreDataStore.finishedTodaysTask)
                 
                 Spacer()
             }
@@ -74,14 +74,14 @@ struct ActionView: View {
             bigButtonVM.showCompleteWindew = false
             //あらかじめ当日分のイメージを作成してセット
             DispatchQueue.main.async {
-                globalStore.setAllData()
-                image = generateImageWithText(number: globalStore.dayNumber, day: Date.now)
+                coreDataStore.setAllData()
+                image = generateImageWithText(number: coreDataStore.dayNumber, day: Date.now)
             }
         }
         
         .frame(maxWidth: .infinity)
         //グラデーション背景の設定
-        .modifier(UserSettingGradient(appColorNum: globalStore.userSelectedColor))
+        .modifier(UserSettingGradient(appColorNum: userDefaultsStore.savedColor))
     }
 }
 

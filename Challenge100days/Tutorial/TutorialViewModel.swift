@@ -47,21 +47,4 @@ class TutorialViewModel: ObservableObject{
     var isNextButtonValid: Bool{
         self.longTermEditText.isEmpty || self.shortTermEditText.isEmpty || isLongTermLengthValid || isShortTermLengthValid
     }
-    
-    ///目標を保存するメソッド
-//    func saveGoal(long: String, short: String){
-//        defaults.set(self.longTermEditText, forKey: UserDefaultsConstants.longTermGoalKey)
-//        defaults.set(self.shortTermEditText, forKey: UserDefaultsConstants.shortTermGoalKey)
-//    }
-    
-    
-    //    func setTermToTextField(){
-    //        self.longTermEditText = longTermGoal
-    //        self.shortTermEditText = shortTermGoal
-    //    }
-    
-    //    ///入力された目標をユーザーデフォルトに保存する関数
-    //    func saveTerm(){
-    //        setGoal(long: longTermEditText, short: shortTermEditText)
-    //    }
 }

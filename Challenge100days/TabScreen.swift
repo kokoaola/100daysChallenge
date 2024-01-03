@@ -11,13 +11,14 @@ import SwiftUI
 
 struct TabScreen: View {
     ///ViewModel用の変数
-    @StateObject var listAndCardVM = ListAndCardViewModel()
     @EnvironmentObject var globalStore: CoreDataStore
+    @EnvironmentObject var userSettingsStore: UserDefaultsStore
+    @StateObject var listAndCardVM = ListAndCardViewModel()
     @StateObject var bigButtonVM = BigButtonViewModel()
     
     var body: some View {
 
-        if globalStore.isFirst{
+        if userSettingsStore.isFirst{
             //初回起動時はチュートリアルを表示
             TutorialScreen()
         }else{
@@ -44,6 +45,7 @@ struct TabScreen: View {
                 
             }
             .environmentObject(globalStore)
+            .environmentObject(userSettingsStore)
             .tint(.primary)
             ///起動時にリストに配列をセットしておく
             .onAppear{

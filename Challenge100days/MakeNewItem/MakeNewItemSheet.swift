@@ -12,7 +12,8 @@ import SwiftUI
 struct makeNewItemSheet: View {
     
     ///ViewModel用の変数
-    @EnvironmentObject var globalStore: CoreDataStore
+    @EnvironmentObject var coreDataStore: CoreDataStore
+    @EnvironmentObject var userDefaultsStore: UserDefaultsStore
     @StateObject var makeNewItemVM = MakeNewItemViewModel()
     
     ///画面破棄用の変数
@@ -92,12 +93,12 @@ struct makeNewItemSheet: View {
                 //保存ボタン
                 Button{
                     
-                    makeNewItemVM.saveTodaysChallenge(challengeDate: globalStore.dayNumber){ success in
+                    makeNewItemVM.saveTodaysChallenge(challengeDate: coreDataStore.dayNumber){ success in
                         if success {
                             DispatchQueue.main.async {
                                 Task{
-                                    await globalStore.assignNumbers(completion: {
-                                        globalStore.setAllData()
+                                    await coreDataStore.assignNumbers(completion: {
+                                        coreDataStore.setAllData()
                                     })
                                 }
                             }
@@ -107,12 +108,6 @@ struct makeNewItemSheet: View {
                             dismiss()
                         }
                     }
-
-//                    coreDataViewModel.saveData(date:userSelectedData, memo:editText)
-//                    Task{
-//                        await coreDataViewModel.assignNumbers()
-//                    }
-                    
                 } label: {
                     SaveButton()
                         .foregroundColor(makeNewItemVM.editText.count <= AppSetting.maxLengthOfMemo && makeNewItemVM.isVailed ? .green : .gray)
@@ -129,12 +124,12 @@ struct makeNewItemSheet: View {
             .background(.ultraThinMaterial)
             
             //グラデーション背景の設定
-            .modifier(UserSettingGradient(appColorNum: globalStore.userSelectedColor))
+            .modifier(UserSettingGradient(appColorNum: userDefaultsStore.savedColor))
             
             
             .onChange(of: makeNewItemVM.userSelectedDate) { newValue in
                 //データベースに存在するアイテムの日付とダブってればSaveボタンを無効にする
-                for item in globalStore.allData{
+                for item in coreDataStore.allData{
                     if Calendar.current.isDate(item.date!, equalTo: newValue , toGranularity: .day){
                         makeNewItemVM.isVailed = false
                         return
@@ -147,7 +142,7 @@ struct makeNewItemSheet: View {
             .onAppear{
                 let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: Date())!
                 //データベースに昨日の日付があれば、Saveボタンを無効にする
-                for item in globalStore.allData{
+                for item in coreDataStore.allData{
                     if Calendar.current.isDate(item.date!, equalTo: yesterday , toGranularity: .day){
                         makeNewItemVM.isVailed = false
                         return

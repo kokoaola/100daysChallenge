@@ -10,10 +10,8 @@ import SwiftUI
 
 ///チュートリアル共通項目
 struct TutorialScreen: View {
-    
     ///ViewModel用の変数
-    @StateObject private var tutorialVM = TutorialViewModel()
-    @EnvironmentObject var globalStore: CoreDataStore
+    @StateObject var tutorialVM = TutorialViewModel()
     
     var body: some View {
         VStack{

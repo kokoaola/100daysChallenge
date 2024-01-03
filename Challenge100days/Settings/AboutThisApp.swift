@@ -12,7 +12,7 @@ import SwiftUI
 struct AboutThisApp: View {
     
     ///ViewModel用の変数
-    @EnvironmentObject var globalStore:CoreDataStore
+    @EnvironmentObject var globalStore:UserDefaultsStore
     
     ///文言1を格納する変数
     let about = "アプリをインストールしてくださって、ありがとうございます。\nこのアプリは、目標に向かって進む人を応援、お手伝いしたいという思いで作りました。\n特徴としては以下の2点があります。"
@@ -61,7 +61,7 @@ struct AboutThisApp: View {
         .padding(.horizontal)
         
         //グラデーション背景の設定
-        .modifier(UserSettingGradient(appColorNum: globalStore.userSelectedColor))
+        .modifier(UserSettingGradient(appColorNum: globalStore.savedColor))
         .navigationTitle("このアプリについて")
     }
 }

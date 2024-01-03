@@ -12,8 +12,9 @@ import UserNotifications
 ///設定画面のビュー
 struct SettingView: View {
     ///ViewModel用の変数
-    @EnvironmentObject var globalStore: CoreDataStore
-    @ObservedObject var settingViewModel = SettingViewModel()
+    @EnvironmentObject var coreDataStore: CoreDataStore
+    @EnvironmentObject var userDefaultsStore: UserDefaultsStore
+    @StateObject var settingViewModel = SettingViewModel()
     @StateObject var notificationViewModel = NotificationViewModel()
     
     var body: some View {
@@ -27,7 +28,7 @@ struct SettingView: View {
                         //アプリ全体の色を変更するセル
                         Section(){
                             ///背景色変更用ピッカー
-                            Picker(selection: $settingViewModel.userSelectedColor) {
+                            Picker(selection: $settingViewModel.selectedColor) {
                                 Text("青").tag(0)
                                 Text("オレンジ").tag(1)
                                 Text("紫").tag(2)
@@ -35,11 +36,13 @@ struct SettingView: View {
                             } label: {
                                 Text("アプリの色を変更する")
                             }
+
                             //ピッカーが選択される毎に背景色を変更
-                            .onChange(of: settingViewModel.userSelectedColor) { newColor in
-                                globalStore.saveSettingColor(newColor)
+                            .onChange(of: settingViewModel.selectedColor) { newValue in
+                                userDefaultsStore.saveSettingColor(newValue)
+                                //アプリの色を保存
                             }
-                            
+
                             
                             ///トップ画面の目標を非表示にするスイッチ
                             Toggle("目標を隠す", isOn: $settingViewModel.hideInfomation)
@@ -47,9 +50,9 @@ struct SettingView: View {
                                 .accessibilityHint("トップ画面の目標を非表示にします")
                             //設定を保存
                                 .onChange(of: settingViewModel.hideInfomation) { newSetting in
-                                    globalStore.switchHideInfomation(settingViewModel.hideInfomation)
+                                    userDefaultsStore.switchHideInfomation(settingViewModel.hideInfomation)
                                 }
-                            
+
                             NavigationLink {
                                 NotificationView(showToast: $settingViewModel.showToast, toastText: $settingViewModel.toastText)
                             } label: {
@@ -61,22 +64,22 @@ struct SettingView: View {
                             //長期目標変更用のセル
                             Button("目標を変更する") {
                                 settingViewModel.editLongTermGoal = true
-                                    settingViewModel.editText = globalStore.longTermGoal
+                                    settingViewModel.editText = userDefaultsStore.longTermGoal
                                 withAnimation {
                                     settingViewModel.showGoalEdittingAlert = true
                                 }
                             }
-                            
+
                             //短期目標変更用のセル
                             Button("100日取り組む内容を変更する") {
                                 settingViewModel.editLongTermGoal = false
-                                settingViewModel.editText = globalStore.shortTermGoal
+                                settingViewModel.editText = userDefaultsStore.shortTermGoal
                                 withAnimation {
                                     settingViewModel.showGoalEdittingAlert = true
                                 }
                             }
                         }
-                        
+
                         Section{
                             //バックアップデータ取得用のセル
                             NavigationLink {
@@ -84,21 +87,21 @@ struct SettingView: View {
                             } label: {
                                 Text("バックアップ")
                             }
-                            
+
                             //プライバシーポリシーページ遷移用のセル
                             NavigationLink {
                                 PrivacyPolicyWebView()
                             } label: {
                                 Text("プライバシーポリシー")
                             }
-                            
+
                             //アプリ解説ページ遷移用のセル
                             NavigationLink {
                                 AboutThisApp()
                             } label: {
                                 Text("このアプリについて")
                             }
-                            
+
                             //お問い合わせページ遷移用のセル
                             NavigationLink {
                                 ContactWebView()
@@ -106,7 +109,7 @@ struct SettingView: View {
                                 Text("お問い合わせ")
                             }
                         }
-                        
+
                         //全データ消去用のセル
                         Section{
                             HStack{
@@ -135,14 +138,14 @@ struct SettingView: View {
                 .navigationViewStyle(.stack)
                 .scrollContentBackground(.hidden)
                 //背景グラデーション設定
-                .modifier(UserSettingGradient(appColorNum: settingViewModel.userSelectedColor))
+                .modifier(UserSettingGradient(appColorNum: settingViewModel.selectedColor))
                 
                 //目標編集セルタップ後に出現するテキストフィールド付きアラート
                 if settingViewModel.showGoalEdittingAlert{
                     
                     EditGoal(settingViewModel: settingViewModel){
                         let isLong = settingViewModel.editLongTermGoal
-                        globalStore.setGoal(long: isLong ? settingViewModel.editText : nil, short: isLong ? nil : settingViewModel.editText)
+                        userDefaultsStore.setGoal(long: isLong ? settingViewModel.editText : nil, short: isLong ? nil : settingViewModel.editText)
                     }
                     .transition(.opacity)
                 }
@@ -152,8 +155,12 @@ struct SettingView: View {
                 ToastView(show: $settingViewModel.showToast, text: settingViewModel.toastText)
             }
             .environmentObject(notificationViewModel)
-            .environmentObject(globalStore)
+            .environmentObject(coreDataStore)
+            .onAppear{
+                settingViewModel.selectedColor = userDefaultsStore.savedColor
+            }
         }
+
         //アニメーションの設定
         .animation(settingViewModel.showGoalEdittingAlert ? .easeInOut(duration: 0.05) : nil, value: settingViewModel.showGoalEdittingAlert)
         
@@ -162,7 +169,7 @@ struct SettingView: View {
             Button("リセットする",role: .destructive){
                 notificationViewModel.resetNotification()
                 //                store.resetUserSetting()
-                globalStore.deleteAllData()
+                coreDataStore.deleteAllData()
             }
             Button("戻る",role: .cancel){}
         }message: {

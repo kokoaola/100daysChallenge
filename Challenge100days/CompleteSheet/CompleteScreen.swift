@@ -12,7 +12,8 @@ import UIKit
 ///ユーザーが当日のタスクを達成したときに表示するコンプリートウインドウ
 struct CompleteSheet: View {
     ///ViewModel用の変数
-    @EnvironmentObject var store: CoreDataStore
+    @EnvironmentObject var coreDataStore: CoreDataStore
+    
     ///メモ追加シート表示用のフラグ
     @State var showMemo = false
     ///画面戻る用のフラグ
@@ -21,7 +22,7 @@ struct CompleteSheet: View {
     @Binding var image: Image?
     
     var body: some View {
-        let dayNumber = store.dayNumber
+        let dayNumber = coreDataStore.dayNumber
             ZStack{
                 VStack(alignment: .center, spacing: 10){
                     ///左上の閉じるボタン
@@ -97,7 +98,7 @@ struct CompleteSheet: View {
                 
                 
                 ///シートの上に重ねる紙吹雪のアニメーション
-                if !store.finishedTodaysTask{
+                if !coreDataStore.finishedTodaysTask{
                     LottieView(filename: "confetti3", loop: .playOnce)
                         .frame(width: AppSetting.screenWidth)
                         .allowsHitTesting(false)
@@ -107,7 +108,7 @@ struct CompleteSheet: View {
             //メモ追加ボタンが押下されたら、MemoSheetを表示
             .sheet(isPresented: $showMemo) {
                 MemoSheet()
-                    .environmentObject(store)
+                    .environmentObject(coreDataStore)
             }
     }
 }

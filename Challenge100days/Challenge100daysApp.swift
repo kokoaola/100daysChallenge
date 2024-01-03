@@ -15,6 +15,7 @@ struct Challenge100daysApp: App {
                 .environment(\.managedObjectContext, PersistenceController.persistentContainer.viewContext)
                 .environmentObject(NotificationViewModel())
                 .environmentObject(CoreDataStore())
+                .environmentObject(UserDefaultsStore())
         }
     }
 }
