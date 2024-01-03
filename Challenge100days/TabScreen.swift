@@ -51,7 +51,6 @@ struct TabScreen: View {
             .onAppear{
                 DispatchQueue.main.async {
                     globalStore.setAllData()
-//                    bigButtonVM.setDayNumber(num: globalStore.dayNumber)
                     listAndCardVM.setDailyData(allData: globalStore.allData)
                 }
             }

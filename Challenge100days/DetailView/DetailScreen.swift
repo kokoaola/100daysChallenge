@@ -13,7 +13,6 @@ import CoreData
 struct DetailScreen: View {
     ///ViewModel用の変数
     @EnvironmentObject var coreDataStore: CoreDataStore
-    @EnvironmentObject var userDefaultsStore: UserDefaultsStore
     @StateObject var detailVM = DetailViewModel()
     @StateObject var notificationVM = NotificationViewModel()
     
@@ -71,7 +70,7 @@ struct DetailScreen: View {
         }
         .detailViewStyle()
         //グラデーション背景の設定
-        .modifier(UserSettingGradient(appColorNum: userDefaultsStore.savedColor))
+        .modifier(UserSettingGradient())
         
         
         .onAppear{

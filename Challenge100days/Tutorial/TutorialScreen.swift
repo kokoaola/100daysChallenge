@@ -40,7 +40,7 @@ struct TutorialScreen: View {
         .cornerRadius(15)
         .padding(.horizontal)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .modifier(UserSettingGradient(appColorNum: tutorialVM.userSelectedColor))
+        .modifier(UserSettingGradient())
         .embedInNavigationStack()
         .navigationViewStyle(.stack)
     }

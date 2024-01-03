@@ -12,7 +12,6 @@ import SwiftUI
 struct MemoSheet: View {
     ///ViewModel用の変数
     @EnvironmentObject var coreDataStore: CoreDataStore
-    @EnvironmentObject var userDefaultsStore: UserDefaultsStore
     @StateObject var addMemoVM = AddMemoViewModel()
     
     ///キーボードフォーカス用変数（Doneボタン表示のため）
@@ -85,7 +84,7 @@ struct MemoSheet: View {
         //グラデーション＋すりガラス背景設定
             .background(.ultraThinMaterial)
         //グラデーション背景の設定
-            .modifier(UserSettingGradient(appColorNum: userDefaultsStore.savedColor))
+            .modifier(UserSettingGradient())
             .onAppear{
                 self.isInputActive = true
             }

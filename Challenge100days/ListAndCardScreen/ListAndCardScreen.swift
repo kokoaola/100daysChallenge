@@ -14,7 +14,6 @@ struct ListAndCardView: View {
     ///ViewModel用の変数
     @ObservedObject var listAndCardVM: ListAndCardViewModel
     @EnvironmentObject var coreDataStore: CoreDataStore
-    @EnvironmentObject var userDefaultsStore: UserDefaultsStore
     
     var body: some View {
         //画面全体はスクロールビュー
@@ -48,7 +47,7 @@ struct ListAndCardView: View {
         .foregroundColor(Color(UIColor.label))
         .padding(.horizontal)
         //グラデーション背景の設定
-        .modifier(UserSettingGradient(appColorNum: userDefaultsStore.savedColor))
+        .modifier(UserSettingGradient())
         
         //メモ追加ボタンが押下されたら、makeNewItemSheetを表示
         .sheet(isPresented : $listAndCardVM.showSheet , onDismiss : {

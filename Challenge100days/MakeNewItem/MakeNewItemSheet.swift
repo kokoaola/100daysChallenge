@@ -13,7 +13,6 @@ struct makeNewItemSheet: View {
     
     ///ViewModel用の変数
     @EnvironmentObject var coreDataStore: CoreDataStore
-    @EnvironmentObject var userDefaultsStore: UserDefaultsStore
     @StateObject var makeNewItemVM = MakeNewItemViewModel()
     
     ///画面破棄用の変数
@@ -124,7 +123,7 @@ struct makeNewItemSheet: View {
             .background(.ultraThinMaterial)
             
             //グラデーション背景の設定
-            .modifier(UserSettingGradient(appColorNum: userDefaultsStore.savedColor))
+            .modifier(UserSettingGradient())
             
             
             .onChange(of: makeNewItemVM.userSelectedDate) { newValue in

@@ -99,9 +99,9 @@ private struct AccessibilityModifier: ViewModifier {
 
 ///引数で受け取った番号に応じた背景色を指定するViewModifier
 struct UserSettingGradient: ViewModifier{
-    let appColorNum: Int
+    @EnvironmentObject var userDefaultsStore: UserDefaultsStore
     var colors:[Color]{
-        switch appColorNum{
+        switch userDefaultsStore.savedColor{
         case 0:
             return [.blue, .green]
         case 1:

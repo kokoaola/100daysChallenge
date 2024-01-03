@@ -81,7 +81,7 @@ struct ActionView: View {
         
         .frame(maxWidth: .infinity)
         //グラデーション背景の設定
-        .modifier(UserSettingGradient(appColorNum: userDefaultsStore.savedColor))
+        .modifier(UserSettingGradient())
     }
 }
 

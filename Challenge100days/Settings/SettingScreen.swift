@@ -138,7 +138,7 @@ struct SettingView: View {
                 .navigationViewStyle(.stack)
                 .scrollContentBackground(.hidden)
                 //背景グラデーション設定
-                .modifier(UserSettingGradient(appColorNum: settingViewModel.selectedColor))
+                .modifier(UserSettingGradient())
                 
                 //目標編集セルタップ後に出現するテキストフィールド付きアラート
                 if settingViewModel.showGoalEdittingAlert{
