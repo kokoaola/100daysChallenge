@@ -14,7 +14,7 @@ struct DetailScreen: View {
     ///ViewModel用の変数
     @EnvironmentObject var coreDataStore: CoreDataStore
     @StateObject var detailVM = DetailViewModel()
-    @StateObject var notificationVM = NotificationViewModel()
+    @EnvironmentObject var notificationVM: NotificationViewModel
     
     ///画面破棄用の変数
     @Environment(\.dismiss) var dismiss
@@ -146,17 +146,20 @@ struct DetailScreen: View {
             Button("破棄する",role: .destructive){
                 dismiss()
                 
-                detailVM.deleteData(data: item)
-                Task{
-                    await coreDataStore.assignNumbers(completion: {
-                        withAnimation {
-                            onDeleted(coreDataStore.allData)
-                        }
-                    })
-                    let lastDate = Calendar.current.dateComponents([.year, .month, .day], from: allData.last?.wrappedDate ?? Date())
-                    let today = Calendar.current.dateComponents([.year, .month, .day], from: Date())
-                    
-                    await notificationVM.setNotification(isFinishTodaysTask: lastDate == today)
+                //アイテムを削除
+                detailVM.deleteData(data: item) {
+                    //通知の更新
+                    Task{
+                        await coreDataStore.assignNumbers(completion: {
+                            withAnimation {
+                                onDeleted(coreDataStore.allData)
+                            }
+                        })
+                        let lastDate = Calendar.current.dateComponents([.year, .month, .day], from: allData.last?.wrappedDate ?? Date())
+                        let today = Calendar.current.dateComponents([.year, .month, .day], from: Date())
+                        
+                        await notificationVM.setNotification(isFinishTodaysTask: lastDate == today, time: nil, days: nil)
+                    }
                 }
             }
             Button("戻る",role: .cancel){}

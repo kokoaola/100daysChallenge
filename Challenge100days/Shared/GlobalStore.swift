@@ -186,4 +186,12 @@ class UserDefaultsStore: ObservableObject {
             defaults.set(self.shortTermGoal, forKey: UserDefaultsConstants.shortTermGoalKey)
         }
     }
+    
+    ///設定をすべて削除するメソッド
+    func resetUserDefaultsSetting(){
+        switchHideInfomation(false)
+        saveSettingColor(0)
+        setGoal(long: "", short: "")
+        isFirst = true
+    }
 }

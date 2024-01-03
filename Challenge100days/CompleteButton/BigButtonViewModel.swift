@@ -17,7 +17,7 @@ final class BigButtonViewModel: ObservableObject{
     @Published var showAnimation: Bool = true
     
     ///当日のタスクの完了を保存するメソッド
-    func saveTodaysChallenge(challengeDate: Int, completion: @escaping (Bool) -> Void) {
+    func saveTodaysChallenge(challengeDate: Int, completion: @escaping () -> Void) {
         //データのインスタンス生成
         let entity = DailyData(context: PersistenceController.shared.moc)
         entity.id = UUID()
@@ -28,14 +28,15 @@ final class BigButtonViewModel: ObservableObject{
         // 変更を保存
         PersistenceController.shared.saveAsync { error in
             if let _ = error {
-                // エラーハンドリング
-                completion(false)
+                return
             } else {
                 //ウィジェットを更新
                 AppGroupConstants.reloadTimelines()
                 // 保存成功
-                completion(true)
+                completion()
             }
         }
     }
 }
+
+

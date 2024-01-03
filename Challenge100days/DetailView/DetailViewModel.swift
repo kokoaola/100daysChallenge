@@ -46,17 +46,16 @@ final class DetailViewModel: ObservableObject{
     
     
     ///引数で受け取ったデータを削除するメソッド
-    func deleteData(data: DailyData) {
+    func deleteData(data: DailyData,  completion: @escaping () -> Void) {
         // 変更を保存
         PersistenceController.shared.deleteAsync(data){ error in
             if let _ = error {
-                // エラーハンドリング
-//                completion(false)
+                return
             } else {
                 //ウィジェットを更新
                 AppGroupConstants.reloadTimelines()
                 // 保存成功
-//                completion(true)
+                completion()
             }
         }
     }

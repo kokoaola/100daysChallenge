@@ -19,7 +19,7 @@ class TutorialViewModel: ObservableObject{
     @Published var shortTermEditText = ""
     
     ///背景色を格納する変数
-    @Published var userSelectedColor: Int = 1
+    @Published var userSelectedColor: Int = 0
     
     
     ///UIの状態を判別するプロパティ

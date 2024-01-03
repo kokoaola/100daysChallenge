@@ -124,8 +124,9 @@ struct UserSettingGradient: ViewModifier{
     }
 }
 
+
 ///引数で受け取った番号に応じた背景色を指定するViewModifier
-struct GradientColor: View{
+struct GradientColor: ViewModifier{
     let appColorNum: Int
     var colors:[Color]{
         switch appColorNum{
@@ -142,16 +143,12 @@ struct GradientColor: View{
         }
     }
     
-    var body: some View{
-        ZStack{
-            LinearGradient(
-                colors: [colors[0], colors[1]],
-                startPoint: .topLeading,
-                endPoint: .bottomTrailing
-            )
-            Rectangle()
-                .fill(Material.ultraThinMaterial)
-        }
+    func body(content: Content) -> some View{
+        content.background(.secondary).foregroundStyle(LinearGradient(
+            colors: [colors[0], colors[1]],
+            startPoint: .topLeading,
+            endPoint: .bottomTrailing
+        ))
     }
     
 //    func body(content: Content) -> some View{

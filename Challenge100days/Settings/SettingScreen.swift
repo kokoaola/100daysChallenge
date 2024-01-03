@@ -15,7 +15,8 @@ struct SettingView: View {
     @EnvironmentObject var coreDataStore: CoreDataStore
     @EnvironmentObject var userDefaultsStore: UserDefaultsStore
     @StateObject var settingViewModel = SettingViewModel()
-    @StateObject var notificationViewModel = NotificationViewModel()
+    @EnvironmentObject var notificationViewModel: NotificationViewModel
+    
     
     var body: some View {
         NavigationStack{
@@ -24,8 +25,6 @@ struct SettingView: View {
                 
                 VStack(spacing: 50) {
                     List{
-                        
-                        //アプリ全体の色を変更するセル
                         Section(){
                             ///背景色変更用ピッカー
                             Picker(selection: $settingViewModel.selectedColor) {
@@ -36,14 +35,23 @@ struct SettingView: View {
                             } label: {
                                 Text("アプリの色を変更する")
                             }
-
+                            
                             //ピッカーが選択される毎に背景色を変更
                             .onChange(of: settingViewModel.selectedColor) { newValue in
-                                userDefaultsStore.saveSettingColor(newValue)
                                 //アプリの色を保存
+                                userDefaultsStore.saveSettingColor(newValue)
                             }
-
-                            
+                        }
+                        
+                        Section(){
+                            NavigationLink {
+                                NotificationScreen(showToast: $settingViewModel.showToast, toastText: $settingViewModel.toastText)
+                            } label: {
+                                Text("通知を設定する") + Text("\n（現在の設定：\(notificationViewModel.isNotificationOn ? notificationViewModel.userSettingNotificationTime.formatAsString() : "なし")）").font(.callout).foregroundColor(.gray)
+                            }
+                        }
+                        
+                        Section{
                             ///トップ画面の目標を非表示にするスイッチ
                             Toggle("目標を隠す", isOn: $settingViewModel.hideInfomation)
                                 .tint(.green)
@@ -52,24 +60,16 @@ struct SettingView: View {
                                 .onChange(of: settingViewModel.hideInfomation) { newSetting in
                                     userDefaultsStore.switchHideInfomation(settingViewModel.hideInfomation)
                                 }
-
-                            NavigationLink {
-                                NotificationView(showToast: $settingViewModel.showToast, toastText: $settingViewModel.toastText)
-                            } label: {
-                                Text("通知を設定する")
-                            }
-                        }
-                        
-                        Section{
+                            
                             //長期目標変更用のセル
                             Button("目標を変更する") {
                                 settingViewModel.editLongTermGoal = true
-                                    settingViewModel.editText = userDefaultsStore.longTermGoal
+                                settingViewModel.editText = userDefaultsStore.longTermGoal
                                 withAnimation {
                                     settingViewModel.showGoalEdittingAlert = true
                                 }
                             }
-
+                            
                             //短期目標変更用のセル
                             Button("100日取り組む内容を変更する") {
                                 settingViewModel.editLongTermGoal = false
@@ -79,7 +79,7 @@ struct SettingView: View {
                                 }
                             }
                         }
-
+                        
                         Section{
                             //バックアップデータ取得用のセル
                             NavigationLink {
@@ -87,21 +87,21 @@ struct SettingView: View {
                             } label: {
                                 Text("バックアップ")
                             }
-
+                            
                             //プライバシーポリシーページ遷移用のセル
                             NavigationLink {
                                 PrivacyPolicyWebView()
                             } label: {
                                 Text("プライバシーポリシー")
                             }
-
+                            
                             //アプリ解説ページ遷移用のセル
                             NavigationLink {
                                 AboutThisApp()
                             } label: {
                                 Text("このアプリについて")
                             }
-
+                            
                             //お問い合わせページ遷移用のセル
                             NavigationLink {
                                 ContactWebView()
@@ -109,7 +109,7 @@ struct SettingView: View {
                                 Text("お問い合わせ")
                             }
                         }
-
+                        
                         //全データ消去用のセル
                         Section{
                             HStack{
@@ -160,7 +160,7 @@ struct SettingView: View {
                 settingViewModel.selectedColor = userDefaultsStore.savedColor
             }
         }
-
+        
         //アニメーションの設定
         .animation(settingViewModel.showGoalEdittingAlert ? .easeInOut(duration: 0.05) : nil, value: settingViewModel.showGoalEdittingAlert)
         
@@ -168,7 +168,7 @@ struct SettingView: View {
         .alert("リセットしますか？", isPresented: $settingViewModel.showResetAlert){
             Button("リセットする",role: .destructive){
                 notificationViewModel.resetNotification()
-                //                store.resetUserSetting()
+                userDefaultsStore.resetUserDefaultsSetting()
                 coreDataStore.deleteAllData()
             }
             Button("戻る",role: .cancel){}

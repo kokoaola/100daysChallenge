@@ -14,7 +14,7 @@ struct ActionView: View {
     @EnvironmentObject var coreDataStore: CoreDataStore
     @EnvironmentObject var userDefaultsStore: UserDefaultsStore
     @ObservedObject var bigButtonVM: BigButtonViewModel
-    @StateObject var notificationViewModel = NotificationViewModel()
+    @EnvironmentObject var notificationVM: NotificationViewModel
     
     ///表示＆共有用の画像
     @State var image: Image?
@@ -37,18 +37,15 @@ struct ActionView: View {
                     withAnimation{
                         bigButtonVM.showCompleteWindew = true
                     }
+                    
                     //データを保存
-                    bigButtonVM.saveTodaysChallenge(challengeDate: coreDataStore.dayNumber) { success in
-                        if success {
-                            Task{
-                                // 通知設定している場合、本日の通知はスキップする
-                                if notificationViewModel.isNotificationOn{
-                                    await notificationViewModel.setNotification(isFinishTodaysTask: true)
-                                }
-                                //配列を更新
-                                coreDataStore.setAllData()
-                            }
-                        }
+                    bigButtonVM.saveTodaysChallenge(challengeDate: coreDataStore.dayNumber) {
+                        //配列を更新
+                        coreDataStore.setAllData()
+                    }
+                    Task{
+                        // 通知設定している場合、本日の通知はスキップして再設定する
+                        await notificationVM.setNotification(isFinishTodaysTask: true, time: nil, days: nil)
                     }
                 }, label: {
                     //達成済みの場合ラベルは薄く表示
