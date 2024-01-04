@@ -76,7 +76,6 @@ class CoreDataStore: ObservableObject {
     }
     
     
-    
     ///データの番号を振り直すメソッド
     func assignNumbers(completion: @escaping () -> Void) async {
         var allTask = [DailyData]()
@@ -134,7 +133,7 @@ class UserDefaultsStore: ObservableObject {
     private let defaults = UserDefaults.standard
     
     ///目標を表示するかどうかの設定を格納する変数
-    @Published private(set) var hideInfomation: Bool = true
+    @Published private(set) var hideInfomation: Bool
     ///背景色を格納する変数
     @Published private(set) var savedColor: Int = 0
     ///長期目標を格納する変数

@@ -58,7 +58,7 @@ struct SettingView: View {
                                 .accessibilityHint("トップ画面の目標を非表示にします")
                             //設定を保存
                                 .onChange(of: settingViewModel.hideInfomation) { newSetting in
-                                    userDefaultsStore.switchHideInfomation(settingViewModel.hideInfomation)
+                                    userDefaultsStore.switchHideInfomation(newSetting)
                                 }
                             
                             //長期目標変更用のセル
@@ -158,6 +158,7 @@ struct SettingView: View {
             .environmentObject(coreDataStore)
             .onAppear{
                 settingViewModel.selectedColor = userDefaultsStore.savedColor
+                settingViewModel.hideInfomation = userDefaultsStore.hideInfomation
             }
         }
         
