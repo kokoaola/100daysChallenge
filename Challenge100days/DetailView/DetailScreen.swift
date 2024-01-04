@@ -50,10 +50,13 @@ struct DetailScreen: View {
             .accessibilityLabel("\(item.num)日目の記録、\(AppSetting.makeAccessibilityDate(day: item.wrappedDate))")
             .foregroundColor(.primary)
             .frame(maxWidth: .infinity, alignment: .leading)
+            .onTapGesture {
+                isInputActive.toggle()
+            }
             
             //メモが何も記入されていない場合はプレースホルダーを表示
             ZStack(alignment: .topLeading){
-                if detailVM.editText.isEmpty{
+                if detailVM.editText.isEmpty && !isInputActive{
                     Text("保存されたメモはありません。\nタップで追加できます。")
                         .foregroundColor(.primary.opacity(0.4))
                 }
@@ -169,6 +172,8 @@ struct DetailScreen: View {
         }message: {
             Text("表示中のデータは破棄されます。\n（この動作は取り消せません。）")
         }
+        
+        .ignoresSafeArea(.keyboard, edges: .bottom)
     }
 }
 

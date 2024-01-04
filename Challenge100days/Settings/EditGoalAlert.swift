@@ -10,7 +10,12 @@ import SwiftUI
 struct EditGoal: View {
     ///ViewModel用の変数
     @ObservedObject var settingViewModel: SettingViewModel
-    var onDeleted: () -> Void // クロージャを受け取るプロパティ
+    
+    ///完了時のクロージャを受け取るプロパティ
+    var onDeleted: () -> Void
+    
+    ///キーボードフォーカス用変数（Doneボタン表示のため）
+    @FocusState var isInputActive: Bool
     
     var body: some View {
         
@@ -31,6 +36,7 @@ struct EditGoal: View {
                 .frame(height: 80)
                 .opacity(settingViewModel.isTextNotEmpty ? 1 : 0.5)
                 .accessibilityLabel("目標変更用のテキストフィールド")
+                .focused($isInputActive)
             
             //文字数オーバー時の警告
             Text("\(AppSetting.maxLengthOfTerm)文字以内のみ設定可能です").font(.caption) .font(.caption)
@@ -75,6 +81,19 @@ struct EditGoal: View {
         .background(.white)
         .cornerRadius(15)
         .padding()
+        .onAppear{
+            isInputActive = true
+        }
+        
+        //キーボード閉じるボタンを配置
+        .toolbar {
+            ToolbarItemGroup(placement: .keyboard) {
+                Spacer()
+                Button("閉じる") {
+                    isInputActive = false
+                }
+            }
+        }
     }
 }
 

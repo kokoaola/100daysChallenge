@@ -21,8 +21,11 @@ class NotificationViewModel: ObservableObject{
     @Published var isNotificationEnabled = false
     //通知をお願いするアラート表示用のフラグ（設定画面への遷移ボタン）
     @Published var showNotificationAlert = false
+
     
     ///アプリ内の通知設定用変数
+    ///
+
     //通知を送る時間を格納する変数(ユーザーデフォルト保存用)
     @Published private(set) var savedTime: Date
     //通知を送る曜日を格納する変数(ユーザーデフォルト保存用)

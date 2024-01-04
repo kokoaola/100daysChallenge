@@ -10,7 +10,6 @@ import SwiftUI
 
 ///新しいデータを追加するビュー
 struct makeNewItemSheet: View {
-    
     ///ViewModel用の変数
     @EnvironmentObject var coreDataStore: CoreDataStore
     @StateObject var makeNewItemVM = MakeNewItemViewModel()
@@ -22,11 +21,7 @@ struct makeNewItemSheet: View {
     @FocusState var isInputActive: Bool
     
     
-    
     var body: some View {
-        NavigationStack{
-            
-            
             VStack(spacing: 20){
                 ZStack{
                     //左上のシート破棄用Xボタン
@@ -161,7 +156,7 @@ struct makeNewItemSheet: View {
                 }
             }
             .foregroundColor(Color(UIColor.label))
-        }
+            .embedInNavigationStack()
     }
 }
 

@@ -31,7 +31,7 @@ struct ToastView: View {
                 .fontWeight(.semibold)
                 .padding(.horizontal, 60)
                 .padding(.vertical)
-                .background(.gray.opacity(0.4))
+                .background(.gray)
                 .cornerRadius(15.0)
                 .opacity(opa <= 0.3 ? 1 : 1.0 - opa)
             //0.1秒は普通に表示、その後徐々に消失0.5秒経過で完全消失

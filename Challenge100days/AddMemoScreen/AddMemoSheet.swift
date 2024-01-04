@@ -57,8 +57,9 @@ struct MemoSheet: View {
                 .padding(.bottom, AppSetting.screenHeight / 5)
         
             }
-            //キーボード閉じるボタン
+            
             .toolbar {
+                //キーボード閉じるボタン
                 ToolbarItemGroup(placement: .keyboard) {
                     Spacer()
                     Button("閉じる") {
@@ -68,11 +69,14 @@ struct MemoSheet: View {
                 
                 //シート閉じるボタン
                 ToolbarItemGroup(placement: .navigationBarLeading) {
-                    Spacer()
-                    Button("閉じる") {
+                    //左上のシート破棄用Xボタン
+                    Button {
                         dismiss()
+                    } label: {
+                        Image(systemName: "xmark")
+                            .font(.title2)
+                            .frame(maxWidth: .infinity, alignment: .leading)
                     }
-                    .editAccessibility(label: "Close", addTraits: .isButton)
                 }
             }
             .foregroundColor(.primary)

@@ -17,6 +17,10 @@ struct SettingView: View {
     @StateObject var settingViewModel = SettingViewModel()
     @EnvironmentObject var notificationViewModel: NotificationViewModel
     
+    ///目標を表示するかどうかの設定を格納する変数
+    @State var hideInfomation: Bool = false
+    ///選択した色を格納する変数
+    @State var selectedColor: Int = 0
     
     var body: some View {
         NavigationStack{
@@ -25,9 +29,10 @@ struct SettingView: View {
                 
                 VStack(spacing: 50) {
                     List{
-                        Section(){
-                            ///背景色変更用ピッカー
-                            Picker(selection: $settingViewModel.selectedColor) {
+                        
+                        ///背景色変更用ピッカーのセクション
+                        Section{
+                            Picker(selection: $selectedColor) {
                                 Text("青").tag(0)
                                 Text("オレンジ").tag(1)
                                 Text("紫").tag(2)
@@ -35,15 +40,16 @@ struct SettingView: View {
                             } label: {
                                 Text("アプリの色を変更する")
                             }
-                            
                             //ピッカーが選択される毎に背景色を変更
-                            .onChange(of: settingViewModel.selectedColor) { newValue in
+                            .onChange(of: selectedColor) { newValue in
                                 //アプリの色を保存
                                 userDefaultsStore.saveSettingColor(newValue)
                             }
                         }
                         
-                        Section(){
+                        
+                        ///通知設定のセクション
+                        Section{
                             NavigationLink {
                                 NotificationScreen(showToast: $settingViewModel.showToast, toastText: $settingViewModel.toastText)
                             } label: {
@@ -51,13 +57,15 @@ struct SettingView: View {
                             }
                         }
                         
+                        
+                        ///目標設定のセクション
                         Section{
-                            ///トップ画面の目標を非表示にするスイッチ
-                            Toggle("目標を隠す", isOn: $settingViewModel.hideInfomation)
+                            //トップ画面の目標を非表示にするスイッチ
+                            Toggle("目標を隠す", isOn: $hideInfomation)
                                 .tint(.green)
                                 .accessibilityHint("トップ画面の目標を非表示にします")
-                            //設定を保存
-                                .onChange(of: settingViewModel.hideInfomation) { newSetting in
+                                //設定を保存
+                                .onChange(of: hideInfomation) { newSetting in
                                     userDefaultsStore.switchHideInfomation(newSetting)
                                 }
                             
@@ -124,12 +132,12 @@ struct SettingView: View {
                             }
                         }
                     }
-                    //アラート表示中はリスト無効、背景透ける
+                    .foregroundColor(Color(UIColor.label))
+                    //アラート表示中のリスト無効、背景透ける設定
                     .disabled(settingViewModel.showGoalEdittingAlert)
                     .accessibilityHidden(settingViewModel.showGoalEdittingAlert)
                     .opacity(settingViewModel.showGoalEdittingAlert ? 0.3 : 1.0)
                     .animation(nil, value: settingViewModel.showGoalEdittingAlert)
-                    .foregroundColor(Color(UIColor.label))
                 }
                 
                 //ナビゲーションの設定
@@ -140,42 +148,43 @@ struct SettingView: View {
                 //背景グラデーション設定
                 .modifier(UserSettingGradient())
                 
-                //目標編集セルタップ後に出現するテキストフィールド付きアラート
+                ///目標編集セルタップ時に出現するテキストフィールド付きアラート
                 if settingViewModel.showGoalEdittingAlert{
-                    
                     EditGoal(settingViewModel: settingViewModel){
                         let isLong = settingViewModel.editLongTermGoal
                         userDefaultsStore.setGoal(long: isLong ? settingViewModel.editText : nil, short: isLong ? nil : settingViewModel.editText)
                     }
                     .transition(.opacity)
+                    //アニメーションの設定
+                    .animation(settingViewModel.showGoalEdittingAlert ? .easeInOut(duration: 0.05) : nil, value: settingViewModel.showGoalEdittingAlert)
                 }
+
                 
-                
-                //完了時に表示されるトーストポップアップ
+                ///完了時に表示されるトーストポップアップ
                 ToastView(show: $settingViewModel.showToast, text: settingViewModel.toastText)
+
+                
+                ///リセットボタン押下時のアラート
+                    .alert("リセットしますか？", isPresented: $settingViewModel.showResetAlert){
+                        Button("リセットする",role: .destructive){
+                            notificationViewModel.resetNotification()
+                            userDefaultsStore.resetUserDefaultsSetting()
+                            coreDataStore.deleteAllData()
+                        }
+                        Button("戻る",role: .cancel){}
+                    }message: {
+                        Text("この動作は取り消せません。")
+                    }
+                
             }
             .environmentObject(notificationViewModel)
             .environmentObject(coreDataStore)
             .onAppear{
-                settingViewModel.selectedColor = userDefaultsStore.savedColor
-                settingViewModel.hideInfomation = userDefaultsStore.hideInfomation
+                self.selectedColor = userDefaultsStore.savedColor
+                self.hideInfomation = userDefaultsStore.hideInfomation
             }
         }
         
-        //アニメーションの設定
-        .animation(settingViewModel.showGoalEdittingAlert ? .easeInOut(duration: 0.05) : nil, value: settingViewModel.showGoalEdittingAlert)
-        
-        //リセットボタン押下時のアラート
-        .alert("リセットしますか？", isPresented: $settingViewModel.showResetAlert){
-            Button("リセットする",role: .destructive){
-                notificationViewModel.resetNotification()
-                userDefaultsStore.resetUserDefaultsSetting()
-                coreDataStore.deleteAllData()
-            }
-            Button("戻る",role: .cancel){}
-        }message: {
-            Text("この動作は取り消せません。")
-        }
     }
 }
 
