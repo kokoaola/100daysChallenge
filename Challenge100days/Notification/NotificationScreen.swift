@@ -113,8 +113,8 @@ struct NotificationScreen: View {
         .onAppear{
             //タップ時に通知の許可を判定、許可されていれば画面遷移
             notificationViewModel.isUserNotificationEnabled()
-            selectedTime = notificationViewModel.userSettingNotificationTime
-            selectedDay = notificationViewModel.userSettingNotificationDays
+            selectedTime = notificationViewModel.savedTime
+            selectedDay = notificationViewModel.savedDays
         }
         //バックグラウンド復帰時に通知の状態を確認(これしないと通知OFFでも通知設定画面に遷移できてしまうため)
         .onChange(of: scenePhase) { newPhase in

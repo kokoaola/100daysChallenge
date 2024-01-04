@@ -16,22 +16,21 @@ struct DetailScreen: View {
     @StateObject var detailVM = DetailViewModel()
     @EnvironmentObject var notificationVM: NotificationViewModel
     
-    ///画面破棄用の変数
-    @Environment(\.dismiss) var dismiss
-    
     ///ビュー生成時にオブジェクトデータ受け取る用変数
     let item: DailyData
-    
-    ///キーボードフォーカス用変数（Doneボタン表示のため）
-    @FocusState var isInputActive: Bool
     
     ///シェア用の画像格納用変数
     @State private var image: Image?
     
     @Binding var allData: [DailyData]
     
-    var onDeleted: ([DailyData]) -> Void // クロージャを受け取るプロパティ
+    // 配列を更新するクロージャを受け取るプロパティ
+    var onDeleted: ([DailyData]) -> Void
     
+    ///画面破棄用の変数
+    @Environment(\.dismiss) var dismiss
+    ///キーボードフォーカス用変数（Doneボタン表示のため）
+    @FocusState var isInputActive: Bool
     
     var body: some View {
         
@@ -152,13 +151,17 @@ struct DetailScreen: View {
                     Task{
                         await coreDataStore.assignNumbers(completion: {
                             withAnimation {
+                                //CardAndListViewに削除後の配列をセットし直す処理を実行
                                 onDeleted(coreDataStore.allData)
                             }
                         })
-                        let lastDate = Calendar.current.dateComponents([.year, .month, .day], from: allData.last?.wrappedDate ?? Date())
-                        let today = Calendar.current.dateComponents([.year, .month, .day], from: Date())
                         
-                        await notificationVM.setNotification(isFinishTodaysTask: lastDate == today, time: nil, days: nil)
+                        //削除したデータと本日の日付が同じなら、通知は本日分をスキップして再セット
+                        let deletedData = Calendar.current.dateComponents([.year, .month, .day], from: item.wrappedDate)
+                        let today = Calendar.current.dateComponents([.year, .month, .day], from: Date())
+                        if deletedData == today{
+                            await notificationVM.setNotification(isFinishTodaysTask: true, time: nil, days: nil)
+                        }
                     }
                 }
             }

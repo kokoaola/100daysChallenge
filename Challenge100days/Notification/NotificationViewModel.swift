@@ -13,52 +13,49 @@ import Foundation
 class NotificationViewModel: ObservableObject{
     ///ユーザーデフォルト用変数
     private let defaults = UserDefaults.standard
-    ///通知用変数
+    
+    ///端末の通知設定用変数
     let content = UNMutableNotificationContent()
     let notificationCenter = UNUserNotificationCenter.current()
-    
-    ///通知を送る時間を格納する変数
-    @Published private(set) var userSettingNotificationTime: Date
-    ///通知を送る曜日を格納する変数
-    @Published private(set) var userSettingNotificationDays = Weekday.allCases.reduce(into: [Weekday: Bool]()) { $0[$1] = true }
-    
-    ///ユーザーが通知を設定したかを格納する変数
-    private(set) var isNotificationOn: Bool
-    
-    ///ユーザーが通知を設定したかを格納する変数
-//    @Published var isSelectedOn: Bool
-    
-    ///端末設定でアプリの通知許可がONになっているかの状態の格納用変数
+    //端末設定でアプリの通知許可がONになっているかの状態の格納用変数
     @Published var isNotificationEnabled = false
-    ///通知をお願いするアラート表示用のフラグ（設定画面への遷移ボタン）
+    //通知をお願いするアラート表示用のフラグ（設定画面への遷移ボタン）
     @Published var showNotificationAlert = false
     
-//    @Published var isFormValid = true
+    ///アプリ内の通知設定用変数
+    //通知を送る時間を格納する変数(ユーザーデフォルト保存用)
+    @Published private(set) var savedTime: Date
+    //通知を送る曜日を格納する変数(ユーザーデフォルト保存用)
+    private(set) var savedDays = Weekday.allCases.reduce(into: [Weekday: Bool]()) { $0[$1] = true }
+    //ユーザーが通知を設定したかを格納する変数(ユーザーデフォルト保存用)
+    private(set) var isNotificationOn: Bool
     
+
     
     init(){
+        ///ユーザーの設定を取得
+        ///通知On
         self.isNotificationOn = defaults.bool(forKey: UserDefaultsConstants.isNotificationOnKey)
-        
+        ///通知時間
         if isNotificationOn{
-            self.userSettingNotificationTime = defaults.object(forKey: UserDefaultsConstants.userSettingNotificationTimeKey) as? Date ?? Date()
+            self.savedTime = defaults.object(forKey: UserDefaultsConstants.userSettingNotificationTimeKey) as? Date ?? Date()
         }else{
             var components = Calendar.current.dateComponents([.year, .month, .day], from: Date())
             components.hour = 19
             components.minute = 0
-            self.userSettingNotificationTime = Calendar.current.date(from: components) ?? Date()
+            self.savedTime = Calendar.current.date(from: components) ?? Date()
         }
-        
-        //アプリ起動時はユーザーデフォルトからデータを取得
+        ///通知曜日
         let array = defaults.object(forKey: UserDefaultsConstants.userSettingNotificationDayKey) as? [Int] ?? []
-        //保存されたデータを読み込む
         // `num` 値のセットから `[Weekday: Bool]` 辞書を作成する
         var newWeekdays: [Weekday: Bool] = [:]
         // 全ての曜日をループして、各曜日が activeWeekdaysNums セット内にあるかどうかをチェック
         for weekday in Weekday.allCases {
             newWeekdays[weekday] = array.contains(weekday.num)
         }
-        userSettingNotificationDays = newWeekdays
+        savedDays = newWeekdays
     }
+    
     
     ///アプリの通知設定が許可されているか取得する関数
     func isUserNotificationEnabled(){
@@ -98,8 +95,8 @@ class NotificationViewModel: ObservableObject{
         components.hour = 19
         components.minute = 0
         DispatchQueue.main.async {
-            self.userSettingNotificationTime = Calendar.current.date(from: components) ?? Date()
-            self.userSettingNotificationDays = Weekday.allCases.reduce(into: [Weekday: Bool]()) { $0[$1] = true }
+            self.savedTime = Calendar.current.date(from: components) ?? Date()
+            self.savedDays = Weekday.allCases.reduce(into: [Weekday: Bool]()) { $0[$1] = true }
         }
         saveUserSelectedTime()
     }
@@ -107,31 +104,27 @@ class NotificationViewModel: ObservableObject{
     
     ///通知を送る時間と曜日を保存するメソッド
     func saveUserSelectedTime(){
-        defaults.set(userSettingNotificationTime, forKey: "notificationTime")
+        defaults.set(savedTime, forKey: "notificationTime")
         // 曜日の状態を配列として保存
-//        let weekdaysStatusToSave = userSettingNotificationDays.map { ["weekday": $0.key.rawValue, "status": $0.value] as [String : Any] }
-        let activeWeekdaysNums = Array(userSettingNotificationDays.filter { $0.value }.map { $0.key.num })
+        let activeWeekdaysNums = Array(savedDays.filter { $0.value }.map { $0.key.num })
         defaults.set(activeWeekdaysNums, forKey: UserDefaultsConstants.userSettingNotificationDayKey)
     }
-    
     
     ///通知をセットするメソッド（当日のタスクが達成済みなら翌日から開始する）
     func setNotification(isFinishTodaysTask: Bool, time: Date?, days: [Weekday: Bool]?) async{
         
         //通知設定がOFFなら何もせずリターン
-        if !isNotificationOn{
-            return
-        }
+        if !isNotificationOn{ return }
         
         // 設定されている曜日のnum値を取得
-        let activeWeekdaysNums = Set(userSettingNotificationDays.filter { $0.value }.map { $0.key.num })
+        let activeWeekdaysNums = Set(savedDays.filter { $0.value }.map { $0.key.num })
         DispatchQueue.main.async{
-            //ユーザーが選択した時間を取得
+            //ユーザーが選択した時間を取得（nilなら保存された値を使用する）
             if let time = time{
-                self.userSettingNotificationTime = time
+                self.savedTime = time
             }
             if let days = days{
-                self.userSettingNotificationDays = days
+                self.savedDays = days
             }
         }
 
@@ -147,7 +140,7 @@ class NotificationViewModel: ObservableObject{
         content.body = "本日のタスクが未達成です。挑戦を続けて、新たな習慣を築きましょう。"
         
         // 通知時刻を指定
-        let component = Calendar.current.dateComponents([.hour, .minute], from: self.userSettingNotificationTime)
+        let component = Calendar.current.dateComponents([.hour, .minute], from: self.savedTime)
         var startDate = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute], from: Date())
         //今日のタスク完了済みなら明日から
         if isFinishTodaysTask{
@@ -187,17 +180,5 @@ class NotificationViewModel: ObservableObject{
             }
         }
     }
-//    
-//    func checkFormValid() {
-//        //すべてがfalseか確認
-//        let noneSelected = Weekday.allCases.allSatisfy { weekday in
-//            !(self.userSettingNotificationDays[weekday] ?? false)
-//        }
-//        if noneSelected {
-//            self.isFormValid = false
-//        }else{
-//            self.isFormValid = true
-//        }
-//    }
 }
 
