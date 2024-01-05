@@ -101,7 +101,7 @@ private struct AccessibilityModifier: ViewModifier {
 struct UserSettingGradient: ViewModifier{
     @EnvironmentObject var userDefaultsStore: UserDefaultsStore
     var colors:[Color]{
-        switch userDefaultsStore.savedColor{
+        switch userDefaultsStore.userInputColor{
         case 0:
             return [.blue, .green]
         case 1:
@@ -125,31 +125,31 @@ struct UserSettingGradient: ViewModifier{
 }
 
 
-///引数で受け取った番号に応じた背景色を指定するViewModifier
-struct GradientColor: ViewModifier{
-    let appColorNum: Int
-    var colors:[Color]{
-        switch appColorNum{
-        case 0:
-            return [.blue, .green]
-        case 1:
-            return [.green, .yellow]
-        case 2:
-            return [.purple, .blue]
-        case 3:
-            return [.black, .black]
-        default:
-            return [.blue, .green]
-        }
-    }
-    
-    func body(content: Content) -> some View{
-        content.background(.secondary).foregroundStyle(LinearGradient(
-            colors: [colors[0], colors[1]],
-            startPoint: .topLeading,
-            endPoint: .bottomTrailing
-        ))
-    }
+/////引数で受け取った番号に応じた背景色を指定するViewModifier
+//struct GradientColor: ViewModifier{
+//    let appColorNum: Int
+//    var colors:[Color]{
+//        switch appColorNum{
+//        case 0:
+//            return [.blue, .green]
+//        case 1:
+//            return [.green, .yellow]
+//        case 2:
+//            return [.purple, .blue]
+//        case 3:
+//            return [.black, .black]
+//        default:
+//            return [.blue, .green]
+//        }
+//    }
+//
+//    func body(content: Content) -> some View{
+//        content.background(.secondary).foregroundStyle(LinearGradient(
+//            colors: [colors[0], colors[1]],
+//            startPoint: .topLeading,
+//            endPoint: .bottomTrailing
+//        ))
+//    }
     
 //    func body(content: Content) -> some View{
 //        content.background(.secondary).foregroundStyle(LinearGradient(
@@ -158,7 +158,7 @@ struct GradientColor: ViewModifier{
 //            endPoint: .bottomTrailing
 //        ))
 //    }
-}
+//}
 
 
 /*

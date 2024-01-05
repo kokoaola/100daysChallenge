@@ -44,7 +44,7 @@ class TutorialViewModel: ObservableObject{
         self.isTextFieldNotEmpty && self.isTermsLengthValid
     }
     //すべての条件が満たされて次へボタンが有効であることを判別するプロパティ
-    var isNextButtonValid: Bool{
-        self.longTermEditText.isEmpty || self.shortTermEditText.isEmpty || isLongTermLengthValid || isShortTermLengthValid
+    func isNextButtonValid(longTermCount: Int, shortTermCount: Int) -> Bool{
+        longTermCount == 0 || shortTermCount == 0 || longTermCount <= AppSetting.maxLengthOfTerm || shortTermCount  <= AppSetting.maxLengthOfTerm
     }
 }

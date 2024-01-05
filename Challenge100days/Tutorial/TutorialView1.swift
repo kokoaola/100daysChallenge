@@ -27,7 +27,7 @@ struct TutorialView1: View {
             .accessibilityElement(children: .combine)
             
             ///背景色選択用のピッカー
-            Picker(selection: $tutorialVM.userSelectedColor) {
+            Picker(selection: $userDefaultsStore.userInputColor) {
                 Text("青").tag(0)
                 Text("オレンジ").tag(1)
                 Text("紫").tag(2)
@@ -43,7 +43,7 @@ struct TutorialView1: View {
             Button {
                 tutorialVM.page = 2
                 //アプリの色を保存
-                userDefaultsStore.saveSettingColor(tutorialVM.userSelectedColor)
+                userDefaultsStore.saveSettingColor()
             } label: {
                 ArrowButton(isBackButton: false, labelText: "次へ")
             }

@@ -29,22 +29,21 @@ struct TutorialView2: View {
                 
                 //プレースホルダーを重ねて表示
                 ZStack(alignment: .topLeading){
-                    if !tutorialVM.longTermEditText.isEmpty{
+                    if !userDefaultsStore.userInputLongTermGoal.isEmpty{
                         EmptyView()
                     }else{
                         Text("例）画力アップ\n　　TOEIC800点").padding(5)
                     }
                     
                     ///テキストエディター
-                    TextEditor(text: $tutorialVM.longTermEditText)
+                    TextEditor(text: $userDefaultsStore.userInputLongTermGoal)
                         .focused($longTermEditorFocus)
-                        .opacity(tutorialVM.longTermEditText.isEmpty ? 0.5 : 1)
                         .customTutorialTextEditStyle()
                 }
                 
                 Text("\(AppSetting.maxLengthOfTerm)文字以内のみ設定可能です")
                     .font(.caption)
-                    .foregroundColor(tutorialVM.isLongTermLengthValid ? .clear : .red)
+                    .foregroundColor(userDefaultsStore.isLongTermGoalLengthValid ? .clear : .red)
             }
             
             
@@ -56,22 +55,21 @@ struct TutorialView2: View {
                 
                 //プレースホルダーを重ねて表示
                 ZStack(alignment: .topLeading){
-                    if !tutorialVM.shortTermEditText.isEmpty{
+                    if !userDefaultsStore.userInputShortTermGoal.isEmpty{
                         EmptyView()
                     }else{
                         Text("例）１日１枚絵を描く\n　　英語の勉強").padding(5)
                     }
                     
                     ///テキストエディター
-                    TextEditor(text: $tutorialVM.shortTermEditText)
+                    TextEditor(text: $userDefaultsStore.userInputShortTermGoal)
                         .focused($shortTermEditorFocus)
-                        .opacity(tutorialVM.shortTermEditText.isEmpty ? 0.5 : 1)
                         .customTutorialTextEditStyle()
                 }
                 
                 Text("\(AppSetting.maxLengthOfTerm)文字以内のみ設定可能です")
                     .font(.caption)
-                    .foregroundColor(tutorialVM.isShortTermLengthValid ? .clear : .red)
+                    .foregroundColor(userDefaultsStore.isShortTermGoalLengthValid ? .clear : .red)
             }
             
             Spacer()
@@ -80,7 +78,9 @@ struct TutorialView2: View {
             HStack{
                 Button {
                     tutorialVM.page = 1
-                    userDefaultsStore.setGoal(long: tutorialVM.longTermEditText, short: tutorialVM.shortTermEditText) //目標を保存
+                    //目標を保存
+                    userDefaultsStore.saveLongTermGoal()
+                    userDefaultsStore.saveShortTermGoal()
                 } label: {
                     ArrowButton(isBackButton: true, labelText: "戻る")
                 }
@@ -90,25 +90,21 @@ struct TutorialView2: View {
                 ///進むボタン
                 Button {
                     tutorialVM.page = 3
-                    userDefaultsStore.setGoal(long: tutorialVM.longTermEditText, short: tutorialVM.shortTermEditText) //目標を保存
+                    //目標を保存
+                    userDefaultsStore.saveLongTermGoal()
+                    userDefaultsStore.saveShortTermGoal()
                 } label: {
                     ArrowButton(isBackButton: false, labelText: "次へ")
-                        .opacity(tutorialVM.isNextButtonNotFade ? 1 : 0.4)
+                        .opacity(userDefaultsStore.isAllGoalValid ? 1 : 0.4)
                 }
                 
                 //次へボタンの無効判定
-                .disabled(!tutorialVM.isNextButtonValid)
+                .disabled(!userDefaultsStore.isAllGoalValid)
             }
             .padding(.bottom, 30)
         }
         .padding()
         .foregroundColor(Color(UIColor.label))
-        
-        ///ビュー表示時に目標をテキストフィールドにセット
-        .onAppear{
-            tutorialVM.longTermEditText = userDefaultsStore.savedLongTermGoal
-            tutorialVM.shortTermEditText = userDefaultsStore.savedShortTermGoal
-        }
         
         ///キーボード閉じるボタンを配置
         .toolbar {

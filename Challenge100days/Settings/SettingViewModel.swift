@@ -16,21 +16,8 @@ final class SettingViewModel: ObservableObject{
     @Published var showToast = false
     @Published var toastText = ""
     
-    
     ///長期目標か短期目標かのフラグ
     @Published var editLongTermGoal = false
     ///自分自身の表示状態を格納するフラグ
     @Published var showGoalEdittingAlert: Bool = false
-    ///入力したテキストを格納する変数
-    @Published var editText: String = ""
-    
-    
-    ///値の長さが正しいかどうかのプロパティ
-    var isTextLengthValid: Bool{
-        AppSetting.maxLengthOfTerm > editText.count
-    }
-    ///値に空白がないかのプロパティ
-    var isTextNotEmpty: Bool{
-        !editText.isEmpty
-    }
 }

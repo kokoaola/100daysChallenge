@@ -24,7 +24,7 @@ struct ActionView: View {
             VStack(spacing: 20){
                 ///目標非表示設定がOFFになってれば目標を表示
                 if userDefaultsStore.savedHideInfomation == false{
-                    GoalView(longTermGoal: userDefaultsStore.savedLongTermGoal, shortTermGoal: userDefaultsStore.savedShortTermGoal)
+                    GoalView(longTermGoal: userDefaultsStore.savedLongTermGoal2, shortTermGoal: userDefaultsStore.savedShortTermGoal2)
                 }else{
                     Spacer()
                 }

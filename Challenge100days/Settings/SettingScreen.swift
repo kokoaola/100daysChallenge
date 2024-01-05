@@ -17,11 +17,6 @@ struct SettingView: View {
     @StateObject var settingViewModel = SettingViewModel()
     @EnvironmentObject var notificationViewModel: NotificationViewModel
     
-    ///目標を表示するかどうかの設定を格納する変数
-    @State var hideInfomation: Bool = false
-    ///選択した色を格納する変数
-    @State var selectedColor: Int = 0
-    
     var body: some View {
         NavigationStack{
             
@@ -32,7 +27,7 @@ struct SettingView: View {
                         
                         ///背景色変更用ピッカーのセクション
                         Section{
-                            Picker(selection: $selectedColor) {
+                            Picker(selection: $userDefaultsStore.userInputColor) {
                                 Text("青").tag(0)
                                 Text("オレンジ").tag(1)
                                 Text("紫").tag(2)
@@ -41,9 +36,9 @@ struct SettingView: View {
                                 Text("アプリの色を変更する")
                             }
                             //ピッカーが選択される毎に背景色を変更
-                            .onChange(of: selectedColor) { newValue in
+                            .onChange(of: userDefaultsStore.userInputColor) { newValue in
                                 //アプリの色を保存
-                                userDefaultsStore.saveSettingColor(newValue)
+                                userDefaultsStore.saveSettingColor()
                             }
                         }
                         
@@ -61,18 +56,17 @@ struct SettingView: View {
                         ///目標設定のセクション
                         Section{
                             //トップ画面の目標を非表示にするスイッチ
-                            Toggle("目標を隠す", isOn: $hideInfomation)
+                            Toggle("目標を隠す", isOn: $userDefaultsStore.userInputHideInfomation)
                                 .tint(.green)
                                 .accessibilityHint("トップ画面の目標を非表示にします")
                                 //設定を保存
-                                .onChange(of: hideInfomation) { newSetting in
-                                    userDefaultsStore.switchHideInfomation(newSetting)
+                                .onChange(of: userDefaultsStore.userInputHideInfomation) { newSetting in
+                                    userDefaultsStore.saveHideInfomation()
                                 }
                             
                             //長期目標変更用のセル
                             Button("目標を変更する") {
                                 settingViewModel.editLongTermGoal = true
-                                settingViewModel.editText = userDefaultsStore.savedLongTermGoal
                                 withAnimation {
                                     settingViewModel.showGoalEdittingAlert = true
                                 }
@@ -81,7 +75,6 @@ struct SettingView: View {
                             //短期目標変更用のセル
                             Button("100日取り組む内容を変更する") {
                                 settingViewModel.editLongTermGoal = false
-                                settingViewModel.editText = userDefaultsStore.savedShortTermGoal
                                 withAnimation {
                                     settingViewModel.showGoalEdittingAlert = true
                                 }
@@ -128,7 +121,7 @@ struct SettingView: View {
                             }
                             .contentShape(Rectangle())
                             .onTapGesture {
-                                settingViewModel.showResetAlert = true
+                                settingViewModel.showResetAlert.toggle()
                             }
                         }
                     }
@@ -150,38 +143,30 @@ struct SettingView: View {
                 
                 ///目標編集セルタップ時に出現するテキストフィールド付きアラート
                 if settingViewModel.showGoalEdittingAlert{
-                    EditGoal(settingViewModel: settingViewModel){
-                        let isLong = settingViewModel.editLongTermGoal
-                        userDefaultsStore.setGoal(long: isLong ? settingViewModel.editText : nil, short: isLong ? nil : settingViewModel.editText)
+                    if settingViewModel.editLongTermGoal{
+                        EditLongGoal(settingViewModel: settingViewModel)
+                    }else{
+                        EditShortGoal(settingViewModel: settingViewModel)
                     }
-                    .transition(.opacity)
-                    //アニメーションの設定
-                    .animation(settingViewModel.showGoalEdittingAlert ? .easeInOut(duration: 0.05) : nil, value: settingViewModel.showGoalEdittingAlert)
                 }
 
                 
                 ///完了時に表示されるトーストポップアップ
                 ToastView(show: $settingViewModel.showToast, text: settingViewModel.toastText)
-
-                
-                ///リセットボタン押下時のアラート
-                    .alert("リセットしますか？", isPresented: $settingViewModel.showResetAlert){
-                        Button("リセットする",role: .destructive){
-                            notificationViewModel.resetNotification()
-                            userDefaultsStore.resetUserDefaultsSetting()
-                            coreDataStore.deleteAllData()
-                        }
-                        Button("戻る",role: .cancel){}
-                    }message: {
-                        Text("この動作は取り消せません。")
-                    }
                 
             }
             .environmentObject(notificationViewModel)
             .environmentObject(coreDataStore)
-            .onAppear{
-                self.selectedColor = userDefaultsStore.savedColor
-                self.hideInfomation = userDefaultsStore.savedHideInfomation
+            ///リセットボタン押下時のアラート
+            .alert("リセットしますか？", isPresented: $settingViewModel.showResetAlert){
+                Button("リセットする",role: .destructive){
+                    notificationViewModel.resetNotification()
+                    userDefaultsStore.resetUserDefaultsSetting()
+                    coreDataStore.deleteAllData()
+                }
+                Button("戻る",role: .cancel){}
+            }message: {
+                Text("この動作は取り消せません。")
             }
         }
         
