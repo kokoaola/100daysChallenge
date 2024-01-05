@@ -12,7 +12,6 @@ import SwiftUI
 struct CardView: View {
     ///ViewModel用の変数
     @ObservedObject var listAndCardVM: ListAndCardViewModel
-    
     ///グリッドレイアウトの設定用変数
     let columns = Array(repeating: GridItem(.flexible()), count: 10)
     
@@ -34,7 +33,8 @@ struct CardView: View {
                 ForEach(listAndCardVM.allData, id: \.self) { item in
                     //遷移先はDetailView
                     NavigationLink(destination: {
-                        DetailScreen(item: item, allData: $listAndCardVM.allData){ items in
+                        DetailScreen(item: item){ items in
+                            //DetailViewで削除ボタンを押した時に実行するクロージャ
                             listAndCardVM.setDailyData(allData: items)
                         }
                     }){

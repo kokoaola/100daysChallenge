@@ -37,7 +37,7 @@ struct ListAndCardView: View {
                 .padding(.vertical, 5)
             }
             
-            ///ピッカーの状態に応じてビューを表示
+            ///ピッカーの状態に応じて表示するビューを切り替える
             if listAndCardVM.showList{
                 ListView(listAndCardVM: listAndCardVM)
             }else{
@@ -71,12 +71,7 @@ struct ListAndCardView: View {
                 Button(action: {
                     listAndCardVM.showSheet = true
                 }, label: {
-                    Image(systemName: "plus")
-                        .foregroundColor(.primary)
-                        .padding(10)
-                        .fontWeight(.bold)
-                        .background(.thickMaterial)
-                        .cornerRadius(10)
+                    PlusButtonView()
                 })
             }
         }

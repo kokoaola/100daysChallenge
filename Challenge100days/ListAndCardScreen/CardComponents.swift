@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+///カードビューのセルの外枠
 struct CardBackComponents: View {
     let num: Int
     var body: some View {
@@ -34,7 +35,7 @@ struct CardBackComponents: View {
     }
 }
 
-
+///カードビューのセルの塗りつぶし部分
 struct CardFrontComponents: View {
     var num: Int
     var date: Date

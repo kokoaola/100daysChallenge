@@ -26,6 +26,16 @@ final class DetailViewModel: ObservableObject{
         AppSetting.maxLengthOfMemo >= self.editText.count
     }
     
+    var isDeleteDataToday: Bool{
+        if let item = item{
+            let deletedData = Calendar.current.dateComponents([.year, .month, .day], from: item.wrappedDate)
+            let today = Calendar.current.dateComponents([.year, .month, .day], from: Date())
+            return deletedData == today
+        }else{
+            return false
+        }
+    }
+    
     
     ///引数で受け取った日のメモを更新するメソッド、データがnilなら最新のメモを更新
     func updateMemo(item: DailyData){
@@ -41,8 +51,6 @@ final class DetailViewModel: ObservableObject{
             }
         }
     }
-    
-    
     
     
     ///引数で受け取ったデータを削除するメソッド

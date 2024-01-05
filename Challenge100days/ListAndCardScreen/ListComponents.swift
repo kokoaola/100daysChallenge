@@ -7,6 +7,17 @@
 
 import SwiftUI
 
+///プラスボタンのビュー
+struct PlusButtonView: View {
+    var body: some View {
+        Image(systemName: "plus")
+            .foregroundColor(.primary)
+            .padding(10)
+            .fontWeight(.bold)
+            .background(.thickMaterial)
+            .cornerRadius(10)
+    }
+}
 
 ///リストにデータが一件も存在していないときのビュー
 struct NoDataView: View {
