@@ -11,11 +11,13 @@ import Foundation
 
 ///通知関連のビューモデル
 class NotificationViewModel: ObservableObject{
-    ///ユーザーデフォルト用変数
+    
+    //ユーザーデフォルト用変数
     private let defaults = UserDefaults.standard
     
-    ///端末の通知設定用変数
+    //端末の通知設定用変数
     private let  content = UNMutableNotificationContent()
+    //端末の通知設定用変数
     private let  notificationCenter = UNUserNotificationCenter.current()
     //端末設定でアプリの通知許可がONになっているかの状態の格納用変数
     @Published var isNotificationEnabled = false
@@ -32,8 +34,6 @@ class NotificationViewModel: ObservableObject{
     private let defaultText: String = "本日のタスクが未達成です。挑戦を続けて、新たな習慣を築きましょう。"
 
 
-    
-    ///アプリ内の通知設定用変数
     // UserDefaultsから取得したデータ用のプロパティ（通知ON-OFF）
     private(set) var savedOnOff: Bool {
         get { defaults.bool(forKey: UserDefaultsConstants.isNotificationOnKey)}
@@ -80,17 +80,6 @@ class NotificationViewModel: ObservableObject{
             userInputDays = savedDays
             userInputText = savedText
         }
-    }
-    
-    
-    func arrayToCustomObject(array: [Int]) -> [Weekday: Bool]{
-        // `num` 値のセットから `[Weekday: Bool]` 辞書を作成する
-        var newWeekdays: [Weekday: Bool] = [:]
-        // 全ての曜日をループして、各曜日が activeWeekdaysNums セット内にあるかどうかをチェック
-        for weekday in Weekday.allCases {
-            newWeekdays[weekday] = array.contains(weekday.num)
-        }
-        return newWeekdays
     }
     
     
@@ -159,7 +148,7 @@ class NotificationViewModel: ObservableObject{
         content.sound = UNNotificationSound.default
         content.title = "100日チャレンジ継続中！"
         if userInputText.isEmpty{
-            content.body = defaultText
+            content.body = defaultText //空白だったら初期値は定型文
         }else{
             content.body = savedText
         }
@@ -207,6 +196,18 @@ class NotificationViewModel: ObservableObject{
                 }
             }
         }
+    }
+    
+    
+    
+    func arrayToCustomObject(array: [Int]) -> [Weekday: Bool]{
+        // `num` 値のセットから `[Weekday: Bool]` 辞書を作成する
+        var newWeekdays: [Weekday: Bool] = [:]
+        // 全ての曜日をループして、各曜日が activeWeekdaysNums セット内にあるかどうかをチェック
+        for weekday in Weekday.allCases {
+            newWeekdays[weekday] = array.contains(weekday.num)
+        }
+        return newWeekdays
     }
 }
 

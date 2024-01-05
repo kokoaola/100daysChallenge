@@ -23,10 +23,13 @@ final class SettingViewModel: ObservableObject{
     @Published var showGoalEdittingAlert: Bool = false
     ///入力したテキストを格納する変数
     @Published var editText: String = ""
-    ///目標として入力した値が正しいかどうかのプロパティ
+    
+    
+    ///値の長さが正しいかどうかのプロパティ
     var isTextLengthValid: Bool{
         AppSetting.maxLengthOfTerm > editText.count
     }
+    ///値に空白がないかのプロパティ
     var isTextNotEmpty: Bool{
         !editText.isEmpty
     }
