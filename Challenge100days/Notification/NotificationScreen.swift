@@ -26,75 +26,80 @@ struct NotificationScreen: View {
     
     ///アラート表示用
     @State private var showDeleteAlert = false
-    ///曜日の選択が有効か（曜日選択ビューにバインディングする用）
-    @State var isFormValid = true
 
     
     var body: some View {
         
-            List(){
-                ///時間選択のセクション
-                Section{
-                    DatePicker("通知を出す時間", selection: $notificationViewModel.userInputTime, displayedComponents: .hourAndMinute)
-                }
-                
-                ///曜日選択のセクション
-                Section(header:
-                            HStack{
-                    Text("通知を出す曜日")
-                    if !isFormValid{
-                        Label("日付が選択されていません", systemImage: "exclamationmark.circle").foregroundColor(.red).padding(.leading)
-                    }
-                }
-                ){
-                    DaysButtonView(selectedDay: $notificationViewModel.userInputDays, isFormValid: $isFormValid)
-                        .padding()
-                }
-                
-                ///テキストフィールドのセクション
-                Section(header: Text("通知の内容をカスタム（任意）")){
-                    //テキストエディタ
-                    TextEditor(text: $notificationViewModel.userInputText)
-                        .foregroundColor(Color.black)
-                        .scrollContentBackground(Visibility.hidden)
-                        .background(.gray)
-                        .accessibilityLabel("通知の内容変更用のテキストフィールド")
-                        .focused($isInputActive)
-                        .frame(height: 150)
-                }.listRowBackground(Color.gray)
-                    
-                
-                ///決定ボタン
-                HStack{
-                    Spacer()
-                    LeftIconBigButton(color:.green, icon: nil, text: "決定")
-                        .onTapGesture(perform: {
-                            //通知設定をONにして保存
-                            notificationViewModel.saveOnOff(isOn: true)
-                            Task{
-                                await notificationViewModel.setNotification(isFinishTodaysTask: coreDataStore.finishedTodaysTask)
-                            }
-                            //トーストを表示して画面破棄
-                            toastText = "通知を設定しました。"
-                            showToast = true
-                            dismiss()
-                        })
-                    //曜日が一つも選択されていないとボタンは無効
-                        .opacity(isFormValid ? 1 : 0.5)
-                        .foregroundColor(isFormValid ? .green : .gray)
-                        .disabled(!isFormValid)
-                    Spacer()
-                }
-                .listRowBackground(Color.clear)
-                
-                
+        List(){
+            ///時間選択のセクション
+            Section{
+                DatePicker("通知を出す時間", selection: $notificationViewModel.userInputTime, displayedComponents: .hourAndMinute)
             }
-            .scrollContentBackground(.hidden)
-            //端末のアプリ通知設定がOFFならすべての操作を無効
-            .disabled(!notificationViewModel.isNotificationEnabled)
-            .opacity(notificationViewModel.isNotificationEnabled ? 1.0 : 0.5)
-            .listStyle(.insetGrouped)
-
+            
+            ///曜日選択のセクション
+            Section(header:
+                        HStack{
+                Text("通知を出す曜日")
+                if !notificationViewModel.isSelectedDaysValid{
+                    Label("日付が選択されていません", systemImage: "exclamationmark.circle").foregroundColor(.red).padding(.leading)
+                }
+            }
+            ){
+                DaysButtonView(selectedDay: $notificationViewModel.userInputDays, isFormValid: $notificationViewModel.isSelectedDaysValid)
+                    .padding()
+            }
+            
+            ///テキストフィールドのセクション
+            Section(header:
+                        HStack{
+                Text("通知の内容を変更（任意）")
+                if !notificationViewModel.isTextFieldValid{
+                    Label("\(AppSetting.maxLengthOfNotificationText)文字以内のみ設定可能です", systemImage: "exclamationmark.circle").foregroundColor(.red).padding(.leading)
+                }
+            }
+            ){
+                //テキストエディタ
+                TextEditor(text: $notificationViewModel.userInputText)
+                    .foregroundColor(Color.black)
+                    .scrollContentBackground(Visibility.hidden)
+                    .background(.gray)
+                    .accessibilityLabel("通知の内容変更用のテキストフィールド")
+                    .focused($isInputActive)
+                    .frame(height: 150)
+            }.listRowBackground(Color.gray)
+            
+            
+            ///決定ボタン
+            HStack{
+                Spacer()
+                LeftIconBigButton(color: notificationViewModel.isSelectedDaysValid && notificationViewModel.isTextFieldValid  ? .green : .gray, icon: nil, text: "決定")
+                    .onTapGesture(perform: {
+                        //通知設定をONにして保存
+                        notificationViewModel.saveOnOff(isOn: true)
+                        Task{
+                            await notificationViewModel.setNotification(isFinishTodaysTask: coreDataStore.finishedTodaysTask)
+                        }
+                        //トーストを表示して画面破棄
+                        toastText = "通知を設定しました。"
+                        showToast = true
+                        dismiss()
+                    })
+                //曜日が一つも選択されていない時とテキストフィールドの文字数が長すぎる時はボタンは無効
+                    .opacity(notificationViewModel.isSelectedDaysValid && notificationViewModel.isTextFieldValid ? 1 : 0.5)
+                    .foregroundColor(notificationViewModel.isSelectedDaysValid && notificationViewModel.isTextFieldValid  ? .green : .gray)
+                    .disabled(!notificationViewModel.isSelectedDaysValid || !notificationViewModel.isTextFieldValid )
+                Spacer()
+            }
+            .listRowBackground(Color.clear)
+            
+            
+        }
+        .scrollContentBackground(.hidden)
+        //端末のアプリ通知設定がOFFならすべての操作を無効
+        .disabled(!notificationViewModel.isNotificationEnabled)
+        .opacity(notificationViewModel.isNotificationEnabled ? 1.0 : 0.5)
+        .listStyle(.insetGrouped)
+        
         //削除ボタン押下時のアラート
         .alert("通知を停止しますか？", isPresented: $showDeleteAlert){
             Button("削除する",role: .destructive){
@@ -124,10 +129,10 @@ struct NotificationScreen: View {
                 Button("通知を停止",role: .destructive){
                     showDeleteAlert = true
                 }
-                //曜日が一つも選択されていないとボタンは無効
+                //アプリ内で通知がOFFならボタンは無効
                 .opacity(notificationViewModel.savedOnOff ? 1 : 0.5)
-                    .foregroundColor(notificationViewModel.savedOnOff ? .red : .gray)
-                    .disabled(!notificationViewModel.savedOnOff)
+                .foregroundColor(notificationViewModel.savedOnOff ? .red : .gray)
+                .disabled(!notificationViewModel.savedOnOff)
             }
         }
         

@@ -66,6 +66,12 @@ class NotificationViewModel: ObservableObject{
         set { defaults.set(newValue, forKey: UserDefaultsConstants.notificationTextKey) }
     }
 
+    //テキストフィールドに入力された文字数が範囲内か
+    var isTextFieldValid: Bool{
+        AppSetting.maxLengthOfNotificationText > userInputText.count
+    }
+    //曜日選択は有効か
+    var isSelectedDaysValid: Bool = true
     
     
     init(){

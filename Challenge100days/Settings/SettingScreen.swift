@@ -72,7 +72,7 @@ struct SettingView: View {
                             //長期目標変更用のセル
                             Button("目標を変更する") {
                                 settingViewModel.editLongTermGoal = true
-                                settingViewModel.editText = userDefaultsStore.longTermGoal
+                                settingViewModel.editText = userDefaultsStore.savedLongTermGoal
                                 withAnimation {
                                     settingViewModel.showGoalEdittingAlert = true
                                 }
@@ -81,7 +81,7 @@ struct SettingView: View {
                             //短期目標変更用のセル
                             Button("100日取り組む内容を変更する") {
                                 settingViewModel.editLongTermGoal = false
-                                settingViewModel.editText = userDefaultsStore.shortTermGoal
+                                settingViewModel.editText = userDefaultsStore.savedShortTermGoal
                                 withAnimation {
                                     settingViewModel.showGoalEdittingAlert = true
                                 }
@@ -181,7 +181,7 @@ struct SettingView: View {
             .environmentObject(coreDataStore)
             .onAppear{
                 self.selectedColor = userDefaultsStore.savedColor
-                self.hideInfomation = userDefaultsStore.hideInfomation
+                self.hideInfomation = userDefaultsStore.savedHideInfomation
             }
         }
         

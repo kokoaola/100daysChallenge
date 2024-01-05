@@ -106,8 +106,8 @@ struct TutorialView2: View {
         
         ///ビュー表示時に目標をテキストフィールドにセット
         .onAppear{
-            tutorialVM.longTermEditText = userDefaultsStore.longTermGoal
-            tutorialVM.shortTermEditText = userDefaultsStore.shortTermGoal
+            tutorialVM.longTermEditText = userDefaultsStore.savedLongTermGoal
+            tutorialVM.shortTermEditText = userDefaultsStore.savedShortTermGoal
         }
         
         ///キーボード閉じるボタンを配置

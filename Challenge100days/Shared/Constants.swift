@@ -66,6 +66,9 @@ struct AppSetting{
     ///メモの文字の上限
     static let maxLengthOfMemo = 1000
     
+    ///メモの文字の上限
+    static let maxLengthOfNotificationText = 50
+    
     /// 全画像名を格納した配列
     static let photos =
     [     //紙吹雪,
