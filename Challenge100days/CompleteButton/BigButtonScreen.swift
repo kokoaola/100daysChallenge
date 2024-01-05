@@ -45,7 +45,9 @@ struct ActionView: View {
                     }
                     Task{
                         // 通知設定している場合、本日の通知はスキップして再設定する
-                        await notificationVM.setNotification(isFinishTodaysTask: true, time: nil, days: nil)
+                        if notificationVM.savedOnOff{
+                            await notificationVM.setNotification(isFinishTodaysTask: true)
+                        }
                     }
                 }, label: {
                     //達成済みの場合ラベルは薄く表示

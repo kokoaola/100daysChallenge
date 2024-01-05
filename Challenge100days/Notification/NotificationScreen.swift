@@ -21,21 +21,14 @@ struct NotificationScreen: View {
     @Environment(\.dismiss) var dismiss
     ///バックグラウンド移行と復帰の環境値を監視する
     @Environment(\.scenePhase) var scenePhase
+    ///キーボードフォーカス用変数（Doneボタン表示のため）
+    @FocusState var isInputActive: Bool
     
     ///アラート表示用
     @State private var showDeleteAlert = false
-    ///通知時間を格納する変数
-    @State private var selectedTime = Date()
-    ///通知を送る曜日を格納する変数
-    @State private var selectedDay = Weekday.allCases.reduce(into: [Weekday: Bool]()) { $0[$1] = true }
-    ///ユーザーの選択が有効か
+    ///曜日の選択が有効か（曜日選択ビューにバインディングする用）
     @State var isFormValid = true
-    
-    ///テキストを格納する
-    @State var text = "本日のタスクが未達成です。挑戦を続けて、新たな習慣を築きましょう。"
-    
-    ///キーボードフォーカス用変数（Doneボタン表示のため）
-    @FocusState var isInputActive: Bool
+
     
     var body: some View {
         
@@ -43,44 +36,42 @@ struct NotificationScreen: View {
             
             ///時間選択のセクション
             Section{
-                DatePicker("通知を出す時間", selection: $selectedTime, displayedComponents: .hourAndMinute)
-            }
-            
-            ///曜日選択のセクション
-            Section(header:
-                        HStack{
-                Text("通知を出す曜日")
-                if !isFormValid{
-                    Label("日付が選択されていません", systemImage: "exclamationmark.circle").foregroundColor(.red).padding(.leading)
-                }
-            }){
-                DaysButtonView(selectedDay: $selectedDay, isFormValid: $isFormValid)
-                    .padding()
+                DatePicker("通知を出す時間", selection: $notificationViewModel.userInputTime, displayedComponents: .hourAndMinute)
             }
             
             ///テキストフィールドのセクション
             Section(header: Text("通知の内容をカスタム（任意）")){
                 //テキストエディタ
-                TextEditor(text: $text)
-                    .foregroundColor(Color(UIColor.black))
-                    .tint(.black)
+                TextEditor(text: $notificationViewModel.userInputText)
+                    .foregroundColor(Color.black)
                     .scrollContentBackground(Visibility.hidden)
-                    .background(.gray.opacity(0.5))
-                    .border(.gray, width: 1)
-                    .accessibilityLabel("目標変更用のテキストフィールド")
+                    .background(.gray)
+                    .accessibilityLabel("通知の内容変更用のテキストフィールド")
                     .focused($isInputActive)
-                    .frame(height: 80)
-            }.listRowBackground(Color.clear)
+            }.listRowBackground(Color.gray)
             
-            
+            ///曜日選択のセクション
+            Section(header:
             HStack{
-                
+                Text("通知を出す曜日")
+                if !isFormValid{
+                    Label("日付が選択されていません", systemImage: "exclamationmark.circle").foregroundColor(.red).padding(.leading)
+                }
+            }
+            ){
+                DaysButtonView(selectedDay: $notificationViewModel.userInputDays, isFormValid: $isFormValid)
+                    .padding()
+            }
+            
+            ///決定ボタン
+            HStack{
                 Spacer()
                 LeftIconBigButton(color:.green, icon: nil, text: "決定")
                     .onTapGesture(perform: {
-                        notificationViewModel.switchUserNotification(isOn: true)
+                        //通知設定をONにして保存
+                        notificationViewModel.saveOnOff(isOn: true)
                         Task{
-                            await notificationViewModel.setNotification(isFinishTodaysTask: coreDataStore.finishedTodaysTask, time: selectedTime, days: selectedDay)
+                            await notificationViewModel.setNotification(isFinishTodaysTask: coreDataStore.finishedTodaysTask)
                         }
                         //トーストを表示して画面破棄
                         toastText = "通知を設定しました。"
@@ -94,12 +85,13 @@ struct NotificationScreen: View {
                 Spacer()
             }
             .listRowBackground(Color.clear)
+            .padding(.vertical, 100)
         }
         .scrollContentBackground(.hidden)
         //端末のアプリ通知設定がOFFならすべての操作を無効
         .disabled(!notificationViewModel.isNotificationEnabled)
         .opacity(notificationViewModel.isNotificationEnabled ? 1.0 : 0.5)
-        
+        .listStyle(.insetGrouped)
         
         
         //削除ボタン押下時のアラート
@@ -130,7 +122,11 @@ struct NotificationScreen: View {
             ToolbarItemGroup(placement: .navigationBarTrailing) {
                 Button("通知を停止",role: .destructive){
                     showDeleteAlert = true
-                }.foregroundColor(.red)
+                }
+                //曜日が一つも選択されていないとボタンは無効
+                .opacity(notificationViewModel.savedOnOff ? 1 : 0.5)
+                    .foregroundColor(notificationViewModel.savedOnOff ? .red : .gray)
+                    .disabled(!notificationViewModel.savedOnOff)
             }
         }
         
@@ -140,8 +136,6 @@ struct NotificationScreen: View {
         .onAppear{
             //タップ時に通知の許可を判定、許可されていれば画面遷移
             notificationViewModel.isUserNotificationEnabled()
-            selectedTime = notificationViewModel.savedTime
-            selectedDay = notificationViewModel.savedDays
         }
         //バックグラウンド復帰時に通知の状態を確認(これしないと通知OFFでも通知設定画面に遷移できてしまうため)
         .onChange(of: scenePhase) { newPhase in

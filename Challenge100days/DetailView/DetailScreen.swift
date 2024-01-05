@@ -160,10 +160,12 @@ struct DetailScreen: View {
                         })
                         
                         //削除したデータと本日の日付が同じなら、通知は本日分をスキップして再セット
-                        let deletedData = Calendar.current.dateComponents([.year, .month, .day], from: item.wrappedDate)
-                        let today = Calendar.current.dateComponents([.year, .month, .day], from: Date())
-                        if deletedData == today{
-                            await notificationVM.setNotification(isFinishTodaysTask: true, time: nil, days: nil)
+                        if notificationVM.savedOnOff{
+                            let deletedData = Calendar.current.dateComponents([.year, .month, .day], from: item.wrappedDate)
+                            let today = Calendar.current.dateComponents([.year, .month, .day], from: Date())
+                            if deletedData == today{
+                                await notificationVM.setNotification(isFinishTodaysTask: true)
+                            }
                         }
                     }
                 }

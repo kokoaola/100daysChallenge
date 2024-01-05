@@ -43,12 +43,12 @@ struct UserDefaultsConstants{
     static let hideInfomationKey = "hideInfomation"
     ///ユーザーデフォルト用キー：通知時間用
     static let userSettingNotificationTimeKey = "notificationTime"
-    ///ユーザーデフォルト用キー：通知曜日用(アップデート前)
+    ///ユーザーデフォルト用キー：通知曜日用
     static let userSettingNotificationDayKey = "notificationDay"
-    ///ユーザーデフォルト用キー：通知曜日用(アップデート後)
-    static let userSettingWeekdays = "weekdaysStatus"
     ///ユーザーデフォルト用キー：通知ON-OFF用
     static let isNotificationOnKey = "notificationOn"
+    ///ユーザーデフォルト用キー：通知テキスト用
+    static let notificationTextKey = "notificationText"
 }
 
 
