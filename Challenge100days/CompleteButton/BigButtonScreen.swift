@@ -20,6 +20,7 @@ struct ActionView: View {
     @State var image: Image?
     
     var body: some View {
+        ///表示＆共有用の画像
         ZStack{
             VStack(spacing: 20){
                 ///目標非表示設定がOFFになってれば目標を表示
@@ -30,25 +31,49 @@ struct ActionView: View {
                 }
                 
                 ///コメントが入る白い吹き出し
-                SpeechBubbleView(finishedTodaysTask: coreDataStore.finishedTodaysTask, showCompleteWindew: $bigButtonVM.showCompleteWindew)
+                SpeechBubbleView()
+                    .overlay{
+                        VStack{
+                            Text(coreDataStore.finishedTodaysTask ? "本日のチャレンジは達成済みです。\nお疲れ様でした！" : "今日の取り組みが終わったら、\nボタンを押して完了しよう" )
+                                .lineSpacing(10)
+                                .foregroundColor(.black)
+                            //今日のタスク完了済みならコンプリートウインドウ再表示ボタンを配置
+                            if coreDataStore.finishedTodaysTask{
+                                HStack{
+                                    Button {
+                                        bigButtonVM.showAnimation = false
+                                        bigButtonVM.showCompleteWindew = true
+                                    } label: {
+                                        Text("ウインドウを再表示する")
+                                            .font(.callout)
+                                            .foregroundColor(.blue)
+                                    }
+                                    .frame(width: AppSetting.screenWidth * 0.8, alignment: .trailing)
+                                }
+                            }
+                        }
+                    }
+                    .frame(width: AppSetting.screenWidth * 0.9, height: AppSetting.screenWidth * 0.3)
+                
                 
                 ///Completeボタン:今日のミッションが未達成ならボタンを有効にして表示
                 Button(action: {
+                    //コンプリートウインドウを表示
+                    bigButtonVM.showAnimation = true
                     withAnimation{
                         bigButtonVM.showCompleteWindew = true
                     }
                     
-                    //データを保存
+                    //CoreDataのデータを保存
                     bigButtonVM.saveTodaysChallenge(challengeDate: coreDataStore.dayNumber) {
-                        //配列を更新
                         coreDataStore.setAllData()
                     }
+                    
+                    // 通知設定している場合、本日の通知はスキップして再設定する
                     Task{
-                        // 通知設定している場合、本日の通知はスキップして再設定する
-                        if notificationVM.savedIsNotificationOn{
-                            await notificationVM.setNotification(isFinishTodaysTask: true)
-                        }
+                        await notificationVM.setNotification(isFinishTodaysTask: true)
                     }
+                    
                 }, label: {
                     //達成済みの場合ラベルは薄く表示
                     CompleteButton(num: coreDataStore.dayNumber)
@@ -63,7 +88,7 @@ struct ActionView: View {
             
             //ボタン押下後は完了のビューを重ねて表示
             if bigButtonVM.showCompleteWindew {
-                CompleteSheet(showCompleteWindew: $bigButtonVM.showCompleteWindew, image: $image)
+                CompleteSheet(showCompleteWindew: $bigButtonVM.showCompleteWindew, image: $image, showAnimation: bigButtonVM.showAnimation )
                     .padding(.horizontal)
                     .transition(.scale)
             }

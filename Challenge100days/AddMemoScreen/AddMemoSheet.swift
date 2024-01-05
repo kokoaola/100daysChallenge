@@ -16,17 +16,16 @@ struct MemoSheet: View {
     
     ///キーボードフォーカス用変数（Doneボタン表示のため）
     @FocusState var isInputActive: Bool
-    
     ///画面破棄用
     @Environment(\.dismiss) var dismiss
     
     var body: some View {
-        VStack(spacing: 0){
-                //文字数が上限オーバーした時の警告
+        VStack(spacing: 20){
+                //文字数が上限オーバーした時の警告文
                 Label("\(AppSetting.maxLengthOfMemo)文字以内のみ設定可能です", systemImage: "exclamationmark.circle.fill")
                     .font(.footnote)
-                    .padding(.vertical, 10)
                     .foregroundColor(addMemoVM.isLengthValid ? .clear : .red)
+                    .padding(.top)
                 
                 //テキストエディター
                 TextEditor(text: $addMemoVM.editText)
@@ -35,7 +34,6 @@ struct MemoSheet: View {
                     .onTapGesture {
                         isInputActive = false
                     }
-                    .padding(.bottom, 20)
                 
                 //保存ボタン
                 Button {
@@ -47,11 +45,10 @@ struct MemoSheet: View {
                     dismiss()
                 } label: {
                     SaveButton()
-                        .foregroundColor(addMemoVM.isLengthValid ? .green : .gray)
-                        .opacity(addMemoVM.isLengthValid ? 1.0 : 0.5)
                 }
+                .foregroundColor(addMemoVM.isLengthValid ? .green : .gray)
+                .opacity(addMemoVM.isLengthValid ? 1.0 : 0.5)
                 .accessibilityLabel("メモを保存する")
-                .tint(.green)
                 //文字数が上限オーバーしている場合はボタンは無効
                 .disabled(!addMemoVM.isLengthValid)
                 .padding(.bottom, AppSetting.screenHeight / 5)

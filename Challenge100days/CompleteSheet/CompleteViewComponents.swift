@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-
 ///リンクボタンのビュー
 struct ShareLinkView: View {
     var image: Image?
@@ -40,5 +39,15 @@ struct CompleteImageView: View {
             ProgressView()
                 .frame(height: AppSetting.screenHeight * 0.3)
         }
+    }
+}
+
+///紙吹雪のアニメーションのビュー
+struct ConfettiView: View {
+    var body: some View {
+        LottieView(filename: "confetti3", loop: .playOnce)
+            .frame(width: AppSetting.screenWidth)
+            .allowsHitTesting(false)
+            .opacity(0.8)
     }
 }
