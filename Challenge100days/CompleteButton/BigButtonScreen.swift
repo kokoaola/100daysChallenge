@@ -45,7 +45,7 @@ struct ActionView: View {
                     }
                     Task{
                         // 通知設定している場合、本日の通知はスキップして再設定する
-                        if notificationVM.savedOnOff{
+                        if notificationVM.savedIsNotificationOn{
                             await notificationVM.setNotification(isFinishTodaysTask: true)
                         }
                     }

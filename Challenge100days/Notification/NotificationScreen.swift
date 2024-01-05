@@ -130,9 +130,9 @@ struct NotificationScreen: View {
                     showDeleteAlert = true
                 }
                 //アプリ内で通知がOFFならボタンは無効
-                .opacity(notificationViewModel.savedOnOff ? 1 : 0.5)
-                .foregroundColor(notificationViewModel.savedOnOff ? .red : .gray)
-                .disabled(!notificationViewModel.savedOnOff)
+                .opacity(notificationViewModel.savedIsNotificationOn ? 1 : 0.5)
+                .foregroundColor(notificationViewModel.savedIsNotificationOn ? .red : .gray)
+                .disabled(!notificationViewModel.savedIsNotificationOn)
             }
         }
         

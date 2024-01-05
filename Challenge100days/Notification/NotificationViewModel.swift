@@ -35,7 +35,7 @@ class NotificationViewModel: ObservableObject{
 
 
     // UserDefaultsから取得したデータ用のプロパティ（通知ON-OFF）
-    private(set) var savedOnOff: Bool {
+    private(set) var savedIsNotificationOn: Bool {
         get { defaults.bool(forKey: UserDefaultsConstants.isNotificationOnKey)}
         set { defaults.set(newValue, forKey: UserDefaultsConstants.isNotificationOnKey) }
     }
@@ -76,7 +76,7 @@ class NotificationViewModel: ObservableObject{
     
     init(){
         ///通知設定がOFFなら初期値を表示
-        if !self.savedOnOff{
+        if !self.savedIsNotificationOn{
             userInputDays = Weekday.allCases.reduce(into: [Weekday: Bool]()) { $0[$1] = true }
             self.userInputTime = defaultTime
             self.userInputText = defaultText
@@ -111,7 +111,7 @@ class NotificationViewModel: ObservableObject{
     
     ///通知のオンオフを切り替えるメソッド
     func saveOnOff(isOn: Bool){
-        savedOnOff = isOn
+        savedIsNotificationOn = isOn
     }
     
     
@@ -142,7 +142,7 @@ class NotificationViewModel: ObservableObject{
     func setNotification(isFinishTodaysTask: Bool) async{
         
         //通知設定がOFFなら何もせずリターン
-        if savedOnOff == false{ return }
+        if savedIsNotificationOn == false{ return }
         
         //設定を保存
         saveUserSelectedSetting()

@@ -47,6 +47,7 @@
 		3B4C14DE2B4566CC00951378 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4C14DD2B4566CC00951378 /* Date+Extension.swift */; };
 		3B4C14E02B456A2400951378 /* NotificationComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4C14DF2B456A2400951378 /* NotificationComponent.swift */; };
 		3B4C14E22B47DAAC00951378 /* UserDefaultsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4C14E12B47DAAC00951378 /* UserDefaultsStore.swift */; };
+		3B4C14E42B485AA900951378 /* DetailScreenComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4C14E32B485AA900951378 /* DetailScreenComponents.swift */; };
 		3B4D4E102A6435FF00AFB314 /* NotificationScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4D4E0F2A6435FF00AFB314 /* NotificationScreen.swift */; };
 		3B4D4E142A695D7E00AFB314 /* NotificationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4D4E132A695D7E00AFB314 /* NotificationViewModel.swift */; };
 		3B5EF9272A71641B00709006 /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5EF9262A71641B00709006 /* ToastView.swift */; };
@@ -149,6 +150,7 @@
 		3B4C14DD2B4566CC00951378 /* Date+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		3B4C14DF2B456A2400951378 /* NotificationComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationComponent.swift; sourceTree = "<group>"; };
 		3B4C14E12B47DAAC00951378 /* UserDefaultsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsStore.swift; sourceTree = "<group>"; };
+		3B4C14E32B485AA900951378 /* DetailScreenComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailScreenComponents.swift; sourceTree = "<group>"; };
 		3B4D4E0F2A6435FF00AFB314 /* NotificationScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationScreen.swift; sourceTree = "<group>"; };
 		3B4D4E132A695D7E00AFB314 /* NotificationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewModel.swift; sourceTree = "<group>"; };
 		3B5EF9262A71641B00709006 /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
@@ -382,6 +384,7 @@
 			isa = PBXGroup;
 			children = (
 				3B75EB0E298D5C35000FCDE9 /* DetailScreen.swift */,
+				3B4C14E32B485AA900951378 /* DetailScreenComponents.swift */,
 				3B9912C82B3C658300E4DB40 /* DetailViewModel.swift */,
 			);
 			path = DetailView;
@@ -605,6 +608,7 @@
 			files = (
 				3B2245342B1C42F500B64B7A /* PersistenceController.swift in Sources */,
 				3B246ABA2A0698ED00CB7EED /* WebView.swift in Sources */,
+				3B4C14E42B485AA900951378 /* DetailScreenComponents.swift in Sources */,
 				3BC602D52988BE6300198F1B /* ListView.swift in Sources */,
 				3B9912DA2B3D90D000E4DB40 /* SettingViewModel.swift in Sources */,
 				3B2245462B1C504000B64B7A /* TutorialScreen.swift in Sources */,
