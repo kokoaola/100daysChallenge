@@ -16,32 +16,12 @@ struct makeNewItemSheet: View {
     
     ///画面破棄用の変数
     @Environment(\.dismiss) var dismiss
-    
     ///キーボードフォーカス用変数（Doneボタン表示のため）
     @FocusState var isInputActive: Bool
     
     
     var body: some View {
             VStack(spacing: 20){
-                ZStack{
-                    //左上のシート破棄用Xボタン
-                    Button {
-                        dismiss()
-                    } label: {
-                        Image(systemName: "xmark")
-                            .font(.title2)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                    }
-                    
-                    //画面タイトル
-                    Text("過去の記録を追加")
-                        .font(.title2)
-                    
-                    Spacer()
-                }
-                .padding(.bottom, 30)
-                
-                
                 //上のデートピッカー
                 HStack(alignment: .top){
                     Text("日付")
@@ -51,7 +31,7 @@ struct makeNewItemSheet: View {
                         .datePickerStyle(.compact)
                         .padding(.top, -10)
                         .labelsHidden()
-                }.foregroundColor(Color(UIColor.label))
+                }.foregroundColor(Color(UIColor.label)).padding(.top)
                 
                 //メモ編集用のテキストエディター
                 HStack{
@@ -60,22 +40,20 @@ struct makeNewItemSheet: View {
                 }
                 TextEditor(text: $makeNewItemVM.editText)
                     .foregroundColor(Color(UIColor.label))
-                    .lineSpacing(10)
                     .scrollContentBackground(Visibility.hidden)
                     .background(.ultraThinMaterial)
                     .border(.white)
-                    .frame(height: 300)
                     .focused($isInputActive)
-//userSettingNotificationTime
                 
                 //選択された日付が有効ではない時に表示する警告
-                if !makeNewItemVM.isVailed{
+                if !makeNewItemVM.isVailedDate{
                     Label("選択した日はすでに記録が存在しています。", systemImage: "exclamationmark.circle")
                         .font(.footnote)
                         .padding(5)
                         .foregroundColor(.red)
                         .cornerRadius(10)
-                }else if makeNewItemVM.editText.count > AppSetting.maxLengthOfMemo{
+                }
+                if !makeNewItemVM.isTextLengthValid{
                     //メモの文字数が上限を超えていた場合に表示する警告
                     Label("\(AppSetting.maxLengthOfMemo)文字以内のみ設定可能です", systemImage: "exclamationmark.circle")
                         .font(.footnote)
@@ -83,10 +61,9 @@ struct makeNewItemSheet: View {
                         .foregroundColor(.red)
                 }
                 
-                
                 //保存ボタン
                 Button{
-                    
+                    //保存して画面破棄
                     makeNewItemVM.saveTodaysChallenge(challengeDate: coreDataStore.dayNumber){ success in
                         if success {
                             DispatchQueue.main.async {
@@ -96,7 +73,6 @@ struct makeNewItemSheet: View {
                                     })
                                 }
                             }
-
                             dismiss()
                         }else{
                             dismiss()
@@ -104,10 +80,10 @@ struct makeNewItemSheet: View {
                     }
                 } label: {
                     SaveButton()
-                        .foregroundColor(makeNewItemVM.editText.count <= AppSetting.maxLengthOfMemo && makeNewItemVM.isVailed ? .green : .gray)
-                        .opacity(makeNewItemVM.editText.count <= AppSetting.maxLengthOfMemo && makeNewItemVM.isVailed ? 1.0 : 0.5)
+                        .foregroundColor(makeNewItemVM.isSaveButtonValid ? .green : .gray)
+                        .opacity(makeNewItemVM.isSaveButtonValid ? 1.0 : 0.5)
                 }
-                .disabled(makeNewItemVM.isVailed == false || makeNewItemVM.editText.count > AppSetting.maxLengthOfMemo)
+                .disabled(!makeNewItemVM.isSaveButtonValid)
                 
             }
             .foregroundColor(.primary)
@@ -116,46 +92,45 @@ struct makeNewItemSheet: View {
             .padding()
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
             .background(.ultraThinMaterial)
-            
             //グラデーション背景の設定
             .modifier(UserSettingGradient())
-            
-            
             .onChange(of: makeNewItemVM.userSelectedDate) { newValue in
-                //データベースに存在するアイテムの日付とダブってればSaveボタンを無効にする
-                for item in coreDataStore.allData{
-                    if Calendar.current.isDate(item.date!, equalTo: newValue , toGranularity: .day){
-                        makeNewItemVM.isVailed = false
-                        return
-                    }
-                }
-                //ダブりがなければisVailedをTrueにしてリターン
-                makeNewItemVM.isVailed = true
+                //選択した日付と同じデータがすでに存在している場合はSaveボタンを無効にする
+                makeNewItemVM.isValidDate(allData: coreDataStore.allData, checkDate: newValue)
             }
-            
+        
             .onAppear{
+                //選択した日付と同じデータがすでに存在している場合はSaveボタンを無効にする
                 let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: Date())!
-                //データベースに昨日の日付があれば、Saveボタンを無効にする
-                for item in coreDataStore.allData{
-                    if Calendar.current.isDate(item.date!, equalTo: yesterday , toGranularity: .day){
-                        makeNewItemVM.isVailed = false
-                        return
-                    }
-                }
-                //ダブりがなければisVailedをTrueにしてリターン
-                makeNewItemVM.isVailed = true
+                makeNewItemVM.isValidDate(allData: coreDataStore.allData, checkDate: yesterday)
             }
             
-            //キーボード閉じるボタンを配置
             .toolbar {
+                //キーボード閉じるボタン
                 ToolbarItemGroup(placement: .keyboard) {
                     Spacer()
                     Button("閉じる") {
                         isInputActive = false
                     }
                 }
+                
+                //左上のシート破棄用Xボタン
+                ToolbarItemGroup(placement: .navigationBarLeading) {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Image(systemName: "xmark")
+                            .font(.title2)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                    }
+                }
             }
             .foregroundColor(Color(UIColor.label))
+        //ナビゲーションバーの設定
+            .navigationTitle("過去の記録を追加")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbarBackground(.visible, for: .navigationBar)
+            .ignoresSafeArea(.keyboard, edges: .bottom)
             .embedInNavigationStack()
     }
 }

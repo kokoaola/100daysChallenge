@@ -24,7 +24,26 @@ final class MakeNewItemViewModel: ObservableObject{
     }
     
     ///選択された日付が有効か判定するプロパティ
-    @Published var isVailed = false
+    @Published var isVailedDate = false
+    
+    func isValidDate(allData: [DailyData], checkDate: Date){
+        for item in allData{
+            if Calendar.current.isDate(item.date!, equalTo: checkDate , toGranularity: .day){
+                isVailedDate = false
+                return
+            }
+        }
+        //ダブりがなければisVailedをTrueにしてリターン
+        isVailedDate = true
+    }
+    
+    var isTextLengthValid: Bool{
+         AppSetting.maxLengthOfMemo >= editText.count
+    }
+    
+    var isSaveButtonValid: Bool{
+        isTextLengthValid && isVailedDate
+    }
     
     ///選択された日付の完了を保存するメソッド
     func saveTodaysChallenge(challengeDate: Int, completion: @escaping (Bool) -> Void) {
