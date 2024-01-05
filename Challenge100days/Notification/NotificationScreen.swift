@@ -65,7 +65,7 @@ struct NotificationScreen: View {
                     .background(.gray)
                     .accessibilityLabel("通知の内容変更用のテキストフィールド")
                     .focused($isInputActive)
-                    .frame(height: 150)
+                    .frame(height: 100)
             }.listRowBackground(Color.gray)
             
             

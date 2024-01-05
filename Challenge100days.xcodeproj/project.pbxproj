@@ -27,7 +27,7 @@
 		3B3C69272B3B40D100DE496C /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3C69262B3B40D100DE496C /* View+Extensions.swift */; };
 		3B3C69302B3BED9900DE496C /* CompleteButtonComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3C692F2B3BED9900DE496C /* CompleteButtonComponent.swift */; };
 		3B3C69332B3BEEA600DE496C /* BigButtonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3C69322B3BEEA600DE496C /* BigButtonViewModel.swift */; };
-		3B3C69352B3BF3B200DE496C /* GlobalStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3C69342B3BF3B200DE496C /* GlobalStore.swift */; };
+		3B3C69352B3BF3B200DE496C /* CoreDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3C69342B3BF3B200DE496C /* CoreDataStore.swift */; };
 		3B3C693A2B3C151E00DE496C /* CompleteViewComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3C69392B3C151E00DE496C /* CompleteViewComponents.swift */; };
 		3B3C693D2B3C29AF00DE496C /* AddMemoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3C693C2B3C29AF00DE496C /* AddMemoViewModel.swift */; };
 		3B3C912D2ACD6C7B0058BDDD /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B3C91152ACD6C350058BDDD /* WidgetKit.framework */; };
@@ -46,6 +46,7 @@
 		3B4C14DB2B43D4DC00951378 /* NotificationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4C14DA2B43D4DC00951378 /* NotificationModel.swift */; };
 		3B4C14DE2B4566CC00951378 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4C14DD2B4566CC00951378 /* Date+Extension.swift */; };
 		3B4C14E02B456A2400951378 /* NotificationComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4C14DF2B456A2400951378 /* NotificationComponent.swift */; };
+		3B4C14E22B47DAAC00951378 /* UserDefaultsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4C14E12B47DAAC00951378 /* UserDefaultsStore.swift */; };
 		3B4D4E102A6435FF00AFB314 /* NotificationScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4D4E0F2A6435FF00AFB314 /* NotificationScreen.swift */; };
 		3B4D4E142A695D7E00AFB314 /* NotificationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4D4E132A695D7E00AFB314 /* NotificationViewModel.swift */; };
 		3B5EF9272A71641B00709006 /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B5EF9262A71641B00709006 /* ToastView.swift */; };
@@ -127,7 +128,7 @@
 		3B3C69262B3B40D100DE496C /* View+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; };
 		3B3C692F2B3BED9900DE496C /* CompleteButtonComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteButtonComponent.swift; sourceTree = "<group>"; };
 		3B3C69322B3BEEA600DE496C /* BigButtonViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigButtonViewModel.swift; sourceTree = "<group>"; };
-		3B3C69342B3BF3B200DE496C /* GlobalStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalStore.swift; sourceTree = "<group>"; };
+		3B3C69342B3BF3B200DE496C /* CoreDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStore.swift; sourceTree = "<group>"; };
 		3B3C69392B3C151E00DE496C /* CompleteViewComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteViewComponents.swift; sourceTree = "<group>"; };
 		3B3C693C2B3C29AF00DE496C /* AddMemoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMemoViewModel.swift; sourceTree = "<group>"; };
 		3B3C91152ACD6C350058BDDD /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
@@ -147,6 +148,7 @@
 		3B4C14DA2B43D4DC00951378 /* NotificationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationModel.swift; sourceTree = "<group>"; };
 		3B4C14DD2B4566CC00951378 /* Date+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		3B4C14DF2B456A2400951378 /* NotificationComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationComponent.swift; sourceTree = "<group>"; };
+		3B4C14E12B47DAAC00951378 /* UserDefaultsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsStore.swift; sourceTree = "<group>"; };
 		3B4D4E0F2A6435FF00AFB314 /* NotificationScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationScreen.swift; sourceTree = "<group>"; };
 		3B4D4E132A695D7E00AFB314 /* NotificationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewModel.swift; sourceTree = "<group>"; };
 		3B5EF9262A71641B00709006 /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
@@ -266,7 +268,8 @@
 		3B3C692D2B3BEC0500DE496C /* Shared */ = {
 			isa = PBXGroup;
 			children = (
-				3B3C69342B3BF3B200DE496C /* GlobalStore.swift */,
+				3B3C69342B3BF3B200DE496C /* CoreDataStore.swift */,
+				3B4C14E12B47DAAC00951378 /* UserDefaultsStore.swift */,
 				3B3C91452ACD6F5E0058BDDD /* Constants.swift */,
 			);
 			path = Shared;
@@ -614,7 +617,7 @@
 				3B2245452B1C504000B64B7A /* TutorialView1.swift in Sources */,
 				3B9912D22B3D526400E4DB40 /* ListComponents.swift in Sources */,
 				3B3C69302B3BED9900DE496C /* CompleteButtonComponent.swift in Sources */,
-				3B3C69352B3BF3B200DE496C /* GlobalStore.swift in Sources */,
+				3B3C69352B3BF3B200DE496C /* CoreDataStore.swift in Sources */,
 				3BC602D329880A5900198F1B /* CardView.swift in Sources */,
 				3B93B16D299F2D6A006F3332 /* EditGoalAlert.swift in Sources */,
 				3B9912C92B3C658300E4DB40 /* DetailViewModel.swift in Sources */,
@@ -626,6 +629,7 @@
 				3BD9FE8E2B39901E00E1D1AD /* DailyData+CoreDataClass.swift in Sources */,
 				3B93B16B299D1307006F3332 /* AboutThisApp.swift in Sources */,
 				3B4C14E02B456A2400951378 /* NotificationComponent.swift in Sources */,
+				3B4C14E22B47DAAC00951378 /* UserDefaultsStore.swift in Sources */,
 				3B3CFFFB298E236300102EEE /* GenerateImageWithDate.swift in Sources */,
 				3B5EF9272A71641B00709006 /* ToastView.swift in Sources */,
 				3B2245482B1C504000B64B7A /* TutorialView3.swift in Sources */,
