@@ -61,12 +61,15 @@ struct ListAndCardView: View {
         
         //ビュー表示時に最新のリストをセットする
         .onAppear{
-            //DetailScreenから戻った時は処理をスキップ（DetailScreenの画面破棄時に処理するため）
-            if listAndCardVM.isReturningFromDetailScreen == false{
+            //DetailScreenから戻った時は処理をスキップ（DetailScreenの画面破棄時に同じ処理をしているため）
+            if listAndCardVM.isReturningFromDetailScreen{
+                return
+            }else{
                 withAnimation {
                     listAndCardVM.setDailyData(allData: coreDataStore.allData)
                 }
             }
+            listAndCardVM.isReturningFromDetailScreen = false
         }
         
         //データの新規追加用のプラスボタン

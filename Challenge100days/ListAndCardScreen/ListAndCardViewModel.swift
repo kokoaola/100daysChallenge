@@ -25,7 +25,6 @@ final class ListAndCardViewModel: ObservableObject{
     ///配列をビューモデルにセットする関数
     func setDailyData(allData: [DailyData]){
         self.allData = allData
-        self.isReturningFromDetailScreen = true
     }
     
 }
