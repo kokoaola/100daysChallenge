@@ -22,13 +22,15 @@ struct DetailScreen: View {
     ///シェア用の画像格納用変数
     @State private var image: Image?
     
-    /// 配列を更新するクロージャを受け取るプロパティ
-    var onDeleted: ([DailyData]) -> Void
-    
     ///画面破棄用の変数
     @Environment(\.dismiss) var dismiss
     ///キーボードフォーカス用変数（Doneボタン表示のため）
     @FocusState var isInputActive: Bool
+    
+    @Binding var isReturningFromDetailScreen: Bool
+    
+    /// 配列を更新するクロージャを受け取るプロパティ
+    var onDeleted: ([DailyData]) -> Void
     
     var body: some View {
         
@@ -108,7 +110,6 @@ struct DetailScreen: View {
         .alert("この日の記録を破棄しますか？", isPresented: $detailVM.showCansel){
             Button("破棄する",role: .destructive){
                 dismiss()
-                
                 //アイテムを削除
                 detailVM.deleteData(data: item) {
                     Task{
@@ -124,6 +125,7 @@ struct DetailScreen: View {
                             await notificationVM.setNotification(isFinishTodaysTask: true)
                         }
                     }
+                    
                 }
             }
             Button("戻る",role: .cancel){}
@@ -133,6 +135,7 @@ struct DetailScreen: View {
         
         //ビュー生成時の処理
         .onAppear{
+            isReturningFromDetailScreen = true
             //ビューモデルにオブジェクトをセット
             detailVM.setItem(item: item)
             //あらかじめシェア用の画像を生成

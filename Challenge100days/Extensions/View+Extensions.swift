@@ -37,14 +37,22 @@ extension View {
     ///AddMemoViewのテキストエディット
     func customAddMemoTextEditStyle() -> some View {
         self
-        .foregroundColor(Color(UIColor.label))
-//        .lineSpacing(10)
-        .scrollContentBackground(Visibility.hidden)
-        .background(.ultraThinMaterial)
-        .border(.white, width: 3)
-        .padding(.horizontal)
-//        .frame(height: 200)
+            .foregroundColor(Color(UIColor.label))
+            .scrollContentBackground(Visibility.hidden)
+            .background(.ultraThinMaterial)
+            .border(.white, width: 3)
+            .padding(.horizontal)
+    }
+    
+    ///カード風の背景の設定
+    func thinMaterialBackGround() -> some View {
+        self
+            .background(.thinMaterial)
+            .frame(width: AppSetting.screenWidth - 30)
+            .cornerRadius(15)
+            .padding()
 }
+
     
     ///アクセシビリティに関する項目を追加するextension
     func editAccessibility(label: String? = nil, hint: String? = nil, removeTraits: AccessibilityTraits? = nil, addTraits: AccessibilityTraits? = nil) -> some View {
@@ -66,6 +74,7 @@ extension View {
             .background(.ultraThinMaterial)
             .navigationBarBackButtonHidden(true)
     }
+    
     
     func GoalBackground() -> some View{
         self
@@ -97,7 +106,7 @@ private struct AccessibilityModifier: ViewModifier {
 }
 
 
-///引数で受け取った番号に応じた背景色を指定するViewModifier
+///ユーザーが設定済みの背景色にするViewModifier
 struct UserSettingGradient: ViewModifier{
     @EnvironmentObject var userDefaultsStore: UserDefaultsStore
     var colors:[Color]{
@@ -116,7 +125,9 @@ struct UserSettingGradient: ViewModifier{
     }
     
     func body(content: Content) -> some View{
-        content.background(.secondary).foregroundStyle(LinearGradient(
+        content
+            .background(.secondary)
+            .foregroundStyle(LinearGradient(
             colors: [colors[0], colors[1]],
             startPoint: .topLeading,
             endPoint: .bottomTrailing

@@ -33,7 +33,7 @@ struct CardView: View {
                 ForEach(listAndCardVM.allData, id: \.self) { item in
                     //遷移先はDetailView
                     NavigationLink(destination: {
-                        DetailScreen(item: item){ items in
+                        DetailScreen(item: item, isReturningFromDetailScreen: $listAndCardVM.isReturningFromDetailScreen){ items in
                             //DetailViewで削除ボタンを押した時に実行するクロージャ
                             listAndCardVM.setDailyData(allData: items)
                         }

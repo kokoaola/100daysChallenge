@@ -33,13 +33,7 @@ struct TutorialScreen: View {
             }
         }
         .foregroundColor(.primary)
-        
-        //カード風の背景の設定
-        .frame(maxHeight: AppSetting.screenHeight / 1.3)
-        .background(.thinMaterial)
-        .cornerRadius(15)
-        .padding(.horizontal)
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .thinMaterialBackGround()
         .modifier(UserSettingGradient())
         .embedInNavigationStack()
         .navigationViewStyle(.stack)

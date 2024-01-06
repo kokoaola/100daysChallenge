@@ -94,6 +94,8 @@ struct NotificationScreen: View {
             
             
         }
+        .foregroundColor(.primary)
+        .modifier(UserSettingGradient())
         .scrollContentBackground(.hidden)
         //端末のアプリ通知設定がOFFならすべての操作を無効
         .disabled(!notificationViewModel.isNotificationEnabled)

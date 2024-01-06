@@ -95,10 +95,7 @@ struct CompleteSheet: View {
                 }
                 Spacer()
             }
-            .background(.thinMaterial)
-            .frame(width: AppSetting.screenWidth - 30)
-            .cornerRadius(15)
-            .padding()
+            .thinMaterialBackGround()
             
             
             ///シートの上に重ねる紙吹雪のアニメーション

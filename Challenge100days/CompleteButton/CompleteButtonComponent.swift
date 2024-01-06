@@ -73,8 +73,6 @@ struct CompleteButton: View {
 
 ///吹き出しのビュー
 struct SpeechBubbleView: View{
-//    var finishedTodaysTask: Bool
-//    @Binding var showCompleteWindew: Bool
     var body: some View {
         SpeechBubblePath()
             .rotation(Angle(degrees: 180))
@@ -83,27 +81,6 @@ struct SpeechBubbleView: View{
             .opacity(0.8)
             .padding(.top)
             .offset(x:0, y:-10)
-//            .overlay{
-//                VStack{
-//                    Text(finishedTodaysTask ? "本日のチャレンジは達成済みです。\nお疲れ様でした！" : "今日の取り組みが終わったら、\nボタンを押して完了しよう" )
-//                        .lineSpacing(10)
-//                    //今日のタスク完了済みならコンプリートウインドウ再表示ボタンを配置
-//                    if finishedTodaysTask{
-//                        HStack{
-//                            Button {
-//                                showCompleteWindew = true
-//                            } label: {
-//                                Text("ウインドウを再表示する")
-//                                    .font(.callout)
-//                                    .foregroundColor(.blue)
-//                            }
-//                            .frame(width: AppSetting.screenWidth * 0.8, alignment: .trailing)
-//                        }
-//                    }
-//                }
-//                .frame(width: AppSetting.screenWidth * 0.9, height: AppSetting.screenWidth * 0.3)
-//                .foregroundColor(.black)
-//            }
     }
 }
 

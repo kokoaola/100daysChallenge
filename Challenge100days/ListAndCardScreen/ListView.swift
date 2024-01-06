@@ -27,15 +27,14 @@ struct ListView: View {
 
                     //セルをタップするとDetailViewに遷移
                     NavigationLink(destination: {
-                        DetailScreen(item: item){ items in
-                            //DetailViewで削除ボタンを押した時に実行するクロージャ
-                            listAndCardVM.setDailyData(allData: items)
+                        DetailScreen(item: item, isReturningFromDetailScreen: $listAndCardVM.isReturningFromDetailScreen){ items in
+                            listAndCardVM.setDailyData(allData: items)//DetailViewのonDeleteの処理
                         }
                     }){
                         ///itemを渡すと再描写が反映されない
                         ListLowView(num: item.wrappedNum, date: item.wrappedDate, memo: item.wrappedMemo)
                     }
-                    
+
                     //ラインの表示
                     if item != listAndCardVM.allData.first{
                         Divider()
