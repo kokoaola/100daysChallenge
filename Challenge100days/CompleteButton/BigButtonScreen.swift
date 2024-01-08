@@ -96,13 +96,21 @@ struct ActionView: View {
         .onAppear{
             //コンプリートウインドウを非表示
             bigButtonVM.showCompleteWindew = false
+            coreDataStore.isReturningFromDetailScreen = false
             //あらかじめ当日分のイメージを作成してセット
             DispatchQueue.main.async {
                 coreDataStore.setAllData()
+                if let _ = image{ return }else{
+                    self.image = generateImageWithText(number: coreDataStore.dayNumber, day: Date.now)
+                }
+            }
+        }
+        .onChange(of: coreDataStore.dayNumber) { newValue in
+            //coreDataStore.dayNumberが更新されたら画像も更新
+            DispatchQueue.main.async {
                 image = generateImageWithText(number: coreDataStore.dayNumber, day: Date.now)
             }
         }
-        
         .frame(maxWidth: .infinity)
         //グラデーション背景の設定
         .modifier(UserSettingGradient())

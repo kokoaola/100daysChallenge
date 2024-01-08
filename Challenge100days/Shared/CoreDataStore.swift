@@ -20,6 +20,8 @@ class CoreDataStore: ObservableObject {
     @Published private(set) var dayNumber: Int
     ///当日のタスクが達成済みかを格納する変数
     @Published private(set) var finishedTodaysTask = true
+    
+    @Published var isReturningFromDetailScreen = false
 
     
     init(){
@@ -87,7 +89,6 @@ class CoreDataStore: ObservableObject {
             print("Fetch error")
             return
         }
-        print("Fetched tasks count: \(allTask.count)")
         
         // allTaskの内容を更新する前にコピーを作成
         let updatedTasks = allTask.enumerated().map { (index, data) -> DailyData in

@@ -27,8 +27,6 @@ struct DetailScreen: View {
     ///キーボードフォーカス用変数（Doneボタン表示のため）
     @FocusState var isInputActive: Bool
     
-    @Binding var isReturningFromDetailScreen: Bool
-    
     /// 配列を更新するクロージャを受け取るプロパティ
     var onDeleted: ([DailyData]) -> Void
     
@@ -109,7 +107,6 @@ struct DetailScreen: View {
         //削除ボタン押下時のアラート
         .alert("この日の記録を破棄しますか？", isPresented: $detailVM.showCansel){
             Button("破棄する",role: .destructive){
-                dismiss()
                 //アイテムを削除
                 detailVM.deleteData(data: item) {
                     Task{
@@ -125,8 +122,8 @@ struct DetailScreen: View {
                             await notificationVM.setNotification(isFinishTodaysTask: true)
                         }
                     }
-                    
                 }
+                dismiss()
             }
             Button("戻る",role: .cancel){}
         }message: {
@@ -135,7 +132,7 @@ struct DetailScreen: View {
         
         //ビュー生成時の処理
         .onAppear{
-            isReturningFromDetailScreen = true
+            coreDataStore.isReturningFromDetailScreen = true
             //ビューモデルにオブジェクトをセット
             detailVM.setItem(item: item)
             //あらかじめシェア用の画像を生成

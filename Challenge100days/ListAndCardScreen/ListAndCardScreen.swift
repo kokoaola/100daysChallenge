@@ -51,8 +51,9 @@ struct ListAndCardView: View {
         
         //メモ追加ボタンが押下されたら、makeNewItemSheetを表示
         .sheet(isPresented : $listAndCardVM.showSheet , onDismiss : {
-            //シートが閉じられた時には配列をビューに再セット（onAppearが適用されないため）
+            //シートが閉じられた時の処理のクロージャ
             withAnimation {
+                //配列をビューに再セット（onAppearが適用されないため）
                 listAndCardVM.setDailyData(allData: coreDataStore.allData)
             }
         }) {
@@ -62,14 +63,15 @@ struct ListAndCardView: View {
         //ビュー表示時に最新のリストをセットする
         .onAppear{
             //DetailScreenから戻った時は処理をスキップ（DetailScreenの画面破棄時に同じ処理をしているため）
-            if listAndCardVM.isReturningFromDetailScreen{
+            if coreDataStore.isReturningFromDetailScreen{
+                print(true)
                 return
             }else{
                 withAnimation {
                     listAndCardVM.setDailyData(allData: coreDataStore.allData)
                 }
+                print(false)
             }
-            listAndCardVM.isReturningFromDetailScreen = false
         }
         
         //データの新規追加用のプラスボタン

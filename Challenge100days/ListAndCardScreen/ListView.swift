@@ -27,8 +27,9 @@ struct ListView: View {
 
                     //セルをタップするとDetailViewに遷移
                     NavigationLink(destination: {
-                        DetailScreen(item: item, isReturningFromDetailScreen: $listAndCardVM.isReturningFromDetailScreen){ items in
-                            listAndCardVM.setDailyData(allData: items)//DetailViewのonDeleteの処理
+                        DetailScreen(item: item){ items in
+                            //DetailViewの削除ボタンが押された時の処理のクロージャ
+                            listAndCardVM.setDailyData(allData: items)
                         }
                     }){
                         ///itemを渡すと再描写が反映されない
