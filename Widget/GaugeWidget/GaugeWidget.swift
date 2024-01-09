@@ -12,7 +12,7 @@ import SwiftUI
 struct GaugeWidget: Widget{
     var body: some WidgetConfiguration{
         
-        StaticConfiguration(kind: ChallengeConstants.gaugeWidgetKind, provider: GaugeWidgetEntryTimelineProvider()) { entry in
+        StaticConfiguration(kind: AppGroupConstants.gaugeWidgetKind, provider: GaugeWidgetEntryTimelineProvider()) { entry in
             GaugeWidgetEntryView(entry: entry)
         }
         .supportedFamilies([.systemSmall,.systemMedium])
