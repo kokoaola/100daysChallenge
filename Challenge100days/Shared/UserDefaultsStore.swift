@@ -50,13 +50,6 @@ class UserDefaultsStore: ObservableObject {
         set { defaults.set(newValue, forKey: UserDefaultsConstants.shortTermGoalKey) }
     }
     
-    
-    
-    
-    ///長期目標を格納する変数
-//    @Published private(set) var savedLongTermGoal: String
-    ///短期目標を格納する変数
-//    @Published private(set) var savedShortTermGoal: String
     ///初回起動確認用
     @Published var isFirst: Bool{
         didSet {
@@ -72,12 +65,7 @@ class UserDefaultsStore: ObservableObject {
         //アプリ起動時はユーザーデフォルトからデータを取得
         //初期値が入っていない場合は初回起動フラグにtrueを設定
         defaults.register(defaults: ["isFirst":true])
-//        self.savedLongTermGoal = defaults.string(forKey:UserDefaultsConstants.longTermGoalKey) ?? ""
-//        self.savedShortTermGoal = defaults.string(forKey:UserDefaultsConstants.shortTermGoalKey) ?? ""
         self.isFirst = defaults.bool(forKey:UserDefaultsConstants.isFirstKey)
-//        self.savedHideInfomation = defaults.bool(forKey: UserDefaultsConstants.hideInfomationKey)
-//        self.savedColor = defaults.integer(forKey:UserDefaultsConstants.userSelectedColorKey)
-        
         userInputHideInfomation = savedHideInfomation
         userInputColor = savedColor
         userInputLongTermGoal = savedLongTermGoal2
@@ -89,33 +77,35 @@ class UserDefaultsStore: ObservableObject {
         savedHideInfomation = userInputHideInfomation
     }
     
-    ///アプリ全体のカラーを設定する関数
+    ///アプリ全体のカラーを保存する関数
     func saveSettingColor(){
         savedColor = userInputColor
     }
     
-
-    
+    ///入力された長期目標を保存する関数
     func saveLongTermGoal(){
         savedLongTermGoal2 = userInputLongTermGoal
     }
+    ///入力された短期目標を保存する関数
     func saveShortTermGoal(){
         savedShortTermGoal2 = userInputShortTermGoal
     }
     
-    ///値の長さが正しいかどうかのプロパティ
+    ///入力された値の長さが正しいかどうかのプロパティ
     var isLongTermGoalLengthValid: Bool{
         AppSetting.maxLengthOfTerm >= userInputLongTermGoal.count
     }
     var isShortTermGoalLengthValid: Bool{
         AppSetting.maxLengthOfTerm >= userInputShortTermGoal.count
     }
+    ///入力された値が空白でないことを確認するプロパティ
     var isLongTermNotEmpty: Bool{
         !userInputLongTermGoal.isEmpty
     }
     var isShortTermGoalNotEmpty: Bool{
         !userInputShortTermGoal.isEmpty
     }
+    ///入力された値がすべての条件を満たしているか確認するプロパティ
     var isAllGoalValid: Bool{
         isLongTermGoalLengthValid && isShortTermGoalLengthValid && isLongTermNotEmpty && isShortTermGoalNotEmpty
     }

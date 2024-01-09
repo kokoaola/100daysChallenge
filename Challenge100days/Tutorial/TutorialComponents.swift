@@ -10,7 +10,7 @@ import SwiftUI
 
 ///チュートリアル用の矢印付きボタンのビュー
 struct ArrowButton: View{
-    ///戻るボタンか選択する変数
+    ///戻るボタンか判定する変数
     var isBackButton: Bool
     ///表示する文言を格納する変数
     var labelText: String
