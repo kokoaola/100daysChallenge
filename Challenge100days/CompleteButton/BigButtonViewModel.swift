@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+import SwiftUI
 
 final class BigButtonViewModel: ObservableObject{
     
@@ -15,6 +15,14 @@ final class BigButtonViewModel: ObservableObject{
     
     ///アニメーション制御用
     @Published var showAnimation: Bool = true
+    
+    func buttonAction(){
+        //コンプリートウインドウを表示
+        self.showAnimation = true
+        withAnimation{
+            self.showCompleteWindew = true
+        }
+    }
     
     ///当日のタスクの完了を保存するメソッド
     func saveTodaysChallenge(challengeDate: Int, completion: @escaping () -> Void) {

@@ -12,7 +12,7 @@ import SwiftUI
 struct CloseButton: View{
     var body: some View {
         Text("閉じる")
-            .foregroundColor(.blue)
+            .foregroundColor(.primary)
             .padding()
     }
 }

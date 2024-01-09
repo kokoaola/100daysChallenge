@@ -64,13 +64,11 @@ struct ListAndCardView: View {
         .onAppear{
             //DetailScreenから戻った時は処理をスキップ（DetailScreenの画面破棄時に同じ処理をしているため）
             if coreDataStore.isReturningFromDetailScreen{
-                print(true)
                 return
             }else{
                 withAnimation {
                     listAndCardVM.setDailyData(allData: coreDataStore.allData)
                 }
-                print(false)
             }
         }
         

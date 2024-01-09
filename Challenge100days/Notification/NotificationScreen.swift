@@ -104,7 +104,7 @@ struct NotificationScreen: View {
         
         //削除ボタン押下時のアラート
         .alert("通知を停止しますか？", isPresented: $showDeleteAlert){
-            Button("削除する",role: .destructive){
+            Button("停止する",role: .destructive){
                 notificationViewModel.resetNotification()
                 toastText = "通知を停止しました。"
                 showToast = true
@@ -112,7 +112,7 @@ struct NotificationScreen: View {
             }
             Button("戻る",role: .cancel){}
         }message: {
-            Text("通知設定は削除されます。")
+            Text("保存された通知の設定は削除されます。")
         }
         
         
@@ -153,7 +153,7 @@ struct NotificationScreen: View {
         //通知セルタップ時に通知がOFFになっている時のアラート
         .alert("通知が許可されていません", isPresented: $notificationViewModel.showNotificationAlert){
             //設定画面に遷移
-            Button("通知画面を開く") {
+            Button("端末の通知画面を開く") {
                 DispatchQueue.main.async {
                     if let url = URL(string: UIApplication.openSettingsURLString) {
                         UIApplication.shared.open(url, options: [:], completionHandler: {_ in

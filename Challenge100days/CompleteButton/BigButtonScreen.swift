@@ -13,8 +13,8 @@ struct ActionView: View {
     ///ViewModel用の変数
     @EnvironmentObject var coreDataStore: CoreDataStore
     @EnvironmentObject var userDefaultsStore: UserDefaultsStore
-    @ObservedObject var bigButtonVM: BigButtonViewModel
     @EnvironmentObject var notificationVM: NotificationViewModel
+    @ObservedObject var bigButtonVM: BigButtonViewModel
     
     ///表示＆共有用の画像
     @State var image: Image?
@@ -58,28 +58,24 @@ struct ActionView: View {
                 
                 ///Completeボタン:今日のミッションが未達成ならボタンを有効にして表示
                 Button(action: {
-                    //コンプリートウインドウを表示
-                    bigButtonVM.showAnimation = true
-                    withAnimation{
-                        bigButtonVM.showCompleteWindew = true
-                    }
+                    //CompleteSheetの表示
+                    bigButtonVM.buttonAction()
                     
                     //CoreDataのデータを保存
                     bigButtonVM.saveTodaysChallenge(challengeDate: coreDataStore.dayNumber) {
                         coreDataStore.setAllData()
                     }
-                    
                     // 通知設定している場合、本日の通知はスキップして再設定する
                     Task{
                         await notificationVM.setNotification(isFinishTodaysTask: true)
                     }
-                    
                 }, label: {
                     //達成済みの場合ラベルは薄く表示
                     CompleteButton(num: coreDataStore.dayNumber)
                         .opacity(coreDataStore.finishedTodaysTask ? 0.3 : 1.0)
                 })
                 .disabled(coreDataStore.finishedTodaysTask)
+                
                 
                 Spacer()
             }
@@ -96,6 +92,7 @@ struct ActionView: View {
         .onAppear{
             //コンプリートウインドウを非表示
             bigButtonVM.showCompleteWindew = false
+            //DetailViewから戻った時用のフラグをOFF
             coreDataStore.isReturningFromDetailScreen = false
             //あらかじめ当日分のイメージを作成してセット
             DispatchQueue.main.async {

@@ -7,6 +7,7 @@
 
 import NotificationCenter
 import Foundation
+import SwiftUI
 
 
 ///通知関連のビューモデル
@@ -209,11 +210,27 @@ class NotificationViewModel: ObservableObject{
     func arrayToCustomObject(array: [Int]) -> [Weekday: Bool]{
         // `num` 値のセットから `[Weekday: Bool]` 辞書を作成する
         var newWeekdays: [Weekday: Bool] = [:]
-        // 全ての曜日をループして、各曜日が activeWeekdaysNums セット内にあるかどうかをチェック
+        // 全ての曜日をループ
         for weekday in Weekday.allCases {
             newWeekdays[weekday] = array.contains(weekday.num)
         }
         return newWeekdays
+    }
+    
+    
+    func showNotificationTime() -> String{
+        if savedIsNotificationOn{
+            return savedTime.formatAsString()
+        }else{
+            return "なし"
+        }
+    }
+    
+    func shownotificationDate() -> String{
+        //activeDaysからtrueのものだけ取り出し、名前を配列に格納
+        let activeDays: [String] = savedDays.filter { $0.value == true }.map { $0.key.localizedName }
+        let daysString = activeDays.joined(separator: ", ")
+        return daysString
     }
 }
 

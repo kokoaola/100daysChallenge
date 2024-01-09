@@ -68,6 +68,7 @@ struct CompleteButton: View {
                     .foregroundColor(.white)
                     .frame(width: width-10, height: height-10)
             }
+            .editAccessibility(label: "\(num)日目を完了する")
     }
 }
 

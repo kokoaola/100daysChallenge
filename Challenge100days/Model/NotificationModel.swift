@@ -24,6 +24,18 @@ enum Weekday: Int, CaseIterable {
         }
     }
     
+    var localizedName: String {
+        switch self {
+        case .sunday: return NSLocalizedString("日曜", comment: "")
+        case .monday: return NSLocalizedString("月曜", comment: "")
+        case .tuesday: return NSLocalizedString("火曜", comment: "")
+        case .wednesday: return NSLocalizedString("水曜", comment: "")
+        case .thursday: return NSLocalizedString("木曜", comment: "")
+        case .friday: return NSLocalizedString("金曜", comment: "")
+        case .saturday: return NSLocalizedString("土曜", comment: "")
+        }
+    }
+    
     var num: Int {
         switch self {
         case .sunday: return 1
