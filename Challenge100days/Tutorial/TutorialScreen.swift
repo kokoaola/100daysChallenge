@@ -35,6 +35,7 @@ struct TutorialScreen: View {
         .foregroundColor(.primary)
         .thinMaterialBackGround()
         .modifier(UserSettingGradient())
+        .ignoresSafeArea(.keyboard, edges: .bottom)
         .embedInNavigationStack()
         .navigationViewStyle(.stack)
     }
