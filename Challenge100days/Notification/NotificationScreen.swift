@@ -45,7 +45,7 @@ struct NotificationScreen: View {
                 }
             }
             ){
-                DaysButtonView(selectedDay: $notificationViewModel.userInputDays, isFormValid: $notificationViewModel.isSelectedDaysValid)
+                DaysButtonView()
                     .padding()
             }
             

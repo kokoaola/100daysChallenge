@@ -8,9 +8,10 @@
 import SwiftUI
 
 struct DaysButtonView: View {
-    @Binding var selectedDay: [Weekday: Bool]
-    @Binding var isFormValid: Bool
-    @State var isSelectAll: Bool = false
+    @EnvironmentObject var notificationViewModel :NotificationViewModel
+//    @Binding var selectedDay: [Weekday: Bool]
+//    @Binding var isFormValid: Bool
+    @State private var isSelectAll: Bool = false
     
     var body: some View {
 
@@ -20,14 +21,15 @@ struct DaysButtonView: View {
                         ForEach(Weekday.allCases.prefix(5), id: \.self) { weekday in
                             Text(weekday.localizedName)
                                 .onTapGesture {
-                                    selectedDay[weekday]?.toggle()
+                                    //曜日に対応するキーを反転
+                                    notificationViewModel.userInputDays[weekday]?.toggle()
                                     //すべてがfalseか確認
                                     checkFormValid()
                                 }
                                 .padding(5)
                                 .foregroundColor(.white)
                                 .frame(width: AppSetting.screenWidth / 8)
-                                .background(selectedDay[weekday] ?? false ? .blue : .gray.opacity(0.4))
+                                .background(notificationViewModel.userInputDays[weekday] ?? false ? .blue : .gray.opacity(0.4))
                                 .cornerRadius(10)
                                 .padding(3)
                                 .contentShape(Rectangle())
@@ -40,14 +42,15 @@ struct DaysButtonView: View {
                     ForEach(Weekday.allCases.suffix(2), id: \.self) { weekday in
                         Text(weekday.localizedName)
                             .onTapGesture {
-                                selectedDay[weekday]?.toggle()
+                                //曜日に対応するキーを反転
+                                notificationViewModel.userInputDays[weekday]?.toggle()
                                 //すべてがfalseか確認
                                 checkFormValid()
                             }
                             .padding(5)
                             .foregroundColor(.white)
                             .frame(width: AppSetting.screenWidth / 8)
-                            .background(selectedDay[weekday] ?? false ? .blue : .gray.opacity(0.4))
+                            .background(notificationViewModel.userInputDays[weekday] ?? false ? .blue : .gray.opacity(0.4))
                             .cornerRadius(10)
                             .padding(3)
                             .contentShape(Rectangle())
@@ -58,8 +61,10 @@ struct DaysButtonView: View {
                         Text("すべて解除")
                             .onTapGesture {
                                 for item in Weekday.allCases{
-                                    selectedDay[item]? = false
+                                    //すべての項目をfalseにする
+                                    notificationViewModel.userInputDays[item]? = false
                                 }
+                                notificationViewModel.isSelectedDaysValid = false
                                 isSelectAll = false //すべて選択ボタンに変更
                             }
                             .foregroundColor(.blue)
@@ -69,8 +74,10 @@ struct DaysButtonView: View {
                         Text("すべて選択")
                             .onTapGesture {
                                 for item in Weekday.allCases{
-                                    selectedDay[item]? = true
+                                    //すべての項目をtrueにする
+                                    notificationViewModel.userInputDays[item]? = true
                                 }
+                                notificationViewModel.isSelectedDaysValid = true
                                 isSelectAll = true //すべて解除ボタンに変更
                             }
                             .foregroundColor(.blue)
@@ -89,17 +96,17 @@ struct DaysButtonView: View {
         func checkFormValid() {
             //すべてがfalseの時はisFormValidを無効にする
             let noneSelected = Weekday.allCases.allSatisfy { weekday in
-                !(selectedDay[weekday] ?? false)
+                !(notificationViewModel.userInputDays[weekday] ?? false)
             }
             if noneSelected {
-                isFormValid = false
+                notificationViewModel.isSelectedDaysValid = false
             }else{
-                isFormValid = true
+                notificationViewModel.isSelectedDaysValid = true
             }
             
             // 全てがtrueの時はisSelectAllをtrueにする
             let allSelected = Weekday.allCases.allSatisfy { weekday in
-                selectedDay[weekday] ?? false
+                notificationViewModel.userInputDays[weekday] ?? false
             }
             if allSelected {
                 isSelectAll = true
