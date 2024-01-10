@@ -72,7 +72,7 @@ class NotificationViewModel: ObservableObject{
         AppSetting.maxLengthOfNotificationText > userInputText.count
     }
     //曜日選択は有効か
-    var isSelectedDaysValid: Bool = true
+    @Published var isSelectedDaysValid: Bool = true
     
     
     init(){
@@ -217,7 +217,7 @@ class NotificationViewModel: ObservableObject{
         return newWeekdays
     }
     
-    
+    ///通知がONになっている時間をフォーマットして返すメソッド
     func showNotificationTime() -> String{
         if savedIsNotificationOn{
             return savedTime.formatAsString()
@@ -226,10 +226,13 @@ class NotificationViewModel: ObservableObject{
         }
     }
     
+    ///通知がONになっている曜日名を抽出した配列を返すメソッド
     func shownotificationDate() -> String{
         //activeDaysからtrueのものだけ取り出し、名前を配列に格納
-        let activeDays: [String] = savedDays.filter { $0.value == true }.map { $0.key.localizedName }
-        let daysString = activeDays.joined(separator: ", ")
+        let activeDays: [Weekday] = savedDays.filter { $0.value == true }.map { $0.key }.sorted(by: { ldate, rdate -> Bool in
+            return ldate.num < rdate.num})
+        let daysStringArray = activeDays.map { $0.localizedName }
+        let daysString = daysStringArray.joined(separator: ", ")
         return daysString
     }
 }
