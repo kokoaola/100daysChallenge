@@ -7,7 +7,6 @@
 
 import NotificationCenter
 import Foundation
-import SwiftUI
 
 
 ///通知関連のビューモデル
@@ -15,15 +14,13 @@ class NotificationViewModel: ObservableObject{
     
     //ユーザーデフォルト用変数
     private let defaults = UserDefaults.standard
-    
-    //端末の通知設定用変数
-    private let  content = UNMutableNotificationContent()
     //端末の通知設定用変数
     private let  notificationCenter = UNUserNotificationCenter.current()
     //端末設定でアプリの通知許可がONになっているかの状態の格納用変数
     @Published var isNotificationEnabled = false
     //通知をお願いするアラート表示用のフラグ（設定画面への遷移ボタン）
     @Published var showNotificationAlert = false
+    
     //19時のDate型
     private let  defaultTime: Date = {
         var components = Calendar.current.dateComponents([.year, .month, .day], from: Date())
@@ -50,13 +47,10 @@ class NotificationViewModel: ObservableObject{
     }
     
     // ユーザー入力用のプロパティ（曜日）
-    @Published var userInputDays: [Weekday: Bool] = [:]
-    // UserDefaultsから取得したデータ用のプロパティ（曜日）
-    private(set) var savedDays: [Weekday: Bool]  {
-        get { let array = defaults.object(forKey: UserDefaultsConstants.userSettingNotificationDayKey) as? [Int] ?? []
-            return arrayToCustomObject(array: array) }
-        set { let activeWeekdaysNums = Array(newValue.filter { $0.value }.map { $0.key.num })
-            defaults.set(activeWeekdaysNums, forKey: UserDefaultsConstants.userSettingNotificationDayKey)}
+    @Published var userInputDays: [Weekday: Bool] = [ : ]
+    private(set) var savedDays: [Int]  {
+        get { defaults.object(forKey: UserDefaultsConstants.userSettingNotificationDayKey) as? [Int] ?? []}
+        set { defaults.set(newValue, forKey: UserDefaultsConstants.userSettingNotificationDayKey)}
     }
     
     // ユーザー入力用のプロパティ（テキスト）
@@ -71,22 +65,29 @@ class NotificationViewModel: ObservableObject{
     var isTextFieldValid: Bool{
         AppSetting.maxLengthOfNotificationText > userInputText.count
     }
+    
     //曜日選択は有効か
     @Published var isSelectedDaysValid: Bool = true
+    
+    //NotificationObjectオブジェクトの作成
+    @Published var notification: NotificationObject = NotificationObject()
     
     
     init(){
         ///通知設定がOFFなら初期値を表示
         if !self.savedIsNotificationOn{
-            userInputDays = Weekday.allCases.reduce(into: [Weekday: Bool]()) { $0[$1] = true }
             self.userInputTime = defaultTime
+            self.userInputDays = Weekday.allCases.reduce(into: [Weekday: Bool]()) { $0[$1] = true }
             self.userInputText = defaultText
-        ///設定がONなら保存された値を表示
+            
         }else{
+            ///設定がONなら保存された値を表示
             userInputTime = savedTime
-            userInputDays = savedDays
+            userInputDays = notification.getDaysDic(by: savedDays)
             userInputText = savedText
         }
+        setNotificationObject()
+        
     }
     
     
@@ -122,21 +123,31 @@ class NotificationViewModel: ObservableObject{
         savedTime = defaultTime
         userInputText = defaultText
         saveUserSelectedSetting()
+        setNotificationObject()
         //すべてのスケジュールをキャンセル
         notificationCenter.removeAllPendingNotificationRequests()
         //通知をOFFにして保存
         saveOnOff(isOn: false)
     }
     
+    ///notificationの持つプロパティの値を更新するメソッド
+    func setNotificationObject(){
+        DispatchQueue.main.async {
+            self.notification.time = self.userInputTime
+            self.notification.dateDic = self.userInputDays
+        }
+    }
     
     ///通知に関する内容を保存するメソッド
     func saveUserSelectedSetting(){
         //時間を保存
         savedTime = userInputTime
         //曜日を保存
-        savedDays = userInputDays
+        savedDays = notification.dateArray
         //文言を保存
         savedText = userInputText
+        
+        setNotificationObject()
     }
     
     ///通知をセットするメソッド（当日のタスクが達成済みなら翌日から開始する）
@@ -152,6 +163,8 @@ class NotificationViewModel: ObservableObject{
         notificationCenter.removeAllPendingNotificationRequests()
         
         //通知音と文言の設定
+        //端末の通知設定用変数
+        let content = UNMutableNotificationContent()
         content.sound = UNNotificationSound.default
         content.title = "100日チャレンジ継続中！"
         if userInputText.isEmpty{
@@ -180,7 +193,7 @@ class NotificationViewModel: ObservableObject{
 
         
         // 保存されている曜日のnum値を取得
-        let activeWeekdaysNums = Set(savedDays.filter { $0.value }.map { $0.key.num })
+        let activeWeekdaysNums = notification.dateArray
         // 曜日ごとにリクエストを作成
         var notificationRequests = [UNNotificationRequest]()
         for day in activeWeekdaysNums{
@@ -203,37 +216,6 @@ class NotificationViewModel: ObservableObject{
                 }
             }
         }
-    }
-    
-    
-    
-    func arrayToCustomObject(array: [Int]) -> [Weekday: Bool]{
-        // `num` 値のセットから `[Weekday: Bool]` 辞書を作成する
-        var newWeekdays: [Weekday: Bool] = [:]
-        // 全ての曜日をループ
-        for weekday in Weekday.allCases {
-            newWeekdays[weekday] = array.contains(weekday.num)
-        }
-        return newWeekdays
-    }
-    
-    ///通知がONになっている時間をフォーマットして返すメソッド
-    func showNotificationTime() -> String{
-        if savedIsNotificationOn{
-            return savedTime.formatAsString()
-        }else{
-            return "なし"
-        }
-    }
-    
-    ///通知がONになっている曜日名を抽出した配列を返すメソッド
-    func shownotificationDate() -> String{
-        //activeDaysからtrueのものだけ取り出し、名前を配列に格納
-        let activeDays: [Weekday] = savedDays.filter { $0.value == true }.map { $0.key }.sorted(by: { ldate, rdate -> Bool in
-            return ldate.num < rdate.num})
-        let daysStringArray = activeDays.map { $0.localizedName }
-        let daysString = daysStringArray.joined(separator: ", ")
-        return daysString
     }
 }
 

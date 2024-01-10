@@ -48,7 +48,7 @@ struct SettingView: View {
                             NavigationLink {
                                 NotificationScreen(showToast: $settingViewModel.showToast, toastText: $settingViewModel.toastText)
                             } label: {
-                                NotificationRow(time: notificationViewModel.showNotificationTime(), date: notificationViewModel.shownotificationDate())
+                                NotificationRow(notification: notificationViewModel.notification, isOn: notificationViewModel.savedIsNotificationOn)
 //                                Text("通知を設定する\n") + Text("現在の設定 : ").font(.callout).foregroundColor(.gray) + Text(LocalizedStringKey(notificationViewModel.showNotificationTime())).font(.callout).foregroundColor(.gray) + Text("\n") + Text("[\(notificationViewModel.shownotificationDate())]").font(.callout).foregroundColor(.gray)
                             }
                         }

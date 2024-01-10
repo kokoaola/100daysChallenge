@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct NotificationRow: View {
-    var time: String = ""
-    var date: String = ""
+    var notification: NotificationObject
+    var isOn: Bool
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -17,10 +17,16 @@ struct NotificationRow: View {
             
             HStack{
                 Text("現在の設定 : ")
-                Text(LocalizedStringKey(time))
+                if isOn{
+                    Text(notification.formattedTime)
+                }else{
+                    Text(LocalizedStringKey("なし"))
+                }
             }.font(.callout).foregroundColor(.gray)
             
-            Text("[\(date)]").font(.callout).foregroundColor(.gray)
+            if isOn{
+                Text("[\(notification.formattedDate)]").font(.callout).foregroundColor(.gray)
+            }
         }
     }
 }

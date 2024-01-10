@@ -9,22 +9,46 @@ import Foundation
 
 
 ///通知に関する情報の型
-struct NotificationObject: Equatable {
-    var date: [Weekday: Bool] 
-    var time: Date
+struct NotificationObject {
+    
+    ///通知の時間を格納するプロパティ
+    var time: Date = Date()
+    
+    ///通知の曜日を格納するプロパティ
+    var dateDic: [Weekday: Bool] = [:]
+    
+    ///通知の曜日番号を格納するプロパティ
+    var dateArray: [Int]{
+        dateDic.filter { $0.value == true }.map { $0.key.num }
+    }
+
     ///時間をフォーマットして返すプロパティ
     var formattedTime: String{
         time.formatAsString()
     }
-    ///曜日をフォーマットして返すプロパティ
+    
+    ///曜日を一つのStringにまとめて返すプロパティ
     var formattedDate: String{
         //activeDaysからtrueのものだけ取り出し、名前を配列に格納
-        let activeDays: [Weekday] = date.filter { $0.value == true }.map { $0.key }.sorted(by: { ldate, rdate -> Bool in
+        let activeDays: [Weekday] = dateDic.filter { $0.value == true }.map { $0.key }.sorted(by: { ldate, rdate -> Bool in
             return ldate.num < rdate.num})
+        
         let daysStringArray = activeDays.map { $0.localizedName }
         let daysString = daysStringArray.joined(separator: ", ")
         return daysString
     }
+
+    ///曜日番号の配列を[Weekday: Bool]型に変換するメソッド
+    func getDaysDic(by lowArray: [Int]) -> [Weekday: Bool]{
+        // lowArray配列から[Weekday: Bool]辞書を作成する
+        var newWeekdays: [Weekday: Bool] = [:]
+        // 全ての曜日をループ
+        for weekday in Weekday.allCases {
+            newWeekdays[weekday] = lowArray.contains(weekday.num)
+        }
+        return newWeekdays
+    }
+
 }
 
 
