@@ -82,7 +82,7 @@
 //Settings
 "設定" = "Settings";
 "アプリの色を変更する" = "Change app color";
-"通知を設定する\n" = "Set up notifications\n";
+"通知を設定する" = "Set up notifications";
 "現在の設定 : " = "Current Setting : ";
 "なし" = "None";
 "目標を隠す" = "Hide goal";
