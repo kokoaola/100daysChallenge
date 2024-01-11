@@ -46,7 +46,6 @@ struct TutorialView2: View {
                     .foregroundColor(userDefaultsStore.isLongTermGoalLengthValid ? .clear : .red)
             }
             
-            
             ///短期目標
             VStack(alignment: .leading){
                 Text("②その実現のために１００日間取り組むことはなんですか？")
@@ -71,6 +70,7 @@ struct TutorialView2: View {
                     .font(.caption)
                     .foregroundColor(userDefaultsStore.isShortTermGoalLengthValid ? .clear : .red)
             }
+
             
             Spacer()
             
