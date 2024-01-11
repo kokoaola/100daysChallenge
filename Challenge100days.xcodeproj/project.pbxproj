@@ -707,7 +707,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = ChallengeWidgetExtensionExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.44.0;
+				CURRENT_PROJECT_VERSION = 1.45.0;
 				DEVELOPMENT_TEAM = 6CBTWMSXBM;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ChallengeWidgetExtension/Info.plist;
@@ -719,7 +719,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.44.0;
+				MARKETING_VERSION = 1.45.0;
 				PRODUCT_BUNDLE_IDENTIFIER = amatnug.amatnug.Challenge100days.ChallengeWidgetExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -736,7 +736,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = ChallengeWidgetExtensionExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.44.0;
+				CURRENT_PROJECT_VERSION = 1.45.0;
 				DEVELOPMENT_TEAM = 6CBTWMSXBM;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ChallengeWidgetExtension/Info.plist;
@@ -748,7 +748,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.44.0;
+				MARKETING_VERSION = 1.45.0;
 				PRODUCT_BUNDLE_IDENTIFIER = amatnug.amatnug.Challenge100days.ChallengeWidgetExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -882,7 +882,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Challenge100days/Challenge100days.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.44.0;
+				CURRENT_PROJECT_VERSION = 1.45.0;
 				DEVELOPMENT_ASSET_PATHS = "\"Challenge100days/Preview Content\"";
 				DEVELOPMENT_TEAM = 6CBTWMSXBM;
 				ENABLE_PREVIEWS = YES;
@@ -901,7 +901,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.44.0;
+				MARKETING_VERSION = 1.45.0;
 				PRODUCT_BUNDLE_IDENTIFIER = amatnug.amatnug.Challenge100days;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -921,7 +921,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Challenge100days/Challenge100days.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.44.0;
+				CURRENT_PROJECT_VERSION = 1.45.0;
 				DEVELOPMENT_ASSET_PATHS = "\"Challenge100days/Preview Content\"";
 				DEVELOPMENT_TEAM = 6CBTWMSXBM;
 				ENABLE_PREVIEWS = YES;
@@ -940,7 +940,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.44.0;
+				MARKETING_VERSION = 1.45.0;
 				PRODUCT_BUNDLE_IDENTIFIER = amatnug.amatnug.Challenge100days;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
